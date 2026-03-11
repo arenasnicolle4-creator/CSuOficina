@@ -2771,21 +2771,28 @@ style={{
         borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
       }}>
         <div style={{
-          fontSize: "14px",
+          fontSize: "18px",
           color: "#06b6d4",
-          fontWeight: "800",
-          marginBottom: "8px",
+          fontWeight: "900",
+          marginBottom: "4px",
           letterSpacing: "1.5px",
           textTransform: "uppercase",
         }}>
-          Price Estimate
+          Monthly Estimate
         </div>
         <div style={{
-          fontSize: "12px",
-          color: "rgba(255, 255, 255, 0.6)",
-          fontWeight: "600",
+          fontSize: "13px",
+          color: "#7dd3fc",
+          fontWeight: "800",
+          letterSpacing: "1px",
+          textTransform: "uppercase",
+          background: "rgba(6, 182, 212, 0.15)",
+          padding: "6px 12px",
+          borderRadius: "8px",
+          display: "inline-block",
+          marginTop: "8px",
         }}>
-          Monthly Contract Pricing
+          📅 Monthly Contract Pricing
         </div>
       </div>
 
@@ -2915,7 +2922,7 @@ style={{
           textAlign: "center",
           fontStyle: "italic",
         }}>
-          💡 This is an estimate. Final prices may vary based on property condition and specific requirements.
+          💡 This is an estimate based on <strong style={{ color: "#7dd3fc", fontWeight: "900" }}>monthly contract pricing</strong>. Final prices may vary based on property condition and specific requirements.
         </p>
       </div>
 
@@ -2948,11 +2955,16 @@ style={{
               Total
             </div>
             <div style={{
-              fontSize: "11px",
-              color: "rgba(255, 255, 255, 0.7)",
-              fontWeight: "600",
+              fontSize: "13px",
+              color: "#7dd3fc",
+              fontWeight: "900",
+              letterSpacing: "1px",
+              textTransform: "uppercase",
+              background: "rgba(6, 182, 212, 0.2)",
+              padding: "4px 10px",
+              borderRadius: "6px",
             }}>
-              Per Month
+              /MONTH
             </div>
           </div>
           <div style={{
@@ -3037,13 +3049,33 @@ style={{
           alignItems: "center",
         }}>
           <div style={{
-            color: "white",
-            fontWeight: "900",
-            fontSize: "16px",
-            letterSpacing: "1px",
-            textTransform: "uppercase",
+            display: "flex",
+            flexDirection: "column",
+            gap: "6px",
           }}>
-            Total
+            <div style={{
+              color: "white",
+              fontWeight: "900",
+              fontSize: "16px",
+              letterSpacing: "1px",
+              textTransform: "uppercase",
+            }}>
+              Total
+            </div>
+            <div style={{
+              fontSize: "12px",
+              color: "#7dd3fc",
+              fontWeight: "900",
+              letterSpacing: "1px",
+              textTransform: "uppercase",
+              background: "rgba(6, 182, 212, 0.25)",
+              padding: "4px 10px",
+              borderRadius: "6px",
+              display: "inline-block",
+              width: "fit-content",
+            }}>
+              /MONTH
+            </div>
           </div>
           <div style={{
             color: "white",
