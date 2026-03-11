@@ -514,6 +514,13 @@ transform: scale(0.95);
 }
 }
 
+/* Glow text effect for title */
+.glow-text {
+color: white;
+text-shadow: 0 0 20px rgba(6, 182, 212, 0.6), 0 0 40px rgba(6, 182, 212, 0.4),
+  0 0 60px rgba(6, 182, 212, 0.2);
+}
+
 .hero-orb {
 position: absolute;
 border-radius: 50%;
@@ -682,7 +689,7 @@ style={{
   position: "relative",
 }}
 >
-{/* Header */}
+{/* Header with Custom Animated Title */}
 <div
 style={{
   backgroundColor: "rgba(2, 12, 31, 0.4)",
@@ -694,72 +701,151 @@ style={{
   overflow: "hidden",
 }}
 >
-{step === 1 && (
-  <div style={{ marginBottom: "20px" }}>
-    <div style={{
-      fontSize: "48px",
-      fontWeight: "900",
-      background: "linear-gradient(135deg, #5debf1 0%, #0ea5e9 100%)",
-      WebkitBackgroundClip: "text",
-      WebkitTextFillColor: "transparent",
-      marginBottom: "10px",
-      letterSpacing: "-1px",
-    }}>
-      Cleaning Su Oficina
-    </div>
-    <div style={{
-      fontSize: "18px",
-      color: "rgba(255, 255, 255, 0.8)",
-      fontWeight: "500",
-    }}>
-      Professional Commercial Cleaning Services
-    </div>
-  </div>
-)}
-
-<div style={{
+<div
+style={{
+  position: "absolute",
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  background:
+  "radial-gradient(circle at 50% 50%, rgba(14, 165, 233, 0.2) 0%, transparent 70%)",
+  pointerEvents: "none",
+}}
+/>
+<div style={{ position: "relative", zIndex: 1 }}>
+{/* Custom Title - Logo Style */}
+<div
+style={{
   display: "flex",
-  justifyContent: "center",
-  gap: "15px",
-  marginTop: step === 1 ? "30px" : "20px",
-}}>
-  {[1, 2, 3, 4].map((s) => (
-    <div
-      key={s}
-      style={{
-        width: s === step ? "40px" : "12px",
-        height: "12px",
-        borderRadius: "10px",
-        background: s <= step
-          ? "linear-gradient(135deg, #5debf1 0%, #0ea5e9 100%)"
-          : "rgba(255, 255, 255, 0.2)",
-        transition: "all 0.3s ease",
-      }}
-    />
-  ))}
+  flexDirection: "column",
+  alignItems: "center",
+  gap: "8px",
+}}
+>
+{/* CLEANING - Thin modern all caps */}
+<div
+className="glow-text"
+style={{
+  fontFamily: "'Oswald', sans-serif",
+  fontSize: "52px",
+  fontWeight: "300",
+  letterSpacing: "8px",
+  lineHeight: "1",
+}}
+>
+CLEANING
 </div>
-
-<div style={{
-  marginTop: "15px",
-  fontSize: "13px",
-  fontWeight: "700",
-  color: "#5debf1",
-  letterSpacing: "1.5px",
+{/* Su Oficina - Elegant handwritten cursive */}
+<div
+style={{
+  fontFamily: "'Allura', cursive",
+  fontSize: "56px",
+  color: "#7dd3fc",
+  letterSpacing: "3px",
+  marginTop: "-8px",
+  lineHeight: "1",
+}}
+>
+Su Oficina
+</div>
+</div>
+{step === 1 && (
+  <>
+  <div
+  style={{
+    marginTop: "20px",
+    height: "3px",
+    width: "80px",
+    background:
+    "linear-gradient(90deg, transparent, #06b6d4, transparent)",
+    margin: "20px auto 15px",
+  }}
+/>
+<p
+style={{
+  color: "rgba(255, 255, 255, 0.9)",
+  fontSize: "16px",
+  margin: 0,
+  fontWeight: "500",
+  letterSpacing: "1px",
   textTransform: "uppercase",
-}}>
-  {step === 1 && "Contact Information"}
-  {step === 2 && "Location & Business Type"}
-  {step === 3 && "Service Details"}
-  {step === 4 && "Add-ons & Schedule"}
+}}
+>
+Professional Commercial Cleaning
+</p>
+</>
+)}
 </div>
 </div>
-
-{/* Form Content */}
-<div style={{ padding: "40px 35px" }}>
+{/* Progress Bar */}
+<div
+style={{
+  height: "6px",
+  background: "rgba(255, 255, 255, 0.1)",
+  position: "relative",
+}}
+>
+<div
+style={{
+  height: "100%",
+  background: "linear-gradient(90deg, #06b6d4 0%, #0ea5e9 100%)",
+  width: step === 1 ? "25%" : step === 2 ? "50%" : step === 3 ? "75%" : "100%",
+  transition: "width 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+  boxShadow: "0 0 15px rgba(6, 182, 212, 0.6)",
+}}
+/>
+</div>
+<div style={{ padding: "50px 40px" }}>
 
 {/* STEP 1: CONTACT INFO */}
 {step === 1 && (
   <div className="fade-in-up">
+    <div style={{ textAlign: "center", marginBottom: "50px" }}>
+      <div
+        style={{
+          width: "110px",
+          height: "110px",
+          background:
+          "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+          borderRadius: "50%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          margin: "0 auto 30px",
+          boxShadow: "0 20px 50px rgba(6, 182, 212, 0.4)",
+          border: "4px solid rgba(255, 255, 255, 0.2)",
+        }}
+      >
+        <div style={{
+          fontSize: "55px",
+        }}>
+          💼
+        </div>
+      </div>
+      <h2
+        style={{
+          fontSize: "36px",
+          fontWeight: "900",
+          color: "white",
+          margin: "0 0 20px 0",
+          letterSpacing: "-1px",
+          textTransform: "uppercase",
+        }}
+      >
+        Let's Get Started!
+      </h2>
+      <p
+        style={{
+          color: "rgba(255, 255, 255, 0.8)",
+          fontSize: "18px",
+          lineHeight: "1.6",
+          fontWeight: "500",
+        }}
+      >
+        Professional cleaning for your business
+      </p>
+    </div>
     <div style={{ maxWidth: "500px", margin: "0 auto" }}>
       {/* Name Fields */}
       <div
