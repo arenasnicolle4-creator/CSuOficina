@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Building2, Calendar, Clock, Phone, Mail, User, MapPin, Briefcase, CheckCircle2, ChevronRight, ChevronLeft } from "lucide-react";
+import { Building2, Calendar, Clock, MapPin, CheckCircle2, ChevronRight, ChevronLeft } from "lucide-react";
 
 const GOOGLE_PLACES_API_KEY = "AIzaSyB18lv_Rulnv7jjFrM0PP57bCLO4U4_A_I";
 
