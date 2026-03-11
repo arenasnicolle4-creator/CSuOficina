@@ -120,13 +120,53 @@ export default function CleaningSuOficinaBooking() {
 
   // Pricing Structure for Commercial Cleaning (Anchorage Market)
   const PRICING = {
-    // Base rates per square foot (monthly contract)
-    baseRates: {
-      office: 0.12,        // $0.12/sqft for office buildings
-      healthcare: 0.18,    // $0.18/sqft for healthcare (higher due to sanitization)
-      hospitality: 0.15,   // $0.15/sqft for hotels/hospitality
-      retail: 0.10,        // $0.10/sqft for retail spaces
-      industrial: 0.08,    // $0.08/sqft for warehouses/industrial
+    // Base rates per square foot (monthly contract) - TIERED BY SIZE
+    baseRatesTiered: {
+      office: [
+        { max: 2000, rate: 0.15 },      // 0-2,000 sqft: $0.15/sqft
+        { max: 3000, rate: 0.13 },      // 2,001-3,000 sqft: $0.13/sqft
+        { max: 5000, rate: 0.12 },      // 3,001-5,000 sqft: $0.12/sqft
+        { max: 10000, rate: 0.10 },     // 5,001-10,000 sqft: $0.10/sqft
+        { max: 20000, rate: 0.09 },     // 10,001-20,000 sqft: $0.09/sqft
+        { max: 50000, rate: 0.08 },     // 20,001-50,000 sqft: $0.08/sqft
+        { max: Infinity, rate: 0.07 },  // 50,001+ sqft: $0.07/sqft
+      ],
+      healthcare: [
+        { max: 2000, rate: 0.22 },
+        { max: 3000, rate: 0.20 },
+        { max: 5000, rate: 0.18 },
+        { max: 10000, rate: 0.16 },
+        { max: 20000, rate: 0.14 },
+        { max: 50000, rate: 0.12 },
+        { max: Infinity, rate: 0.11 },
+      ],
+      hospitality: [
+        { max: 2000, rate: 0.18 },
+        { max: 3000, rate: 0.16 },
+        { max: 5000, rate: 0.15 },
+        { max: 10000, rate: 0.13 },
+        { max: 20000, rate: 0.12 },
+        { max: 50000, rate: 0.11 },
+        { max: Infinity, rate: 0.10 },
+      ],
+      retail: [
+        { max: 2000, rate: 0.13 },
+        { max: 3000, rate: 0.11 },
+        { max: 5000, rate: 0.10 },
+        { max: 10000, rate: 0.09 },
+        { max: 20000, rate: 0.08 },
+        { max: 50000, rate: 0.07 },
+        { max: Infinity, rate: 0.06 },
+      ],
+      industrial: [
+        { max: 2000, rate: 0.10 },
+        { max: 3000, rate: 0.09 },
+        { max: 5000, rate: 0.08 },
+        { max: 10000, rate: 0.07 },
+        { max: 20000, rate: 0.06 },
+        { max: 50000, rate: 0.05 },
+        { max: Infinity, rate: 0.04 },
+      ],
     },
     
     // Frequency discounts (based on cleanings per week)
@@ -173,6 +213,16 @@ export default function CleaningSuOficinaBooking() {
     }
   };
 
+  // Get the per-sqft rate based on size tier
+  const getRateForSquareFeet = (sqft, segment) => {
+    if (!segment || !sqft) return 0;
+    const tiers = PRICING.baseRatesTiered[segment];
+    if (!tiers) return 0;
+    
+    const tier = tiers.find(t => sqft <= t.max);
+    return tier ? tier.rate : tiers[tiers.length - 1].rate;
+  };
+
   // Calculate pricing
   const calculateSubtotal = () => {
     if (!marketSegment || !squareFeet || !frequency) return 0;
@@ -180,8 +230,8 @@ export default function CleaningSuOficinaBooking() {
     let total = 0;
     const sqft = parseInt(squareFeet);
     
-    // Base cleaning cost
-    const baseRate = PRICING.baseRates[marketSegment] || 0.10;
+    // Base cleaning cost using tiered pricing
+    const baseRate = getRateForSquareFeet(sqft, marketSegment);
     total += sqft * baseRate;
     
     // Room/Area charges based on market segment
@@ -239,10 +289,10 @@ export default function CleaningSuOficinaBooking() {
     if (!marketSegment || !squareFeet) return breakdown;
     
     const sqft = parseInt(squareFeet);
-    const baseRate = PRICING.baseRates[marketSegment] || 0.10;
+    const baseRate = getRateForSquareFeet(sqft, marketSegment);
     
     breakdown.push({
-      label: `Base Cleaning (${sqft} sqft @ $${baseRate}/sqft)`,
+      label: `Base Cleaning (${sqft.toLocaleString()} sqft @ $${baseRate.toFixed(2)}/sqft)`,
       amount: sqft * baseRate
     });
     
@@ -1338,54 +1388,206 @@ style={{
       <label style={{
         display: "flex",
         alignItems: "center",
+        justifyContent: "space-between",
         fontSize: "13px",
         fontWeight: "800",
         color: "#06b6d4",
-        marginBottom: "15px",
-        gap: "8px",
+        marginBottom: "20px",
         letterSpacing: "1px",
         textTransform: "uppercase",
       }}>
-        <Building2 size={18} color="#06b6d4" />
-        Total Square Footage *
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <Building2 size={18} color="#06b6d4" />
+          Total Square Footage *
+        </div>
+        <div style={{
+          fontSize: "24px",
+          fontWeight: "900",
+          color: "white",
+        }}>
+          {parseInt(squareFeet || 0).toLocaleString()} sqft
+        </div>
       </label>
-      <div className="sqft-grid" style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(3, 1fr)",
-        gap: "12px",
-      }}>
-        {[
-          "1000-2500",
-          "2500-5000",
-          "5000-10000",
-          "10000-20000",
-          "20000-50000",
-          "50000+",
-        ].map((range) => (
-          <div
-            key={range}
-            onClick={() => setSquareFeet(range)}
-            style={{
-              padding: "16px 12px",
-              borderRadius: "14px",
-              border: squareFeet === range
-                ? "2px solid #0ea5e9"
-                : "2px solid rgba(255, 255, 255, 0.1)",
-              background: squareFeet === range
-                ? "linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)"
-                : "rgba(255, 255, 255, 0.03)",
-              color: "white",
-              fontSize: "13px",
-              fontWeight: "800",
-              textAlign: "center",
-              cursor: "pointer",
-              transition: "all 0.3s ease",
-              letterSpacing: "0.5px",
-            }}
-          >
-            {range} sqft
+
+      {/* Rate Display */}
+      {squareFeet && marketSegment && (
+        <div style={{
+          padding: "12px 16px",
+          borderRadius: "12px",
+          background: "linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(14, 165, 233, 0.2) 100%)",
+          border: "1px solid rgba(6, 182, 212, 0.3)",
+          marginBottom: "20px",
+          textAlign: "center",
+        }}>
+          <div style={{
+            fontSize: "13px",
+            color: "rgba(255, 255, 255, 0.8)",
+            fontWeight: "600",
+            marginBottom: "4px",
+          }}>
+            Current Rate
           </div>
-        ))}
+          <div style={{
+            fontSize: "28px",
+            fontWeight: "900",
+            color: "#06b6d4",
+          }}>
+            ${getRateForSquareFeet(parseInt(squareFeet), marketSegment).toFixed(2)}/sqft
+          </div>
+        </div>
+      )}
+
+      {/* Slider */}
+      <div style={{ marginBottom: "20px" }}>
+        <input
+          type="range"
+          min="500"
+          max="50000"
+          step="100"
+          value={squareFeet || 500}
+          onChange={(e) => setSquareFeet(e.target.value)}
+          style={{
+            width: "100%",
+            height: "8px",
+            borderRadius: "4px",
+            background: `linear-gradient(to right, #06b6d4 0%, #06b6d4 ${((parseInt(squareFeet || 500) - 500) / (50000 - 500)) * 100}%, rgba(255, 255, 255, 0.1) ${((parseInt(squareFeet || 500) - 500) / (50000 - 500)) * 100}%, rgba(255, 255, 255, 0.1) 100%)`,
+            outline: "none",
+            cursor: "pointer",
+            WebkitAppearance: "none",
+            appearance: "none",
+          }}
+        />
+        <style>{`
+          input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%);
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.5);
+          }
+          input[type="range"]::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%);
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.5);
+          }
+        `}</style>
+      </div>
+
+      {/* Manual Input */}
+      <div style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "15px",
+      }}>
+        <div style={{
+          flex: 1,
+          position: "relative",
+        }}>
+          <input
+            type="number"
+            min="500"
+            max="50000"
+            value={squareFeet || ''}
+            onChange={(e) => {
+              const val = Math.max(500, Math.min(50000, parseInt(e.target.value) || 0));
+              setSquareFeet(val.toString());
+            }}
+            placeholder="Enter square feet..."
+            style={{
+              width: "100%",
+              padding: "18px 20px",
+              paddingRight: "55px",
+              borderRadius: "16px",
+              border: "2px solid rgba(93, 235, 241, 0.3)",
+              background: "rgba(255, 255, 255, 0.05)",
+              color: "white",
+              fontSize: "17px",
+              fontWeight: "700",
+              outline: "none",
+              transition: "all 0.3s ease",
+            }}
+          />
+          <div style={{
+            position: "absolute",
+            right: "20px",
+            top: "50%",
+            transform: "translateY(-50%)",
+            color: "rgba(255, 255, 255, 0.5)",
+            fontSize: "14px",
+            fontWeight: "700",
+            pointerEvents: "none",
+          }}>
+            sqft
+          </div>
+        </div>
+      </div>
+
+      {/* Tier Guide */}
+      <div style={{
+        marginTop: "20px",
+        padding: "15px",
+        borderRadius: "12px",
+        background: "rgba(255, 255, 255, 0.02)",
+        border: "1px solid rgba(255, 255, 255, 0.05)",
+      }}>
+        <div style={{
+          fontSize: "11px",
+          fontWeight: "700",
+          color: "#06b6d4",
+          marginBottom: "10px",
+          letterSpacing: "1px",
+          textTransform: "uppercase",
+        }}>
+          💡 Pricing Tiers {marketSegment && `(${marketSegment.charAt(0).toUpperCase() + marketSegment.slice(1)})`}
+        </div>
+        {marketSegment && PRICING.baseRatesTiered[marketSegment] && (
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(2, 1fr)",
+            gap: "8px",
+            fontSize: "11px",
+            color: "rgba(255, 255, 255, 0.7)",
+            fontWeight: "600",
+          }}>
+            {PRICING.baseRatesTiered[marketSegment].filter(tier => tier.max !== Infinity).map((tier, idx, arr) => {
+              const prevMax = idx === 0 ? 0 : arr[idx - 1].max;
+              return (
+                <div key={idx} style={{
+                  padding: "8px",
+                  borderRadius: "8px",
+                  background: parseInt(squareFeet || 0) > prevMax && parseInt(squareFeet || 0) <= tier.max
+                    ? "rgba(6, 182, 212, 0.15)"
+                    : "rgba(255, 255, 255, 0.02)",
+                  border: parseInt(squareFeet || 0) > prevMax && parseInt(squareFeet || 0) <= tier.max
+                    ? "1px solid rgba(6, 182, 212, 0.3)"
+                    : "1px solid transparent",
+                }}>
+                  {prevMax + 1}-{tier.max.toLocaleString()}: <span style={{ color: "#06b6d4", fontWeight: "800" }}>${tier.rate.toFixed(2)}/sqft</span>
+                </div>
+              );
+            })}
+            <div style={{
+              padding: "8px",
+              borderRadius: "8px",
+              background: parseInt(squareFeet || 0) > PRICING.baseRatesTiered[marketSegment][PRICING.baseRatesTiered[marketSegment].length - 2].max
+                ? "rgba(6, 182, 212, 0.15)"
+                : "rgba(255, 255, 255, 0.02)",
+              border: parseInt(squareFeet || 0) > PRICING.baseRatesTiered[marketSegment][PRICING.baseRatesTiered[marketSegment].length - 2].max
+                ? "1px solid rgba(6, 182, 212, 0.3)"
+                : "1px solid transparent",
+            }}>
+              {(PRICING.baseRatesTiered[marketSegment][PRICING.baseRatesTiered[marketSegment].length - 2].max + 1).toLocaleString()}+: <span style={{ color: "#06b6d4", fontWeight: "800" }}>${PRICING.baseRatesTiered[marketSegment][PRICING.baseRatesTiered[marketSegment].length - 1].rate.toFixed(2)}/sqft</span>
+            </div>
+          </div>
+        )}
       </div>
     </div>
 
