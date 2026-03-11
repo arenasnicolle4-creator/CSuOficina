@@ -388,6 +388,7 @@ export default function CleaningSuOficinaBooking() {
   >
 <style>{`
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&family=Allura&display=swap');
 
 .fade-in-up {
 animation: fadeInUp 0.5s ease-out forwards;
