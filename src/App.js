@@ -760,196 +760,221 @@ style={{
 {/* STEP 1: CONTACT INFO */}
 {step === 1 && (
   <div className="fade-in-up">
-    {/* Name Fields */}
-    <div style={{ marginBottom: "30px" }}>
-      <label style={{
-        display: "flex",
-        alignItems: "center",
-        fontSize: "13px",
-        fontWeight: "800",
-        color: "#06b6d4",
-        marginBottom: "15px",
-        gap: "8px",
-        letterSpacing: "1px",
-        textTransform: "uppercase",
-      }}>
-        <User size={18} color="#06b6d4" />
-        Full Name *
-      </label>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "15px" }}>
-        <input
-          type="text"
-          placeholder="First Name"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
+    <div style={{ maxWidth: "500px", margin: "0 auto" }}>
+      {/* Name Fields */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: "20px",
+          marginBottom: "25px",
+        }}
+      >
+        <div>
+          <label
+            style={{
+              display: "block",
+              fontSize: "13px",
+              fontWeight: "800",
+              color: "#06b6d4",
+              marginBottom: "12px",
+              letterSpacing: "1.5px",
+              textTransform: "uppercase",
+            }}
+          >
+            First Name
+          </label>
+          <input
+            type="text"
+            placeholder="John"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            style={{
+              width: "100%",
+              padding: "20px 24px",
+              fontSize: "17px",
+              border: "2px solid rgba(255, 255, 255, 0.2)",
+              borderRadius: "16px",
+              transition: "all 0.3s ease",
+              boxSizing: "border-box",
+              background: "rgba(255, 255, 255, 0.95)",
+              fontWeight: "500",
+              outline: "none",
+            }}
+          />
+        </div>
+        <div>
+          <label
+            style={{
+              display: "block",
+              fontSize: "13px",
+              fontWeight: "800",
+              color: "#06b6d4",
+              marginBottom: "12px",
+              letterSpacing: "1.5px",
+              textTransform: "uppercase",
+            }}
+          >
+            Last Name
+          </label>
+          <input
+            type="text"
+            placeholder="Doe"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            style={{
+              width: "100%",
+              padding: "20px 24px",
+              fontSize: "17px",
+              border: "2px solid rgba(255, 255, 255, 0.2)",
+              borderRadius: "16px",
+              transition: "all 0.3s ease",
+              boxSizing: "border-box",
+              background: "rgba(255, 255, 255, 0.95)",
+              fontWeight: "500",
+              outline: "none",
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Phone Field */}
+      <div style={{ marginBottom: "25px" }}>
+        <label
           style={{
-            padding: "18px 20px",
-            borderRadius: "16px",
-            border: "2px solid rgba(93, 235, 241, 0.3)",
-            background: "rgba(255, 255, 255, 0.05)",
-            color: "white",
-            fontSize: "15px",
-            fontWeight: "600",
-            outline: "none",
-            transition: "all 0.3s ease",
+            display: "block",
+            fontSize: "13px",
+            fontWeight: "800",
+            color: "#06b6d4",
+            marginBottom: "12px",
+            letterSpacing: "1.5px",
+            textTransform: "uppercase",
           }}
-        />
+        >
+          Phone Number
+        </label>
         <input
-          type="text"
-          placeholder="Last Name"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
+          type="tel"
+          placeholder="(907) 555-0123"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
           style={{
-            padding: "18px 20px",
+            width: "100%",
+            padding: "20px 24px",
+            fontSize: "17px",
+            border: "2px solid rgba(255, 255, 255, 0.2)",
             borderRadius: "16px",
-            border: "2px solid rgba(93, 235, 241, 0.3)",
-            background: "rgba(255, 255, 255, 0.05)",
-            color: "white",
-            fontSize: "15px",
-            fontWeight: "600",
-            outline: "none",
             transition: "all 0.3s ease",
+            boxSizing: "border-box",
+            background: "rgba(255, 255, 255, 0.95)",
+            fontWeight: "500",
+            outline: "none",
           }}
         />
       </div>
-    </div>
 
-    {/* Business Name (Optional) */}
-    <div style={{ marginBottom: "30px" }}>
-      <label style={{
-        display: "flex",
-        alignItems: "center",
-        fontSize: "13px",
-        fontWeight: "800",
-        color: "#06b6d4",
-        marginBottom: "15px",
-        gap: "8px",
-        letterSpacing: "1px",
-        textTransform: "uppercase",
-      }}>
-        <Briefcase size={18} color="#06b6d4" />
-        Business Name <span style={{ color: "rgba(255,255,255,0.5)", fontSize: "11px", marginLeft: "5px" }}>(Optional)</span>
-      </label>
-      <input
-        type="text"
-        placeholder="Your Business Name"
-        value={businessName}
-        onChange={(e) => setBusinessName(e.target.value)}
+      {/* Email Field */}
+      <div style={{ marginBottom: "25px" }}>
+        <label
+          style={{
+            display: "block",
+            fontSize: "13px",
+            fontWeight: "800",
+            color: "#06b6d4",
+            marginBottom: "12px",
+            letterSpacing: "1.5px",
+            textTransform: "uppercase",
+          }}
+        >
+          Email Address
+        </label>
+        <input
+          type="email"
+          placeholder="your@email.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          style={{
+            width: "100%",
+            padding: "20px 24px",
+            fontSize: "17px",
+            border: "2px solid rgba(255, 255, 255, 0.2)",
+            borderRadius: "16px",
+            transition: "all 0.3s ease",
+            boxSizing: "border-box",
+            background: "rgba(255, 255, 255, 0.95)",
+            fontWeight: "500",
+            outline: "none",
+          }}
+        />
+      </div>
+
+      {/* Business Name (Optional) */}
+      <div style={{ marginBottom: "35px" }}>
+        <label
+          style={{
+            display: "block",
+            fontSize: "13px",
+            fontWeight: "800",
+            color: "#06b6d4",
+            marginBottom: "12px",
+            letterSpacing: "1.5px",
+            textTransform: "uppercase",
+          }}
+        >
+          Business Name <span style={{ color: "rgba(6, 182, 212, 0.5)", fontSize: "11px", marginLeft: "5px" }}>(Optional)</span>
+        </label>
+        <input
+          type="text"
+          placeholder="Your Business Name"
+          value={businessName}
+          onChange={(e) => setBusinessName(e.target.value)}
+          style={{
+            width: "100%",
+            padding: "20px 24px",
+            fontSize: "17px",
+            border: "2px solid rgba(255, 255, 255, 0.2)",
+            borderRadius: "16px",
+            transition: "all 0.3s ease",
+            boxSizing: "border-box",
+            background: "rgba(255, 255, 255, 0.95)",
+            fontWeight: "500",
+            outline: "none",
+          }}
+        />
+      </div>
+
+      {/* Continue Button */}
+      <button
+        onClick={handleNext}
+        disabled={!firstName || !lastName || !email || !phone}
         style={{
           width: "100%",
-          padding: "18px 20px",
+          padding: "22px 40px",
+          fontSize: "16px",
+          fontWeight: "900",
+          border: "none",
           borderRadius: "16px",
-          border: "2px solid rgba(93, 235, 241, 0.3)",
-          background: "rgba(255, 255, 255, 0.05)",
+          background: firstName && lastName && email && phone
+            ? "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)"
+            : "rgba(255, 255, 255, 0.2)",
           color: "white",
-          fontSize: "15px",
-          fontWeight: "600",
-          outline: "none",
+          cursor: firstName && lastName && email && phone ? "pointer" : "not-allowed",
           transition: "all 0.3s ease",
+          letterSpacing: "2px",
+          textTransform: "uppercase",
+          boxShadow: firstName && lastName && email && phone
+            ? "0 10px 30px rgba(6, 182, 212, 0.3)"
+            : "none",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "10px",
         }}
-      />
+      >
+        Continue
+        <ChevronRight size={20} />
+      </button>
     </div>
-
-    {/* Email */}
-    <div style={{ marginBottom: "30px" }}>
-      <label style={{
-        display: "flex",
-        alignItems: "center",
-        fontSize: "13px",
-        fontWeight: "800",
-        color: "#06b6d4",
-        marginBottom: "15px",
-        gap: "8px",
-        letterSpacing: "1px",
-        textTransform: "uppercase",
-      }}>
-        <Mail size={18} color="#06b6d4" />
-        Email Address *
-      </label>
-      <input
-        type="email"
-        placeholder="your@email.com"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        style={{
-          width: "100%",
-          padding: "18px 20px",
-          borderRadius: "16px",
-          border: "2px solid rgba(93, 235, 241, 0.3)",
-          background: "rgba(255, 255, 255, 0.05)",
-          color: "white",
-          fontSize: "15px",
-          fontWeight: "600",
-          outline: "none",
-          transition: "all 0.3s ease",
-        }}
-      />
-    </div>
-
-    {/* Phone */}
-    <div style={{ marginBottom: "35px" }}>
-      <label style={{
-        display: "flex",
-        alignItems: "center",
-        fontSize: "13px",
-        fontWeight: "800",
-        color: "#06b6d4",
-        marginBottom: "15px",
-        gap: "8px",
-        letterSpacing: "1px",
-        textTransform: "uppercase",
-      }}>
-        <Phone size={18} color="#06b6d4" />
-        Phone Number *
-      </label>
-      <input
-        type="tel"
-        placeholder="(907) 555-0123"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-        style={{
-          width: "100%",
-          padding: "18px 20px",
-          borderRadius: "16px",
-          border: "2px solid rgba(93, 235, 241, 0.3)",
-          background: "rgba(255, 255, 255, 0.05)",
-          color: "white",
-          fontSize: "15px",
-          fontWeight: "600",
-          outline: "none",
-          transition: "all 0.3s ease",
-        }}
-      />
-    </div>
-
-    {/* Continue Button */}
-    <button
-      onClick={handleNext}
-      disabled={!firstName || !lastName || !email || !phone}
-      style={{
-        width: "100%",
-        padding: "20px",
-        borderRadius: "16px",
-        border: "none",
-        background: firstName && lastName && email && phone
-          ? "linear-gradient(135deg, #5debf1 0%, #0ea5e9 100%)"
-          : "rgba(255, 255, 255, 0.1)",
-        color: "white",
-        fontSize: "16px",
-        fontWeight: "800",
-        cursor: firstName && lastName && email && phone ? "pointer" : "not-allowed",
-        transition: "all 0.3s ease",
-        letterSpacing: "1px",
-        textTransform: "uppercase",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "10px",
-      }}
-    >
-      Continue
-      <ChevronRight size={20} />
-    </button>
   </div>
 )}
 
