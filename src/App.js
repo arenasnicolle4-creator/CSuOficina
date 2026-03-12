@@ -4638,6 +4638,7 @@ style={{
     )}
 
     {/* Navigation Buttons */}
+    <div className="button-row" style={{ display: "flex", gap: "15px" }}>
       <button
         onClick={handleBack}
         style={{
