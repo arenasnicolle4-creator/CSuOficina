@@ -2771,28 +2771,22 @@ style={{
         borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
       }}>
         <div style={{
-          fontSize: "18px",
+          fontSize: "16px",
           color: "#06b6d4",
-          fontWeight: "900",
-          marginBottom: "4px",
+          fontWeight: "800",
+          marginBottom: "8px",
           letterSpacing: "1.5px",
           textTransform: "uppercase",
         }}>
-          Monthly Estimate
+          Price Breakdown
         </div>
         <div style={{
           fontSize: "13px",
           color: "#7dd3fc",
-          fontWeight: "800",
-          letterSpacing: "1px",
-          textTransform: "uppercase",
-          background: "rgba(6, 182, 212, 0.15)",
-          padding: "6px 12px",
-          borderRadius: "8px",
-          display: "inline-block",
-          marginTop: "8px",
+          fontWeight: "700",
+          letterSpacing: "0.5px",
         }}>
-          📅 Monthly Contract Pricing
+          Monthly Contract
         </div>
       </div>
 
@@ -2922,7 +2916,7 @@ style={{
           textAlign: "center",
           fontStyle: "italic",
         }}>
-          💡 This is an estimate based on <strong style={{ color: "#7dd3fc", fontWeight: "900" }}>monthly contract pricing</strong>. Final prices may vary based on property condition and specific requirements.
+          💡 Estimate based on monthly contract. Final prices may vary based on property condition and requirements.
         </p>
       </div>
 
@@ -2957,14 +2951,9 @@ style={{
             <div style={{
               fontSize: "13px",
               color: "#7dd3fc",
-              fontWeight: "900",
-              letterSpacing: "1px",
-              textTransform: "uppercase",
-              background: "rgba(6, 182, 212, 0.2)",
-              padding: "4px 10px",
-              borderRadius: "6px",
+              fontWeight: "700",
             }}>
-              /MONTH
+              per month
             </div>
           </div>
           <div style={{
@@ -3051,7 +3040,7 @@ style={{
           <div style={{
             display: "flex",
             flexDirection: "column",
-            gap: "6px",
+            gap: "4px",
           }}>
             <div style={{
               color: "white",
@@ -3065,16 +3054,9 @@ style={{
             <div style={{
               fontSize: "12px",
               color: "#7dd3fc",
-              fontWeight: "900",
-              letterSpacing: "1px",
-              textTransform: "uppercase",
-              background: "rgba(6, 182, 212, 0.25)",
-              padding: "4px 10px",
-              borderRadius: "6px",
-              display: "inline-block",
-              width: "fit-content",
+              fontWeight: "700",
             }}>
-              /MONTH
+              per month
             </div>
           </div>
           <div style={{
