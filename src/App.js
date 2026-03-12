@@ -2084,240 +2084,964 @@ style={{
               </button>
             </div>
           </div>
+
+          {/* Reception/Lobby */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  🏛️ Reception/Lobby
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $40 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
+                color: "white",
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {receptions}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setReceptions(Math.max(0, receptions - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: receptions > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: receptions > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: receptions > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setReceptions(receptions + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          {/* Server Rooms */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  🖥️ Server/IT Rooms
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $50 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
+                color: "white",
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {serverRooms}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setServerRooms(Math.max(0, serverRooms - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: serverRooms > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: serverRooms > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: serverRooms > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setServerRooms(serverRooms + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          {/* Storage Rooms */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  📦 Storage Rooms
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $20 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
+                color: "white",
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {storageRooms}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setStorageRooms(Math.max(0, storageRooms - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: storageRooms > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: storageRooms > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: storageRooms > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setStorageRooms(storageRooms + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          {/* Private Offices */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  🚪 Private Offices
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $30 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
+                color: "white",
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {privateOffices}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setPrivateOffices(Math.max(0, privateOffices - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: privateOffices > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: privateOffices > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: privateOffices > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setPrivateOffices(privateOffices + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     )}
 
     {marketSegment === "healthcare" && (
-      <>
-        <div style={{ marginBottom: "25px" }}>
-          <label style={{
-            fontSize: "14px",
-            fontWeight: "800",
-            color: "#06b6d4",
-            marginBottom: "12px",
-            display: "block",
-            letterSpacing: "1px",
-            textTransform: "uppercase",
+      <div style={{ marginBottom: "30px" }}>
+        <label style={{
+          fontSize: "13px",
+          fontWeight: "800",
+          color: "#06b6d4",
+          marginBottom: "15px",
+          display: "block",
+          letterSpacing: "1px",
+          textTransform: "uppercase",
+        }}>
+          🏥 Healthcare Details
+        </label>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(2, 1fr)",
+          gap: "12px",
+        }}>
+          {/* Exam Rooms */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
           }}>
-            Exam Rooms
-          </label>
-          <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-            <button
-              className="counter-btn"
-              onClick={() => setExamRooms(Math.max(0, examRooms - 1))}
-              style={{
-                padding: "12px 20px",
-                borderRadius: "12px",
-                border: "2px solid rgba(93, 235, 241, 0.3)",
-                background: "rgba(255, 255, 255, 0.05)",
-                color: "white",
-                fontSize: "20px",
-                fontWeight: "800",
-                cursor: "pointer",
-              }}
-            >
-              −
-            </button>
             <div style={{
-              flex: 1,
-              textAlign: "center",
-              fontSize: "24px",
-              fontWeight: "900",
-              color: "white",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
             }}>
-              {examRooms}
-            </div>
-            <button
-              className="counter-btn"
-              onClick={() => setExamRooms(examRooms + 1)}
-              style={{
-                padding: "12px 20px",
-                borderRadius: "12px",
-                border: "2px solid rgba(93, 235, 241, 0.3)",
-                background: "rgba(255, 255, 255, 0.05)",
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  🩺 Exam Rooms
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $40 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
                 color: "white",
-                fontSize: "20px",
-                fontWeight: "800",
-                cursor: "pointer",
-              }}
-            >
-              +
-            </button>
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {examRooms}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setExamRooms(Math.max(0, examRooms - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: examRooms > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: examRooms > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: examRooms > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setExamRooms(examRooms + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
           </div>
-        </div>
 
-        <div style={{ marginBottom: "25px" }}>
-          <label style={{
-            fontSize: "14px",
-            fontWeight: "800",
-            color: "#06b6d4",
-            marginBottom: "12px",
-            display: "block",
-            letterSpacing: "1px",
-            textTransform: "uppercase",
+          {/* Waiting Areas */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
           }}>
-            Waiting Areas
-          </label>
-          <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-            <button
-              className="counter-btn"
-              onClick={() => setWaitingAreas(Math.max(0, waitingAreas - 1))}
-              style={{
-                padding: "12px 20px",
-                borderRadius: "12px",
-                border: "2px solid rgba(93, 235, 241, 0.3)",
-                background: "rgba(255, 255, 255, 0.05)",
-                color: "white",
-                fontSize: "20px",
-                fontWeight: "800",
-                cursor: "pointer",
-              }}
-            >
-              −
-            </button>
             <div style={{
-              flex: 1,
-              textAlign: "center",
-              fontSize: "24px",
-              fontWeight: "900",
-              color: "white",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
             }}>
-              {waitingAreas}
-            </div>
-            <button
-              className="counter-btn"
-              onClick={() => setWaitingAreas(waitingAreas + 1)}
-              style={{
-                padding: "12px 20px",
-                borderRadius: "12px",
-                border: "2px solid rgba(93, 235, 241, 0.3)",
-                background: "rgba(255, 255, 255, 0.05)",
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  🪑 Waiting Areas
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $30 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
                 color: "white",
-                fontSize: "20px",
-                fontWeight: "800",
-                cursor: "pointer",
-              }}
-            >
-              +
-            </button>
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {waitingAreas}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setWaitingAreas(Math.max(0, waitingAreas - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: waitingAreas > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: waitingAreas > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: waitingAreas > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setWaitingAreas(waitingAreas + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
           </div>
-        </div>
 
-        <div style={{ marginBottom: "25px" }}>
-          <label style={{
-            fontSize: "14px",
-            fontWeight: "800",
-            color: "#06b6d4",
-            marginBottom: "12px",
-            display: "block",
-            letterSpacing: "1px",
-            textTransform: "uppercase",
+          {/* Procedure Rooms */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
           }}>
-            Procedure Rooms
-          </label>
-          <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-            <button
-              className="counter-btn"
-              onClick={() => setProcedureRooms(Math.max(0, procedureRooms - 1))}
-              style={{
-                padding: "12px 20px",
-                borderRadius: "12px",
-                border: "2px solid rgba(93, 235, 241, 0.3)",
-                background: "rgba(255, 255, 255, 0.05)",
-                color: "white",
-                fontSize: "20px",
-                fontWeight: "800",
-                cursor: "pointer",
-              }}
-            >
-              −
-            </button>
             <div style={{
-              flex: 1,
-              textAlign: "center",
-              fontSize: "24px",
-              fontWeight: "900",
-              color: "white",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
             }}>
-              {procedureRooms}
-            </div>
-            <button
-              className="counter-btn"
-              onClick={() => setProcedureRooms(procedureRooms + 1)}
-              style={{
-                padding: "12px 20px",
-                borderRadius: "12px",
-                border: "2px solid rgba(93, 235, 241, 0.3)",
-                background: "rgba(255, 255, 255, 0.05)",
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  ⚕️ Procedure Rooms
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $60 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
                 color: "white",
-                fontSize: "20px",
-                fontWeight: "800",
-                cursor: "pointer",
-              }}
-            >
-              +
-            </button>
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {procedureRooms}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setProcedureRooms(Math.max(0, procedureRooms - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: procedureRooms > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: procedureRooms > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: procedureRooms > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setProcedureRooms(procedureRooms + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
           </div>
-        </div>
 
-        <div style={{ marginBottom: "30px" }}>
-          <label style={{
-            fontSize: "14px",
-            fontWeight: "800",
-            color: "#06b6d4",
-            marginBottom: "12px",
-            display: "block",
-            letterSpacing: "1px",
-            textTransform: "uppercase",
+          {/* Laboratories - NEW */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
           }}>
-            Restrooms
-          </label>
-          <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-            <button
-              className="counter-btn"
-              onClick={() => setRestrooms(Math.max(0, restrooms - 1))}
-              style={{
-                padding: "12px 20px",
-                borderRadius: "12px",
-                border: "2px solid rgba(93, 235, 241, 0.3)",
-                background: "rgba(255, 255, 255, 0.05)",
-                color: "white",
-                fontSize: "20px",
-                fontWeight: "800",
-                cursor: "pointer",
-              }}
-            >
-              −
-            </button>
             <div style={{
-              flex: 1,
-              textAlign: "center",
-              fontSize: "24px",
-              fontWeight: "900",
-              color: "white",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
             }}>
-              {restrooms}
-            </div>
-            <button
-              className="counter-btn"
-              onClick={() => setRestrooms(restrooms + 1)}
-              style={{
-                padding: "12px 20px",
-                borderRadius: "12px",
-                border: "2px solid rgba(93, 235, 241, 0.3)",
-                background: "rgba(255, 255, 255, 0.05)",
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  🧪 Laboratories
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $75 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
                 color: "white",
-                fontSize: "20px",
-                fontWeight: "800",
-                cursor: "pointer",
-              }}
-            >
-              +
-            </button>
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {laboratories}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setLaboratories(Math.max(0, laboratories - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: laboratories > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: laboratories > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: laboratories > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setLaboratories(laboratories + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          {/* Sterilization Rooms - NEW */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  🧼 Sterilization
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $65 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
+                color: "white",
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {sterilizationRooms}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setSterilizationRooms(Math.max(0, sterilizationRooms - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: sterilizationRooms > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: sterilizationRooms > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: sterilizationRooms > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setSterilizationRooms(sterilizationRooms + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          {/* Nurse Stations - NEW */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  👩‍⚕️ Nurse Stations
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $35 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
+                color: "white",
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {nurseStations}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setNurseStations(Math.max(0, nurseStations - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: nurseStations > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: nurseStations > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: nurseStations > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setNurseStations(nurseStations + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          {/* Consultation Rooms - NEW */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  💬 Consult Rooms
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $35 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
+                color: "white",
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {consultRooms}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setConsultRooms(Math.max(0, consultRooms - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: consultRooms > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: consultRooms > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: consultRooms > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setConsultRooms(consultRooms + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
           </div>
         </div>
-      </>
+      </div>
     )}
 
     {marketSegment === "hospitality" && (
