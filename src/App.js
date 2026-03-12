@@ -30,16 +30,43 @@ export default function CleaningSuOficinaBooking() {
   const [conferenceRooms, setConferenceRooms] = useState(0);
   const [breakRooms, setBreakRooms] = useState(0);
   const [restrooms, setRestrooms] = useState(0);
+  const [receptions, setReceptions] = useState(0);
+  const [serverRooms, setServerRooms] = useState(0);
+  const [storageRooms, setStorageRooms] = useState(0);
+  const [privateOffices, setPrivateOffices] = useState(0);
   
   // Healthcare
   const [examRooms, setExamRooms] = useState(0);
   const [waitingAreas, setWaitingAreas] = useState(0);
   const [procedureRooms, setProcedureRooms] = useState(0);
+  const [laboratories, setLaboratories] = useState(0);
+  const [sterilizationRooms, setSterilizationRooms] = useState(0);
+  const [nurseStations, setNurseStations] = useState(0);
+  const [consultRooms, setConsultRooms] = useState(0);
   
   // Hospitality
   const [guestRooms, setGuestRooms] = useState(0);
   const [commonAreas, setCommonAreas] = useState(0);
   const [diningAreas, setDiningAreas] = useState(0);
+  const [fitnessCenters, setFitnessCenters] = useState(0);
+  const [poolSpas, setPoolSpas] = useState(0);
+  const [eventSpaces, setEventSpaces] = useState(0);
+  const [laundryRooms, setLaundryRooms] = useState(0);
+  const [lobbyReceptions, setLobbyReceptions] = useState(0);
+  
+  // Retail
+  const [fittingRooms, setFittingRooms] = useState(0);
+  const [showroomDisplays, setShowroomDisplays] = useState(0);
+  const [stockrooms, setStockrooms] = useState(0);
+  const [customerRestrooms, setCustomerRestrooms] = useState(0);
+  const [posCheckouts, setPosCheckouts] = useState(0);
+  
+  // Industrial
+  const [loadingDocks, setLoadingDocks] = useState(0);
+  const [equipmentAreas, setEquipmentAreas] = useState(0);
+  const [industrialBreakRooms, setIndustrialBreakRooms] = useState(0);
+  const [industrialRestrooms, setIndustrialRestrooms] = useState(0);
+  const [officeAreas, setOfficeAreas] = useState(0);
   
   // Step 4: Add-ons & Schedule
   const [addOns, setAddOns] = useState({
@@ -181,16 +208,49 @@ export default function CleaningSuOficinaBooking() {
     
     // Room/Area pricing
     rooms: {
-      workstation: 8,          // $8 per workstation
+      // OFFICE BUILDINGS
+      workstation: 8,          // $8 per workstation/desk
       conferenceRoom: 25,      // $25 per conference room
-      breakRoom: 30,           // $30 per break room
+      breakRoom: 30,           // $30 per break room/kitchen
       restroom: 35,            // $35 per restroom
+      reception: 40,           // $40 per reception/lobby area
+      serverRoom: 50,          // $50 per IT/server room (dust-free cleaning)
+      storageRoom: 20,         // $20 per storage/file room
+      privateOffice: 30,       // $30 per private/executive office
+      
+      // HEALTHCARE
       examRoom: 40,            // $40 per exam room (medical grade cleaning)
       waitingArea: 30,         // $30 per waiting area
       procedureRoom: 60,       // $60 per procedure room (surgical grade)
+      laboratory: 75,          // $75 per lab (sterile cleaning requirements)
+      sterilizationRoom: 65,   // $65 per sterilization room
+      nurseStation: 35,        // $35 per nurse station
+      consultRoom: 35,         // $35 per consultation room
+      
+      // HOSPITALITY
       guestRoom: 45,           // $45 per guest room
       commonArea: 35,          // $35 per common area
-      diningArea: 50,          // $50 per dining area
+      diningArea: 50,          // $50 per dining area/restaurant
+      fitnessCenter: 60,       // $60 per fitness center
+      poolSpa: 75,             // $75 per pool/spa area
+      eventSpace: 100,         // $100 per event/banquet space
+      laundryRoom: 40,         // $40 per commercial laundry room
+      lobbyReception: 55,      // $55 per hotel lobby/reception
+      
+      // RETAIL
+      fittingRoom: 18,         // $18 per fitting/dressing room
+      showroomDisplay: 30,     // $30 per showroom/display area
+      stockroom: 25,           // $25 per stockroom/back area
+      customerRestroom: 35,    // $35 per customer restroom
+      posCheckout: 20,         // $20 per POS/checkout area
+      
+      // INDUSTRIAL
+      loadingDock: 50,         // $50 per loading dock
+      equipmentArea: 40,       // $40 per equipment/maintenance area
+      warehouseZone: 0.06,     // $0.06 per sqft for warehouse zones
+      industrialBreakRoom: 30, // $30 per employee break room
+      industrialRestroom: 35,  // $35 per restroom
+      officeArea: 25,          // $25 per admin/office area
     },
     
     // Add-on services (per service, per visit)
@@ -911,7 +971,7 @@ style={{
           <label
             style={{
               display: "block",
-              fontSize: "13px",
+              fontSize: "14px",
               fontWeight: "800",
               color: "#06b6d4",
               marginBottom: "12px",
@@ -944,7 +1004,7 @@ style={{
           <label
             style={{
               display: "block",
-              fontSize: "13px",
+              fontSize: "14px",
               fontWeight: "800",
               color: "#06b6d4",
               marginBottom: "12px",
@@ -980,7 +1040,7 @@ style={{
         <label
           style={{
             display: "block",
-            fontSize: "13px",
+            fontSize: "14px",
             fontWeight: "800",
             color: "#06b6d4",
             marginBottom: "12px",
@@ -1015,7 +1075,7 @@ style={{
         <label
           style={{
             display: "block",
-            fontSize: "13px",
+            fontSize: "14px",
             fontWeight: "800",
             color: "#06b6d4",
             marginBottom: "12px",
@@ -1050,7 +1110,7 @@ style={{
         <label
           style={{
             display: "block",
-            fontSize: "13px",
+            fontSize: "14px",
             fontWeight: "800",
             color: "#06b6d4",
             marginBottom: "12px",
@@ -1123,7 +1183,7 @@ style={{
       <label style={{
         display: "flex",
         alignItems: "center",
-        fontSize: "13px",
+        fontSize: "14px",
         fontWeight: "800",
         color: "#06b6d4",
         marginBottom: "15px",
@@ -1260,7 +1320,7 @@ style={{
       <label style={{
         display: "flex",
         alignItems: "center",
-        fontSize: "13px",
+        fontSize: "14px",
         fontWeight: "800",
         color: "#06b6d4",
         marginBottom: "15px",
@@ -1389,7 +1449,7 @@ style={{
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        fontSize: "13px",
+        fontSize: "14px",
         fontWeight: "800",
         color: "#06b6d4",
         marginBottom: "20px",
@@ -1420,7 +1480,7 @@ style={{
           textAlign: "center",
         }}>
           <div style={{
-            fontSize: "13px",
+            fontSize: "14px",
             color: "rgba(255, 255, 255, 0.8)",
             fontWeight: "600",
             marginBottom: "4px",
@@ -1596,7 +1656,7 @@ style={{
       <label style={{
         display: "flex",
         alignItems: "center",
-        fontSize: "13px",
+        fontSize: "14px",
         fontWeight: "800",
         color: "#06b6d4",
         marginBottom: "15px",
@@ -1670,7 +1730,7 @@ style={{
     {marketSegment === "office" && (
       <div style={{ marginBottom: "30px" }}>
         <label style={{
-          fontSize: "13px",
+          fontSize: "14px",
           fontWeight: "800",
           color: "#06b6d4",
           marginBottom: "15px",
@@ -1702,7 +1762,7 @@ style={{
             }}>
               <div>
                 <div style={{
-                  fontSize: "13px",
+                  fontSize: "14px",
                   fontWeight: "800",
                   color: "#06b6d4",
                   marginBottom: "2px",
@@ -1787,7 +1847,7 @@ style={{
             }}>
               <div>
                 <div style={{
-                  fontSize: "13px",
+                  fontSize: "14px",
                   fontWeight: "800",
                   color: "#06b6d4",
                   marginBottom: "2px",
@@ -1872,7 +1932,7 @@ style={{
             }}>
               <div>
                 <div style={{
-                  fontSize: "13px",
+                  fontSize: "14px",
                   fontWeight: "800",
                   color: "#06b6d4",
                   marginBottom: "2px",
@@ -1957,7 +2017,7 @@ style={{
             }}>
               <div>
                 <div style={{
-                  fontSize: "13px",
+                  fontSize: "14px",
                   fontWeight: "800",
                   color: "#06b6d4",
                   marginBottom: "2px",
@@ -2032,7 +2092,7 @@ style={{
       <>
         <div style={{ marginBottom: "25px" }}>
           <label style={{
-            fontSize: "13px",
+            fontSize: "14px",
             fontWeight: "800",
             color: "#06b6d4",
             marginBottom: "12px",
@@ -2089,7 +2149,7 @@ style={{
 
         <div style={{ marginBottom: "25px" }}>
           <label style={{
-            fontSize: "13px",
+            fontSize: "14px",
             fontWeight: "800",
             color: "#06b6d4",
             marginBottom: "12px",
@@ -2146,7 +2206,7 @@ style={{
 
         <div style={{ marginBottom: "25px" }}>
           <label style={{
-            fontSize: "13px",
+            fontSize: "14px",
             fontWeight: "800",
             color: "#06b6d4",
             marginBottom: "12px",
@@ -2203,7 +2263,7 @@ style={{
 
         <div style={{ marginBottom: "30px" }}>
           <label style={{
-            fontSize: "13px",
+            fontSize: "14px",
             fontWeight: "800",
             color: "#06b6d4",
             marginBottom: "12px",
@@ -2264,7 +2324,7 @@ style={{
       <>
         <div style={{ marginBottom: "25px" }}>
           <label style={{
-            fontSize: "13px",
+            fontSize: "14px",
             fontWeight: "800",
             color: "#06b6d4",
             marginBottom: "12px",
@@ -2321,7 +2381,7 @@ style={{
 
         <div style={{ marginBottom: "25px" }}>
           <label style={{
-            fontSize: "13px",
+            fontSize: "14px",
             fontWeight: "800",
             color: "#06b6d4",
             marginBottom: "12px",
@@ -2378,7 +2438,7 @@ style={{
 
         <div style={{ marginBottom: "25px" }}>
           <label style={{
-            fontSize: "13px",
+            fontSize: "14px",
             fontWeight: "800",
             color: "#06b6d4",
             marginBottom: "12px",
@@ -2435,7 +2495,7 @@ style={{
 
         <div style={{ marginBottom: "30px" }}>
           <label style={{
-            fontSize: "13px",
+            fontSize: "14px",
             fontWeight: "800",
             color: "#06b6d4",
             marginBottom: "12px",
@@ -2555,7 +2615,7 @@ style={{
       <label style={{
         display: "flex",
         alignItems: "center",
-        fontSize: "13px",
+        fontSize: "14px",
         fontWeight: "800",
         color: "#06b6d4",
         marginBottom: "15px",
@@ -2617,7 +2677,7 @@ style={{
             </div>
             <div style={{ flex: 1 }}>
               <div style={{
-                fontSize: "13px",
+                fontSize: "14px",
                 fontWeight: "800",
                 marginBottom: "3px",
                 letterSpacing: "0.3px",
@@ -2642,7 +2702,7 @@ style={{
       <label style={{
         display: "flex",
         alignItems: "center",
-        fontSize: "13px",
+        fontSize: "14px",
         fontWeight: "800",
         color: "#06b6d4",
         marginBottom: "15px",
@@ -2678,7 +2738,7 @@ style={{
                 ? "linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)"
                 : "rgba(255, 255, 255, 0.03)",
               color: "white",
-              fontSize: "13px",
+              fontSize: "14px",
               fontWeight: "800",
               textAlign: "center",
               cursor: "pointer",
@@ -2696,7 +2756,7 @@ style={{
       <label style={{
         display: "flex",
         alignItems: "center",
-        fontSize: "13px",
+        fontSize: "14px",
         fontWeight: "800",
         color: "#06b6d4",
         marginBottom: "15px",
@@ -2744,7 +2804,7 @@ style={{
       <label style={{
         display: "flex",
         alignItems: "center",
-        fontSize: "13px",
+        fontSize: "14px",
         fontWeight: "800",
         color: "#06b6d4",
         marginBottom: "15px",
@@ -2910,7 +2970,7 @@ style={{
           Price Breakdown
         </div>
         <div style={{
-          fontSize: "13px",
+          fontSize: "14px",
           color: "#0ea5e9",
           fontWeight: "700",
           letterSpacing: "0.5px",
@@ -2934,7 +2994,7 @@ style={{
             textAlign: "center",
             padding: "40px 20px",
             color: "rgba(255, 255, 255, 0.5)",
-            fontSize: "13px",
+            fontSize: "14px",
             fontWeight: "600",
           }}>
             Complete the form to see pricing
@@ -2956,7 +3016,7 @@ style={{
               >
                 <div style={{
                   color: "rgba(255, 255, 255, 0.8)",
-                  fontSize: "13px",
+                  fontSize: "14px",
                   fontWeight: "600",
                 }}>
                   {item.label}
@@ -3016,7 +3076,7 @@ style={{
           }}>
             <div style={{
               color: "white",
-              fontSize: "13px",
+              fontSize: "14px",
               fontWeight: "800",
               textTransform: "uppercase",
             }}>
@@ -3082,7 +3142,7 @@ style={{
               Total
             </div>
             <div style={{
-              fontSize: "13px",
+              fontSize: "14px",
               color: "#0ea5e9",
               fontWeight: "700",
               background: "rgba(6, 182, 212, 0.12)",
@@ -3292,7 +3352,7 @@ style={{
             textAlign: "center",
             padding: "20px",
             color: "rgba(255, 255, 255, 0.5)",
-            fontSize: "13px",
+            fontSize: "14px",
             fontWeight: "600",
           }}>
             Select services to see pricing
@@ -3307,7 +3367,7 @@ style={{
                 alignItems: "center",
                 padding: "8px 0",
                 borderBottom: index < getPriceBreakdown().length - 1 ? "1px solid rgba(255, 255, 255, 0.1)" : "none",
-                fontSize: "13px",
+                fontSize: "14px",
               }}
             >
               <div style={{
