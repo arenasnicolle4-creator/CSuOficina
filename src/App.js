@@ -1668,86 +1668,365 @@ style={{
 
     {/* Market Segment Specific Details */}
     {marketSegment === "office" && (
-      <>
-        <div style={{ marginBottom: "25px" }}>
-          <label style={{
-            fontSize: "13px",
-            fontWeight: "800",
-            color: "#06b6d4",
-            marginBottom: "12px",
-            display: "block",
-            letterSpacing: "1px",
-            textTransform: "uppercase",
+      <div style={{ marginBottom: "30px" }}>
+        <label style={{
+          fontSize: "13px",
+          fontWeight: "800",
+          color: "#06b6d4",
+          marginBottom: "15px",
+          display: "block",
+          letterSpacing: "1px",
+          textTransform: "uppercase",
+        }}>
+          📋 Office Details
+        </label>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(2, 1fr)",
+          gap: "12px",
+        }}>
+          {/* Workstations */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
           }}>
-            Workstations/Desks
-          </label>
-          <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-            <button
-              className="counter-btn"
-              onClick={() => setWorkstations(Math.max(0, workstations - 1))}
-              style={{
-                padding: "12px 20px",
-                borderRadius: "12px",
-                border: "2px solid rgba(93, 235, 241, 0.3)",
-                background: "rgba(255, 255, 255, 0.05)",
-                color: "white",
-                fontSize: "20px",
-                fontWeight: "800",
-                cursor: "pointer",
-              }}
-            >
-              −
-            </button>
             <div style={{
-              flex: 1,
-              textAlign: "center",
-              fontSize: "24px",
-              fontWeight: "900",
-              color: "white",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
             }}>
-              {workstations}
-            </div>
-            <button
-              className="counter-btn"
-              onClick={() => setWorkstations(workstations + 1)}
-              style={{
-                padding: "12px 20px",
-                borderRadius: "12px",
-                border: "2px solid rgba(93, 235, 241, 0.3)",
-                background: "rgba(255, 255, 255, 0.05)",
+              <div>
+                <div style={{
+                  fontSize: "13px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  💼 Workstations
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $8 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
                 color: "white",
-                fontSize: "20px",
-                fontWeight: "800",
-                cursor: "pointer",
-              }}
-            >
-              +
-            </button>
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {workstations}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setWorkstations(Math.max(0, workstations - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: workstations > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: workstations > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: workstations > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setWorkstations(workstations + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          {/* Conference Rooms */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+              <div>
+                <div style={{
+                  fontSize: "13px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  🗂️ Conference
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $25 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
+                color: "white",
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {conferenceRooms}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setConferenceRooms(Math.max(0, conferenceRooms - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: conferenceRooms > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: conferenceRooms > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: conferenceRooms > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setConferenceRooms(conferenceRooms + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          {/* Break Rooms */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+              <div>
+                <div style={{
+                  fontSize: "13px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  ☕ Break Rooms
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $30 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
+                color: "white",
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {breakRooms}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setBreakRooms(Math.max(0, breakRooms - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: breakRooms > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: breakRooms > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: breakRooms > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setBreakRooms(breakRooms + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          {/* Restrooms */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+              <div>
+                <div style={{
+                  fontSize: "13px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  🚻 Restrooms
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $35 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
+                color: "white",
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {restrooms}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setRestrooms(Math.max(0, restrooms - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: restrooms > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: restrooms > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: restrooms > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setRestrooms(restrooms + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
           </div>
         </div>
-
-        <div style={{ marginBottom: "25px" }}>
-          <label style={{
-            fontSize: "13px",
-            fontWeight: "800",
-            color: "#06b6d4",
-            marginBottom: "12px",
-            display: "block",
-            letterSpacing: "1px",
-            textTransform: "uppercase",
-          }}>
-            Conference Rooms
-          </label>
-          <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-            <button
-              className="counter-btn"
-              onClick={() => setConferenceRooms(Math.max(0, conferenceRooms - 1))}
-              style={{
-                padding: "12px 20px",
-                borderRadius: "12px",
-                border: "2px solid rgba(93, 235, 241, 0.3)",
-                background: "rgba(255, 255, 255, 0.05)",
-                color: "white",
+      </div>
+    )}
                 fontSize: "20px",
                 fontWeight: "800",
                 cursor: "pointer",
@@ -2782,11 +3061,15 @@ style={{
         </div>
         <div style={{
           fontSize: "13px",
-          color: "#7dd3fc",
+          color: "#0ea5e9",
           fontWeight: "700",
           letterSpacing: "0.5px",
+          background: "rgba(6, 182, 212, 0.12)",
+          padding: "4px 12px",
+          borderRadius: "6px",
+          display: "inline-block",
         }}>
-          Monthly Contract
+          Monthly Estimate
         </div>
       </div>
 
@@ -2950,8 +3233,11 @@ style={{
             </div>
             <div style={{
               fontSize: "13px",
-              color: "#7dd3fc",
+              color: "#0ea5e9",
               fontWeight: "700",
+              background: "rgba(6, 182, 212, 0.12)",
+              padding: "3px 10px",
+              borderRadius: "6px",
             }}>
               per month
             </div>
@@ -3053,8 +3339,12 @@ style={{
             </div>
             <div style={{
               fontSize: "12px",
-              color: "#7dd3fc",
+              color: "#0ea5e9",
               fontWeight: "700",
+              background: "rgba(6, 182, 212, 0.12)",
+              padding: "3px 10px",
+              borderRadius: "6px",
+              display: "inline-block",
             }}>
               per month
             </div>
