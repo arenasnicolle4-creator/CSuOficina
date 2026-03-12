@@ -3045,239 +3045,1599 @@ style={{
     )}
 
     {marketSegment === "hospitality" && (
-      <>
-        <div style={{ marginBottom: "25px" }}>
-          <label style={{
-            fontSize: "14px",
-            fontWeight: "800",
-            color: "#06b6d4",
-            marginBottom: "12px",
-            display: "block",
-            letterSpacing: "1px",
-            textTransform: "uppercase",
+      <div style={{ marginBottom: "30px" }}>
+        <label style={{
+          fontSize: "13px",
+          fontWeight: "800",
+          color: "#06b6d4",
+          marginBottom: "15px",
+          display: "block",
+          letterSpacing: "1px",
+          textTransform: "uppercase",
+        }}>
+          🏨 Hospitality Details
+        </label>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(2, 1fr)",
+          gap: "12px",
+        }}>
+          {/* Guest Rooms */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
           }}>
-            Guest Rooms
-          </label>
-          <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-            <button
-              className="counter-btn"
-              onClick={() => setGuestRooms(Math.max(0, guestRooms - 1))}
-              style={{
-                padding: "12px 20px",
-                borderRadius: "12px",
-                border: "2px solid rgba(93, 235, 241, 0.3)",
-                background: "rgba(255, 255, 255, 0.05)",
-                color: "white",
-                fontSize: "20px",
-                fontWeight: "800",
-                cursor: "pointer",
-              }}
-            >
-              −
-            </button>
             <div style={{
-              flex: 1,
-              textAlign: "center",
-              fontSize: "24px",
-              fontWeight: "900",
-              color: "white",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
             }}>
-              {guestRooms}
-            </div>
-            <button
-              className="counter-btn"
-              onClick={() => setGuestRooms(guestRooms + 1)}
-              style={{
-                padding: "12px 20px",
-                borderRadius: "12px",
-                border: "2px solid rgba(93, 235, 241, 0.3)",
-                background: "rgba(255, 255, 255, 0.05)",
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  🛏️ Guest Rooms
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $45 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
                 color: "white",
-                fontSize: "20px",
-                fontWeight: "800",
-                cursor: "pointer",
-              }}
-            >
-              +
-            </button>
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {guestRooms}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setGuestRooms(Math.max(0, guestRooms - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: guestRooms > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: guestRooms > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: guestRooms > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setGuestRooms(guestRooms + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
           </div>
-        </div>
 
-        <div style={{ marginBottom: "25px" }}>
-          <label style={{
-            fontSize: "14px",
-            fontWeight: "800",
-            color: "#06b6d4",
-            marginBottom: "12px",
-            display: "block",
-            letterSpacing: "1px",
-            textTransform: "uppercase",
+          {/* Common Areas */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
           }}>
-            Common Areas / Lobbies
-          </label>
-          <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-            <button
-              className="counter-btn"
-              onClick={() => setCommonAreas(Math.max(0, commonAreas - 1))}
-              style={{
-                padding: "12px 20px",
-                borderRadius: "12px",
-                border: "2px solid rgba(93, 235, 241, 0.3)",
-                background: "rgba(255, 255, 255, 0.05)",
-                color: "white",
-                fontSize: "20px",
-                fontWeight: "800",
-                cursor: "pointer",
-              }}
-            >
-              −
-            </button>
             <div style={{
-              flex: 1,
-              textAlign: "center",
-              fontSize: "24px",
-              fontWeight: "900",
-              color: "white",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
             }}>
-              {commonAreas}
-            </div>
-            <button
-              className="counter-btn"
-              onClick={() => setCommonAreas(commonAreas + 1)}
-              style={{
-                padding: "12px 20px",
-                borderRadius: "12px",
-                border: "2px solid rgba(93, 235, 241, 0.3)",
-                background: "rgba(255, 255, 255, 0.05)",
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  🛋️ Common Areas
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $35 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
                 color: "white",
-                fontSize: "20px",
-                fontWeight: "800",
-                cursor: "pointer",
-              }}
-            >
-              +
-            </button>
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {commonAreas}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setCommonAreas(Math.max(0, commonAreas - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: commonAreas > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: commonAreas > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: commonAreas > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setCommonAreas(commonAreas + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
           </div>
-        </div>
 
-        <div style={{ marginBottom: "25px" }}>
-          <label style={{
-            fontSize: "14px",
-            fontWeight: "800",
-            color: "#06b6d4",
-            marginBottom: "12px",
-            display: "block",
-            letterSpacing: "1px",
-            textTransform: "uppercase",
+          {/* Dining Areas */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
           }}>
-            Dining Areas
-          </label>
-          <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-            <button
-              className="counter-btn"
-              onClick={() => setDiningAreas(Math.max(0, diningAreas - 1))}
-              style={{
-                padding: "12px 20px",
-                borderRadius: "12px",
-                border: "2px solid rgba(93, 235, 241, 0.3)",
-                background: "rgba(255, 255, 255, 0.05)",
-                color: "white",
-                fontSize: "20px",
-                fontWeight: "800",
-                cursor: "pointer",
-              }}
-            >
-              −
-            </button>
             <div style={{
-              flex: 1,
-              textAlign: "center",
-              fontSize: "24px",
-              fontWeight: "900",
-              color: "white",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
             }}>
-              {diningAreas}
-            </div>
-            <button
-              className="counter-btn"
-              onClick={() => setDiningAreas(diningAreas + 1)}
-              style={{
-                padding: "12px 20px",
-                borderRadius: "12px",
-                border: "2px solid rgba(93, 235, 241, 0.3)",
-                background: "rgba(255, 255, 255, 0.05)",
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  🍽️ Dining Areas
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $50 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
                 color: "white",
-                fontSize: "20px",
-                fontWeight: "800",
-                cursor: "pointer",
-              }}
-            >
-              +
-            </button>
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {diningAreas}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setDiningAreas(Math.max(0, diningAreas - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: diningAreas > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: diningAreas > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: diningAreas > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setDiningAreas(diningAreas + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
           </div>
-        </div>
 
-        <div style={{ marginBottom: "30px" }}>
-          <label style={{
-            fontSize: "14px",
-            fontWeight: "800",
-            color: "#06b6d4",
-            marginBottom: "12px",
-            display: "block",
-            letterSpacing: "1px",
-            textTransform: "uppercase",
+          {/* Fitness Centers - NEW */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
           }}>
-            Restrooms
-          </label>
-          <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-            <button
-              className="counter-btn"
-              onClick={() => setRestrooms(Math.max(0, restrooms - 1))}
-              style={{
-                padding: "12px 20px",
-                borderRadius: "12px",
-                border: "2px solid rgba(93, 235, 241, 0.3)",
-                background: "rgba(255, 255, 255, 0.05)",
-                color: "white",
-                fontSize: "20px",
-                fontWeight: "800",
-                cursor: "pointer",
-              }}
-            >
-              −
-            </button>
             <div style={{
-              flex: 1,
-              textAlign: "center",
-              fontSize: "24px",
-              fontWeight: "900",
-              color: "white",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
             }}>
-              {restrooms}
-            </div>
-            <button
-              className="counter-btn"
-              onClick={() => setRestrooms(restrooms + 1)}
-              style={{
-                padding: "12px 20px",
-                borderRadius: "12px",
-                border: "2px solid rgba(93, 235, 241, 0.3)",
-                background: "rgba(255, 255, 255, 0.05)",
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  💪 Fitness Centers
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $60 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
                 color: "white",
-                fontSize: "20px",
-                fontWeight: "800",
-                cursor: "pointer",
-              }}
-            >
-              +
-            </button>
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {fitnessCenters}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setFitnessCenters(Math.max(0, fitnessCenters - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: fitnessCenters > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: fitnessCenters > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: fitnessCenters > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setFitnessCenters(fitnessCenters + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          {/* Pool/Spa Areas - NEW */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  🏊 Pool/Spa Areas
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $75 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
+                color: "white",
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {poolSpas}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setPoolSpas(Math.max(0, poolSpas - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: poolSpas > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: poolSpas > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: poolSpas > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setPoolSpas(poolSpas + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          {/* Event/Banquet Spaces - NEW */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  🎉 Event Spaces
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $100 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
+                color: "white",
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {eventSpaces}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setEventSpaces(Math.max(0, eventSpaces - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: eventSpaces > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: eventSpaces > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: eventSpaces > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setEventSpaces(eventSpaces + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          {/* Laundry Rooms - NEW */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  🧺 Laundry Rooms
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $40 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
+                color: "white",
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {laundryRooms}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setLaundryRooms(Math.max(0, laundryRooms - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: laundryRooms > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: laundryRooms > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: laundryRooms > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setLaundryRooms(laundryRooms + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          {/* Lobby/Reception - NEW */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  🏨 Lobby/Reception
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $55 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
+                color: "white",
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {lobbyReceptions}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setLobbyReceptions(Math.max(0, lobbyReceptions - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: lobbyReceptions > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: lobbyReceptions > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: lobbyReceptions > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setLobbyReceptions(lobbyReceptions + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
           </div>
         </div>
-      </>
+      </div>
+    )}
+
+    {marketSegment === "retail" && (
+      <div style={{ marginBottom: "30px" }}>
+        <label style={{
+          fontSize: "13px",
+          fontWeight: "800",
+          color: "#06b6d4",
+          marginBottom: "15px",
+          display: "block",
+          letterSpacing: "1px",
+          textTransform: "uppercase",
+        }}>
+          🛍️ Retail Details
+        </label>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(2, 1fr)",
+          gap: "12px",
+        }}>
+          {/* Fitting/Dressing Rooms */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  👗 Fitting Rooms
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $18 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
+                color: "white",
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {fittingRooms}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setFittingRooms(Math.max(0, fittingRooms - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: fittingRooms > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: fittingRooms > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: fittingRooms > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setFittingRooms(fittingRooms + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          {/* Showroom/Display Areas */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  🛍️ Showrooms
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $30 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
+                color: "white",
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {showroomDisplays}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setShowroomDisplays(Math.max(0, showroomDisplays - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: showroomDisplays > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: showroomDisplays > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: showroomDisplays > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setShowroomDisplays(showroomDisplays + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          {/* Stockrooms */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  📦 Stockrooms
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $25 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
+                color: "white",
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {stockrooms}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setStockrooms(Math.max(0, stockrooms - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: stockrooms > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: stockrooms > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: stockrooms > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setStockrooms(stockrooms + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          {/* Customer Restrooms */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  🚻 Restrooms
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $35 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
+                color: "white",
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {customerRestrooms}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setCustomerRestrooms(Math.max(0, customerRestrooms - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: customerRestrooms > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: customerRestrooms > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: customerRestrooms > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setCustomerRestrooms(customerRestrooms + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          {/* POS/Checkout Areas */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  🛒 POS/Checkout
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $20 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
+                color: "white",
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {posCheckouts}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setPosCheckouts(Math.max(0, posCheckouts - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: posCheckouts > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: posCheckouts > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: posCheckouts > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setPosCheckouts(posCheckouts + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )}
+
+    {marketSegment === "industrial" && (
+      <div style={{ marginBottom: "30px" }}>
+        <label style={{
+          fontSize: "13px",
+          fontWeight: "800",
+          color: "#06b6d4",
+          marginBottom: "15px",
+          display: "block",
+          letterSpacing: "1px",
+          textTransform: "uppercase",
+        }}>
+          🏭 Industrial Details
+        </label>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(2, 1fr)",
+          gap: "12px",
+        }}>
+          {/* Loading Docks */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  🚚 Loading Docks
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $50 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
+                color: "white",
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {loadingDocks}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setLoadingDocks(Math.max(0, loadingDocks - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: loadingDocks > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: loadingDocks > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: loadingDocks > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setLoadingDocks(loadingDocks + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          {/* Equipment/Maintenance Areas */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  ⚙️ Equipment Areas
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $40 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
+                color: "white",
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {equipmentAreas}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setEquipmentAreas(Math.max(0, equipmentAreas - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: equipmentAreas > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: equipmentAreas > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: equipmentAreas > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setEquipmentAreas(equipmentAreas + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          {/* Break Rooms */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  ☕ Break Rooms
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $30 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
+                color: "white",
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {industrialBreakRooms}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setIndustrialBreakRooms(Math.max(0, industrialBreakRooms - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: industrialBreakRooms > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: industrialBreakRooms > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: industrialBreakRooms > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setIndustrialBreakRooms(industrialBreakRooms + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          {/* Restrooms */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  🚻 Restrooms
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $35 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
+                color: "white",
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {industrialRestrooms}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setIndustrialRestrooms(Math.max(0, industrialRestrooms - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: industrialRestrooms > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: industrialRestrooms > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: industrialRestrooms > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setIndustrialRestrooms(industrialRestrooms + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          {/* Office/Admin Areas */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
+            border: "1px solid rgba(6, 182, 212, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#06b6d4",
+                  marginBottom: "2px",
+                }}>
+                  📋 Office/Admin
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $25 each
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
+                color: "white",
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {officeAreas}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setOfficeAreas(Math.max(0, officeAreas - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: officeAreas > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: officeAreas > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: officeAreas > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setOfficeAreas(officeAreas + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     )}
 
     {/* Navigation Buttons */}
-    <div className="button-row" style={{ display: "flex", gap: "15px" }}>
       <button
         onClick={handleBack}
         style={{
