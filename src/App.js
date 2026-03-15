@@ -675,54 +675,146 @@ export default function CleaningSuOficinaBooking() {
         
         // Apply volume discount
         let volumeDiscount = 0;
-        let volumeLabel = "";
+        let discountPercent = "";
         if (dailyTurnoverNum >= 50) {
           volumeDiscount = 0.15;
-          volumeLabel = " - 15% Volume Discount";
+          discountPercent = "15%";
         } else if (dailyTurnoverNum >= 30) {
           volumeDiscount = 0.10;
-          volumeLabel = " - 10% Volume Discount";
+          discountPercent = "10%";
         } else if (dailyTurnoverNum >= 15) {
           volumeDiscount = 0.05;
-          volumeLabel = " - 5% Volume Discount";
+          discountPercent = "5%";
         }
         
         const discountedMonthlyGuestRooms = baseMonthlyGuestRooms * (1 - volumeDiscount);
+        const discountAmount = baseMonthlyGuestRooms - discountedMonthlyGuestRooms;
         
         breakdown.push({ 
-          label: `Guest Rooms (${dailyTurnoverNum}/day × 30 days${volumeLabel})`, 
-          amount: discountedMonthlyGuestRooms 
+          label: `Guest Rooms (${dailyTurnoverNum}/day × 30 days)`, 
+          amount: discountedMonthlyGuestRooms,
+          originalAmount: volumeDiscount > 0 ? baseMonthlyGuestRooms : null,
+          discountPercent: discountPercent,
+          discountAmount: discountAmount
         });
       }
       
       // Individual facilities with their frequencies
+      const discountRates = {
+        "daily": { rate: -0.20, label: "20%" },
+        "5x-week": { rate: -0.15, label: "15%" },
+        "3x-week": { rate: -0.10, label: "10%" },
+        "2x-week": { rate: -0.05, label: "5%" },
+        "weekly": { rate: 0, label: "" },
+        "bi-weekly": { rate: 0.10, label: "10%" },
+      };
+      
+      const visitsPerMonth = {
+        "daily": 30,
+        "5x-week": 22,
+        "3x-week": 13,
+        "2x-week": 8,
+        "weekly": 4,
+        "bi-weekly": 2,
+      };
+      
       if (commonAreas > 0 && commonAreasFreq) {
+        const visits = visitsPerMonth[commonAreasFreq];
+        const baseCost = commonAreas * 35 * visits;
         const cost = getFacilityMonthlyCost(commonAreas, 35, commonAreasFreq);
-        breakdown.push({ label: `Common Areas (${commonAreasFreq})`, amount: cost });
+        const discountInfo = discountRates[commonAreasFreq];
+        breakdown.push({ 
+          label: `Common Areas (${commonAreasFreq})`, 
+          amount: cost,
+          originalAmount: discountInfo.rate !== 0 ? baseCost : null,
+          discountPercent: discountInfo.label,
+          discountAmount: baseCost - cost,
+          isUpcharge: discountInfo.rate > 0
+        });
       }
       if (diningAreas > 0 && diningAreasFreq) {
+        const visits = visitsPerMonth[diningAreasFreq];
+        const baseCost = diningAreas * 50 * visits;
         const cost = getFacilityMonthlyCost(diningAreas, 50, diningAreasFreq);
-        breakdown.push({ label: `Dining Areas (${diningAreasFreq})`, amount: cost });
+        const discountInfo = discountRates[diningAreasFreq];
+        breakdown.push({ 
+          label: `Dining Areas (${diningAreasFreq})`, 
+          amount: cost,
+          originalAmount: discountInfo.rate !== 0 ? baseCost : null,
+          discountPercent: discountInfo.label,
+          discountAmount: baseCost - cost,
+          isUpcharge: discountInfo.rate > 0
+        });
       }
       if (fitnessCenters > 0 && fitnessCentersFreq) {
+        const visits = visitsPerMonth[fitnessCentersFreq];
+        const baseCost = fitnessCenters * 60 * visits;
         const cost = getFacilityMonthlyCost(fitnessCenters, 60, fitnessCentersFreq);
-        breakdown.push({ label: `Fitness Centers (${fitnessCentersFreq})`, amount: cost });
+        const discountInfo = discountRates[fitnessCentersFreq];
+        breakdown.push({ 
+          label: `Fitness Centers (${fitnessCentersFreq})`, 
+          amount: cost,
+          originalAmount: discountInfo.rate !== 0 ? baseCost : null,
+          discountPercent: discountInfo.label,
+          discountAmount: baseCost - cost,
+          isUpcharge: discountInfo.rate > 0
+        });
       }
       if (poolSpas > 0 && poolSpasFreq) {
+        const visits = visitsPerMonth[poolSpasFreq];
+        const baseCost = poolSpas * 75 * visits;
         const cost = getFacilityMonthlyCost(poolSpas, 75, poolSpasFreq);
-        breakdown.push({ label: `Pool/Spa Areas (${poolSpasFreq})`, amount: cost });
+        const discountInfo = discountRates[poolSpasFreq];
+        breakdown.push({ 
+          label: `Pool/Spa Areas (${poolSpasFreq})`, 
+          amount: cost,
+          originalAmount: discountInfo.rate !== 0 ? baseCost : null,
+          discountPercent: discountInfo.label,
+          discountAmount: baseCost - cost,
+          isUpcharge: discountInfo.rate > 0
+        });
       }
       if (eventSpaces > 0 && eventSpacesFreq) {
+        const visits = visitsPerMonth[eventSpacesFreq];
+        const baseCost = eventSpaces * 100 * visits;
         const cost = getFacilityMonthlyCost(eventSpaces, 100, eventSpacesFreq);
-        breakdown.push({ label: `Event Spaces (${eventSpacesFreq})`, amount: cost });
+        const discountInfo = discountRates[eventSpacesFreq];
+        breakdown.push({ 
+          label: `Event Spaces (${eventSpacesFreq})`, 
+          amount: cost,
+          originalAmount: discountInfo.rate !== 0 ? baseCost : null,
+          discountPercent: discountInfo.label,
+          discountAmount: baseCost - cost,
+          isUpcharge: discountInfo.rate > 0
+        });
       }
       if (laundryRooms > 0 && laundryRoomsFreq) {
+        const visits = visitsPerMonth[laundryRoomsFreq];
+        const baseCost = laundryRooms * 40 * visits;
         const cost = getFacilityMonthlyCost(laundryRooms, 40, laundryRoomsFreq);
-        breakdown.push({ label: `Laundry Rooms (${laundryRoomsFreq})`, amount: cost });
+        const discountInfo = discountRates[laundryRoomsFreq];
+        breakdown.push({ 
+          label: `Laundry Rooms (${laundryRoomsFreq})`, 
+          amount: cost,
+          originalAmount: discountInfo.rate !== 0 ? baseCost : null,
+          discountPercent: discountInfo.label,
+          discountAmount: baseCost - cost,
+          isUpcharge: discountInfo.rate > 0
+        });
       }
       if (lobbyReceptions > 0 && lobbyReceptionsFreq) {
+        const visits = visitsPerMonth[lobbyReceptionsFreq];
+        const baseCost = lobbyReceptions * 55 * visits;
         const cost = getFacilityMonthlyCost(lobbyReceptions, 55, lobbyReceptionsFreq);
-        breakdown.push({ label: `Lobby/Reception (${lobbyReceptionsFreq})`, amount: cost });
+        const discountInfo = discountRates[lobbyReceptionsFreq];
+        breakdown.push({ 
+          label: `Lobby/Reception (${lobbyReceptionsFreq})`, 
+          amount: cost,
+          originalAmount: discountInfo.rate !== 0 ? baseCost : null,
+          discountPercent: discountInfo.label,
+          discountAmount: baseCost - cost,
+          isUpcharge: discountInfo.rate > 0
+        });
       }
     }
     
@@ -5650,7 +5742,7 @@ style={{
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
-                  alignItems: "center",
+                  alignItems: "flex-start",
                   padding: "12px 0",
                   borderBottom: index < getPriceBreakdown().length - 1
                     ? "1px solid rgba(255, 255, 255, 0.1)"
@@ -5661,18 +5753,99 @@ style={{
                   color: "rgba(255, 255, 255, 0.8)",
                   fontSize: "14px",
                   fontWeight: "600",
+                  flex: 1,
                 }}>
                   {item.label}
+                  {item.discountPercent && (
+                    <div style={{
+                      display: "inline-block",
+                      marginLeft: "8px",
+                      padding: "2px 6px",
+                      borderRadius: "4px",
+                      background: item.isUpcharge
+                        ? "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)"
+                        : "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+                      fontSize: "10px",
+                      fontWeight: "900",
+                      color: "white",
+                      letterSpacing: "0.5px",
+                    }}>
+                      {item.isUpcharge ? `+${item.discountPercent}` : `-${item.discountPercent}`}
+                    </div>
+                  )}
                 </div>
                 <div style={{
-                  color: "white",
-                  fontSize: "14px",
-                  fontWeight: "800",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-end",
+                  gap: "2px",
                 }}>
-                  ${item.amount.toFixed(2)}
+                  {item.originalAmount && (
+                    <div style={{
+                      color: "rgba(255, 255, 255, 0.4)",
+                      fontSize: "12px",
+                      fontWeight: "600",
+                      textDecoration: "line-through",
+                    }}>
+                      ${item.originalAmount.toFixed(2)}
+                    </div>
+                  )}
+                  <div style={{
+                    color: item.discountPercent && !item.isUpcharge ? "#10b981" : "white",
+                    fontSize: "14px",
+                    fontWeight: "800",
+                  }}>
+                    ${item.amount.toFixed(2)}
+                  </div>
                 </div>
               </div>
             ))}
+
+            {/* Total Savings - Only for hospitality */}
+            {marketSegment === "hospitality" && (() => {
+              const totalSavings = getPriceBreakdown().reduce((sum, item) => {
+                if (item.discountAmount && !item.isUpcharge) {
+                  return sum + item.discountAmount;
+                }
+                return sum;
+              }, 0);
+              
+              if (totalSavings > 0) {
+                return (
+                  <div style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "14px 16px",
+                    marginTop: "10px",
+                    borderRadius: "10px",
+                    background: "linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.15) 100%)",
+                    border: "1px solid rgba(16, 185, 129, 0.3)",
+                  }}>
+                    <div style={{
+                      color: "#10b981",
+                      fontSize: "14px",
+                      fontWeight: "800",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.5px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                    }}>
+                      ✓ Total Savings
+                    </div>
+                    <div style={{
+                      color: "#10b981",
+                      fontSize: "16px",
+                      fontWeight: "900",
+                    }}>
+                      -${totalSavings.toFixed(2)}
+                    </div>
+                  </div>
+                );
+              }
+              return null;
+            })()}
 
             {/* Subtotal */}
             <div style={{
@@ -6001,29 +6174,113 @@ style={{
             Select services to see pricing
           </div>
         ) : (
-          getPriceBreakdown().map((item, index) => (
-            <div
-              key={index}
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "8px 0",
-                borderBottom: index < getPriceBreakdown().length - 1 ? "1px solid rgba(255, 255, 255, 0.1)" : "none",
-                fontSize: "14px",
-              }}
-            >
-              <div style={{
-                color: "rgba(255, 255, 255, 0.8)",
-                fontWeight: "600",
-              }}>
-                {item.label}
+          <>
+            {getPriceBreakdown().map((item, index) => (
+              <div
+                key={index}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "flex-start",
+                  padding: "8px 0",
+                  borderBottom: index < getPriceBreakdown().length - 1 ? "1px solid rgba(255, 255, 255, 0.1)" : "none",
+                  fontSize: "13px",
+                }}
+              >
+                <div style={{
+                  color: "rgba(255, 255, 255, 0.8)",
+                  fontWeight: "600",
+                  flex: 1,
+                }}>
+                  {item.label}
+                  {item.discountPercent && (
+                    <div style={{
+                      display: "inline-block",
+                      marginLeft: "6px",
+                      padding: "2px 5px",
+                      borderRadius: "3px",
+                      background: item.isUpcharge
+                        ? "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)"
+                        : "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+                      fontSize: "9px",
+                      fontWeight: "900",
+                      color: "white",
+                      letterSpacing: "0.3px",
+                    }}>
+                      {item.isUpcharge ? `+${item.discountPercent}` : `-${item.discountPercent}`}
+                    </div>
+                  )}
+                </div>
+                <div style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-end",
+                  gap: "2px",
+                }}>
+                  {item.originalAmount && (
+                    <div style={{
+                      color: "rgba(255, 255, 255, 0.4)",
+                      fontSize: "11px",
+                      fontWeight: "600",
+                      textDecoration: "line-through",
+                    }}>
+                      ${item.originalAmount.toFixed(2)}
+                    </div>
+                  )}
+                  <div style={{
+                    color: item.discountPercent && !item.isUpcharge ? "#10b981" : "white",
+                    fontWeight: "800",
+                    fontSize: "13px",
+                  }}>
+                    ${item.amount.toFixed(2)}
+                  </div>
+                </div>
               </div>
-              <div style={{ color: "white", fontWeight: "800" }}>
-                ${item.amount.toFixed(2)}
-              </div>
-            </div>
-          ))
+            ))}
+            
+            {/* Total Savings - Mobile */}
+            {marketSegment === "hospitality" && (() => {
+              const totalSavings = getPriceBreakdown().reduce((sum, item) => {
+                if (item.discountAmount && !item.isUpcharge) {
+                  return sum + item.discountAmount;
+                }
+                return sum;
+              }, 0);
+              
+              if (totalSavings > 0) {
+                return (
+                  <div style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "10px 12px",
+                    marginTop: "8px",
+                    borderRadius: "8px",
+                    background: "linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.15) 100%)",
+                    border: "1px solid rgba(16, 185, 129, 0.3)",
+                  }}>
+                    <div style={{
+                      color: "#10b981",
+                      fontSize: "12px",
+                      fontWeight: "800",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.5px",
+                    }}>
+                      ✓ Total Savings
+                    </div>
+                    <div style={{
+                      color: "#10b981",
+                      fontSize: "14px",
+                      fontWeight: "900",
+                    }}>
+                      -${totalSavings.toFixed(2)}
+                    </div>
+                  </div>
+                );
+              }
+              return null;
+            })()}
+          </>
         )}
       </div>
     </div>
