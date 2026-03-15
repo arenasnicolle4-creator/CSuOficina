@@ -54,6 +54,21 @@ export default function CleaningSuOficinaBooking() {
   const [laundryRooms, setLaundryRooms] = useState(0);
   const [lobbyReceptions, setLobbyReceptions] = useState(0);
   
+  // Hospitality - Guest Room Builder
+  const [showGuestRoomModal, setShowGuestRoomModal] = useState(false);
+  const [guestRoomConfigs, setGuestRoomConfigs] = useState([]); // Array of room configurations
+  const [dailyTurnover, setDailyTurnover] = useState(""); // How many rooms cleaned per day
+  
+  // Modal builder state
+  const [modalTemplate, setModalTemplate] = useState("");
+  const [modalBeds, setModalBeds] = useState(1);
+  const [modalBathrooms, setModalBathrooms] = useState(1);
+  const [modalKitchen, setModalKitchen] = useState("none");
+  const [modalSize, setModalSize] = useState("medium");
+  const [modalLivingArea, setModalLivingArea] = useState(false);
+  const [modalQuantity, setModalQuantity] = useState(1);
+  const [editingIndex, setEditingIndex] = useState(null); // For editing existing configs
+  
   // Retail
   const [fittingRooms, setFittingRooms] = useState(0);
   const [showroomDisplays, setShowroomDisplays] = useState(0);
@@ -273,6 +288,155 @@ export default function CleaningSuOficinaBooking() {
     }
   };
 
+  // Guest Room Builder Functions
+  const calculateGuestRoomPrice = (config) => {
+    let basePrice = 25; // Starting base
+    
+    // Bed pricing
+    if (config.beds === 0) basePrice += 10; // Studio
+    else if (config.beds === 1) basePrice += 15;
+    else if (config.beds === 2) basePrice += 25;
+    else basePrice += 35; // 3+ beds
+    
+    // Bathroom pricing
+    if (config.bathrooms === 1) basePrice += 10;
+    else if (config.bathrooms === 1.5) basePrice += 15;
+    else if (config.bathrooms === 2) basePrice += 20;
+    else basePrice += 25; // 2.5+
+    
+    // Kitchen pricing
+    if (config.kitchen === "kitchenette") basePrice += 8;
+    else if (config.kitchen === "full") basePrice += 15;
+    
+    // Size pricing
+    if (config.size === "small") basePrice += 0;
+    else if (config.size === "medium") basePrice += 5;
+    else if (config.size === "large") basePrice += 10;
+    else basePrice += 15; // XL
+    
+    // Living area pricing
+    if (config.livingArea) basePrice += 12;
+    
+    return basePrice;
+  };
+
+  const getRoomTypeLabel = (config) => {
+    let label = "";
+    
+    if (config.beds === 0) label = "Studio";
+    else if (config.beds === 1) label = "1-Bed";
+    else if (config.beds === 2) label = "2-Bed";
+    else label = `${config.beds}-Bed`;
+    
+    if (config.livingArea) label += " Suite";
+    
+    if (config.kitchen === "kitchenette") label += " + Kitchenette";
+    else if (config.kitchen === "full") label += " + Kitchen";
+    
+    label += ` (${config.bathrooms} bath${config.bathrooms > 1 ? 's' : ''})`;
+    
+    return label;
+  };
+
+  const applyTemplate = (template) => {
+    setModalTemplate(template);
+    
+    switch(template) {
+      case "studio":
+        setModalBeds(0);
+        setModalBathrooms(1);
+        setModalKitchen("kitchenette");
+        setModalSize("small");
+        setModalLivingArea(false);
+        break;
+      case "standard":
+        setModalBeds(2);
+        setModalBathrooms(1);
+        setModalKitchen("none");
+        setModalSize("medium");
+        setModalLivingArea(false);
+        break;
+      case "deluxe":
+        setModalBeds(2);
+        setModalBathrooms(1);
+        setModalKitchen("none");
+        setModalSize("large");
+        setModalLivingArea(false);
+        break;
+      case "suite":
+        setModalBeds(1);
+        setModalBathrooms(1.5);
+        setModalKitchen("kitchenette");
+        setModalSize("large");
+        setModalLivingArea(true);
+        break;
+      case "custom":
+        setModalBeds(1);
+        setModalBathrooms(1);
+        setModalKitchen("none");
+        setModalSize("medium");
+        setModalLivingArea(false);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const saveGuestRoomConfig = () => {
+    const config = {
+      beds: modalBeds,
+      bathrooms: modalBathrooms,
+      kitchen: modalKitchen,
+      size: modalSize,
+      livingArea: modalLivingArea,
+      quantity: modalQuantity,
+      pricePerClean: calculateGuestRoomPrice({
+        beds: modalBeds,
+        bathrooms: modalBathrooms,
+        kitchen: modalKitchen,
+        size: modalSize,
+        livingArea: modalLivingArea
+      })
+    };
+    
+    if (editingIndex !== null) {
+      // Update existing config
+      const updated = [...guestRoomConfigs];
+      updated[editingIndex] = config;
+      setGuestRoomConfigs(updated);
+      setEditingIndex(null);
+    } else {
+      // Add new config
+      setGuestRoomConfigs([...guestRoomConfigs, config]);
+    }
+    
+    // Reset modal
+    setShowGuestRoomModal(false);
+    setModalTemplate("");
+    setModalBeds(1);
+    setModalBathrooms(1);
+    setModalKitchen("none");
+    setModalSize("medium");
+    setModalLivingArea(false);
+    setModalQuantity(1);
+  };
+
+  const deleteGuestRoomConfig = (index) => {
+    setGuestRoomConfigs(guestRoomConfigs.filter((_, i) => i !== index));
+  };
+
+  const editGuestRoomConfig = (index) => {
+    const config = guestRoomConfigs[index];
+    setModalBeds(config.beds);
+    setModalBathrooms(config.bathrooms);
+    setModalKitchen(config.kitchen);
+    setModalSize(config.size);
+    setModalLivingArea(config.livingArea);
+    setModalQuantity(config.quantity);
+    setEditingIndex(index);
+    setShowGuestRoomModal(true);
+  };
+
   // Get the per-sqft rate based on size tier
   const getRateForSquareFeet = (sqft, segment) => {
     if (!segment || !sqft) return 0;
@@ -306,10 +470,24 @@ export default function CleaningSuOficinaBooking() {
       total += procedureRooms * PRICING.rooms.procedureRoom;
       total += restrooms * PRICING.rooms.restroom;
     } else if (marketSegment === "hospitality") {
-      total += guestRooms * PRICING.rooms.guestRoom;
+      // Guest room configurations with daily turnover
+      if (guestRoomConfigs.length > 0 && dailyTurnover) {
+        const dailyTurnoverNum = parseInt(dailyTurnover) || 0;
+        const totalGuestRoomCost = guestRoomConfigs.reduce((sum, config) => {
+          return sum + (config.quantity * config.pricePerClean);
+        }, 0);
+        // Monthly cost = (rooms cleaned per day) × 30 days × (price per clean)
+        total += (dailyTurnoverNum * 30 * totalGuestRoomCost) / guestRoomConfigs.reduce((sum, c) => sum + c.quantity, 0);
+      }
+      
+      // Other hospitality areas (cleaned per service visit)
       total += commonAreas * PRICING.rooms.commonArea;
       total += diningAreas * PRICING.rooms.diningArea;
-      total += restrooms * PRICING.rooms.restroom;
+      total += fitnessCenters * 60;
+      total += poolSpas * 75;
+      total += eventSpaces * 100;
+      total += laundryRooms * 40;
+      total += lobbyReceptions * 55;
     }
     
     // Add-ons (one-time per visit costs)
@@ -1590,65 +1768,6 @@ style={{
         </div>
       </div>
 
-      {/* Tier Guide */}
-      <div style={{
-        marginTop: "20px",
-        padding: "15px",
-        borderRadius: "12px",
-        background: "rgba(255, 255, 255, 0.02)",
-        border: "1px solid rgba(255, 255, 255, 0.05)",
-      }}>
-        <div style={{
-          fontSize: "11px",
-          fontWeight: "700",
-          color: "#B87333",
-          marginBottom: "10px",
-          letterSpacing: "1px",
-          textTransform: "uppercase",
-        }}>
-          💡 Pricing Tiers {marketSegment && `(${marketSegment.charAt(0).toUpperCase() + marketSegment.slice(1)})`}
-        </div>
-        {marketSegment && PRICING.baseRatesTiered[marketSegment] && (
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
-            gap: "8px",
-            fontSize: "11px",
-            color: "rgba(255, 255, 255, 0.7)",
-            fontWeight: "600",
-          }}>
-            {PRICING.baseRatesTiered[marketSegment].filter(tier => tier.max !== Infinity).map((tier, idx, arr) => {
-              const prevMax = idx === 0 ? 0 : arr[idx - 1].max;
-              return (
-                <div key={idx} style={{
-                  padding: "8px",
-                  borderRadius: "8px",
-                  background: parseInt(squareFeet || 0) > prevMax && parseInt(squareFeet || 0) <= tier.max
-                    ? "rgba(143, 170, 184, 0.15)"
-                    : "rgba(255, 255, 255, 0.02)",
-                  border: parseInt(squareFeet || 0) > prevMax && parseInt(squareFeet || 0) <= tier.max
-                    ? "1px solid rgba(143, 170, 184, 0.3)"
-                    : "1px solid transparent",
-                }}>
-                  {prevMax + 1}-{tier.max.toLocaleString()}: <span style={{ color: "#B87333", fontWeight: "800" }}>${tier.rate.toFixed(2)}/sqft</span>
-                </div>
-              );
-            })}
-            <div style={{
-              padding: "8px",
-              borderRadius: "8px",
-              background: parseInt(squareFeet || 0) > PRICING.baseRatesTiered[marketSegment][PRICING.baseRatesTiered[marketSegment].length - 2].max
-                ? "rgba(143, 170, 184, 0.15)"
-                : "rgba(255, 255, 255, 0.02)",
-              border: parseInt(squareFeet || 0) > PRICING.baseRatesTiered[marketSegment][PRICING.baseRatesTiered[marketSegment].length - 2].max
-                ? "1px solid rgba(143, 170, 184, 0.3)"
-                : "1px solid transparent",
-            }}>
-              {(PRICING.baseRatesTiered[marketSegment][PRICING.baseRatesTiered[marketSegment].length - 2].max + 1).toLocaleString()}+: <span style={{ color: "#B87333", fontWeight: "800" }}>${PRICING.baseRatesTiered[marketSegment][PRICING.baseRatesTiered[marketSegment].length - 1].rate.toFixed(2)}/sqft</span>
-            </div>
-          </div>
-        )}
-      </div>
     </div>
 
     {/* Cleaning Frequency */}
@@ -3062,89 +3181,163 @@ style={{
           gridTemplateColumns: "repeat(2, 1fr)",
           gap: "12px",
         }}>
-          {/* Guest Rooms */}
+          {/* Guest Rooms - Configure Button */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
-            border: "1px solid rgba(184, 115, 51, 0.2)",
+            gridColumn: "1 / -1", // Full width
+            background: "linear-gradient(135deg, rgba(184, 115, 51, 0.12) 0%, rgba(143, 170, 184, 0.12) 100%)",
+            border: "2px dashed rgba(184, 115, 51, 0.4)",
             borderRadius: "16px",
-            padding: "16px",
+            padding: "20px",
             display: "flex",
             flexDirection: "column",
-            gap: "10px",
+            gap: "15px",
           }}>
-            <div style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}>
-              <div>
-                <div style={{
-                  fontSize: "14px",
-                  fontWeight: "800",
-                  color: "#B87333",
-                  marginBottom: "2px",
-                }}>
-                  🛏️ Guest Rooms
-                </div>
-                <div style={{
-                  fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.6)",
-                  fontWeight: "600",
-                }}>
-                  $45 each
-                </div>
-              </div>
-              <div style={{
-                fontSize: "24px",
-                fontWeight: "900",
+            <button
+              onClick={() => {
+                setEditingIndex(null);
+                setShowGuestRoomModal(true);
+              }}
+              style={{
+                padding: "16px",
+                borderRadius: "12px",
+                border: "none",
+                background: "linear-gradient(135deg, #B87333 0%, #D4955A 100%)",
                 color: "white",
-                minWidth: "40px",
-                textAlign: "right",
+                fontSize: "15px",
+                fontWeight: "800",
+                cursor: "pointer",
+                transition: "all 0.3s ease",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "10px",
+              }}
+            >
+              🛏️ Configure Guest Rooms
+            </button>
+            
+            {/* List of configured room types */}
+            {guestRoomConfigs.length > 0 && (
+              <div style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "8px",
               }}>
-                {guestRooms}
+                {guestRoomConfigs.map((config, index) => (
+                  <div
+                    key={index}
+                    style={{
+                      background: "rgba(255, 255, 255, 0.05)",
+                      borderRadius: "10px",
+                      padding: "12px 15px",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      border: "1px solid rgba(255, 255, 255, 0.1)",
+                    }}
+                  >
+                    <div style={{ flex: 1 }}>
+                      <div style={{
+                        fontSize: "13px",
+                        fontWeight: "700",
+                        color: "white",
+                        marginBottom: "3px",
+                      }}>
+                        {getRoomTypeLabel(config)} × {config.quantity}
+                      </div>
+                      <div style={{
+                        fontSize: "11px",
+                        color: "rgba(255, 255, 255, 0.6)",
+                        fontWeight: "600",
+                      }}>
+                        ${config.pricePerClean}/clean × {config.quantity} = ${config.pricePerClean * config.quantity}/clean
+                      </div>
+                    </div>
+                    <div style={{ display: "flex", gap: "8px" }}>
+                      <button
+                        onClick={() => editGuestRoomConfig(index)}
+                        style={{
+                          padding: "6px 12px",
+                          borderRadius: "6px",
+                          border: "none",
+                          background: "rgba(184, 115, 51, 0.2)",
+                          color: "#D4955A",
+                          fontSize: "11px",
+                          fontWeight: "700",
+                          cursor: "pointer",
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => deleteGuestRoomConfig(index)}
+                        style={{
+                          padding: "6px 12px",
+                          borderRadius: "6px",
+                          border: "none",
+                          background: "rgba(239, 68, 68, 0.2)",
+                          color: "#ef4444",
+                          fontSize: "11px",
+                          fontWeight: "700",
+                          cursor: "pointer",
+                        }}
+                      >
+                        ×
+                      </button>
+                    </div>
+                  </div>
+                ))}
               </div>
-            </div>
-            <div style={{
-              display: "flex",
-              gap: "8px",
-            }}>
-              <button
-                onClick={() => setGuestRooms(Math.max(0, guestRooms - 1))}
-                style={{
-                  flex: 1,
-                  padding: "10px",
-                  borderRadius: "10px",
-                  border: "none",
-                  background: guestRooms > 0 
-                    ? "rgba(239, 68, 68, 0.15)" 
-                    : "rgba(255, 255, 255, 0.05)",
-                  color: guestRooms > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
-                  fontSize: "18px",
-                  fontWeight: "900",
-                  cursor: guestRooms > 0 ? "pointer" : "not-allowed",
-                  transition: "all 0.2s ease",
-                }}
-              >
-                −
-              </button>
-              <button
-                onClick={() => setGuestRooms(guestRooms + 1)}
-                style={{
-                  flex: 1,
-                  padding: "10px",
-                  borderRadius: "10px",
-                  border: "none",
-                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
-                  color: "white",
-                  fontSize: "18px",
-                  fontWeight: "900",
-                  cursor: "pointer",
-                  transition: "all 0.2s ease",
-                }}
-              >
-                +
-              </button>
-            </div>
+            )}
+            
+            {/* Daily Turnover Input - Only show if guest rooms configured */}
+            {guestRoomConfigs.length > 0 && (
+              <div style={{
+                marginTop: "5px",
+                padding: "15px",
+                background: "rgba(143, 170, 184, 0.08)",
+                borderRadius: "10px",
+                border: "1px solid rgba(143, 170, 184, 0.2)",
+              }}>
+                <label style={{
+                  fontSize: "12px",
+                  fontWeight: "700",
+                  color: "#B87333",
+                  marginBottom: "8px",
+                  display: "block",
+                  letterSpacing: "0.5px",
+                  textTransform: "uppercase",
+                }}>
+                  📊 Average Rooms Cleaned Per Day *
+                </label>
+                <input
+                  type="number"
+                  value={dailyTurnover}
+                  onChange={(e) => setDailyTurnover(e.target.value)}
+                  placeholder="e.g., 25"
+                  min="1"
+                  style={{
+                    width: "100%",
+                    padding: "12px 15px",
+                    borderRadius: "10px",
+                    border: "2px solid rgba(184, 115, 51, 0.3)",
+                    background: "rgba(255, 255, 255, 0.05)",
+                    color: "white",
+                    fontSize: "14px",
+                    fontWeight: "600",
+                    outline: "none",
+                  }}
+                />
+                <div style={{
+                  fontSize: "10px",
+                  color: "rgba(255, 255, 255, 0.5)",
+                  marginTop: "6px",
+                  fontStyle: "italic",
+                }}>
+                  How many rooms are typically cleaned/turned over each day?
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Common Areas */}
@@ -5466,6 +5659,444 @@ style={{
               </div>
             </div>
           ))
+        )}
+      </div>
+    </div>
+  </div>
+)}
+
+{/* Guest Room Builder Modal */}
+{showGuestRoomModal && (
+  <div style={{
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: "rgba(0, 0, 0, 0.85)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 9999,
+    padding: "20px",
+    overflowY: "auto",
+  }}>
+    <div style={{
+      background: "linear-gradient(135deg, #2E3A47 0%, #1A252F 100%)",
+      borderRadius: "24px",
+      padding: "40px 35px",
+      maxWidth: "700px",
+      width: "100%",
+      maxHeight: "90vh",
+      overflowY: "auto",
+      border: "1px solid rgba(184, 115, 51, 0.3)",
+      boxShadow: "0 30px 80px rgba(0, 0, 0, 0.7)",
+    }}>
+      <h2 style={{
+        fontSize: "26px",
+        fontWeight: "900",
+        color: "white",
+        marginBottom: "8px",
+        letterSpacing: "-0.5px",
+      }}>
+        🛏️ Configure Guest Room
+      </h2>
+      <p style={{
+        fontSize: "14px",
+        color: "rgba(255, 255, 255, 0.6)",
+        marginBottom: "30px",
+        fontWeight: "600",
+      }}>
+        Choose a template or build custom
+      </p>
+      
+      {/* Templates */}
+      {!modalTemplate && (
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(2, 1fr)",
+          gap: "12px",
+          marginBottom: "30px",
+        }}>
+          {[
+            { id: "studio", label: "🏢 Studio", desc: "Kitchenette, 1 bath" },
+            { id: "standard", label: "🏨 Standard", desc: "2 beds, 1 bath" },
+            { id: "deluxe", label: "✨ Deluxe", desc: "2 beds, larger room" },
+            { id: "suite", label: "🏰 Suite", desc: "Bedroom + living area" },
+            { id: "custom", label: "🎯 Custom", desc: "Build from scratch" },
+          ].map(template => (
+            <button
+              key={template.id}
+              onClick={() => applyTemplate(template.id)}
+              style={{
+                padding: "18px 16px",
+                borderRadius: "14px",
+                border: "2px solid rgba(184, 115, 51, 0.3)",
+                background: "rgba(255, 255, 255, 0.05)",
+                color: "white",
+                cursor: "pointer",
+                transition: "all 0.3s ease",
+                textAlign: "left",
+              }}
+            >
+              <div style={{ fontSize: "16px", fontWeight: "800", marginBottom: "4px" }}>
+                {template.label}
+              </div>
+              <div style={{ fontSize: "11px", color: "rgba(255, 255, 255, 0.5)", fontWeight: "600" }}>
+                {template.desc}
+              </div>
+            </button>
+          ))}
+        </div>
+      )}
+      
+      {/* Customization Options */}
+      {modalTemplate && (
+        <div style={{ marginBottom: "25px" }}>
+          {/* Beds */}
+          <div style={{ marginBottom: "20px" }}>
+            <label style={{
+              fontSize: "12px",
+              fontWeight: "700",
+              color: "#B87333",
+              marginBottom: "10px",
+              display: "block",
+              letterSpacing: "0.5px",
+              textTransform: "uppercase",
+            }}>
+              🛏️ Beds
+            </label>
+            <div style={{ display: "flex", gap: "8px" }}>
+              {[0, 1, 2, 3].map(num => (
+                <button
+                  key={num}
+                  onClick={() => setModalBeds(num)}
+                  style={{
+                    flex: 1,
+                    padding: "12px",
+                    borderRadius: "10px",
+                    border: modalBeds === num ? "2px solid #D4955A" : "2px solid rgba(255, 255, 255, 0.1)",
+                    background: modalBeds === num ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
+                    color: "white",
+                    fontSize: "14px",
+                    fontWeight: "800",
+                    cursor: "pointer",
+                  }}
+                >
+                  {num === 0 ? "Studio" : num}
+                </button>
+              ))}
+            </div>
+          </div>
+          
+          {/* Bathrooms */}
+          <div style={{ marginBottom: "20px" }}>
+            <label style={{
+              fontSize: "12px",
+              fontWeight: "700",
+              color: "#B87333",
+              marginBottom: "10px",
+              display: "block",
+              letterSpacing: "0.5px",
+              textTransform: "uppercase",
+            }}>
+              🚿 Bathrooms
+            </label>
+            <div style={{ display: "flex", gap: "8px" }}>
+              {[1, 1.5, 2, 2.5].map(num => (
+                <button
+                  key={num}
+                  onClick={() => setModalBathrooms(num)}
+                  style={{
+                    flex: 1,
+                    padding: "12px",
+                    borderRadius: "10px",
+                    border: modalBathrooms === num ? "2px solid #D4955A" : "2px solid rgba(255, 255, 255, 0.1)",
+                    background: modalBathrooms === num ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
+                    color: "white",
+                    fontSize: "14px",
+                    fontWeight: "800",
+                    cursor: "pointer",
+                  }}
+                >
+                  {num}
+                </button>
+              ))}
+            </div>
+          </div>
+          
+          {/* Kitchen */}
+          <div style={{ marginBottom: "20px" }}>
+            <label style={{
+              fontSize: "12px",
+              fontWeight: "700",
+              color: "#B87333",
+              marginBottom: "10px",
+              display: "block",
+              letterSpacing: "0.5px",
+              textTransform: "uppercase",
+            }}>
+              🍳 Kitchen
+            </label>
+            <div style={{ display: "flex", gap: "8px" }}>
+              {[
+                { value: "none", label: "None" },
+                { value: "kitchenette", label: "Kitchenette" },
+                { value: "full", label: "Full Kitchen" },
+              ].map(option => (
+                <button
+                  key={option.value}
+                  onClick={() => setModalKitchen(option.value)}
+                  style={{
+                    flex: 1,
+                    padding: "12px",
+                    borderRadius: "10px",
+                    border: modalKitchen === option.value ? "2px solid #D4955A" : "2px solid rgba(255, 255, 255, 0.1)",
+                    background: modalKitchen === option.value ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
+                    color: "white",
+                    fontSize: "13px",
+                    fontWeight: "800",
+                    cursor: "pointer",
+                  }}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+          </div>
+          
+          {/* Size */}
+          <div style={{ marginBottom: "20px" }}>
+            <label style={{
+              fontSize: "12px",
+              fontWeight: "700",
+              color: "#B87333",
+              marginBottom: "10px",
+              display: "block",
+              letterSpacing: "0.5px",
+              textTransform: "uppercase",
+            }}>
+              📏 Room Size
+            </label>
+            <div style={{ display: "flex", gap: "8px" }}>
+              {[
+                { value: "small", label: "Small\n<300 sqft" },
+                { value: "medium", label: "Medium\n300-500" },
+                { value: "large", label: "Large\n500-800" },
+                { value: "xl", label: "XL\n800+" },
+              ].map(option => (
+                <button
+                  key={option.value}
+                  onClick={() => setModalSize(option.value)}
+                  style={{
+                    flex: 1,
+                    padding: "12px 8px",
+                    borderRadius: "10px",
+                    border: modalSize === option.value ? "2px solid #D4955A" : "2px solid rgba(255, 255, 255, 0.1)",
+                    background: modalSize === option.value ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
+                    color: "white",
+                    fontSize: "11px",
+                    fontWeight: "800",
+                    cursor: "pointer",
+                    whiteSpace: "pre-line",
+                    lineHeight: "1.3",
+                  }}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+          </div>
+          
+          {/* Living Area Toggle */}
+          <div style={{ marginBottom: "20px" }}>
+            <button
+              onClick={() => setModalLivingArea(!modalLivingArea)}
+              style={{
+                width: "100%",
+                padding: "16px",
+                borderRadius: "12px",
+                border: modalLivingArea ? "2px solid #D4955A" : "2px solid rgba(255, 255, 255, 0.1)",
+                background: modalLivingArea ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
+                color: "white",
+                fontSize: "14px",
+                fontWeight: "800",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <span>🛋️ Separate Living Area</span>
+              <span style={{ fontSize: "20px" }}>{modalLivingArea ? "✓" : ""}</span>
+            </button>
+          </div>
+          
+          {/* Price Preview */}
+          <div style={{
+            background: "rgba(184, 115, 51, 0.15)",
+            border: "1px solid rgba(184, 115, 51, 0.3)",
+            borderRadius: "12px",
+            padding: "16px",
+            marginBottom: "25px",
+          }}>
+            <div style={{ fontSize: "12px", color: "rgba(255, 255, 255, 0.6)", marginBottom: "8px", fontWeight: "600" }}>
+              Price per clean:
+            </div>
+            <div style={{ fontSize: "32px", fontWeight: "900", color: "#D4955A" }}>
+              ${calculateGuestRoomPrice({
+                beds: modalBeds,
+                bathrooms: modalBathrooms,
+                kitchen: modalKitchen,
+                size: modalSize,
+                livingArea: modalLivingArea
+              })}
+            </div>
+            <div style={{ fontSize: "11px", color: "rgba(255, 255, 255, 0.5)", marginTop: "4px", fontWeight: "600" }}>
+              {getRoomTypeLabel({
+                beds: modalBeds,
+                bathrooms: modalBathrooms,
+                kitchen: modalKitchen,
+                size: modalSize,
+                livingArea: modalLivingArea
+              })}
+            </div>
+          </div>
+          
+          {/* Quantity */}
+          <div style={{ marginBottom: "25px" }}>
+            <label style={{
+              fontSize: "12px",
+              fontWeight: "700",
+              color: "#B87333",
+              marginBottom: "10px",
+              display: "block",
+              letterSpacing: "0.5px",
+              textTransform: "uppercase",
+            }}>
+              📊 How many of these rooms?
+            </label>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              background: "rgba(255, 255, 255, 0.05)",
+              padding: "16px",
+              borderRadius: "12px",
+            }}>
+              <button
+                onClick={() => setModalQuantity(Math.max(1, modalQuantity - 10))}
+                style={{
+                  padding: "10px 16px",
+                  borderRadius: "8px",
+                  border: "none",
+                  background: "rgba(239, 68, 68, 0.2)",
+                  color: "#ef4444",
+                  fontSize: "16px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                }}
+              >
+                -10
+              </button>
+              <button
+                onClick={() => setModalQuantity(Math.max(1, modalQuantity - 1))}
+                style={{
+                  padding: "10px 16px",
+                  borderRadius: "8px",
+                  border: "none",
+                  background: "rgba(239, 68, 68, 0.2)",
+                  color: "#ef4444",
+                  fontSize: "16px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                }}
+              >
+                -1
+              </button>
+              <div style={{
+                flex: 1,
+                textAlign: "center",
+                fontSize: "28px",
+                fontWeight: "900",
+                color: "white",
+              }}>
+                {modalQuantity}
+              </div>
+              <button
+                onClick={() => setModalQuantity(modalQuantity + 1)}
+                style={{
+                  padding: "10px 16px",
+                  borderRadius: "8px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #B87333, #D4955A)",
+                  color: "white",
+                  fontSize: "16px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                }}
+              >
+                +1
+              </button>
+              <button
+                onClick={() => setModalQuantity(modalQuantity + 10)}
+                style={{
+                  padding: "10px 16px",
+                  borderRadius: "8px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #B87333, #D4955A)",
+                  color: "white",
+                  fontSize: "16px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                }}
+              >
+                +10
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {/* Buttons */}
+      <div style={{ display: "flex", gap: "12px" }}>
+        <button
+          onClick={() => {
+            setShowGuestRoomModal(false);
+            setModalTemplate("");
+            setEditingIndex(null);
+          }}
+          style={{
+            flex: 1,
+            padding: "16px",
+            borderRadius: "12px",
+            border: "2px solid rgba(255, 255, 255, 0.2)",
+            background: "transparent",
+            color: "white",
+            fontSize: "15px",
+            fontWeight: "800",
+            cursor: "pointer",
+          }}
+        >
+          Cancel
+        </button>
+        {modalTemplate && (
+          <button
+            onClick={saveGuestRoomConfig}
+            style={{
+              flex: 1,
+              padding: "16px",
+              borderRadius: "12px",
+              border: "none",
+              background: "linear-gradient(135deg, #B87333, #D4955A)",
+              color: "white",
+              fontSize: "15px",
+              fontWeight: "800",
+              cursor: "pointer",
+            }}
+          >
+            {editingIndex !== null ? "Update Room Type" : "Add Room Type"}
+          </button>
         )}
       </div>
     </div>
