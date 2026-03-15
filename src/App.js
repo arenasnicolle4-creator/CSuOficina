@@ -483,12 +483,12 @@ export default function CleaningSuOficinaBooking() {
     ref={formTopRef}
     style={{
         minHeight: "100vh",
-        backgroundColor: "#020c1f",
+        backgroundColor: "#0F171E",
         backgroundImage: `
-          radial-gradient(circle at 20% 30%, rgba(5,53,116,0.55) 0%, transparent 45%),
-          radial-gradient(circle at 80% 68%, rgba(10,79,168,0.45) 0%, transparent 40%),
-          radial-gradient(circle at 55% 8%, rgba(93,235,241,0.06) 0%, transparent 30%),
-          radial-gradient(ellipse at 5% 88%, rgba(5,53,116,0.4) 0%, transparent 40%),
+          radial-gradient(circle at 20% 30%, rgba(46,58,71,0.55) 0%, transparent 45%),
+          radial-gradient(circle at 80% 68%, rgba(61,79,92,0.45) 0%, transparent 40%),
+          radial-gradient(circle at 55% 8%, rgba(184,115,51,0.06) 0%, transparent 30%),
+          radial-gradient(ellipse at 5% 88%, rgba(46,58,71,0.4) 0%, transparent 40%),
           radial-gradient(circle 1px at center, rgba(255,255,255,0.07) 0%, transparent 100%)
         `,
         backgroundSize: "100% 100%, 100% 100%, 100% 100%, 100% 100%, 26px 26px",
@@ -524,9 +524,9 @@ transform: translateY(-4px) scale(1.02);
 box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 .service-card.selected {
-background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
-border: 2px solid #0ea5e9;
-box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
+background: linear-gradient(135deg, #B87333 0%, #D4955A 100%);
+border: 2px solid #D4955A;
+box-shadow: 0 10px 30px rgba(212, 149, 90, 0.3);
 }
 
 .counter-btn {
@@ -628,8 +628,8 @@ transform: scale(0.95);
 /* Glow text effect for title */
 .glow-text {
 color: white;
-text-shadow: 0 0 20px rgba(6, 182, 212, 0.6), 0 0 40px rgba(6, 182, 212, 0.4),
-  0 0 60px rgba(6, 182, 212, 0.2);
+text-shadow: 0 0 20px rgba(184, 115, 51, 0.6), 0 0 40px rgba(184, 115, 51, 0.4),
+  0 0 60px rgba(184, 115, 51, 0.2);
 }
 
 .hero-orb {
@@ -645,7 +645,7 @@ height: 600px;
 top: 50%;
 left: 50%;
 transform: translate(-50%, -50%);
-background: radial-gradient(circle, rgba(5,53,116,0.18) 0%, transparent 70%);
+background: radial-gradient(circle, rgba(46,58,71,0.18) 0%, transparent 70%);
 animation: porb 7s ease-in-out infinite;
 }
 
@@ -654,7 +654,7 @@ width: 320px;
 height: 320px;
 top: 8%;
 right: 5%;
-background: radial-gradient(circle, rgba(5,53,116,0.14) 0%, transparent 70%);
+background: radial-gradient(circle, rgba(46,58,71,0.14) 0%, transparent 70%);
 animation: porb2 9s ease-in-out infinite reverse;
 }
 
@@ -663,7 +663,7 @@ width: 220px;
 height: 220px;
 bottom: 12%;
 left: 5%;
-background: radial-gradient(circle, rgba(93,235,241,0.09) 0%, transparent 70%);
+background: radial-gradient(circle, rgba(143,170,184,0.09) 0%, transparent 70%);
 animation: porb2 6s ease-in-out infinite;
 }
 
@@ -707,7 +707,7 @@ z-index: 0;
 .dot-p {
 position: absolute;
 border-radius: 50%;
-background: #7dd3fc;
+background: #D4955A;
 opacity: 0.2;
 animation: pdrift linear infinite;
 }
@@ -747,13 +747,13 @@ zIndex: 0
 
 <div className="hero-rings">
 <svg width="520" height="520" style={{position:"absolute",top:"-90px",left:"30%",opacity:0.45}} viewBox="0 0 520 520">
-  <circle cx="260" cy="260" r="220" fill="none" stroke="#053574" strokeWidth="1"/>
-  <circle cx="260" cy="260" r="175" fill="none" stroke="#053574" strokeWidth="0.6"/>
-  <circle cx="260" cy="260" r="130" fill="none" stroke="#053574" strokeWidth="0.6"/>
+  <circle cx="260" cy="260" r="220" fill="none" stroke="#2E3A47" strokeWidth="1"/>
+  <circle cx="260" cy="260" r="175" fill="none" stroke="#2E3A47" strokeWidth="0.6"/>
+  <circle cx="260" cy="260" r="130" fill="none" stroke="#2E3A47" strokeWidth="0.6"/>
 </svg>
 <svg width="280" height="280" style={{position:"absolute",bottom:"-50px",right:"5%",opacity:0.35}} viewBox="0 0 280 280">
-  <circle cx="140" cy="140" r="115" fill="none" stroke="#053574" strokeWidth="1"/>
-  <circle cx="140" cy="140" r="75" fill="none" stroke="#053574" strokeWidth="0.6"/>
+  <circle cx="140" cy="140" r="115" fill="none" stroke="#2E3A47" strokeWidth="1"/>
+  <circle cx="140" cy="140" r="75" fill="none" stroke="#2E3A47" strokeWidth="0.6"/>
 </svg>
 </div>
 
@@ -784,7 +784,7 @@ style={{
 <div
 className="form-card-animated"
 style={{
-  backgroundColor: "#020c1f",
+  backgroundColor: "#0F171E",
   backgroundImage: `
     radial-gradient(circle at 20% 30%, rgba(5,53,116,0.55) 0%, transparent 45%),
     radial-gradient(circle at 80% 68%, rgba(10,79,168,0.45) 0%, transparent 40%),
@@ -820,7 +820,7 @@ style={{
   right: 0,
   bottom: 0,
   background:
-  "radial-gradient(circle at 50% 50%, rgba(14, 165, 233, 0.2) 0%, transparent 70%)",
+  "radial-gradient(circle at 50% 50%, rgba(212, 149, 90, 0.2) 0%, transparent 70%)",
   pointerEvents: "none",
 }}
 />
@@ -852,7 +852,7 @@ CLEANING
 style={{
   fontFamily: "'Allura', cursive",
   fontSize: "56px",
-  color: "#7dd3fc",
+  color: "#B87333",
   letterSpacing: "3px",
   marginTop: "-8px",
   lineHeight: "1",
@@ -869,7 +869,7 @@ Su Oficina
     height: "3px",
     width: "80px",
     background:
-    "linear-gradient(90deg, transparent, #06b6d4, transparent)",
+    "linear-gradient(90deg, transparent, #B87333, transparent)",
     margin: "20px auto 15px",
   }}
 />
@@ -900,10 +900,10 @@ style={{
 <div
 style={{
   height: "100%",
-  background: "linear-gradient(90deg, #06b6d4 0%, #0ea5e9 100%)",
+  background: "linear-gradient(90deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
   width: step === 1 ? "25%" : step === 2 ? "50%" : step === 3 ? "75%" : "100%",
   transition: "width 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
-  boxShadow: "0 0 15px rgba(6, 182, 212, 0.6)",
+  boxShadow: "0 0 15px rgba(184, 115, 51, 0.6)",
 }}
 />
 </div>
@@ -918,13 +918,13 @@ style={{
           width: "110px",
           height: "110px",
           background:
-          "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+          "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
           borderRadius: "50%",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           margin: "0 auto 30px",
-          boxShadow: "0 20px 50px rgba(6, 182, 212, 0.4)",
+          boxShadow: "0 20px 50px rgba(184, 115, 51, 0.4)",
           border: "4px solid rgba(255, 255, 255, 0.2)",
         }}
       >
@@ -973,7 +973,7 @@ style={{
               display: "block",
               fontSize: "14px",
               fontWeight: "800",
-              color: "#06b6d4",
+              color: "#B87333",
               marginBottom: "12px",
               letterSpacing: "1.5px",
               textTransform: "uppercase",
@@ -1006,7 +1006,7 @@ style={{
               display: "block",
               fontSize: "14px",
               fontWeight: "800",
-              color: "#06b6d4",
+              color: "#B87333",
               marginBottom: "12px",
               letterSpacing: "1.5px",
               textTransform: "uppercase",
@@ -1042,7 +1042,7 @@ style={{
             display: "block",
             fontSize: "14px",
             fontWeight: "800",
-            color: "#06b6d4",
+            color: "#B87333",
             marginBottom: "12px",
             letterSpacing: "1.5px",
             textTransform: "uppercase",
@@ -1077,7 +1077,7 @@ style={{
             display: "block",
             fontSize: "14px",
             fontWeight: "800",
-            color: "#06b6d4",
+            color: "#B87333",
             marginBottom: "12px",
             letterSpacing: "1.5px",
             textTransform: "uppercase",
@@ -1112,13 +1112,13 @@ style={{
             display: "block",
             fontSize: "14px",
             fontWeight: "800",
-            color: "#06b6d4",
+            color: "#B87333",
             marginBottom: "12px",
             letterSpacing: "1.5px",
             textTransform: "uppercase",
           }}
         >
-          Business Name <span style={{ color: "rgba(6, 182, 212, 0.5)", fontSize: "11px", marginLeft: "5px" }}>(Optional)</span>
+          Business Name <span style={{ color: "rgba(143, 170, 184, 0.5)", fontSize: "11px", marginLeft: "5px" }}>(Optional)</span>
         </label>
         <input
           type="text"
@@ -1152,7 +1152,7 @@ style={{
           border: "none",
           borderRadius: "16px",
           background: firstName && lastName && email && phone
-            ? "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)"
+            ? "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)"
             : "rgba(255, 255, 255, 0.2)",
           color: "white",
           cursor: firstName && lastName && email && phone ? "pointer" : "not-allowed",
@@ -1160,7 +1160,7 @@ style={{
           letterSpacing: "2px",
           textTransform: "uppercase",
           boxShadow: firstName && lastName && email && phone
-            ? "0 10px 30px rgba(6, 182, 212, 0.3)"
+            ? "0 10px 30px rgba(143, 170, 184, 0.3)"
             : "none",
           display: "flex",
           alignItems: "center",
@@ -1185,13 +1185,13 @@ style={{
         alignItems: "center",
         fontSize: "14px",
         fontWeight: "800",
-        color: "#06b6d4",
+        color: "#B87333",
         marginBottom: "15px",
         gap: "8px",
         letterSpacing: "1px",
         textTransform: "uppercase",
       }}>
-        <MapPin size={18} color="#06b6d4" />
+        <MapPin size={18} color="#B87333" />
         Business Address *
       </label>
       <input
@@ -1204,7 +1204,7 @@ style={{
           width: "100%",
           padding: "18px 20px",
           borderRadius: "16px",
-          border: "2px solid rgba(93, 235, 241, 0.3)",
+          border: "2px solid rgba(184, 115, 51, 0.3)",
           background: "rgba(255, 255, 255, 0.05)",
           color: "white",
           fontSize: "15px",
@@ -1230,7 +1230,7 @@ style={{
         <label style={{
           fontSize: "12px",
           fontWeight: "700",
-          color: "#06b6d4",
+          color: "#B87333",
           marginBottom: "8px",
           display: "block",
           letterSpacing: "0.5px",
@@ -1245,7 +1245,7 @@ style={{
             width: "100%",
             padding: "16px 18px",
             borderRadius: "14px",
-            border: "2px solid rgba(93, 235, 241, 0.3)",
+            border: "2px solid rgba(184, 115, 51, 0.3)",
             background: "rgba(255, 255, 255, 0.05)",
             color: "white",
             fontSize: "14px",
@@ -1258,7 +1258,7 @@ style={{
         <label style={{
           fontSize: "12px",
           fontWeight: "700",
-          color: "#06b6d4",
+          color: "#B87333",
           marginBottom: "8px",
           display: "block",
           letterSpacing: "0.5px",
@@ -1274,7 +1274,7 @@ style={{
             width: "100%",
             padding: "16px 18px",
             borderRadius: "14px",
-            border: "2px solid rgba(93, 235, 241, 0.3)",
+            border: "2px solid rgba(184, 115, 51, 0.3)",
             background: "rgba(255, 255, 255, 0.05)",
             color: "white",
             fontSize: "14px",
@@ -1288,7 +1288,7 @@ style={{
         <label style={{
           fontSize: "12px",
           fontWeight: "700",
-          color: "#06b6d4",
+          color: "#B87333",
           marginBottom: "8px",
           display: "block",
           letterSpacing: "0.5px",
@@ -1304,7 +1304,7 @@ style={{
             width: "100%",
             padding: "16px 18px",
             borderRadius: "14px",
-            border: "2px solid rgba(93, 235, 241, 0.3)",
+            border: "2px solid rgba(184, 115, 51, 0.3)",
             background: "rgba(255, 255, 255, 0.05)",
             color: "white",
             fontSize: "14px",
@@ -1322,13 +1322,13 @@ style={{
         alignItems: "center",
         fontSize: "14px",
         fontWeight: "800",
-        color: "#06b6d4",
+        color: "#B87333",
         marginBottom: "15px",
         gap: "8px",
         letterSpacing: "1px",
         textTransform: "uppercase",
       }}>
-        <Building2 size={18} color="#06b6d4" />
+        <Building2 size={18} color="#B87333" />
         Business Type *
       </label>
       <div className="market-segment-grid" style={{
@@ -1350,11 +1350,11 @@ style={{
             style={{
               padding: "25px 20px",
               border: marketSegment === segment.value
-                ? "2px solid #0ea5e9"
+                ? "2px solid #D4955A"
                 : "2px solid rgba(255, 255, 255, 0.1)",
               borderRadius: "20px",
               background: marketSegment === segment.value
-                ? "linear-gradient(135deg, rgba(14, 165, 233, 0.2) 0%, rgba(2, 132, 199, 0.2) 100%)"
+                ? "linear-gradient(135deg, rgba(212, 149, 90, 0.2) 0%, rgba(2, 132, 199, 0.2) 100%)"
                 : "rgba(255, 255, 255, 0.03)",
               cursor: "pointer",
               transition: "all 0.3s ease",
@@ -1367,7 +1367,7 @@ style={{
             <div style={{
               fontSize: "15px",
               fontWeight: "800",
-              color: marketSegment === segment.value ? "white" : "#06b6d4",
+              color: marketSegment === segment.value ? "white" : "#B87333",
               marginBottom: "5px",
               letterSpacing: "0.5px",
             }}>
@@ -1393,7 +1393,7 @@ style={{
           flex: 1,
           padding: "18px",
           borderRadius: "16px",
-          border: "2px solid rgba(93, 235, 241, 0.3)",
+          border: "2px solid rgba(184, 115, 51, 0.3)",
           background: "rgba(255, 255, 255, 0.05)",
           color: "white",
           fontSize: "15px",
@@ -1419,7 +1419,7 @@ style={{
           borderRadius: "16px",
           border: "none",
           background: (streetAddress && city && state && zipCode && marketSegment)
-            ? "linear-gradient(135deg, #5debf1 0%, #0ea5e9 100%)"
+            ? "linear-gradient(135deg, #D4955A 0%, #D4955A 100%)"
             : "rgba(255, 255, 255, 0.1)",
           color: "white",
           fontSize: "15px",
@@ -1451,13 +1451,13 @@ style={{
         justifyContent: "space-between",
         fontSize: "14px",
         fontWeight: "800",
-        color: "#06b6d4",
+        color: "#B87333",
         marginBottom: "20px",
         letterSpacing: "1px",
         textTransform: "uppercase",
       }}>
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <Building2 size={18} color="#06b6d4" />
+          <Building2 size={18} color="#B87333" />
           Total Square Footage *
         </div>
         <div style={{
@@ -1474,8 +1474,8 @@ style={{
         <div style={{
           padding: "12px 16px",
           borderRadius: "12px",
-          background: "linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(14, 165, 233, 0.2) 100%)",
-          border: "1px solid rgba(6, 182, 212, 0.3)",
+          background: "linear-gradient(135deg, rgba(143, 170, 184, 0.2) 0%, rgba(212, 149, 90, 0.2) 100%)",
+          border: "1px solid rgba(143, 170, 184, 0.3)",
           marginBottom: "20px",
           textAlign: "center",
         }}>
@@ -1490,7 +1490,7 @@ style={{
           <div style={{
             fontSize: "28px",
             fontWeight: "900",
-            color: "#06b6d4",
+            color: "#B87333",
           }}>
             ${getRateForSquareFeet(parseInt(squareFeet), marketSegment).toFixed(2)}/sqft
           </div>
@@ -1510,7 +1510,7 @@ style={{
             width: "100%",
             height: "8px",
             borderRadius: "4px",
-            background: `linear-gradient(to right, #06b6d4 0%, #06b6d4 ${((parseInt(squareFeet || 500) - 500) / (50000 - 500)) * 100}%, rgba(255, 255, 255, 0.1) ${((parseInt(squareFeet || 500) - 500) / (50000 - 500)) * 100}%, rgba(255, 255, 255, 0.1) 100%)`,
+            background: `linear-gradient(to right, #B87333 0%, #B87333 ${((parseInt(squareFeet || 500) - 500) / (50000 - 500)) * 100}%, rgba(255, 255, 255, 0.1) ${((parseInt(squareFeet || 500) - 500) / (50000 - 500)) * 100}%, rgba(255, 255, 255, 0.1) 100%)`,
             outline: "none",
             cursor: "pointer",
             WebkitAppearance: "none",
@@ -1524,19 +1524,19 @@ style={{
             width: 24px;
             height: 24px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%);
+            background: linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%);
             cursor: pointer;
             border: 3px solid white;
-            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.5);
+            box-shadow: 0 4px 12px rgba(143, 170, 184, 0.5);
           }
           input[type="range"]::-moz-range-thumb {
             width: 24px;
             height: 24px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%);
+            background: linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%);
             cursor: pointer;
             border: 3px solid white;
-            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.5);
+            box-shadow: 0 4px 12px rgba(143, 170, 184, 0.5);
           }
         `}</style>
       </div>
@@ -1566,7 +1566,7 @@ style={{
               padding: "18px 20px",
               paddingRight: "55px",
               borderRadius: "16px",
-              border: "2px solid rgba(93, 235, 241, 0.3)",
+              border: "2px solid rgba(184, 115, 51, 0.3)",
               background: "rgba(255, 255, 255, 0.05)",
               color: "white",
               fontSize: "17px",
@@ -1601,7 +1601,7 @@ style={{
         <div style={{
           fontSize: "11px",
           fontWeight: "700",
-          color: "#06b6d4",
+          color: "#B87333",
           marginBottom: "10px",
           letterSpacing: "1px",
           textTransform: "uppercase",
@@ -1624,13 +1624,13 @@ style={{
                   padding: "8px",
                   borderRadius: "8px",
                   background: parseInt(squareFeet || 0) > prevMax && parseInt(squareFeet || 0) <= tier.max
-                    ? "rgba(6, 182, 212, 0.15)"
+                    ? "rgba(143, 170, 184, 0.15)"
                     : "rgba(255, 255, 255, 0.02)",
                   border: parseInt(squareFeet || 0) > prevMax && parseInt(squareFeet || 0) <= tier.max
-                    ? "1px solid rgba(6, 182, 212, 0.3)"
+                    ? "1px solid rgba(143, 170, 184, 0.3)"
                     : "1px solid transparent",
                 }}>
-                  {prevMax + 1}-{tier.max.toLocaleString()}: <span style={{ color: "#06b6d4", fontWeight: "800" }}>${tier.rate.toFixed(2)}/sqft</span>
+                  {prevMax + 1}-{tier.max.toLocaleString()}: <span style={{ color: "#B87333", fontWeight: "800" }}>${tier.rate.toFixed(2)}/sqft</span>
                 </div>
               );
             })}
@@ -1638,13 +1638,13 @@ style={{
               padding: "8px",
               borderRadius: "8px",
               background: parseInt(squareFeet || 0) > PRICING.baseRatesTiered[marketSegment][PRICING.baseRatesTiered[marketSegment].length - 2].max
-                ? "rgba(6, 182, 212, 0.15)"
+                ? "rgba(143, 170, 184, 0.15)"
                 : "rgba(255, 255, 255, 0.02)",
               border: parseInt(squareFeet || 0) > PRICING.baseRatesTiered[marketSegment][PRICING.baseRatesTiered[marketSegment].length - 2].max
-                ? "1px solid rgba(6, 182, 212, 0.3)"
+                ? "1px solid rgba(143, 170, 184, 0.3)"
                 : "1px solid transparent",
             }}>
-              {(PRICING.baseRatesTiered[marketSegment][PRICING.baseRatesTiered[marketSegment].length - 2].max + 1).toLocaleString()}+: <span style={{ color: "#06b6d4", fontWeight: "800" }}>${PRICING.baseRatesTiered[marketSegment][PRICING.baseRatesTiered[marketSegment].length - 1].rate.toFixed(2)}/sqft</span>
+              {(PRICING.baseRatesTiered[marketSegment][PRICING.baseRatesTiered[marketSegment].length - 2].max + 1).toLocaleString()}+: <span style={{ color: "#B87333", fontWeight: "800" }}>${PRICING.baseRatesTiered[marketSegment][PRICING.baseRatesTiered[marketSegment].length - 1].rate.toFixed(2)}/sqft</span>
             </div>
           </div>
         )}
@@ -1658,13 +1658,13 @@ style={{
         alignItems: "center",
         fontSize: "14px",
         fontWeight: "800",
-        color: "#06b6d4",
+        color: "#B87333",
         marginBottom: "15px",
         gap: "8px",
         letterSpacing: "1px",
         textTransform: "uppercase",
       }}>
-        <Calendar size={18} color="#06b6d4" />
+        <Calendar size={18} color="#B87333" />
         Cleaning Frequency *
       </label>
       <div className="frequency-grid" style={{
@@ -1687,10 +1687,10 @@ style={{
               padding: "18px 16px",
               borderRadius: "16px",
               border: frequency === freq.value
-                ? "2px solid #0ea5e9"
+                ? "2px solid #D4955A"
                 : "2px solid rgba(255, 255, 255, 0.1)",
               background: frequency === freq.value
-                ? "linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)"
+                ? "linear-gradient(135deg, #D4955A 0%, #5A7080 100%)"
                 : "rgba(255, 255, 255, 0.03)",
               color: "white",
               cursor: "pointer",
@@ -1732,7 +1732,7 @@ style={{
         <label style={{
           fontSize: "14px",
           fontWeight: "800",
-          color: "#06b6d4",
+          color: "#B87333",
           marginBottom: "15px",
           display: "block",
           letterSpacing: "1px",
@@ -1747,8 +1747,8 @@ style={{
         }}>
           {/* Workstations */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -1764,7 +1764,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   💼 Workstations
@@ -1817,7 +1817,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -1832,8 +1832,8 @@ style={{
 
           {/* Conference Rooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -1849,7 +1849,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   🗂️ Conference
@@ -1902,7 +1902,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -1917,8 +1917,8 @@ style={{
 
           {/* Break Rooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -1934,7 +1934,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   ☕ Break Rooms
@@ -1987,7 +1987,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -2002,8 +2002,8 @@ style={{
 
           {/* Restrooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -2019,7 +2019,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   🚻 Restrooms
@@ -2072,7 +2072,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -2087,8 +2087,8 @@ style={{
 
           {/* Reception/Lobby */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -2104,7 +2104,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   🏛️ Reception/Lobby
@@ -2157,7 +2157,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -2172,8 +2172,8 @@ style={{
 
           {/* Server Rooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -2189,7 +2189,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   🖥️ Server/IT Rooms
@@ -2242,7 +2242,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -2257,8 +2257,8 @@ style={{
 
           {/* Storage Rooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -2274,7 +2274,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   📦 Storage Rooms
@@ -2327,7 +2327,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -2342,8 +2342,8 @@ style={{
 
           {/* Private Offices */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -2359,7 +2359,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   🚪 Private Offices
@@ -2412,7 +2412,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -2433,7 +2433,7 @@ style={{
         <label style={{
           fontSize: "13px",
           fontWeight: "800",
-          color: "#06b6d4",
+          color: "#B87333",
           marginBottom: "15px",
           display: "block",
           letterSpacing: "1px",
@@ -2448,8 +2448,8 @@ style={{
         }}>
           {/* Exam Rooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -2465,7 +2465,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   🩺 Exam Rooms
@@ -2518,7 +2518,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -2533,8 +2533,8 @@ style={{
 
           {/* Waiting Areas */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -2550,7 +2550,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   🪑 Waiting Areas
@@ -2603,7 +2603,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -2618,8 +2618,8 @@ style={{
 
           {/* Procedure Rooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -2635,7 +2635,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   ⚕️ Procedure Rooms
@@ -2688,7 +2688,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -2703,8 +2703,8 @@ style={{
 
           {/* Laboratories - NEW */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -2720,7 +2720,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   🧪 Laboratories
@@ -2773,7 +2773,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -2788,8 +2788,8 @@ style={{
 
           {/* Sterilization Rooms - NEW */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -2805,7 +2805,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   🧼 Sterilization
@@ -2858,7 +2858,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -2873,8 +2873,8 @@ style={{
 
           {/* Nurse Stations - NEW */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -2890,7 +2890,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   👩‍⚕️ Nurse Stations
@@ -2943,7 +2943,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -2958,8 +2958,8 @@ style={{
 
           {/* Consultation Rooms - NEW */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -2975,7 +2975,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   💬 Consult Rooms
@@ -3028,7 +3028,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -3049,7 +3049,7 @@ style={{
         <label style={{
           fontSize: "13px",
           fontWeight: "800",
-          color: "#06b6d4",
+          color: "#B87333",
           marginBottom: "15px",
           display: "block",
           letterSpacing: "1px",
@@ -3064,8 +3064,8 @@ style={{
         }}>
           {/* Guest Rooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -3081,7 +3081,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   🛏️ Guest Rooms
@@ -3134,7 +3134,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -3149,8 +3149,8 @@ style={{
 
           {/* Common Areas */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -3166,7 +3166,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   🛋️ Common Areas
@@ -3219,7 +3219,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -3234,8 +3234,8 @@ style={{
 
           {/* Dining Areas */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -3251,7 +3251,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   🍽️ Dining Areas
@@ -3304,7 +3304,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -3319,8 +3319,8 @@ style={{
 
           {/* Fitness Centers - NEW */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -3336,7 +3336,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   💪 Fitness Centers
@@ -3389,7 +3389,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -3404,8 +3404,8 @@ style={{
 
           {/* Pool/Spa Areas - NEW */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -3421,7 +3421,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   🏊 Pool/Spa Areas
@@ -3474,7 +3474,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -3489,8 +3489,8 @@ style={{
 
           {/* Event/Banquet Spaces - NEW */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -3506,7 +3506,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   🎉 Event Spaces
@@ -3559,7 +3559,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -3574,8 +3574,8 @@ style={{
 
           {/* Laundry Rooms - NEW */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -3591,7 +3591,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   🧺 Laundry Rooms
@@ -3644,7 +3644,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -3659,8 +3659,8 @@ style={{
 
           {/* Lobby/Reception - NEW */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -3676,7 +3676,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   🏨 Lobby/Reception
@@ -3729,7 +3729,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -3750,7 +3750,7 @@ style={{
         <label style={{
           fontSize: "13px",
           fontWeight: "800",
-          color: "#06b6d4",
+          color: "#B87333",
           marginBottom: "15px",
           display: "block",
           letterSpacing: "1px",
@@ -3765,8 +3765,8 @@ style={{
         }}>
           {/* Fitting/Dressing Rooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -3782,7 +3782,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   👗 Fitting Rooms
@@ -3835,7 +3835,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -3850,8 +3850,8 @@ style={{
 
           {/* Showroom/Display Areas */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -3867,7 +3867,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   🛍️ Showrooms
@@ -3920,7 +3920,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -3935,8 +3935,8 @@ style={{
 
           {/* Stockrooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -3952,7 +3952,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   📦 Stockrooms
@@ -4005,7 +4005,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -4020,8 +4020,8 @@ style={{
 
           {/* Customer Restrooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -4037,7 +4037,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   🚻 Restrooms
@@ -4090,7 +4090,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -4105,8 +4105,8 @@ style={{
 
           {/* POS/Checkout Areas */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -4122,7 +4122,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   🛒 POS/Checkout
@@ -4175,7 +4175,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -4196,7 +4196,7 @@ style={{
         <label style={{
           fontSize: "13px",
           fontWeight: "800",
-          color: "#06b6d4",
+          color: "#B87333",
           marginBottom: "15px",
           display: "block",
           letterSpacing: "1px",
@@ -4211,8 +4211,8 @@ style={{
         }}>
           {/* Loading Docks */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -4228,7 +4228,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   🚚 Loading Docks
@@ -4281,7 +4281,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -4296,8 +4296,8 @@ style={{
 
           {/* Equipment/Maintenance Areas */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -4313,7 +4313,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   ⚙️ Equipment Areas
@@ -4366,7 +4366,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -4381,8 +4381,8 @@ style={{
 
           {/* Break Rooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -4398,7 +4398,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   ☕ Break Rooms
@@ -4451,7 +4451,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -4466,8 +4466,8 @@ style={{
 
           {/* Restrooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -4483,7 +4483,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   🚻 Restrooms
@@ -4536,7 +4536,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -4551,8 +4551,8 @@ style={{
 
           {/* Office/Admin Areas */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%)",
-            border: "1px solid rgba(6, 182, 212, 0.2)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
             display: "flex",
@@ -4568,7 +4568,7 @@ style={{
                 <div style={{
                   fontSize: "14px",
                   fontWeight: "800",
-                  color: "#06b6d4",
+                  color: "#B87333",
                   marginBottom: "2px",
                 }}>
                   📋 Office/Admin
@@ -4621,7 +4621,7 @@ style={{
                   padding: "10px",
                   borderRadius: "10px",
                   border: "none",
-                  background: "linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%)",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
                   fontSize: "18px",
                   fontWeight: "900",
@@ -4645,7 +4645,7 @@ style={{
           flex: 1,
           padding: "18px",
           borderRadius: "16px",
-          border: "2px solid rgba(93, 235, 241, 0.3)",
+          border: "2px solid rgba(184, 115, 51, 0.3)",
           background: "rgba(255, 255, 255, 0.05)",
           color: "white",
           fontSize: "15px",
@@ -4671,7 +4671,7 @@ style={{
           borderRadius: "16px",
           border: "none",
           background: (squareFeet && frequency)
-            ? "linear-gradient(135deg, #5debf1 0%, #0ea5e9 100%)"
+            ? "linear-gradient(135deg, #D4955A 0%, #D4955A 100%)"
             : "rgba(255, 255, 255, 0.1)",
           color: "white",
           fontSize: "15px",
@@ -4702,13 +4702,13 @@ style={{
         alignItems: "center",
         fontSize: "14px",
         fontWeight: "800",
-        color: "#06b6d4",
+        color: "#B87333",
         marginBottom: "15px",
         gap: "8px",
         letterSpacing: "1px",
         textTransform: "uppercase",
       }}>
-        <CheckCircle2 size={18} color="#06b6d4" />
+        <CheckCircle2 size={18} color="#B87333" />
         Additional Services (Optional)
       </label>
       <div className="addons-grid" style={{
@@ -4731,10 +4731,10 @@ style={{
               padding: "18px 16px",
               borderRadius: "16px",
               border: addOns[addon.key]
-                ? "2px solid #0ea5e9"
+                ? "2px solid #D4955A"
                 : "2px solid rgba(255, 255, 255, 0.1)",
               background: addOns[addon.key]
-                ? "linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)"
+                ? "linear-gradient(135deg, #D4955A 0%, #5A7080 100%)"
                 : "rgba(255, 255, 255, 0.03)",
               color: "white",
               cursor: "pointer",
@@ -4789,13 +4789,13 @@ style={{
         alignItems: "center",
         fontSize: "14px",
         fontWeight: "800",
-        color: "#06b6d4",
+        color: "#B87333",
         marginBottom: "15px",
         gap: "8px",
         letterSpacing: "1px",
         textTransform: "uppercase",
       }}>
-        <Calendar size={18} color="#06b6d4" />
+        <Calendar size={18} color="#B87333" />
         Preferred Days (Optional)
       </label>
       <div className="days-grid" style={{
@@ -4817,10 +4817,10 @@ style={{
               padding: "14px 10px",
               borderRadius: "12px",
               border: preferredDays.includes(day)
-                ? "2px solid #0ea5e9"
+                ? "2px solid #D4955A"
                 : "2px solid rgba(255, 255, 255, 0.1)",
               background: preferredDays.includes(day)
-                ? "linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)"
+                ? "linear-gradient(135deg, #D4955A 0%, #5A7080 100%)"
                 : "rgba(255, 255, 255, 0.03)",
               color: "white",
               fontSize: "14px",
@@ -4843,13 +4843,13 @@ style={{
         alignItems: "center",
         fontSize: "14px",
         fontWeight: "800",
-        color: "#06b6d4",
+        color: "#B87333",
         marginBottom: "15px",
         gap: "8px",
         letterSpacing: "1px",
         textTransform: "uppercase",
       }}>
-        <Clock size={18} color="#06b6d4" />
+        <Clock size={18} color="#B87333" />
         Preferred Time (Optional)
       </label>
       <div className="time-grid" style={{
@@ -4865,10 +4865,10 @@ style={{
               padding: "14px 12px",
               borderRadius: "12px",
               border: preferredTime === time
-                ? "2px solid #0ea5e9"
+                ? "2px solid #D4955A"
                 : "2px solid rgba(255, 255, 255, 0.1)",
               background: preferredTime === time
-                ? "linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)"
+                ? "linear-gradient(135deg, #D4955A 0%, #5A7080 100%)"
                 : "rgba(255, 255, 255, 0.03)",
               color: "white",
               fontSize: "12px",
@@ -4891,7 +4891,7 @@ style={{
         alignItems: "center",
         fontSize: "14px",
         fontWeight: "800",
-        color: "#06b6d4",
+        color: "#B87333",
         marginBottom: "15px",
         gap: "8px",
         letterSpacing: "1px",
@@ -4908,7 +4908,7 @@ style={{
           width: "100%",
           padding: "18px 20px",
           borderRadius: "16px",
-          border: "2px solid rgba(93, 235, 241, 0.3)",
+          border: "2px solid rgba(184, 115, 51, 0.3)",
           background: "rgba(255, 255, 255, 0.05)",
           color: "white",
           fontSize: "14px",
@@ -4924,8 +4924,8 @@ style={{
     <div style={{
       padding: "20px",
       borderRadius: "16px",
-      background: "rgba(14, 165, 233, 0.1)",
-      border: "1px solid rgba(14, 165, 233, 0.3)",
+      background: "rgba(212, 149, 90, 0.1)",
+      border: "1px solid rgba(212, 149, 90, 0.3)",
       marginBottom: "30px",
     }}>
       <p style={{
@@ -4941,7 +4941,7 @@ style={{
           target="_blank"
           rel="noopener noreferrer"
           style={{
-            color: "#5debf1",
+            color: "#D4955A",
             textDecoration: "underline",
             fontWeight: "700",
           }}
@@ -4960,7 +4960,7 @@ style={{
           flex: 1,
           padding: "18px",
           borderRadius: "16px",
-          border: "2px solid rgba(93, 235, 241, 0.3)",
+          border: "2px solid rgba(184, 115, 51, 0.3)",
           background: "rgba(255, 255, 255, 0.05)",
           color: "white",
           fontSize: "15px",
@@ -5021,7 +5021,7 @@ style={{
     }}
   >
     <div style={{
-      backgroundColor: "#020c1f",
+      backgroundColor: "#0F171E",
       backgroundImage: `
         radial-gradient(circle at 20% 30%, rgba(5,53,116,0.55) 0%, transparent 45%),
         radial-gradient(circle at 80% 68%, rgba(10,79,168,0.45) 0%, transparent 40%),
@@ -5046,7 +5046,7 @@ style={{
       }}>
         <div style={{
           fontSize: "16px",
-          color: "#06b6d4",
+          color: "#B87333",
           fontWeight: "800",
           marginBottom: "8px",
           letterSpacing: "1.5px",
@@ -5056,10 +5056,10 @@ style={{
         </div>
         <div style={{
           fontSize: "14px",
-          color: "#0ea5e9",
+          color: "#D4955A",
           fontWeight: "700",
           letterSpacing: "0.5px",
-          background: "rgba(6, 182, 212, 0.12)",
+          background: "rgba(143, 170, 184, 0.12)",
           padding: "4px 12px",
           borderRadius: "6px",
           display: "inline-block",
@@ -5126,7 +5126,7 @@ style={{
               borderTop: "2px solid rgba(93, 235, 241, 0.3)",
             }}>
               <div style={{
-                color: "#06b6d4",
+                color: "#B87333",
                 fontSize: "14px",
                 fontWeight: "800",
                 textTransform: "uppercase",
@@ -5228,9 +5228,9 @@ style={{
             </div>
             <div style={{
               fontSize: "14px",
-              color: "#0ea5e9",
+              color: "#D4955A",
               fontWeight: "700",
-              background: "rgba(6, 182, 212, 0.12)",
+              background: "rgba(143, 170, 184, 0.12)",
               padding: "3px 10px",
               borderRadius: "6px",
             }}>
@@ -5288,7 +5288,7 @@ style={{
 {(step === 2 || step === 3 || step === 4) && (
   <div className="mobile-price-sticky">
     <div style={{
-      backgroundColor: "#020c1f",
+      backgroundColor: "#0F171E",
       backgroundImage: `
         radial-gradient(circle at 20% 30%, rgba(5,53,116,0.55) 0%, transparent 45%),
         radial-gradient(circle at 80% 68%, rgba(10,79,168,0.45) 0%, transparent 40%),
@@ -5334,9 +5334,9 @@ style={{
             </div>
             <div style={{
               fontSize: "12px",
-              color: "#0ea5e9",
+              color: "#D4955A",
               fontWeight: "700",
-              background: "rgba(6, 182, 212, 0.12)",
+              background: "rgba(143, 170, 184, 0.12)",
               padding: "3px 10px",
               borderRadius: "6px",
               display: "inline-block",
@@ -5390,7 +5390,7 @@ style={{
             alignItems: "center",
           }}>
             <div style={{
-              color: "#06b6d4",
+              color: "#B87333",
               fontWeight: "800",
               fontSize: "14px",
               textTransform: "uppercase",
@@ -5488,20 +5488,20 @@ style={{
     padding: "20px",
   }}>
     <div style={{
-      background: "linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%)",
+      background: "linear-gradient(135deg, #2E3A47 0%, #3D4F5C 100%)",
       borderRadius: "32px",
       padding: "50px 40px",
       maxWidth: "500px",
       width: "100%",
       textAlign: "center",
-      border: "1px solid rgba(93, 235, 241, 0.3)",
+      border: "1px solid rgba(184, 115, 51, 0.3)",
       boxShadow: "0 30px 80px rgba(0, 0, 0, 0.5)",
     }}>
       <div style={{
         width: "80px",
         height: "80px",
         borderRadius: "50%",
-        background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+        background: "linear-gradient(135deg, #B87333 0%, #D4955A 100%)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -5573,7 +5573,7 @@ style={{
           padding: "18px 40px",
           borderRadius: "16px",
           border: "none",
-          background: "linear-gradient(135deg, #5debf1 0%, #0ea5e9 100%)",
+          background: "linear-gradient(135deg, #B87333 0%, #D4955A 100%)",
           color: "white",
           fontSize: "16px",
           fontWeight: "800",
