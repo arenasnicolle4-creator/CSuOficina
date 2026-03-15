@@ -493,7 +493,10 @@ export default function CleaningSuOficinaBooking() {
 
   // Calculate pricing
   const calculateSubtotal = () => {
-    if (!marketSegment || !squareFeet || !frequency) return 0;
+    if (!marketSegment || !squareFeet) return 0;
+    
+    // For non-hospitality segments, require frequency
+    if (marketSegment !== "hospitality" && !frequency) return 0;
     
     let total = 0;
     const sqft = parseInt(squareFeet);
@@ -514,14 +517,25 @@ export default function CleaningSuOficinaBooking() {
       total += procedureRooms * PRICING.rooms.procedureRoom;
       total += restrooms * PRICING.rooms.restroom;
     } else if (marketSegment === "hospitality") {
-      // Guest room configurations with daily turnover
+      // Guest room configurations with daily turnover + volume discount
       if (guestRoomConfigs.length > 0 && dailyTurnover) {
         const dailyTurnoverNum = parseInt(dailyTurnover) || 0;
+        const totalRoomQuantity = guestRoomConfigs.reduce((sum, c) => sum + c.quantity, 0);
         const totalGuestRoomCost = guestRoomConfigs.reduce((sum, config) => {
           return sum + (config.quantity * config.pricePerClean);
         }, 0);
-        // Monthly cost = (rooms cleaned per day) × 30 days × (price per clean)
-        total += (dailyTurnoverNum * 30 * totalGuestRoomCost) / guestRoomConfigs.reduce((sum, c) => sum + c.quantity, 0);
+        
+        // Base monthly cost
+        let monthlyGuestRoomCost = (dailyTurnoverNum * 30 * totalGuestRoomCost) / totalRoomQuantity;
+        
+        // Apply volume discount based on daily turnover
+        let volumeDiscount = 0;
+        if (dailyTurnoverNum >= 50) volumeDiscount = 0.15;      // 15% off for 50+ rooms/day
+        else if (dailyTurnoverNum >= 30) volumeDiscount = 0.10; // 10% off for 30-49 rooms/day
+        else if (dailyTurnoverNum >= 15) volumeDiscount = 0.05; // 5% off for 15-29 rooms/day
+        
+        monthlyGuestRoomCost = monthlyGuestRoomCost * (1 - volumeDiscount);
+        total += monthlyGuestRoomCost;
       }
       
       // Other hospitality areas (each with individual frequency)
@@ -648,17 +662,36 @@ export default function CleaningSuOficinaBooking() {
       if (procedureRooms > 0) breakdown.push({ label: `Procedure Rooms (${procedureRooms})`, amount: procedureRooms * PRICING.rooms.procedureRoom });
       if (restrooms > 0) breakdown.push({ label: `Restrooms (${restrooms})`, amount: restrooms * PRICING.rooms.restroom });
     } else if (marketSegment === "hospitality") {
-      // Guest rooms with daily turnover
+      // Guest rooms with daily turnover + volume discount
       if (guestRoomConfigs.length > 0 && dailyTurnover) {
         const dailyTurnoverNum = parseInt(dailyTurnover) || 0;
         const totalRoomQuantity = guestRoomConfigs.reduce((sum, c) => sum + c.quantity, 0);
         const totalGuestRoomCost = guestRoomConfigs.reduce((sum, config) => {
           return sum + (config.quantity * config.pricePerClean);
         }, 0);
-        const monthlyGuestRooms = (dailyTurnoverNum * 30 * totalGuestRoomCost) / totalRoomQuantity;
+        
+        // Calculate base monthly cost
+        const baseMonthlyGuestRooms = (dailyTurnoverNum * 30 * totalGuestRoomCost) / totalRoomQuantity;
+        
+        // Apply volume discount
+        let volumeDiscount = 0;
+        let volumeLabel = "";
+        if (dailyTurnoverNum >= 50) {
+          volumeDiscount = 0.15;
+          volumeLabel = " - 15% Volume Discount";
+        } else if (dailyTurnoverNum >= 30) {
+          volumeDiscount = 0.10;
+          volumeLabel = " - 10% Volume Discount";
+        } else if (dailyTurnoverNum >= 15) {
+          volumeDiscount = 0.05;
+          volumeLabel = " - 5% Volume Discount";
+        }
+        
+        const discountedMonthlyGuestRooms = baseMonthlyGuestRooms * (1 - volumeDiscount);
+        
         breakdown.push({ 
-          label: `Guest Rooms (${dailyTurnoverNum}/day × 30 days)`, 
-          amount: monthlyGuestRooms 
+          label: `Guest Rooms (${dailyTurnoverNum}/day × 30 days${volumeLabel})`, 
+          amount: discountedMonthlyGuestRooms 
         });
       }
       
