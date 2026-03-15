@@ -786,26 +786,26 @@ className="form-card-animated"
 style={{
   backgroundColor: "#0F171E",
   backgroundImage: `
-    radial-gradient(circle at 20% 30%, rgba(5,53,116,0.55) 0%, transparent 45%),
-    radial-gradient(circle at 80% 68%, rgba(10,79,168,0.45) 0%, transparent 40%),
-    radial-gradient(circle at 55% 8%, rgba(93,235,241,0.06) 0%, transparent 30%),
-    radial-gradient(ellipse at 5% 88%, rgba(5,53,116,0.4) 0%, transparent 40%),
+    radial-gradient(circle at 20% 30%, rgba(46,58,71,0.55) 0%, transparent 45%),
+    radial-gradient(circle at 80% 68%, rgba(61,79,92,0.45) 0%, transparent 40%),
+    radial-gradient(circle at 55% 8%, rgba(184,115,51,0.06) 0%, transparent 30%),
+    radial-gradient(ellipse at 5% 88%, rgba(46,58,71,0.4) 0%, transparent 40%),
     radial-gradient(circle 1px at center, rgba(255,255,255,0.07) 0%, transparent 100%)
   `,
   backgroundSize: "100% 100%, 100% 100%, 100% 100%, 100% 100%, 26px 26px",
   borderRadius: "32px",
   overflow: "hidden",
   boxShadow: "0 30px 80px rgba(0, 0, 0, 0.5)",
-  border: "1px solid rgba(93, 235, 241, 0.2)",
+  border: "1px solid rgba(184, 115, 51, 0.2)",
   position: "relative",
 }}
 >
 {/* Header with Custom Animated Title */}
 <div
 style={{
-  backgroundColor: "rgba(2, 12, 31, 0.4)",
+  backgroundColor: "rgba(15, 23, 30, 0.4)",
   backdropFilter: "blur(10px)",
-  borderBottom: "1px solid rgba(93, 235, 241, 0.2)",
+  borderBottom: "1px solid rgba(184, 115, 51, 0.2)",
   padding: step === 1 ? "50px 30px" : "30px",
   textAlign: "center",
   position: "relative",
@@ -5023,17 +5023,17 @@ style={{
     <div style={{
       backgroundColor: "#0F171E",
       backgroundImage: `
-        radial-gradient(circle at 20% 30%, rgba(5,53,116,0.55) 0%, transparent 45%),
-        radial-gradient(circle at 80% 68%, rgba(10,79,168,0.45) 0%, transparent 40%),
-        radial-gradient(circle at 55% 8%, rgba(93,235,241,0.06) 0%, transparent 30%),
-        radial-gradient(ellipse at 5% 88%, rgba(5,53,116,0.4) 0%, transparent 40%),
+        radial-gradient(circle at 20% 30%, rgba(46,58,71,0.55) 0%, transparent 45%),
+        radial-gradient(circle at 80% 68%, rgba(61,79,92,0.45) 0%, transparent 40%),
+        radial-gradient(circle at 55% 8%, rgba(184,115,51,0.06) 0%, transparent 30%),
+        radial-gradient(ellipse at 5% 88%, rgba(46,58,71,0.4) 0%, transparent 40%),
         radial-gradient(circle 1px at center, rgba(255,255,255,0.07) 0%, transparent 100%)
       `,
       backgroundSize: "100% 100%, 100% 100%, 100% 100%, 100% 100%, 26px 26px",
       borderRadius: "28px",
       overflow: "hidden",
       boxShadow: "0 25px 70px rgba(0, 0, 0, 0.6)",
-      border: "1px solid rgba(93, 235, 241, 0.2)",
+      border: "1px solid rgba(184, 115, 51, 0.2)",
       display: "flex",
       flexDirection: "column",
       maxHeight: "100%",
@@ -5290,17 +5290,17 @@ style={{
     <div style={{
       backgroundColor: "#0F171E",
       backgroundImage: `
-        radial-gradient(circle at 20% 30%, rgba(5,53,116,0.55) 0%, transparent 45%),
-        radial-gradient(circle at 80% 68%, rgba(10,79,168,0.45) 0%, transparent 40%),
-        radial-gradient(circle at 55% 8%, rgba(93,235,241,0.06) 0%, transparent 30%),
-        radial-gradient(ellipse at 5% 88%, rgba(5,53,116,0.4) 0%, transparent 40%),
+        radial-gradient(circle at 20% 30%, rgba(46,58,71,0.55) 0%, transparent 45%),
+        radial-gradient(circle at 80% 68%, rgba(61,79,92,0.45) 0%, transparent 40%),
+        radial-gradient(circle at 55% 8%, rgba(184,115,51,0.06) 0%, transparent 30%),
+        radial-gradient(ellipse at 5% 88%, rgba(46,58,71,0.4) 0%, transparent 40%),
         radial-gradient(circle 1px at center, rgba(255,255,255,0.07) 0%, transparent 100%)
       `,
       backgroundSize: "100% 100%, 100% 100%, 100% 100%, 100% 100%, 26px 26px",
       borderRadius: "20px 20px 0 0",
       overflow: "hidden",
       boxShadow: "0 -10px 30px rgba(0, 0, 0, 0.6)",
-      border: "1px solid rgba(93, 235, 241, 0.2)",
+      border: "1px solid rgba(184, 115, 51, 0.2)",
       borderBottom: "none",
       maxHeight: "65vh",
       display: "flex",
@@ -5309,8 +5309,8 @@ style={{
       {/* TOTAL SECTION - FIRST */}
       <div style={{
         padding: "20px 25px",
-        background: "rgba(93, 235, 241, 0.15)",
-        borderBottom: "1px solid rgba(93, 235, 241, 0.3)",
+        background: "rgba(184, 115, 51, 0.15)",
+        borderBottom: "1px solid rgba(184, 115, 51, 0.3)",
         backdropFilter: "blur(10px)",
       }}>
         <div style={{
