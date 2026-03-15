@@ -309,13 +309,14 @@ export default function CleaningSuOficinaBooking() {
     else if (config.beds === 2) basePrice += 25;
     else basePrice += 35; // 3+ beds
     
-    // Bathroom pricing
-    if (config.bathrooms === 0) basePrice += 0;         // No bathroom (shared/public)
-    else if (config.bathrooms === 0.5) basePrice += 5;  // Half bath (toilet/sink only)
-    else if (config.bathrooms === 1) basePrice += 10;
-    else if (config.bathrooms === 1.5) basePrice += 15;
-    else if (config.bathrooms === 2) basePrice += 20;
-    else basePrice += 25; // 2.5+
+    // Bathroom pricing - $8 per half bath, $15 per full bath
+    if (config.bathrooms === 0) {
+      basePrice += 0; // No bathroom (shared/public)
+    } else {
+      const fullBaths = Math.floor(config.bathrooms);
+      const hasHalfBath = config.bathrooms % 1 !== 0;
+      basePrice += (fullBaths * 15) + (hasHalfBath ? 8 : 0);
+    }
     
     // Kitchen pricing
     if (config.kitchen === "kitchenette") basePrice += 8;
@@ -553,7 +554,14 @@ export default function CleaningSuOficinaBooking() {
       total += getFacilityMonthlyCost(eventSpaces, 100, eventSpacesFreq);
       total += getFacilityMonthlyCost(laundryRooms, 40, laundryRoomsFreq);
       total += getFacilityMonthlyCost(lobbyReceptions, 55, lobbyReceptionsFreq);
-      total += getFacilityMonthlyCost(sharedBathrooms, 30, sharedBathroomsFreq);
+      
+      // Shared bathrooms - calculate price based on half vs full bathrooms
+      if (sharedBathrooms > 0 && sharedBathroomsFreq) {
+        const fullBaths = Math.floor(sharedBathrooms);
+        const hasHalfBath = sharedBathrooms % 1 !== 0;
+        const pricePerClean = (fullBaths * 21) + (hasHalfBath ? 14 : 0);
+        total += getFacilityMonthlyCost(1, pricePerClean, sharedBathroomsFreq);
+      }
     }
     
     // Add-ons (one-time per visit costs)
@@ -834,12 +842,18 @@ export default function CleaningSuOficinaBooking() {
         });
       }
       if (sharedBathrooms > 0 && sharedBathroomsFreq) {
+        const fullBaths = Math.floor(sharedBathrooms);
+        const hasHalfBath = sharedBathrooms % 1 !== 0;
+        const pricePerClean = (fullBaths * 21) + (hasHalfBath ? 14 : 0);
         const visits = visitsPerMonth[sharedBathroomsFreq];
-        const baseCost = sharedBathrooms * 30 * visits;
-        const cost = getFacilityMonthlyCost(sharedBathrooms, 30, sharedBathroomsFreq);
+        const baseCost = pricePerClean * visits;
+        const cost = getFacilityMonthlyCost(1, pricePerClean, sharedBathroomsFreq);
         const discountInfo = discountRates[sharedBathroomsFreq];
+        const bathroomLabel = sharedBathrooms % 1 === 0 
+          ? `${sharedBathrooms} Full` 
+          : `${Math.floor(sharedBathrooms)} Full + Half`;
         breakdown.push({ 
-          label: `Shared/Public Bathrooms (${sharedBathroomsFreq})`, 
+          label: `Shared/Public Bathrooms (${bathroomLabel}, ${sharedBathroomsFreq})`, 
           amount: cost,
           originalAmount: discountInfo.rate !== 0 ? baseCost : null,
           discountPercent: discountInfo.label,
@@ -4452,17 +4466,19 @@ style={{
                   color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
-                  $30/clean
+                  {sharedBathrooms === 0 ? "$14 half / $21 full" : 
+                   sharedBathrooms % 1 === 0 ? `$21 each (full)` : 
+                   `$${(Math.floor(sharedBathrooms) * 21 + 14).toFixed(0)} total`}
                 </div>
               </div>
               <div style={{
                 fontSize: "24px",
                 fontWeight: "900",
                 color: "white",
-                minWidth: "40px",
+                minWidth: "60px",
                 textAlign: "right",
               }}>
-                {sharedBathrooms}
+                {sharedBathrooms === 0 ? "0" : sharedBathrooms}
               </div>
             </div>
             <div style={{
@@ -4470,7 +4486,7 @@ style={{
               gap: "8px",
             }}>
               <button
-                onClick={() => setSharedBathrooms(Math.max(0, sharedBathrooms - 1))}
+                onClick={() => setSharedBathrooms(Math.max(0, sharedBathrooms - 0.5))}
                 style={{
                   flex: 1,
                   padding: "10px",
@@ -4480,16 +4496,16 @@ style={{
                     ? "rgba(239, 68, 68, 0.15)" 
                     : "rgba(255, 255, 255, 0.05)",
                   color: sharedBathrooms > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
-                  fontSize: "18px",
+                  fontSize: "16px",
                   fontWeight: "900",
                   cursor: sharedBathrooms > 0 ? "pointer" : "not-allowed",
                   transition: "all 0.2s ease",
                 }}
               >
-                −
+                -0.5
               </button>
               <button
-                onClick={() => setSharedBathrooms(sharedBathrooms + 1)}
+                onClick={() => setSharedBathrooms(sharedBathrooms + 0.5)}
                 style={{
                   flex: 1,
                   padding: "10px",
@@ -4497,13 +4513,13 @@ style={{
                   border: "none",
                   background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
                   color: "white",
-                  fontSize: "18px",
+                  fontSize: "16px",
                   fontWeight: "900",
                   cursor: "pointer",
                   transition: "all 0.2s ease",
                 }}
               >
-                +
+                +0.5
               </button>
             </div>
             {/* Frequency Selector */}
@@ -6567,26 +6583,88 @@ style={{
             }}>
               🚿 Bathrooms (in room)
             </label>
-            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-              {[0, 0.5, 1, 1.5, 2, 2.5].map(num => (
-                <button
-                  key={num}
-                  onClick={() => setModalBathrooms(num)}
-                  style={{
-                    flex: num === 0 ? "1 1 100%" : "1 1 calc(25% - 6px)",
-                    padding: "12px",
-                    borderRadius: "10px",
-                    border: modalBathrooms === num ? "2px solid #D4955A" : "2px solid rgba(255, 255, 255, 0.1)",
-                    background: modalBathrooms === num ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
-                    color: "white",
-                    fontSize: num === 0 ? "13px" : "14px",
-                    fontWeight: "800",
-                    cursor: "pointer",
-                  }}
-                >
-                  {num === 0 ? "None (Shared/Public)" : num}
-                </button>
-              ))}
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              background: "rgba(255, 255, 255, 0.05)",
+              padding: "16px",
+              borderRadius: "12px",
+            }}>
+              <button
+                onClick={() => setModalBathrooms(Math.max(0, modalBathrooms - 0.5))}
+                style={{
+                  padding: "10px 16px",
+                  borderRadius: "8px",
+                  border: "none",
+                  background: modalBathrooms > 0 
+                    ? "rgba(239, 68, 68, 0.2)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: modalBathrooms > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "16px",
+                  fontWeight: "900",
+                  cursor: modalBathrooms > 0 ? "pointer" : "not-allowed",
+                }}
+              >
+                -0.5
+              </button>
+              <div style={{
+                flex: 1,
+                textAlign: "center",
+                display: "flex",
+                flexDirection: "column",
+                gap: "4px",
+              }}>
+                <div style={{
+                  fontSize: "28px",
+                  fontWeight: "900",
+                  color: "white",
+                }}>
+                  {modalBathrooms === 0 ? "None" : modalBathrooms}
+                </div>
+                {modalBathrooms === 0 && (
+                  <div style={{
+                    fontSize: "11px",
+                    color: "rgba(255, 255, 255, 0.5)",
+                    fontWeight: "600",
+                  }}>
+                    Shared/Public Only
+                  </div>
+                )}
+                {modalBathrooms % 1 !== 0 && modalBathrooms > 0 && (
+                  <div style={{
+                    fontSize: "11px",
+                    color: "rgba(255, 255, 255, 0.5)",
+                    fontWeight: "600",
+                  }}>
+                    {Math.floor(modalBathrooms)} Full + Half Bath
+                  </div>
+                )}
+                {modalBathrooms % 1 === 0 && modalBathrooms > 0 && (
+                  <div style={{
+                    fontSize: "11px",
+                    color: "rgba(255, 255, 255, 0.5)",
+                    fontWeight: "600",
+                  }}>
+                    Full Bathroom{modalBathrooms > 1 ? 's' : ''}
+                  </div>
+                )}
+              </div>
+              <button
+                onClick={() => setModalBathrooms(modalBathrooms + 0.5)}
+                style={{
+                  padding: "10px 16px",
+                  borderRadius: "8px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #B87333, #D4955A)",
+                  color: "white",
+                  fontSize: "16px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                }}
+              >
+                +0.5
+              </button>
             </div>
           </div>
           
