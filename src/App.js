@@ -69,6 +69,15 @@ export default function CleaningSuOficinaBooking() {
   const [modalQuantity, setModalQuantity] = useState(1);
   const [editingIndex, setEditingIndex] = useState(null); // For editing existing configs
   
+  // Hospitality - Individual facility frequencies
+  const [commonAreasFreq, setCommonAreasFreq] = useState("");
+  const [diningAreasFreq, setDiningAreasFreq] = useState("");
+  const [fitnessCentersFreq, setFitnessCentersFreq] = useState("");
+  const [poolSpasFreq, setPoolSpasFreq] = useState("");
+  const [eventSpacesFreq, setEventSpacesFreq] = useState("");
+  const [laundryRoomsFreq, setLaundryRoomsFreq] = useState("");
+  const [lobbyReceptionsFreq, setLobbyReceptionsFreq] = useState("");
+  
   // Retail
   const [fittingRooms, setFittingRooms] = useState(0);
   const [showroomDisplays, setShowroomDisplays] = useState(0);
@@ -437,6 +446,23 @@ export default function CleaningSuOficinaBooking() {
     setShowGuestRoomModal(true);
   };
 
+  // Calculate monthly cost for a facility based on its frequency
+  const getFacilityMonthlyCost = (quantity, pricePerClean, frequency) => {
+    if (!quantity || !frequency) return 0;
+    
+    const visitsPerMonth = {
+      "daily": 30,
+      "5x-week": 22,
+      "3x-week": 13,
+      "2x-week": 8,
+      "weekly": 4,
+      "bi-weekly": 2,
+    };
+    
+    const visits = visitsPerMonth[frequency] || 0;
+    return quantity * pricePerClean * visits;
+  };
+
   // Get the per-sqft rate based on size tier
   const getRateForSquareFeet = (sqft, segment) => {
     if (!segment || !sqft) return 0;
@@ -480,14 +506,14 @@ export default function CleaningSuOficinaBooking() {
         total += (dailyTurnoverNum * 30 * totalGuestRoomCost) / guestRoomConfigs.reduce((sum, c) => sum + c.quantity, 0);
       }
       
-      // Other hospitality areas (cleaned per service visit)
-      total += commonAreas * PRICING.rooms.commonArea;
-      total += diningAreas * PRICING.rooms.diningArea;
-      total += fitnessCenters * 60;
-      total += poolSpas * 75;
-      total += eventSpaces * 100;
-      total += laundryRooms * 40;
-      total += lobbyReceptions * 55;
+      // Other hospitality areas (each with individual frequency)
+      total += getFacilityMonthlyCost(commonAreas, 35, commonAreasFreq);
+      total += getFacilityMonthlyCost(diningAreas, 50, diningAreasFreq);
+      total += getFacilityMonthlyCost(fitnessCenters, 60, fitnessCentersFreq);
+      total += getFacilityMonthlyCost(poolSpas, 75, poolSpasFreq);
+      total += getFacilityMonthlyCost(eventSpaces, 100, eventSpacesFreq);
+      total += getFacilityMonthlyCost(laundryRooms, 40, laundryRoomsFreq);
+      total += getFacilityMonthlyCost(lobbyReceptions, 55, lobbyReceptionsFreq);
     }
     
     // Add-ons (one-time per visit costs)
@@ -1770,7 +1796,8 @@ style={{
 
     </div>
 
-    {/* Cleaning Frequency */}
+    {/* Cleaning Frequency - NOT for hospitality (they have individual facility frequencies) */}
+    {marketSegment !== "hospitality" && (
     <div style={{ marginBottom: "30px" }}>
       <label style={{
         display: "flex",
@@ -1844,6 +1871,7 @@ style={{
         ))}
       </div>
     </div>
+    )}
 
     {/* Market Segment Specific Details */}
     {marketSegment === "office" && (
@@ -3369,7 +3397,7 @@ style={{
                   color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
-                  $35 each
+                  $35/clean
                 </div>
               </div>
               <div style={{
@@ -3423,6 +3451,33 @@ style={{
                 +
               </button>
             </div>
+            {/* Frequency Selector */}
+            {commonAreas > 0 && (
+              <select
+                value={commonAreasFreq}
+                onChange={(e) => setCommonAreasFreq(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "8px 10px",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(184, 115, 51, 0.3)",
+                  background: "rgba(255, 255, 255, 0.05)",
+                  color: commonAreasFreq ? "white" : "rgba(255, 255, 255, 0.5)",
+                  fontSize: "11px",
+                  fontWeight: "600",
+                  outline: "none",
+                  cursor: "pointer",
+                }}
+              >
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
+                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (30/mo) - 20% OFF</option>
+                <option value="5x-week" style={{ background: "#2E3A47", color: "white" }}>5x/Week (22/mo) - 15% OFF</option>
+                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (13/mo) - 10% OFF</option>
+                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - 5% OFF</option>
+                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo)</option>
+                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +10%</option>
+              </select>
+            )}
           </div>
 
           {/* Dining Areas */}
@@ -3454,7 +3509,7 @@ style={{
                   color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
-                  $50 each
+                  $50/clean
                 </div>
               </div>
               <div style={{
@@ -3508,6 +3563,33 @@ style={{
                 +
               </button>
             </div>
+            {/* Frequency Selector */}
+            {diningAreas > 0 && (
+              <select
+                value={diningAreasFreq}
+                onChange={(e) => setDiningAreasFreq(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "8px 10px",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(184, 115, 51, 0.3)",
+                  background: "rgba(255, 255, 255, 0.05)",
+                  color: diningAreasFreq ? "white" : "rgba(255, 255, 255, 0.5)",
+                  fontSize: "11px",
+                  fontWeight: "600",
+                  outline: "none",
+                  cursor: "pointer",
+                }}
+              >
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
+                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (30/mo) - 20% OFF</option>
+                <option value="5x-week" style={{ background: "#2E3A47", color: "white" }}>5x/Week (22/mo) - 15% OFF</option>
+                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (13/mo) - 10% OFF</option>
+                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - 5% OFF</option>
+                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo)</option>
+                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +10%</option>
+              </select>
+            )}
           </div>
 
           {/* Fitness Centers - NEW */}
@@ -3539,7 +3621,7 @@ style={{
                   color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
-                  $60 each
+                  $60/clean
                 </div>
               </div>
               <div style={{
@@ -3593,6 +3675,33 @@ style={{
                 +
               </button>
             </div>
+            {/* Frequency Selector */}
+            {fitnessCenters > 0 && (
+              <select
+                value={fitnessCentersFreq}
+                onChange={(e) => setFitnessCentersFreq(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "8px 10px",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(184, 115, 51, 0.3)",
+                  background: "rgba(255, 255, 255, 0.05)",
+                  color: fitnessCentersFreq ? "white" : "rgba(255, 255, 255, 0.5)",
+                  fontSize: "11px",
+                  fontWeight: "600",
+                  outline: "none",
+                  cursor: "pointer",
+                }}
+              >
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
+                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (30/mo) - 20% OFF</option>
+                <option value="5x-week" style={{ background: "#2E3A47", color: "white" }}>5x/Week (22/mo) - 15% OFF</option>
+                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (13/mo) - 10% OFF</option>
+                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - 5% OFF</option>
+                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo)</option>
+                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +10%</option>
+              </select>
+            )}
           </div>
 
           {/* Pool/Spa Areas - NEW */}
@@ -3624,7 +3733,7 @@ style={{
                   color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
-                  $75 each
+                  $75/clean
                 </div>
               </div>
               <div style={{
@@ -3678,6 +3787,33 @@ style={{
                 +
               </button>
             </div>
+            {/* Frequency Selector */}
+            {poolSpas > 0 && (
+              <select
+                value={poolSpasFreq}
+                onChange={(e) => setPoolSpasFreq(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "8px 10px",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(184, 115, 51, 0.3)",
+                  background: "rgba(255, 255, 255, 0.05)",
+                  color: poolSpasFreq ? "white" : "rgba(255, 255, 255, 0.5)",
+                  fontSize: "11px",
+                  fontWeight: "600",
+                  outline: "none",
+                  cursor: "pointer",
+                }}
+              >
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
+                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (30/mo) - 20% OFF</option>
+                <option value="5x-week" style={{ background: "#2E3A47", color: "white" }}>5x/Week (22/mo) - 15% OFF</option>
+                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (13/mo) - 10% OFF</option>
+                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - 5% OFF</option>
+                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo)</option>
+                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +10%</option>
+              </select>
+            )}
           </div>
 
           {/* Event/Banquet Spaces - NEW */}
@@ -3709,7 +3845,7 @@ style={{
                   color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
-                  $100 each
+                  $100/clean
                 </div>
               </div>
               <div style={{
@@ -3763,6 +3899,33 @@ style={{
                 +
               </button>
             </div>
+            {/* Frequency Selector */}
+            {eventSpaces > 0 && (
+              <select
+                value={eventSpacesFreq}
+                onChange={(e) => setEventSpacesFreq(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "8px 10px",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(184, 115, 51, 0.3)",
+                  background: "rgba(255, 255, 255, 0.05)",
+                  color: eventSpacesFreq ? "white" : "rgba(255, 255, 255, 0.5)",
+                  fontSize: "11px",
+                  fontWeight: "600",
+                  outline: "none",
+                  cursor: "pointer",
+                }}
+              >
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
+                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (30/mo) - 20% OFF</option>
+                <option value="5x-week" style={{ background: "#2E3A47", color: "white" }}>5x/Week (22/mo) - 15% OFF</option>
+                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (13/mo) - 10% OFF</option>
+                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - 5% OFF</option>
+                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo)</option>
+                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +10%</option>
+              </select>
+            )}
           </div>
 
           {/* Laundry Rooms - NEW */}
@@ -3794,7 +3957,7 @@ style={{
                   color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
-                  $40 each
+                  $40/clean
                 </div>
               </div>
               <div style={{
@@ -3848,6 +4011,33 @@ style={{
                 +
               </button>
             </div>
+            {/* Frequency Selector */}
+            {laundryRooms > 0 && (
+              <select
+                value={laundryRoomsFreq}
+                onChange={(e) => setLaundryRoomsFreq(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "8px 10px",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(184, 115, 51, 0.3)",
+                  background: "rgba(255, 255, 255, 0.05)",
+                  color: laundryRoomsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
+                  fontSize: "11px",
+                  fontWeight: "600",
+                  outline: "none",
+                  cursor: "pointer",
+                }}
+              >
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
+                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (30/mo) - 20% OFF</option>
+                <option value="5x-week" style={{ background: "#2E3A47", color: "white" }}>5x/Week (22/mo) - 15% OFF</option>
+                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (13/mo) - 10% OFF</option>
+                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - 5% OFF</option>
+                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo)</option>
+                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +10%</option>
+              </select>
+            )}
           </div>
 
           {/* Lobby/Reception - NEW */}
@@ -3879,7 +4069,7 @@ style={{
                   color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
-                  $55 each
+                  $55/clean
                 </div>
               </div>
               <div style={{
@@ -3933,6 +4123,33 @@ style={{
                 +
               </button>
             </div>
+            {/* Frequency Selector */}
+            {lobbyReceptions > 0 && (
+              <select
+                value={lobbyReceptionsFreq}
+                onChange={(e) => setLobbyReceptionsFreq(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "8px 10px",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(184, 115, 51, 0.3)",
+                  background: "rgba(255, 255, 255, 0.05)",
+                  color: lobbyReceptionsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
+                  fontSize: "11px",
+                  fontWeight: "600",
+                  outline: "none",
+                  cursor: "pointer",
+                }}
+              >
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
+                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (30/mo) - 20% OFF</option>
+                <option value="5x-week" style={{ background: "#2E3A47", color: "white" }}>5x/Week (22/mo) - 15% OFF</option>
+                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (13/mo) - 10% OFF</option>
+                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - 5% OFF</option>
+                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo)</option>
+                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +10%</option>
+              </select>
+            )}
           </div>
         </div>
       </div>
