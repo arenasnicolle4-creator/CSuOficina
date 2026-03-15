@@ -459,8 +459,26 @@ export default function CleaningSuOficinaBooking() {
       "bi-weekly": 2,
     };
     
+    const discountRates = {
+      "daily": -0.20,      // 20% discount
+      "5x-week": -0.15,    // 15% discount
+      "3x-week": -0.10,    // 10% discount
+      "2x-week": -0.05,    // 5% discount
+      "weekly": 0,         // No discount
+      "bi-weekly": 0.10,   // 10% upcharge
+    };
+    
     const visits = visitsPerMonth[frequency] || 0;
-    return quantity * pricePerClean * visits;
+    const baseCost = quantity * pricePerClean * visits;
+    const discountRate = discountRates[frequency] || 0;
+    
+    if (discountRate >= 0) {
+      // It's an upcharge
+      return baseCost * (1 + discountRate);
+    } else {
+      // It's a discount
+      return baseCost * (1 + discountRate); // discountRate is negative, so this reduces cost
+    }
   };
 
   // Get the per-sqft rate based on size tier
@@ -530,12 +548,70 @@ export default function CleaningSuOficinaBooking() {
   };
 
   const getFrequencyDiscount = () => {
+    // For hospitality, discounts are already applied per-facility in getFacilityMonthlyCost
+    // So we calculate the discount by comparing with and without frequency multipliers
+    if (marketSegment === "hospitality") {
+      let totalWithoutDiscount = 0;
+      let totalWithDiscount = 0;
+      
+      const facilities = [
+        { qty: commonAreas, price: 35, freq: commonAreasFreq },
+        { qty: diningAreas, price: 50, freq: diningAreasFreq },
+        { qty: fitnessCenters, price: 60, freq: fitnessCentersFreq },
+        { qty: poolSpas, price: 75, freq: poolSpasFreq },
+        { qty: eventSpaces, price: 100, freq: eventSpacesFreq },
+        { qty: laundryRooms, price: 40, freq: laundryRoomsFreq },
+        { qty: lobbyReceptions, price: 55, freq: lobbyReceptionsFreq },
+      ];
+      
+      const visitsPerMonth = {
+        "daily": 30,
+        "5x-week": 22,
+        "3x-week": 13,
+        "2x-week": 8,
+        "weekly": 4,
+        "bi-weekly": 2,
+      };
+      
+      const discountRates = {
+        "daily": -0.20,
+        "5x-week": -0.15,
+        "3x-week": -0.10,
+        "2x-week": -0.05,
+        "weekly": 0,
+        "bi-weekly": 0.10,
+      };
+      
+      facilities.forEach(({ qty, price, freq }) => {
+        if (qty > 0 && freq) {
+          const visits = visitsPerMonth[freq] || 0;
+          const baseCost = qty * price * visits;
+          totalWithoutDiscount += baseCost;
+          
+          const discountRate = discountRates[freq] || 0;
+          if (discountRate >= 0) {
+            totalWithDiscount += baseCost * (1 + discountRate);
+          } else {
+            totalWithDiscount += baseCost * (1 + discountRate);
+          }
+        }
+      });
+      
+      return totalWithoutDiscount - totalWithDiscount;
+    }
+    
+    // For other segments, use the regular frequency discount
     const subtotal = calculateSubtotal();
     const discountRate = PRICING.frequencyDiscounts[frequency] || 0;
     return subtotal * Math.abs(discountRate);
   };
 
   const calculateTotal = () => {
+    // For hospitality, the total is just the subtotal (discounts already applied)
+    if (marketSegment === "hospitality") {
+      return calculateSubtotal();
+    }
+    
     const subtotal = calculateSubtotal();
     const discountRate = PRICING.frequencyDiscounts[frequency] || 0;
     
@@ -572,10 +648,49 @@ export default function CleaningSuOficinaBooking() {
       if (procedureRooms > 0) breakdown.push({ label: `Procedure Rooms (${procedureRooms})`, amount: procedureRooms * PRICING.rooms.procedureRoom });
       if (restrooms > 0) breakdown.push({ label: `Restrooms (${restrooms})`, amount: restrooms * PRICING.rooms.restroom });
     } else if (marketSegment === "hospitality") {
-      if (guestRooms > 0) breakdown.push({ label: `Guest Rooms (${guestRooms})`, amount: guestRooms * PRICING.rooms.guestRoom });
-      if (commonAreas > 0) breakdown.push({ label: `Common Areas (${commonAreas})`, amount: commonAreas * PRICING.rooms.commonArea });
-      if (diningAreas > 0) breakdown.push({ label: `Dining Areas (${diningAreas})`, amount: diningAreas * PRICING.rooms.diningArea });
-      if (restrooms > 0) breakdown.push({ label: `Restrooms (${restrooms})`, amount: restrooms * PRICING.rooms.restroom });
+      // Guest rooms with daily turnover
+      if (guestRoomConfigs.length > 0 && dailyTurnover) {
+        const dailyTurnoverNum = parseInt(dailyTurnover) || 0;
+        const totalRoomQuantity = guestRoomConfigs.reduce((sum, c) => sum + c.quantity, 0);
+        const totalGuestRoomCost = guestRoomConfigs.reduce((sum, config) => {
+          return sum + (config.quantity * config.pricePerClean);
+        }, 0);
+        const monthlyGuestRooms = (dailyTurnoverNum * 30 * totalGuestRoomCost) / totalRoomQuantity;
+        breakdown.push({ 
+          label: `Guest Rooms (${dailyTurnoverNum}/day × 30 days)`, 
+          amount: monthlyGuestRooms 
+        });
+      }
+      
+      // Individual facilities with their frequencies
+      if (commonAreas > 0 && commonAreasFreq) {
+        const cost = getFacilityMonthlyCost(commonAreas, 35, commonAreasFreq);
+        breakdown.push({ label: `Common Areas (${commonAreasFreq})`, amount: cost });
+      }
+      if (diningAreas > 0 && diningAreasFreq) {
+        const cost = getFacilityMonthlyCost(diningAreas, 50, diningAreasFreq);
+        breakdown.push({ label: `Dining Areas (${diningAreasFreq})`, amount: cost });
+      }
+      if (fitnessCenters > 0 && fitnessCentersFreq) {
+        const cost = getFacilityMonthlyCost(fitnessCenters, 60, fitnessCentersFreq);
+        breakdown.push({ label: `Fitness Centers (${fitnessCentersFreq})`, amount: cost });
+      }
+      if (poolSpas > 0 && poolSpasFreq) {
+        const cost = getFacilityMonthlyCost(poolSpas, 75, poolSpasFreq);
+        breakdown.push({ label: `Pool/Spa Areas (${poolSpasFreq})`, amount: cost });
+      }
+      if (eventSpaces > 0 && eventSpacesFreq) {
+        const cost = getFacilityMonthlyCost(eventSpaces, 100, eventSpacesFreq);
+        breakdown.push({ label: `Event Spaces (${eventSpacesFreq})`, amount: cost });
+      }
+      if (laundryRooms > 0 && laundryRoomsFreq) {
+        const cost = getFacilityMonthlyCost(laundryRooms, 40, laundryRoomsFreq);
+        breakdown.push({ label: `Laundry Rooms (${laundryRoomsFreq})`, amount: cost });
+      }
+      if (lobbyReceptions > 0 && lobbyReceptionsFreq) {
+        const cost = getFacilityMonthlyCost(lobbyReceptions, 55, lobbyReceptionsFreq);
+        breakdown.push({ label: `Lobby/Reception (${lobbyReceptionsFreq})`, amount: cost });
+      }
     }
     
     // Add-ons
