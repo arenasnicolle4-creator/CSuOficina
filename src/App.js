@@ -77,6 +77,8 @@ export default function CleaningSuOficinaBooking() {
   const [eventSpacesFreq, setEventSpacesFreq] = useState("");
   const [laundryRoomsFreq, setLaundryRoomsFreq] = useState("");
   const [lobbyReceptionsFreq, setLobbyReceptionsFreq] = useState("");
+  const [sharedBathrooms, setSharedBathrooms] = useState(0);
+  const [sharedBathroomsFreq, setSharedBathroomsFreq] = useState("");
   
   // Retail
   const [fittingRooms, setFittingRooms] = useState(0);
@@ -308,7 +310,9 @@ export default function CleaningSuOficinaBooking() {
     else basePrice += 35; // 3+ beds
     
     // Bathroom pricing
-    if (config.bathrooms === 1) basePrice += 10;
+    if (config.bathrooms === 0) basePrice += 0;         // No bathroom (shared/public)
+    else if (config.bathrooms === 0.5) basePrice += 5;  // Half bath (toilet/sink only)
+    else if (config.bathrooms === 1) basePrice += 10;
     else if (config.bathrooms === 1.5) basePrice += 15;
     else if (config.bathrooms === 2) basePrice += 20;
     else basePrice += 25; // 2.5+
@@ -530,9 +534,12 @@ export default function CleaningSuOficinaBooking() {
         
         // Apply volume discount based on daily turnover
         let volumeDiscount = 0;
-        if (dailyTurnoverNum >= 50) volumeDiscount = 0.15;      // 15% off for 50+ rooms/day
-        else if (dailyTurnoverNum >= 30) volumeDiscount = 0.10; // 10% off for 30-49 rooms/day
-        else if (dailyTurnoverNum >= 15) volumeDiscount = 0.05; // 5% off for 15-29 rooms/day
+        if (dailyTurnoverNum >= 40) volumeDiscount = 0.15;      // 15% off for 40+ rooms/day
+        else if (dailyTurnoverNum >= 30) volumeDiscount = 0.12; // 12% off for 30-39 rooms/day
+        else if (dailyTurnoverNum >= 20) volumeDiscount = 0.09; // 9% off for 20-29 rooms/day
+        else if (dailyTurnoverNum >= 15) volumeDiscount = 0.07; // 7% off for 15-19 rooms/day
+        else if (dailyTurnoverNum >= 10) volumeDiscount = 0.05; // 5% off for 10-14 rooms/day
+        else if (dailyTurnoverNum >= 5) volumeDiscount = 0.03;  // 3% off for 5-9 rooms/day
         
         monthlyGuestRoomCost = monthlyGuestRoomCost * (1 - volumeDiscount);
         total += monthlyGuestRoomCost;
@@ -546,6 +553,7 @@ export default function CleaningSuOficinaBooking() {
       total += getFacilityMonthlyCost(eventSpaces, 100, eventSpacesFreq);
       total += getFacilityMonthlyCost(laundryRooms, 40, laundryRoomsFreq);
       total += getFacilityMonthlyCost(lobbyReceptions, 55, lobbyReceptionsFreq);
+      total += getFacilityMonthlyCost(sharedBathrooms, 30, sharedBathroomsFreq);
     }
     
     // Add-ons (one-time per visit costs)
@@ -676,15 +684,24 @@ export default function CleaningSuOficinaBooking() {
         // Apply volume discount
         let volumeDiscount = 0;
         let discountPercent = "";
-        if (dailyTurnoverNum >= 50) {
+        if (dailyTurnoverNum >= 40) {
           volumeDiscount = 0.15;
           discountPercent = "15%";
         } else if (dailyTurnoverNum >= 30) {
-          volumeDiscount = 0.10;
-          discountPercent = "10%";
+          volumeDiscount = 0.12;
+          discountPercent = "12%";
+        } else if (dailyTurnoverNum >= 20) {
+          volumeDiscount = 0.09;
+          discountPercent = "9%";
         } else if (dailyTurnoverNum >= 15) {
+          volumeDiscount = 0.07;
+          discountPercent = "7%";
+        } else if (dailyTurnoverNum >= 10) {
           volumeDiscount = 0.05;
           discountPercent = "5%";
+        } else if (dailyTurnoverNum >= 5) {
+          volumeDiscount = 0.03;
+          discountPercent = "3%";
         }
         
         const discountedMonthlyGuestRooms = baseMonthlyGuestRooms * (1 - volumeDiscount);
@@ -809,6 +826,20 @@ export default function CleaningSuOficinaBooking() {
         const discountInfo = discountRates[lobbyReceptionsFreq];
         breakdown.push({ 
           label: `Lobby/Reception (${lobbyReceptionsFreq})`, 
+          amount: cost,
+          originalAmount: discountInfo.rate !== 0 ? baseCost : null,
+          discountPercent: discountInfo.label,
+          discountAmount: baseCost - cost,
+          isUpcharge: discountInfo.rate > 0
+        });
+      }
+      if (sharedBathrooms > 0 && sharedBathroomsFreq) {
+        const visits = visitsPerMonth[sharedBathroomsFreq];
+        const baseCost = sharedBathrooms * 30 * visits;
+        const cost = getFacilityMonthlyCost(sharedBathrooms, 30, sharedBathroomsFreq);
+        const discountInfo = discountRates[sharedBathroomsFreq];
+        breakdown.push({ 
+          label: `Shared/Public Bathrooms (${sharedBathroomsFreq})`, 
           amount: cost,
           originalAmount: discountInfo.rate !== 0 ? baseCost : null,
           discountPercent: discountInfo.label,
@@ -4391,6 +4422,118 @@ style={{
               </select>
             )}
           </div>
+
+          {/* Shared/Public Bathrooms */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            border: "1px solid rgba(184, 115, 51, 0.2)",
+            borderRadius: "16px",
+            padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+              <div>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  color: "#B87333",
+                  marginBottom: "2px",
+                }}>
+                  🚻 Shared/Public Bathrooms
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  $30/clean
+                </div>
+              </div>
+              <div style={{
+                fontSize: "24px",
+                fontWeight: "900",
+                color: "white",
+                minWidth: "40px",
+                textAlign: "right",
+              }}>
+                {sharedBathrooms}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "8px",
+            }}>
+              <button
+                onClick={() => setSharedBathrooms(Math.max(0, sharedBathrooms - 1))}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: sharedBathrooms > 0 
+                    ? "rgba(239, 68, 68, 0.15)" 
+                    : "rgba(255, 255, 255, 0.05)",
+                  color: sharedBathrooms > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: sharedBathrooms > 0 ? "pointer" : "not-allowed",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                −
+              </button>
+              <button
+                onClick={() => setSharedBathrooms(sharedBathrooms + 1)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
+                  color: "white",
+                  fontSize: "18px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                +
+              </button>
+            </div>
+            {/* Frequency Selector */}
+            {sharedBathrooms > 0 && (
+              <select
+                value={sharedBathroomsFreq}
+                onChange={(e) => setSharedBathroomsFreq(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "8px 10px",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(184, 115, 51, 0.3)",
+                  background: "rgba(255, 255, 255, 0.05)",
+                  color: sharedBathroomsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
+                  fontSize: "11px",
+                  fontWeight: "600",
+                  outline: "none",
+                  cursor: "pointer",
+                }}
+              >
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
+                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (30/mo) - 20% OFF</option>
+                <option value="5x-week" style={{ background: "#2E3A47", color: "white" }}>5x/Week (22/mo) - 15% OFF</option>
+                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (13/mo) - 10% OFF</option>
+                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - 5% OFF</option>
+                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo)</option>
+                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +10%</option>
+              </select>
+            )}
+          </div>
         </div>
       </div>
     )}
@@ -6422,26 +6565,26 @@ style={{
               letterSpacing: "0.5px",
               textTransform: "uppercase",
             }}>
-              🚿 Bathrooms
+              🚿 Bathrooms (in room)
             </label>
-            <div style={{ display: "flex", gap: "8px" }}>
-              {[1, 1.5, 2, 2.5].map(num => (
+            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+              {[0, 0.5, 1, 1.5, 2, 2.5].map(num => (
                 <button
                   key={num}
                   onClick={() => setModalBathrooms(num)}
                   style={{
-                    flex: 1,
+                    flex: num === 0 ? "1 1 100%" : "1 1 calc(25% - 6px)",
                     padding: "12px",
                     borderRadius: "10px",
                     border: modalBathrooms === num ? "2px solid #D4955A" : "2px solid rgba(255, 255, 255, 0.1)",
                     background: modalBathrooms === num ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
                     color: "white",
-                    fontSize: "14px",
+                    fontSize: num === 0 ? "13px" : "14px",
                     fontWeight: "800",
                     cursor: "pointer",
                   }}
                 >
-                  {num}
+                  {num === 0 ? "None (Shared/Public)" : num}
                 </button>
               ))}
             </div>
