@@ -199,16 +199,20 @@ export default function CleaningSuOficinaBooking() {
 
   // Pricing Structure for Commercial Cleaning (Anchorage Market)
   const PRICING = {
-    // Base rates per square foot (monthly contract) - TIERED BY SIZE
+    // Base rates per square foot (WEEKLY = 4 cleanings/month) - TIERED BY SIZE
+    // These rates represent monthly cost for weekly service
     baseRatesTiered: {
       office: [
-        { max: 2000, rate: 0.15 },      // 0-2,000 sqft: $0.15/sqft
-        { max: 3000, rate: 0.13 },      // 2,001-3,000 sqft: $0.13/sqft
-        { max: 5000, rate: 0.12 },      // 3,001-5,000 sqft: $0.12/sqft
-        { max: 10000, rate: 0.10 },     // 5,001-10,000 sqft: $0.10/sqft
-        { max: 20000, rate: 0.09 },     // 10,001-20,000 sqft: $0.09/sqft
-        { max: 50000, rate: 0.08 },     // 20,001-50,000 sqft: $0.08/sqft
-        { max: Infinity, rate: 0.07 },  // 50,001+ sqft: $0.07/sqft
+        { max: 2500, rate: 0.49 },      // 0-2,500 sqft: $0.49/sqft (weekly base)
+        { max: 3500, rate: 0.46 },      // 2,501-3,500 sqft: $0.46/sqft
+        { max: 5000, rate: 0.43 },      // 3,501-5,000 sqft: $0.43/sqft
+        { max: 7500, rate: 0.41 },      // 5,001-7,500 sqft: $0.41/sqft
+        { max: 10000, rate: 0.38 },     // 7,501-10,000 sqft: $0.38/sqft
+        { max: 15000, rate: 0.35 },     // 10,001-15,000 sqft: $0.35/sqft
+        { max: 20000, rate: 0.32 },     // 15,001-20,000 sqft: $0.32/sqft
+        { max: 30000, rate: 0.29 },     // 20,001-30,000 sqft: $0.29/sqft
+        { max: 50000, rate: 0.27 },     // 30,001-50,000 sqft: $0.27/sqft
+        { max: Infinity, rate: 0.24 },  // 50,001+ sqft: $0.24/sqft
       ],
       healthcare: [
         { max: 2000, rate: 0.22 },
@@ -248,7 +252,20 @@ export default function CleaningSuOficinaBooking() {
       ],
     },
     
-    // Frequency discounts (based on cleanings per week)
+    // Frequency multipliers (BASE = Weekly/4 cleanings per month)
+    // Multiplier applied to monthly base rate
+    frequencyMultipliers: {
+      "monthly": 0.30,         // 1 cleaning/month (premium for infrequent)
+      "every-3-weeks": 0.42,   // ~1.3 cleanings/month
+      "bi-weekly": 0.55,       // 2 cleanings/month (small premium)
+      "weekly": 1.0,           // 4 cleanings/month (BASE RATE)
+      "2x-week": 1.90,         // 8 cleanings/month (5% volume discount)
+      "3x-week": 2.70,         // 12 cleanings/month (10% volume discount)
+      "4x-week": 3.66,         // 17 cleanings/month (14% volume discount)
+      "daily": 4.40,           // 22 cleanings/month (20% volume discount)
+    },
+    
+    // Legacy frequency discounts for other segments (keeping for backward compatibility)
     frequencyDiscounts: {
       "daily": 0.20,           // 20% discount for daily cleaning
       "5x-week": 0.15,         // 15% discount for 5x/week
@@ -303,6 +320,19 @@ export default function CleaningSuOficinaBooking() {
       industrialBreakRoom: 30, // $30 per employee break room
       industrialRestroom: 35,  // $35 per restroom
       officeArea: 25,          // $25 per admin/office area
+    },
+    
+    // Office Specialty Room Add-Ons (Monthly fees beyond base sqft rate)
+    officeSpecialtyRooms: {
+      conferenceRoomSmall: 80,      // Conference room <10 people (weekly deep clean)
+      conferenceRoomMedium: 120,    // Conference room 10-20 people
+      conferenceRoomLarge: 180,     // Conference room 20+ people
+      breakRoomBasic: 100,          // Basic break room (microwave, sink, fridge) - 3x/week
+      fullKitchen: 200,             // Full commercial kitchen (daily service)
+      restroomDeepSanitize: 50,     // Per restroom (daily disinfection protocol)
+      serverRoom: 75,               // Server/IT room (monthly service)
+      lobbyReception: 150,          // Lobby/reception premium (daily high-traffic)
+      storageArchive: 40,           // Storage/archive room (monthly/quarterly)
     },
     
     // Add-on services (per service, per visit)
@@ -706,38 +736,23 @@ export default function CleaningSuOficinaBooking() {
     
     // Base cleaning cost using tiered pricing
     const baseRate = getRateForSquareFeet(sqft, marketSegment);
-    total += sqft * baseRate;
+    let baseCost = sqft * baseRate;
+    
+    // Apply frequency multiplier for office segment (base rate assumes weekly)
+    if (marketSegment === "office" && frequency) {
+      const frequencyMultiplier = PRICING.frequencyMultipliers[frequency] || 1.0;
+      baseCost = baseCost * frequencyMultiplier;
+    }
+    
+    total += baseCost;
     
     // Room/Area charges based on market segment
     if (marketSegment === "office") {
-      // Workspace configurations with per-config daily count + volume discount
-      if (workspaceConfigs.length > 0) {
-        // Calculate total daily workspaces across all configurations
-        const totalDailyWorkspaces = workspaceConfigs.reduce((sum, config) => {
-          return sum + (parseInt(config.dailyCount) || 0);
-        }, 0);
-        
-        // Calculate monthly cost for each configuration
-        const monthlyWorkspaceCost = workspaceConfigs.reduce((sum, config) => {
-          const dailyCount = parseInt(config.dailyCount) || 0;
-          const monthlyCost = dailyCount * 30 * config.pricePerClean;
-          return sum + monthlyCost;
-        }, 0);
-        
-        // Apply volume discount based on total daily workspace count
-        let volumeDiscount = 0;
-        if (totalDailyWorkspaces >= 100) volumeDiscount = 0.15;      // 15% off for 100+ workspaces/day
-        else if (totalDailyWorkspaces >= 60) volumeDiscount = 0.12;  // 12% off for 60-99
-        else if (totalDailyWorkspaces >= 40) volumeDiscount = 0.10;  // 10% off for 40-59
-        else if (totalDailyWorkspaces >= 20) volumeDiscount = 0.07;  // 7% off for 20-39
-        else if (totalDailyWorkspaces >= 10) volumeDiscount = 0.05;  // 5% off for 10-19
-        else if (totalDailyWorkspaces >= 5) volumeDiscount = 0.03;   // 3% off for 5-9
-        
-        const discountedWorkspaceCost = monthlyWorkspaceCost * (1 - volumeDiscount);
-        total += discountedWorkspaceCost;
-      }
+      // Workspace configurations are for SERVICE DOCUMENTATION only (not priced separately)
+      // Base sqft rate already covers workspace cleaning
       
-      // Other office facilities (each with individual frequency)
+      // Specialty room add-ons (monthly fees beyond base rate)
+      // These are charged separately because they require extra attention beyond standard cleaning
       total += getFacilityMonthlyCost(conferenceRooms, 45, conferenceRoomsFreq);
       total += getFacilityMonthlyCost(breakRooms, 35, breakRoomsFreq);
       total += getFacilityMonthlyCost(restrooms, 25, restroomsFreq);
@@ -888,60 +903,49 @@ export default function CleaningSuOficinaBooking() {
     
     const sqft = parseInt(squareFeet);
     const baseRate = getRateForSquareFeet(sqft, marketSegment);
+    const baseSqftCost = sqft * baseRate;
     
-    breakdown.push({
-      label: `Base Cleaning (${sqft.toLocaleString()} sqft @ $${baseRate.toFixed(2)}/sqft)`,
-      amount: sqft * baseRate
-    });
+    // Apply frequency multiplier for office (base assumes weekly)
+    if (marketSegment === "office" && frequency) {
+      const frequencyMultiplier = PRICING.frequencyMultipliers[frequency] || 1.0;
+      const adjustedCost = baseSqftCost * frequencyMultiplier;
+      
+      // Frequency labels for display
+      const frequencyLabels = {
+        "monthly": "Monthly (1x)",
+        "every-3-weeks": "Every 3 Weeks",
+        "bi-weekly": "Bi-weekly (2x)",
+        "weekly": "Weekly (4x)",
+        "2x-week": "2x/Week (8x)",
+        "3x-week": "3x/Week (12x)",
+        "4x-week": "4x/Week (17x)",
+        "daily": "Daily (22x)"
+      };
+      
+      breakdown.push({
+        label: `Base Cleaning (${sqft.toLocaleString()} sqft @ $${baseRate.toFixed(2)}/sqft - ${frequencyLabels[frequency] || frequency})`,
+        amount: adjustedCost,
+        originalAmount: frequencyMultiplier !== 1.0 ? baseSqftCost : null,
+        discountPercent: frequencyMultiplier !== 1.0 ? `${frequencyMultiplier}x` : "",
+        note: frequencyMultiplier < 1.0 ? "Lower frequency" : frequencyMultiplier > 1.0 ? "Volume discount" : ""
+      });
+    } else {
+      breakdown.push({
+        label: `Base Cleaning (${sqft.toLocaleString()} sqft @ $${baseRate.toFixed(2)}/sqft)`,
+        amount: baseSqftCost
+      });
+    }
     
     // Room charges
     if (marketSegment === "office") {
-      // Workspace configurations with per-config daily count + volume discount
+      // Workspace configurations are for documentation only (included in base sqft rate)
+      // Show workspace summary if configured
       if (workspaceConfigs.length > 0) {
-        // Calculate total daily workspaces across all configurations
-        const totalDailyWorkspaces = workspaceConfigs.reduce((sum, config) => {
-          return sum + (parseInt(config.dailyCount) || 0);
-        }, 0);
-        
-        // Calculate monthly cost for all configurations
-        const monthlyWorkspaceCost = workspaceConfigs.reduce((sum, config) => {
-          const dailyCount = parseInt(config.dailyCount) || 0;
-          const monthlyCost = dailyCount * 30 * config.pricePerClean;
-          return sum + monthlyCost;
-        }, 0);
-        
-        // Apply volume discount
-        let volumeDiscount = 0;
-        let discountPercent = "";
-        if (totalDailyWorkspaces >= 100) {
-          volumeDiscount = 0.15;
-          discountPercent = "15%";
-        } else if (totalDailyWorkspaces >= 60) {
-          volumeDiscount = 0.12;
-          discountPercent = "12%";
-        } else if (totalDailyWorkspaces >= 40) {
-          volumeDiscount = 0.10;
-          discountPercent = "10%";
-        } else if (totalDailyWorkspaces >= 20) {
-          volumeDiscount = 0.07;
-          discountPercent = "7%";
-        } else if (totalDailyWorkspaces >= 10) {
-          volumeDiscount = 0.05;
-          discountPercent = "5%";
-        } else if (totalDailyWorkspaces >= 5) {
-          volumeDiscount = 0.03;
-          discountPercent = "3%";
-        }
-        
-        const discountedMonthlyWorkspaces = monthlyWorkspaceCost * (1 - volumeDiscount);
-        const discountAmount = monthlyWorkspaceCost - discountedMonthlyWorkspaces;
-        
-        breakdown.push({ 
-          label: `Workspaces (${totalDailyWorkspaces}/day × 30 days)`, 
-          amount: discountedMonthlyWorkspaces,
-          originalAmount: volumeDiscount > 0 ? monthlyWorkspaceCost : null,
-          discountPercent: discountPercent,
-          discountAmount: discountAmount
+        const totalWorkspaces = workspaceConfigs.reduce((sum, config) => sum + config.quantity, 0);
+        breakdown.push({
+          label: `📋 Service Scope: ${totalWorkspaces} workspaces configured (included in base rate)`,
+          amount: 0,
+          isInfo: true
         });
       }
       
@@ -2556,6 +2560,63 @@ style={{
         }}>
           📋 Office Details
         </label>
+        
+        {/* Cleaning Frequency Selector */}
+        <div style={{
+          marginBottom: "20px",
+          background: "linear-gradient(135deg, rgba(184, 115, 51, 0.08) 0%, rgba(143, 170, 184, 0.08) 100%)",
+          borderRadius: "16px",
+          padding: "20px",
+          border: "1px solid rgba(184, 115, 51, 0.2)",
+        }}>
+          <label style={{
+            fontSize: "12px",
+            fontWeight: "700",
+            color: "#B87333",
+            marginBottom: "12px",
+            display: "block",
+            letterSpacing: "0.5px",
+            textTransform: "uppercase",
+          }}>
+            📅 Cleaning Frequency *
+          </label>
+          <select
+            value={frequency}
+            onChange={(e) => setFrequency(e.target.value)}
+            required
+            style={{
+              width: "100%",
+              padding: "14px 16px",
+              borderRadius: "12px",
+              border: "2px solid rgba(184, 115, 51, 0.3)",
+              background: "rgba(255, 255, 255, 0.05)",
+              color: "white",
+              fontSize: "14px",
+              fontWeight: "600",
+              outline: "none",
+              cursor: "pointer",
+            }}
+          >
+            <option value="">Select frequency...</option>
+            <option value="monthly">Monthly (1x/month)</option>
+            <option value="every-3-weeks">Every 3 Weeks (~1.3x/month)</option>
+            <option value="bi-weekly">Bi-weekly (2x/month)</option>
+            <option value="weekly">Weekly (4x/month) - MOST COMMON</option>
+            <option value="2x-week">2x per Week (8x/month)</option>
+            <option value="3x-week">3x per Week (12x/month)</option>
+            <option value="4x-week">4x per Week (17x/month)</option>
+            <option value="daily">Daily (22x/month)</option>
+          </select>
+          <div style={{
+            fontSize: "11px",
+            color: "rgba(255, 255, 255, 0.6)",
+            marginTop: "8px",
+            fontStyle: "italic",
+          }}>
+            Base rates assume weekly cleaning. More frequent service receives volume discounts.
+          </div>
+        </div>
+        
         <div style={{
           display: "grid",
           gridTemplateColumns: "repeat(2, 1fr)",
