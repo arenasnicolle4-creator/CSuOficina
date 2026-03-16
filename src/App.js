@@ -203,16 +203,16 @@ export default function CleaningSuOficinaBooking() {
     // These rates represent monthly cost for weekly service
     baseRatesTiered: {
       office: [
-        { max: 2500, rate: 0.49 },      // 0-2,500 sqft: $0.49/sqft (weekly base)
-        { max: 3500, rate: 0.46 },      // 2,501-3,500 sqft: $0.46/sqft
-        { max: 5000, rate: 0.43 },      // 3,501-5,000 sqft: $0.43/sqft
-        { max: 7500, rate: 0.41 },      // 5,001-7,500 sqft: $0.41/sqft
-        { max: 10000, rate: 0.38 },     // 7,501-10,000 sqft: $0.38/sqft
-        { max: 15000, rate: 0.35 },     // 10,001-15,000 sqft: $0.35/sqft
-        { max: 20000, rate: 0.32 },     // 15,001-20,000 sqft: $0.32/sqft
-        { max: 30000, rate: 0.29 },     // 20,001-30,000 sqft: $0.29/sqft
-        { max: 50000, rate: 0.27 },     // 30,001-50,000 sqft: $0.27/sqft
-        { max: Infinity, rate: 0.24 },  // 50,001+ sqft: $0.24/sqft
+        { max: 2500, rate: 0.425 },     // 0-2,500 sqft: $0.425/sqft (weekly base)
+        { max: 3500, rate: 0.41 },      // 2,501-3,500 sqft: $0.41/sqft
+        { max: 5000, rate: 0.39 },      // 3,501-5,000 sqft: $0.39/sqft
+        { max: 7500, rate: 0.37 },      // 5,001-7,500 sqft: $0.37/sqft
+        { max: 10000, rate: 0.34 },     // 7,501-10,000 sqft: $0.34/sqft
+        { max: 15000, rate: 0.30 },     // 10,001-15,000 sqft: $0.30/sqft
+        { max: 20000, rate: 0.28 },     // 15,001-20,000 sqft: $0.28/sqft
+        { max: 30000, rate: 0.25 },     // 20,001-30,000 sqft: $0.25/sqft
+        { max: 50000, rate: 0.23 },     // 30,001-50,000 sqft: $0.23/sqft
+        { max: Infinity, rate: 0.20 },  // 50,001+ sqft: $0.20/sqft
       ],
       healthcare: [
         { max: 2000, rate: 0.22 },
