@@ -1273,10 +1273,17 @@ export default function CleaningSuOficinaBooking() {
     
     // Market-specific details
     if (marketSegment === 'office') {
-      formData.append('Workstations', workstations);
+      // Workspace configurations
+      if (workspaceConfigs.length > 0) {
+        formData.append('Workspace Configurations', JSON.stringify(workspaceConfigs));
+        formData.append('Daily Workspace Count', dailyWorkspaceCount);
+      }
       formData.append('Conference Rooms', conferenceRooms);
       formData.append('Break Rooms', breakRooms);
       formData.append('Restrooms', restrooms);
+      formData.append('Reception/Lobby', receptions);
+      formData.append('Server/IT Rooms', serverRooms);
+      formData.append('Storage/Archive', storageRooms);
     } else if (marketSegment === 'healthcare') {
       formData.append('Exam Rooms', examRooms);
       formData.append('Waiting Areas', waitingAreas);
@@ -8062,7 +8069,11 @@ style={{
           setMarketSegment("");
           setSquareFeet("");
           setFrequency("");
-          setWorkstations(0);
+          
+          // Office workspace builder reset
+          setWorkspaceConfigs([]);
+          setDailyWorkspaceCount("");
+          
           setConferenceRooms(0);
           setBreakRooms(0);
           setRestrooms(0);
