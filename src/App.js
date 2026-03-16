@@ -634,6 +634,7 @@ export default function CleaningSuOficinaBooking() {
 
   const editWorkspaceConfig = (index) => {
     const config = workspaceConfigs[index];
+    setWsTemplate("custom"); // Set template so customization options show
     setWsPrivacy(config.privacy);
     setWsSize(config.size);
     setWsComplexity(config.complexity);
