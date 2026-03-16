@@ -923,7 +923,7 @@ export default function CleaningSuOficinaBooking() {
       };
       
       breakdown.push({
-        label: `Base Cleaning (${sqft.toLocaleString()} sqft @ $${baseRate.toFixed(2)}/sqft - ${frequencyLabels[frequency] || frequency})`,
+        label: `Base Cleaning (${sqft.toLocaleString()} sqft - ${frequencyLabels[frequency] || frequency})`,
         amount: adjustedCost,
         originalAmount: frequencyMultiplier !== 1.0 ? baseSqftCost : null,
         discountPercent: frequencyMultiplier !== 1.0 ? `${frequencyMultiplier}x` : "",
@@ -931,7 +931,7 @@ export default function CleaningSuOficinaBooking() {
       });
     } else {
       breakdown.push({
-        label: `Base Cleaning (${sqft.toLocaleString()} sqft @ $${baseRate.toFixed(2)}/sqft)`,
+        label: `Base Cleaning (${sqft.toLocaleString()} sqft)`,
         amount: baseSqftCost
       });
     }
@@ -2346,7 +2346,7 @@ style={{
         </div>
       </label>
 
-      {/* Rate Display */}
+      {/* Running Total Display */}
       {squareFeet && marketSegment && (
         <div style={{
           padding: "12px 16px",
@@ -2362,14 +2362,22 @@ style={{
             fontWeight: "600",
             marginBottom: "4px",
           }}>
-            Current Rate
+            Base Monthly Cost
           </div>
           <div style={{
             fontSize: "28px",
             fontWeight: "900",
             color: "#B87333",
           }}>
-            ${getRateForSquareFeet(parseInt(squareFeet), marketSegment).toFixed(2)}/sqft
+            ${(parseInt(squareFeet) * getRateForSquareFeet(parseInt(squareFeet), marketSegment)).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+          </div>
+          <div style={{
+            fontSize: "11px",
+            color: "rgba(255, 255, 255, 0.5)",
+            marginTop: "4px",
+            fontStyle: "italic",
+          }}>
+            {marketSegment === "office" ? "Weekly service base rate" : "Before frequency adjustments"}
           </div>
         </div>
       )}
@@ -2433,9 +2441,12 @@ style={{
             min="500"
             max="50000"
             value={squareFeet || ''}
-            onChange={(e) => {
-              const val = Math.max(500, Math.min(50000, parseInt(e.target.value) || 0));
-              setSquareFeet(val.toString());
+            onChange={(e) => setSquareFeet(e.target.value)}
+            onBlur={(e) => {
+              // Only validate on blur (when user leaves the field)
+              const val = parseInt(e.target.value) || 0;
+              if (val < 500) setSquareFeet('500');
+              else if (val > 50000) setSquareFeet('50000');
             }}
             placeholder="Enter square feet..."
             style={{
