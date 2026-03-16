@@ -36,7 +36,6 @@ export default function CleaningSuOficinaBooking() {
   // Office - Workspace Builder
   const [showWorkspaceModal, setShowWorkspaceModal] = useState(false);
   const [workspaceConfigs, setWorkspaceConfigs] = useState([]); // Array of workspace configurations
-  const [dailyWorkspaceCount, setDailyWorkspaceCount] = useState(""); // How many workspaces cleaned per day
   
   // Office - Workspace Modal builder state
   const [wsTemplate, setWsTemplate] = useState("");
@@ -48,8 +47,10 @@ export default function CleaningSuOficinaBooking() {
     food: false,
     equipment: false,
     highTraffic: false,
+    trash: false,
   });
   const [wsQuantity, setWsQuantity] = useState(1);
+  const [wsDailyCount, setWsDailyCount] = useState(1); // How many of this type cleaned per day
   const [wsEditingIndex, setWsEditingIndex] = useState(null);
   
   // Office - Individual facility frequencies
@@ -505,6 +506,7 @@ export default function CleaningSuOficinaBooking() {
     if (config.features.food) basePrice += 2;
     if (config.features.equipment) basePrice += 3;
     if (config.features.highTraffic) basePrice += 2;
+    if (config.features.trash) basePrice += 1;
     
     return basePrice;
   };
@@ -543,42 +545,42 @@ export default function CleaningSuOficinaBooking() {
         setWsSize("large");
         setWsComplexity("standard");
         setWsFlooring("carpet");
-        setWsFeatures({ food: false, equipment: false, highTraffic: false });
+        setWsFeatures({ food: false, equipment: false, highTraffic: false, trash: false });
         break;
       case "manager":
         setWsPrivacy("private");
         setWsSize("medium");
         setWsComplexity("standard");
         setWsFlooring("carpet");
-        setWsFeatures({ food: false, equipment: false, highTraffic: false });
+        setWsFeatures({ food: false, equipment: false, highTraffic: false, trash: false });
         break;
       case "cubicle":
         setWsPrivacy("partial");
-        setWsSize("small");
+        setWsSize("small"); // Cubicles are standardized, size won't show in UI
         setWsComplexity("standard");
         setWsFlooring("carpet");
-        setWsFeatures({ food: false, equipment: false, highTraffic: false });
+        setWsFeatures({ food: false, equipment: false, highTraffic: false, trash: false });
         break;
       case "open-desk":
         setWsPrivacy("open");
-        setWsSize("small");
+        setWsSize("small"); // Open desks are standardized, size won't show in UI
         setWsComplexity("light");
         setWsFlooring("hard");
-        setWsFeatures({ food: false, equipment: false, highTraffic: false });
+        setWsFeatures({ food: false, equipment: false, highTraffic: false, trash: false });
         break;
       case "creative":
         setWsPrivacy("open");
         setWsSize("medium");
         setWsComplexity("standard");
         setWsFlooring("hard");
-        setWsFeatures({ food: true, equipment: false, highTraffic: true });
+        setWsFeatures({ food: true, equipment: false, highTraffic: true, trash: false });
         break;
       case "custom":
         setWsPrivacy("open");
         setWsSize("medium");
         setWsComplexity("standard");
         setWsFlooring("hard");
-        setWsFeatures({ food: false, equipment: false, highTraffic: false });
+        setWsFeatures({ food: false, equipment: false, highTraffic: false, trash: false });
         break;
       default:
         break;
@@ -593,6 +595,7 @@ export default function CleaningSuOficinaBooking() {
       flooring: wsFlooring,
       features: { ...wsFeatures },
       quantity: wsQuantity,
+      dailyCount: wsDailyCount,
       pricePerClean: calculateWorkspacePrice({
         privacy: wsPrivacy,
         size: wsSize,
@@ -620,8 +623,9 @@ export default function CleaningSuOficinaBooking() {
     setWsSize("medium");
     setWsComplexity("standard");
     setWsFlooring("hard");
-    setWsFeatures({ food: false, equipment: false, highTraffic: false });
+    setWsFeatures({ food: false, equipment: false, highTraffic: false, trash: false });
     setWsQuantity(1);
+    setWsDailyCount(1);
   };
 
   const deleteWorkspaceConfig = (index) => {
@@ -636,6 +640,7 @@ export default function CleaningSuOficinaBooking() {
     setWsFlooring(config.flooring);
     setWsFeatures({ ...config.features });
     setWsQuantity(config.quantity);
+    setWsDailyCount(config.dailyCount || 1);
     setWsEditingIndex(index);
     setShowWorkspaceModal(true);
   };
@@ -704,28 +709,31 @@ export default function CleaningSuOficinaBooking() {
     
     // Room/Area charges based on market segment
     if (marketSegment === "office") {
-      // Workspace configurations with daily count + volume discount
-      if (workspaceConfigs.length > 0 && dailyWorkspaceCount) {
-        const dailyWorkspaceNum = parseInt(dailyWorkspaceCount) || 0;
-        const totalWorkspaceQuantity = workspaceConfigs.reduce((sum, c) => sum + c.quantity, 0);
-        const totalWorkspaceCost = workspaceConfigs.reduce((sum, config) => {
-          return sum + (config.quantity * config.pricePerClean);
+      // Workspace configurations with per-config daily count + volume discount
+      if (workspaceConfigs.length > 0) {
+        // Calculate total daily workspaces across all configurations
+        const totalDailyWorkspaces = workspaceConfigs.reduce((sum, config) => {
+          return sum + (parseInt(config.dailyCount) || 0);
         }, 0);
         
-        // Base monthly cost
-        let monthlyWorkspaceCost = (dailyWorkspaceNum * 30 * totalWorkspaceCost) / totalWorkspaceQuantity;
+        // Calculate monthly cost for each configuration
+        const monthlyWorkspaceCost = workspaceConfigs.reduce((sum, config) => {
+          const dailyCount = parseInt(config.dailyCount) || 0;
+          const monthlyCost = dailyCount * 30 * config.pricePerClean;
+          return sum + monthlyCost;
+        }, 0);
         
-        // Apply volume discount based on daily workspace count
+        // Apply volume discount based on total daily workspace count
         let volumeDiscount = 0;
-        if (dailyWorkspaceNum >= 100) volumeDiscount = 0.15;      // 15% off for 100+ workspaces/day
-        else if (dailyWorkspaceNum >= 60) volumeDiscount = 0.12;  // 12% off for 60-99
-        else if (dailyWorkspaceNum >= 40) volumeDiscount = 0.10;  // 10% off for 40-59
-        else if (dailyWorkspaceNum >= 20) volumeDiscount = 0.07;  // 7% off for 20-39
-        else if (dailyWorkspaceNum >= 10) volumeDiscount = 0.05;  // 5% off for 10-19
-        else if (dailyWorkspaceNum >= 5) volumeDiscount = 0.03;   // 3% off for 5-9
+        if (totalDailyWorkspaces >= 100) volumeDiscount = 0.15;      // 15% off for 100+ workspaces/day
+        else if (totalDailyWorkspaces >= 60) volumeDiscount = 0.12;  // 12% off for 60-99
+        else if (totalDailyWorkspaces >= 40) volumeDiscount = 0.10;  // 10% off for 40-59
+        else if (totalDailyWorkspaces >= 20) volumeDiscount = 0.07;  // 7% off for 20-39
+        else if (totalDailyWorkspaces >= 10) volumeDiscount = 0.05;  // 5% off for 10-19
+        else if (totalDailyWorkspaces >= 5) volumeDiscount = 0.03;   // 3% off for 5-9
         
-        monthlyWorkspaceCost = monthlyWorkspaceCost * (1 - volumeDiscount);
-        total += monthlyWorkspaceCost;
+        const discountedWorkspaceCost = monthlyWorkspaceCost * (1 - volumeDiscount);
+        total += discountedWorkspaceCost;
       }
       
       // Other office facilities (each with individual frequency)
@@ -887,47 +895,50 @@ export default function CleaningSuOficinaBooking() {
     
     // Room charges
     if (marketSegment === "office") {
-      // Workspace configurations with daily count + volume discount
-      if (workspaceConfigs.length > 0 && dailyWorkspaceCount) {
-        const dailyWorkspaceNum = parseInt(dailyWorkspaceCount) || 0;
-        const totalWorkspaceQuantity = workspaceConfigs.reduce((sum, c) => sum + c.quantity, 0);
-        const totalWorkspaceCost = workspaceConfigs.reduce((sum, config) => {
-          return sum + (config.quantity * config.pricePerClean);
+      // Workspace configurations with per-config daily count + volume discount
+      if (workspaceConfigs.length > 0) {
+        // Calculate total daily workspaces across all configurations
+        const totalDailyWorkspaces = workspaceConfigs.reduce((sum, config) => {
+          return sum + (parseInt(config.dailyCount) || 0);
         }, 0);
         
-        // Calculate base monthly cost
-        const baseMonthlyWorkspaces = (dailyWorkspaceNum * 30 * totalWorkspaceCost) / totalWorkspaceQuantity;
+        // Calculate monthly cost for all configurations
+        const monthlyWorkspaceCost = workspaceConfigs.reduce((sum, config) => {
+          const dailyCount = parseInt(config.dailyCount) || 0;
+          const monthlyCost = dailyCount * 30 * config.pricePerClean;
+          return sum + monthlyCost;
+        }, 0);
         
         // Apply volume discount
         let volumeDiscount = 0;
         let discountPercent = "";
-        if (dailyWorkspaceNum >= 100) {
+        if (totalDailyWorkspaces >= 100) {
           volumeDiscount = 0.15;
           discountPercent = "15%";
-        } else if (dailyWorkspaceNum >= 60) {
+        } else if (totalDailyWorkspaces >= 60) {
           volumeDiscount = 0.12;
           discountPercent = "12%";
-        } else if (dailyWorkspaceNum >= 40) {
+        } else if (totalDailyWorkspaces >= 40) {
           volumeDiscount = 0.10;
           discountPercent = "10%";
-        } else if (dailyWorkspaceNum >= 20) {
+        } else if (totalDailyWorkspaces >= 20) {
           volumeDiscount = 0.07;
           discountPercent = "7%";
-        } else if (dailyWorkspaceNum >= 10) {
+        } else if (totalDailyWorkspaces >= 10) {
           volumeDiscount = 0.05;
           discountPercent = "5%";
-        } else if (dailyWorkspaceNum >= 5) {
+        } else if (totalDailyWorkspaces >= 5) {
           volumeDiscount = 0.03;
           discountPercent = "3%";
         }
         
-        const discountedMonthlyWorkspaces = baseMonthlyWorkspaces * (1 - volumeDiscount);
-        const discountAmount = baseMonthlyWorkspaces - discountedMonthlyWorkspaces;
+        const discountedMonthlyWorkspaces = monthlyWorkspaceCost * (1 - volumeDiscount);
+        const discountAmount = monthlyWorkspaceCost - discountedMonthlyWorkspaces;
         
         breakdown.push({ 
-          label: `Workspaces (${dailyWorkspaceNum}/day × 30 days)`, 
+          label: `Workspaces (${totalDailyWorkspaces}/day × 30 days)`, 
           amount: discountedMonthlyWorkspaces,
-          originalAmount: volumeDiscount > 0 ? baseMonthlyWorkspaces : null,
+          originalAmount: volumeDiscount > 0 ? monthlyWorkspaceCost : null,
           discountPercent: discountPercent,
           discountAmount: discountAmount
         });
@@ -1273,10 +1284,9 @@ export default function CleaningSuOficinaBooking() {
     
     // Market-specific details
     if (marketSegment === 'office') {
-      // Workspace configurations
+      // Workspace configurations (includes per-config daily counts)
       if (workspaceConfigs.length > 0) {
         formData.append('Workspace Configurations', JSON.stringify(workspaceConfigs));
-        formData.append('Daily Workspace Count', dailyWorkspaceCount);
       }
       formData.append('Conference Rooms', conferenceRooms);
       formData.append('Break Rooms', breakRooms);
@@ -2619,7 +2629,7 @@ style={{
                         color: "rgba(255, 255, 255, 0.6)",
                         fontWeight: "600",
                       }}>
-                        ${config.pricePerClean}/clean × {config.quantity} = ${config.pricePerClean * config.quantity}/clean
+                        ${config.pricePerClean}/clean • {config.dailyCount || 0} cleaned/day
                       </div>
                     </div>
                     <div style={{ display: "flex", gap: "8px" }}>
@@ -2656,55 +2666,6 @@ style={{
                     </div>
                   </div>
                 ))}
-              </div>
-            )}
-            
-            {/* Daily Workspace Count - Only show if workspaces configured */}
-            {workspaceConfigs.length > 0 && (
-              <div style={{
-                marginTop: "5px",
-                padding: "15px",
-                background: "rgba(143, 170, 184, 0.08)",
-                borderRadius: "10px",
-                border: "1px solid rgba(143, 170, 184, 0.2)",
-              }}>
-                <label style={{
-                  fontSize: "12px",
-                  fontWeight: "700",
-                  color: "#B87333",
-                  marginBottom: "8px",
-                  display: "block",
-                  letterSpacing: "0.5px",
-                  textTransform: "uppercase",
-                }}>
-                  📊 Workspaces Cleaned Per Day *
-                </label>
-                <input
-                  type="number"
-                  value={dailyWorkspaceCount}
-                  onChange={(e) => setDailyWorkspaceCount(e.target.value)}
-                  placeholder="e.g., 35"
-                  min="1"
-                  style={{
-                    width: "100%",
-                    padding: "12px 15px",
-                    borderRadius: "10px",
-                    border: "2px solid rgba(184, 115, 51, 0.3)",
-                    background: "rgba(255, 255, 255, 0.05)",
-                    color: "white",
-                    fontSize: "14px",
-                    fontWeight: "600",
-                    outline: "none",
-                  }}
-                />
-                <div style={{
-                  fontSize: "10px",
-                  color: "rgba(255, 255, 255, 0.5)",
-                  marginTop: "6px",
-                  fontStyle: "italic",
-                }}>
-                  How many workspaces are typically cleaned each day?
-                </div>
               </div>
             )}
           </div>
@@ -7642,46 +7603,48 @@ style={{
             </div>
           </div>
 
-          {/* Size */}
-          <div style={{ marginBottom: "20px" }}>
-            <label style={{
-              fontSize: "12px",
-              fontWeight: "700",
-              color: "#B87333",
-              marginBottom: "10px",
-              display: "block",
-              letterSpacing: "0.5px",
-              textTransform: "uppercase",
-            }}>
-              📏 Size
-            </label>
-            <div style={{ display: "flex", gap: "8px" }}>
-              {[
-                { value: "small", label: "Small" },
-                { value: "medium", label: "Medium" },
-                { value: "large", label: "Large" },
-                { value: "xl", label: "XL" },
-              ].map((option) => (
-                <button
-                  key={option.value}
-                  onClick={() => setWsSize(option.value)}
-                  style={{
-                    flex: 1,
-                    padding: "12px",
-                    borderRadius: "10px",
-                    border: wsSize === option.value ? "2px solid #D4955A" : "2px solid rgba(255, 255, 255, 0.1)",
-                    background: wsSize === option.value ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
-                    color: "white",
-                    fontSize: "13px",
-                    fontWeight: "800",
-                    cursor: "pointer",
-                  }}
-                >
-                  {option.label}
-                </button>
-              ))}
+          {/* Size - Only for private offices and creative spaces */}
+          {(wsPrivacy === "private" || (wsPrivacy === "open" && wsTemplate === "creative")) && (
+            <div style={{ marginBottom: "20px" }}>
+              <label style={{
+                fontSize: "12px",
+                fontWeight: "700",
+                color: "#B87333",
+                marginBottom: "10px",
+                display: "block",
+                letterSpacing: "0.5px",
+                textTransform: "uppercase",
+              }}>
+                📏 Size
+              </label>
+              <div style={{ display: "flex", gap: "8px" }}>
+                {[
+                  { value: "small", label: "Small" },
+                  { value: "medium", label: "Medium" },
+                  { value: "large", label: "Large" },
+                  { value: "xl", label: "XL" },
+                ].map((option) => (
+                  <button
+                    key={option.value}
+                    onClick={() => setWsSize(option.value)}
+                    style={{
+                      flex: 1,
+                      padding: "12px",
+                      borderRadius: "10px",
+                      border: wsSize === option.value ? "2px solid #D4955A" : "2px solid rgba(255, 255, 255, 0.1)",
+                      background: wsSize === option.value ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
+                      color: "white",
+                      fontSize: "13px",
+                      fontWeight: "800",
+                      cursor: "pointer",
+                    }}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Complexity */}
           <div style={{ marginBottom: "20px" }}>
@@ -7781,6 +7744,7 @@ style={{
                 { key: "food", label: "Food/Beverage Allowed (+$2)" },
                 { key: "equipment", label: "Equipment Heavy (+$3)" },
                 { key: "highTraffic", label: "High Traffic (+$2)" },
+                { key: "trash", label: "Trash Removal (+$1)" },
               ].map((feature) => (
                 <label
                   key={feature.key}
@@ -7942,6 +7906,118 @@ style={{
               </button>
             </div>
           </div>
+
+          {/* Daily Clean Count */}
+          <div style={{ marginBottom: "25px" }}>
+            <label style={{
+              fontSize: "12px",
+              fontWeight: "700",
+              color: "#B87333",
+              marginBottom: "10px",
+              display: "block",
+              letterSpacing: "0.5px",
+              textTransform: "uppercase",
+            }}>
+              📊 Daily Clean Count
+            </label>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              background: "rgba(255, 255, 255, 0.05)",
+              padding: "16px",
+              borderRadius: "12px",
+            }}>
+              <button
+                onClick={() => setWsDailyCount(Math.max(1, wsDailyCount - 10))}
+                style={{
+                  padding: "10px 16px",
+                  borderRadius: "8px",
+                  border: "none",
+                  background: "rgba(239, 68, 68, 0.2)",
+                  color: "#ef4444",
+                  fontSize: "14px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                }}
+              >
+                -10
+              </button>
+              <button
+                onClick={() => setWsDailyCount(Math.max(1, wsDailyCount - 1))}
+                style={{
+                  padding: "10px 16px",
+                  borderRadius: "8px",
+                  border: "none",
+                  background: "rgba(239, 68, 68, 0.2)",
+                  color: "#ef4444",
+                  fontSize: "16px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                }}
+              >
+                -1
+              </button>
+              <div style={{
+                flex: 1,
+                textAlign: "center",
+              }}>
+                <div style={{
+                  fontSize: "28px",
+                  fontWeight: "900",
+                  color: "white",
+                }}>
+                  {wsDailyCount}
+                </div>
+                <div style={{
+                  fontSize: "10px",
+                  color: "rgba(255, 255, 255, 0.5)",
+                  fontWeight: "600",
+                  marginTop: "2px",
+                }}>
+                  cleaned/day
+                </div>
+              </div>
+              <button
+                onClick={() => setWsDailyCount(wsDailyCount + 1)}
+                style={{
+                  padding: "10px 16px",
+                  borderRadius: "8px",
+                  border: "none",
+                  background: "rgba(16, 185, 129, 0.2)",
+                  color: "#10b981",
+                  fontSize: "16px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                }}
+              >
+                +1
+              </button>
+              <button
+                onClick={() => setWsDailyCount(wsDailyCount + 10)}
+                style={{
+                  padding: "10px 16px",
+                  borderRadius: "8px",
+                  border: "none",
+                  background: "rgba(16, 185, 129, 0.2)",
+                  color: "#10b981",
+                  fontSize: "14px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                }}
+              >
+                +10
+              </button>
+            </div>
+            <div style={{
+              fontSize: "10px",
+              color: "rgba(255, 255, 255, 0.5)",
+              marginTop: "8px",
+              fontStyle: "italic",
+            }}>
+              How many of these workspaces are cleaned each day?
+            </div>
+          </div>
         </div>
       )}
 
@@ -8072,7 +8148,6 @@ style={{
           
           // Office workspace builder reset
           setWorkspaceConfigs([]);
-          setDailyWorkspaceCount("");
           
           setConferenceRooms(0);
           setBreakRooms(0);
