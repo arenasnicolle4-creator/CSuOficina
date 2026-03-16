@@ -2364,21 +2364,80 @@ style={{
           }}>
             Base Monthly Cost
           </div>
-          <div style={{
-            fontSize: "28px",
-            fontWeight: "900",
-            color: "#B87333",
-          }}>
-            ${(parseInt(squareFeet) * getRateForSquareFeet(parseInt(squareFeet), marketSegment)).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-          </div>
-          <div style={{
-            fontSize: "11px",
-            color: "rgba(255, 255, 255, 0.5)",
-            marginTop: "4px",
-            fontStyle: "italic",
-          }}>
-            {marketSegment === "office" ? "Weekly service base rate" : "Before frequency adjustments"}
-          </div>
+          
+          {(() => {
+            const baseCost = parseInt(squareFeet) * getRateForSquareFeet(parseInt(squareFeet), marketSegment);
+            
+            // Check if office segment and frequency is selected
+            if (marketSegment === "office" && frequency) {
+              const frequencyMultiplier = PRICING.frequencyMultipliers[frequency] || 1.0;
+              const adjustedCost = baseCost * frequencyMultiplier;
+              const hasDiscount = frequencyMultiplier !== 1.0;
+              
+              const frequencyLabels = {
+                "monthly": "Monthly",
+                "every-3-weeks": "Every 3 Weeks",
+                "bi-weekly": "Bi-weekly",
+                "weekly": "Weekly",
+                "2x-week": "2x/Week",
+                "3x-week": "3x/Week",
+                "4x-week": "4x/Week",
+                "daily": "Daily"
+              };
+              
+              return (
+                <>
+                  {hasDiscount && (
+                    <div style={{
+                      fontSize: "18px",
+                      fontWeight: "700",
+                      color: "rgba(255, 255, 255, 0.4)",
+                      textDecoration: "line-through",
+                      marginBottom: "4px",
+                    }}>
+                      ${baseCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </div>
+                  )}
+                  <div style={{
+                    fontSize: "28px",
+                    fontWeight: "900",
+                    color: hasDiscount ? "#10b981" : "#B87333",
+                  }}>
+                    ${adjustedCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  </div>
+                  <div style={{
+                    fontSize: "11px",
+                    color: "rgba(255, 255, 255, 0.5)",
+                    marginTop: "4px",
+                    fontStyle: "italic",
+                  }}>
+                    {frequencyLabels[frequency]} service rate
+                  </div>
+                </>
+              );
+            } else {
+              // Non-office or no frequency selected yet
+              return (
+                <>
+                  <div style={{
+                    fontSize: "28px",
+                    fontWeight: "900",
+                    color: "#B87333",
+                  }}>
+                    ${baseCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  </div>
+                  <div style={{
+                    fontSize: "11px",
+                    color: "rgba(255, 255, 255, 0.5)",
+                    marginTop: "4px",
+                    fontStyle: "italic",
+                  }}>
+                    {marketSegment === "office" ? "Weekly service base rate (select frequency above)" : "Before frequency adjustments"}
+                  </div>
+                </>
+              );
+            }
+          })()}
         </div>
       )}
 
@@ -2608,15 +2667,15 @@ style={{
               cursor: "pointer",
             }}
           >
-            <option value="">Select frequency...</option>
-            <option value="monthly">Monthly (1x/month)</option>
-            <option value="every-3-weeks">Every 3 Weeks (~1.3x/month)</option>
-            <option value="bi-weekly">Bi-weekly (2x/month)</option>
-            <option value="weekly">Weekly (4x/month) - MOST COMMON</option>
-            <option value="2x-week">2x per Week (8x/month)</option>
-            <option value="3x-week">3x per Week (12x/month)</option>
-            <option value="4x-week">4x per Week (17x/month)</option>
-            <option value="daily">Daily (22x/month)</option>
+            <option value="" style={{ background: "#1A252F", color: "white" }}>Select frequency...</option>
+            <option value="monthly" style={{ background: "#1A252F", color: "white" }}>Monthly (1x/month)</option>
+            <option value="every-3-weeks" style={{ background: "#1A252F", color: "white" }}>Every 3 Weeks (~1.3x/month)</option>
+            <option value="bi-weekly" style={{ background: "#1A252F", color: "white" }}>Bi-weekly (2x/month)</option>
+            <option value="weekly" style={{ background: "#1A252F", color: "white" }}>Weekly (4x/month) - MOST COMMON</option>
+            <option value="2x-week" style={{ background: "#1A252F", color: "white" }}>2x per Week (8x/month)</option>
+            <option value="3x-week" style={{ background: "#1A252F", color: "white" }}>3x per Week (12x/month)</option>
+            <option value="4x-week" style={{ background: "#1A252F", color: "white" }}>4x per Week (17x/month)</option>
+            <option value="daily" style={{ background: "#1A252F", color: "white" }}>Daily (22x/month)</option>
           </select>
           <div style={{
             fontSize: "11px",
