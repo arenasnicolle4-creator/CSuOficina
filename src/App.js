@@ -26,14 +26,12 @@ export default function CleaningSuOficinaBooking() {
   const [frequency, setFrequency] = useState("");
   
   // Office Buildings
-  const [workstations, setWorkstations] = useState(0);
   const [conferenceRooms, setConferenceRooms] = useState(0);
   const [breakRooms, setBreakRooms] = useState(0);
   const [restrooms, setRestrooms] = useState(0);
   const [receptions, setReceptions] = useState(0);
   const [serverRooms, setServerRooms] = useState(0);
   const [storageRooms, setStorageRooms] = useState(0);
-  const [privateOffices, setPrivateOffices] = useState(0);
   
   // Office - Workspace Builder
   const [showWorkspaceModal, setShowWorkspaceModal] = useState(false);
