@@ -35,6 +35,33 @@ export default function CleaningSuOficinaBooking() {
   const [storageRooms, setStorageRooms] = useState(0);
   const [privateOffices, setPrivateOffices] = useState(0);
   
+  // Office - Workspace Builder
+  const [showWorkspaceModal, setShowWorkspaceModal] = useState(false);
+  const [workspaceConfigs, setWorkspaceConfigs] = useState([]); // Array of workspace configurations
+  const [dailyWorkspaceCount, setDailyWorkspaceCount] = useState(""); // How many workspaces cleaned per day
+  
+  // Office - Workspace Modal builder state
+  const [wsTemplate, setWsTemplate] = useState("");
+  const [wsPrivacy, setWsPrivacy] = useState("open");
+  const [wsSize, setWsSize] = useState("medium");
+  const [wsComplexity, setWsComplexity] = useState("standard");
+  const [wsFlooring, setWsFlooring] = useState("hard");
+  const [wsFeatures, setWsFeatures] = useState({
+    food: false,
+    equipment: false,
+    highTraffic: false,
+  });
+  const [wsQuantity, setWsQuantity] = useState(1);
+  const [wsEditingIndex, setWsEditingIndex] = useState(null);
+  
+  // Office - Individual facility frequencies
+  const [conferenceRoomsFreq, setConferenceRoomsFreq] = useState("");
+  const [breakRoomsFreq, setBreakRoomsFreq] = useState("");
+  const [restroomsFreq, setRestroomsFreq] = useState("");
+  const [receptionsFreq, setReceptionsFreq] = useState("");
+  const [serverRoomsFreq, setServerRoomsFreq] = useState("");
+  const [storageRoomsFreq, setStorageRoomsFreq] = useState("");
+  
   // Healthcare
   const [examRooms, setExamRooms] = useState(0);
   const [waitingAreas, setWaitingAreas] = useState(0);
@@ -451,6 +478,170 @@ export default function CleaningSuOficinaBooking() {
     setShowGuestRoomModal(true);
   };
 
+  // Workspace Builder Functions (Office)
+  const calculateWorkspacePrice = (config) => {
+    let basePrice = 8; // Starting base
+    
+    // Privacy pricing
+    if (config.privacy === "open") basePrice += 0;
+    else if (config.privacy === "partial") basePrice += 3; // Cubicle
+    else if (config.privacy === "private") basePrice += 5; // Office
+    
+    // Size pricing
+    if (config.size === "small") basePrice += 0;
+    else if (config.size === "medium") basePrice += 2;
+    else if (config.size === "large") basePrice += 4;
+    else if (config.size === "xl") basePrice += 6;
+    
+    // Complexity pricing
+    if (config.complexity === "light") basePrice -= 2; // Clean desk policy
+    else if (config.complexity === "standard") basePrice += 0;
+    else if (config.complexity === "heavy") basePrice += 4; // Cluttered
+    
+    // Flooring pricing
+    if (config.flooring === "hard") basePrice += 0;
+    else if (config.flooring === "carpet") basePrice += 3;
+    else if (config.flooring === "industrial") basePrice += 2;
+    
+    // Features pricing
+    if (config.features.food) basePrice += 2;
+    if (config.features.equipment) basePrice += 3;
+    if (config.features.highTraffic) basePrice += 2;
+    
+    return basePrice;
+  };
+
+  const getWorkspaceLabel = (config) => {
+    let label = "";
+    
+    // Privacy type
+    if (config.privacy === "open") label = "Open Desk";
+    else if (config.privacy === "partial") label = "Cubicle";
+    else if (config.privacy === "private") label = "Private Office";
+    
+    // Size
+    label += ` (${config.size.charAt(0).toUpperCase() + config.size.slice(1)}`;
+    
+    // Complexity
+    if (config.complexity !== "standard") {
+      label += `, ${config.complexity}`;
+    }
+    
+    // Flooring
+    if (config.flooring === "carpet") label += ", Carpet";
+    else if (config.flooring === "industrial") label += ", Industrial";
+    
+    label += ")";
+    
+    return label;
+  };
+
+  const applyWorkspaceTemplate = (template) => {
+    setWsTemplate(template);
+    
+    switch(template) {
+      case "executive":
+        setWsPrivacy("private");
+        setWsSize("large");
+        setWsComplexity("standard");
+        setWsFlooring("carpet");
+        setWsFeatures({ food: false, equipment: false, highTraffic: false });
+        break;
+      case "manager":
+        setWsPrivacy("private");
+        setWsSize("medium");
+        setWsComplexity("standard");
+        setWsFlooring("carpet");
+        setWsFeatures({ food: false, equipment: false, highTraffic: false });
+        break;
+      case "cubicle":
+        setWsPrivacy("partial");
+        setWsSize("small");
+        setWsComplexity("standard");
+        setWsFlooring("carpet");
+        setWsFeatures({ food: false, equipment: false, highTraffic: false });
+        break;
+      case "open-desk":
+        setWsPrivacy("open");
+        setWsSize("small");
+        setWsComplexity("light");
+        setWsFlooring("hard");
+        setWsFeatures({ food: false, equipment: false, highTraffic: false });
+        break;
+      case "creative":
+        setWsPrivacy("open");
+        setWsSize("medium");
+        setWsComplexity("standard");
+        setWsFlooring("hard");
+        setWsFeatures({ food: true, equipment: false, highTraffic: true });
+        break;
+      case "custom":
+        setWsPrivacy("open");
+        setWsSize("medium");
+        setWsComplexity("standard");
+        setWsFlooring("hard");
+        setWsFeatures({ food: false, equipment: false, highTraffic: false });
+        break;
+      default:
+        break;
+    }
+  };
+
+  const saveWorkspaceConfig = () => {
+    const config = {
+      privacy: wsPrivacy,
+      size: wsSize,
+      complexity: wsComplexity,
+      flooring: wsFlooring,
+      features: { ...wsFeatures },
+      quantity: wsQuantity,
+      pricePerClean: calculateWorkspacePrice({
+        privacy: wsPrivacy,
+        size: wsSize,
+        complexity: wsComplexity,
+        flooring: wsFlooring,
+        features: wsFeatures
+      })
+    };
+    
+    if (wsEditingIndex !== null) {
+      // Update existing config
+      const updated = [...workspaceConfigs];
+      updated[wsEditingIndex] = config;
+      setWorkspaceConfigs(updated);
+      setWsEditingIndex(null);
+    } else {
+      // Add new config
+      setWorkspaceConfigs([...workspaceConfigs, config]);
+    }
+    
+    // Reset modal
+    setShowWorkspaceModal(false);
+    setWsTemplate("");
+    setWsPrivacy("open");
+    setWsSize("medium");
+    setWsComplexity("standard");
+    setWsFlooring("hard");
+    setWsFeatures({ food: false, equipment: false, highTraffic: false });
+    setWsQuantity(1);
+  };
+
+  const deleteWorkspaceConfig = (index) => {
+    setWorkspaceConfigs(workspaceConfigs.filter((_, i) => i !== index));
+  };
+
+  const editWorkspaceConfig = (index) => {
+    const config = workspaceConfigs[index];
+    setWsPrivacy(config.privacy);
+    setWsSize(config.size);
+    setWsComplexity(config.complexity);
+    setWsFlooring(config.flooring);
+    setWsFeatures({ ...config.features });
+    setWsQuantity(config.quantity);
+    setWsEditingIndex(index);
+    setShowWorkspaceModal(true);
+  };
+
   // Calculate monthly cost for a facility based on its frequency
   const getFacilityMonthlyCost = (quantity, pricePerClean, frequency) => {
     if (!quantity || !frequency) return 0;
@@ -462,6 +653,7 @@ export default function CleaningSuOficinaBooking() {
       "2x-week": 8,
       "weekly": 4,
       "bi-weekly": 2,
+      "monthly": 1,
     };
     
     const discountRates = {
@@ -471,6 +663,7 @@ export default function CleaningSuOficinaBooking() {
       "2x-week": -0.05,    // 5% discount
       "weekly": 0,         // No discount
       "bi-weekly": 0.10,   // 10% upcharge
+      "monthly": 0.20,     // 20% upcharge
     };
     
     const visits = visitsPerMonth[frequency] || 0;
@@ -500,8 +693,9 @@ export default function CleaningSuOficinaBooking() {
   const calculateSubtotal = () => {
     if (!marketSegment || !squareFeet) return 0;
     
-    // For non-hospitality segments, require frequency
-    if (marketSegment !== "hospitality" && !frequency) return 0;
+    // For office and hospitality, frequency is per-facility (not global)
+    // For other segments, require frequency
+    if (marketSegment !== "hospitality" && marketSegment !== "office" && !frequency) return 0;
     
     let total = 0;
     const sqft = parseInt(squareFeet);
@@ -512,10 +706,37 @@ export default function CleaningSuOficinaBooking() {
     
     // Room/Area charges based on market segment
     if (marketSegment === "office") {
-      total += workstations * PRICING.rooms.workstation;
-      total += conferenceRooms * PRICING.rooms.conferenceRoom;
-      total += breakRooms * PRICING.rooms.breakRoom;
-      total += restrooms * PRICING.rooms.restroom;
+      // Workspace configurations with daily count + volume discount
+      if (workspaceConfigs.length > 0 && dailyWorkspaceCount) {
+        const dailyWorkspaceNum = parseInt(dailyWorkspaceCount) || 0;
+        const totalWorkspaceQuantity = workspaceConfigs.reduce((sum, c) => sum + c.quantity, 0);
+        const totalWorkspaceCost = workspaceConfigs.reduce((sum, config) => {
+          return sum + (config.quantity * config.pricePerClean);
+        }, 0);
+        
+        // Base monthly cost
+        let monthlyWorkspaceCost = (dailyWorkspaceNum * 30 * totalWorkspaceCost) / totalWorkspaceQuantity;
+        
+        // Apply volume discount based on daily workspace count
+        let volumeDiscount = 0;
+        if (dailyWorkspaceNum >= 100) volumeDiscount = 0.15;      // 15% off for 100+ workspaces/day
+        else if (dailyWorkspaceNum >= 60) volumeDiscount = 0.12;  // 12% off for 60-99
+        else if (dailyWorkspaceNum >= 40) volumeDiscount = 0.10;  // 10% off for 40-59
+        else if (dailyWorkspaceNum >= 20) volumeDiscount = 0.07;  // 7% off for 20-39
+        else if (dailyWorkspaceNum >= 10) volumeDiscount = 0.05;  // 5% off for 10-19
+        else if (dailyWorkspaceNum >= 5) volumeDiscount = 0.03;   // 3% off for 5-9
+        
+        monthlyWorkspaceCost = monthlyWorkspaceCost * (1 - volumeDiscount);
+        total += monthlyWorkspaceCost;
+      }
+      
+      // Other office facilities (each with individual frequency)
+      total += getFacilityMonthlyCost(conferenceRooms, 45, conferenceRoomsFreq);
+      total += getFacilityMonthlyCost(breakRooms, 35, breakRoomsFreq);
+      total += getFacilityMonthlyCost(restrooms, 25, restroomsFreq);
+      total += getFacilityMonthlyCost(receptions, 40, receptionsFreq);
+      total += getFacilityMonthlyCost(serverRooms, 30, serverRoomsFreq);
+      total += getFacilityMonthlyCost(storageRooms, 20, storageRoomsFreq);
     } else if (marketSegment === "healthcare") {
       total += examRooms * PRICING.rooms.examRoom;
       total += waitingAreas * PRICING.rooms.waitingArea;
@@ -637,8 +858,8 @@ export default function CleaningSuOficinaBooking() {
   };
 
   const calculateTotal = () => {
-    // For hospitality, the total is just the subtotal (discounts already applied)
-    if (marketSegment === "hospitality") {
+    // For hospitality and office, the total is just the subtotal (discounts already applied)
+    if (marketSegment === "hospitality" || marketSegment === "office") {
       return calculateSubtotal();
     }
     
@@ -668,10 +889,157 @@ export default function CleaningSuOficinaBooking() {
     
     // Room charges
     if (marketSegment === "office") {
-      if (workstations > 0) breakdown.push({ label: `Workstations (${workstations})`, amount: workstations * PRICING.rooms.workstation });
-      if (conferenceRooms > 0) breakdown.push({ label: `Conference Rooms (${conferenceRooms})`, amount: conferenceRooms * PRICING.rooms.conferenceRoom });
-      if (breakRooms > 0) breakdown.push({ label: `Break Rooms (${breakRooms})`, amount: breakRooms * PRICING.rooms.breakRoom });
-      if (restrooms > 0) breakdown.push({ label: `Restrooms (${restrooms})`, amount: restrooms * PRICING.rooms.restroom });
+      // Workspace configurations with daily count + volume discount
+      if (workspaceConfigs.length > 0 && dailyWorkspaceCount) {
+        const dailyWorkspaceNum = parseInt(dailyWorkspaceCount) || 0;
+        const totalWorkspaceQuantity = workspaceConfigs.reduce((sum, c) => sum + c.quantity, 0);
+        const totalWorkspaceCost = workspaceConfigs.reduce((sum, config) => {
+          return sum + (config.quantity * config.pricePerClean);
+        }, 0);
+        
+        // Calculate base monthly cost
+        const baseMonthlyWorkspaces = (dailyWorkspaceNum * 30 * totalWorkspaceCost) / totalWorkspaceQuantity;
+        
+        // Apply volume discount
+        let volumeDiscount = 0;
+        let discountPercent = "";
+        if (dailyWorkspaceNum >= 100) {
+          volumeDiscount = 0.15;
+          discountPercent = "15%";
+        } else if (dailyWorkspaceNum >= 60) {
+          volumeDiscount = 0.12;
+          discountPercent = "12%";
+        } else if (dailyWorkspaceNum >= 40) {
+          volumeDiscount = 0.10;
+          discountPercent = "10%";
+        } else if (dailyWorkspaceNum >= 20) {
+          volumeDiscount = 0.07;
+          discountPercent = "7%";
+        } else if (dailyWorkspaceNum >= 10) {
+          volumeDiscount = 0.05;
+          discountPercent = "5%";
+        } else if (dailyWorkspaceNum >= 5) {
+          volumeDiscount = 0.03;
+          discountPercent = "3%";
+        }
+        
+        const discountedMonthlyWorkspaces = baseMonthlyWorkspaces * (1 - volumeDiscount);
+        const discountAmount = baseMonthlyWorkspaces - discountedMonthlyWorkspaces;
+        
+        breakdown.push({ 
+          label: `Workspaces (${dailyWorkspaceNum}/day × 30 days)`, 
+          amount: discountedMonthlyWorkspaces,
+          originalAmount: volumeDiscount > 0 ? baseMonthlyWorkspaces : null,
+          discountPercent: discountPercent,
+          discountAmount: discountAmount
+        });
+      }
+      
+      // Individual facilities with their frequencies
+      const discountRates = {
+        "daily": { rate: -0.20, label: "20%" },
+        "5x-week": { rate: -0.15, label: "15%" },
+        "3x-week": { rate: -0.10, label: "10%" },
+        "2x-week": { rate: -0.05, label: "5%" },
+        "weekly": { rate: 0, label: "" },
+        "bi-weekly": { rate: 0.10, label: "10%" },
+        "monthly": { rate: 0.20, label: "20%" },
+      };
+      
+      const visitsPerMonth = {
+        "daily": 30,
+        "5x-week": 22,
+        "3x-week": 13,
+        "2x-week": 8,
+        "weekly": 4,
+        "bi-weekly": 2,
+        "monthly": 1,
+      };
+      
+      if (conferenceRooms > 0 && conferenceRoomsFreq) {
+        const visits = visitsPerMonth[conferenceRoomsFreq];
+        const baseCost = conferenceRooms * 45 * visits;
+        const cost = getFacilityMonthlyCost(conferenceRooms, 45, conferenceRoomsFreq);
+        const discountInfo = discountRates[conferenceRoomsFreq];
+        breakdown.push({ 
+          label: `Conference Rooms (${conferenceRoomsFreq})`, 
+          amount: cost,
+          originalAmount: discountInfo.rate !== 0 ? baseCost : null,
+          discountPercent: discountInfo.label,
+          discountAmount: baseCost - cost,
+          isUpcharge: discountInfo.rate > 0
+        });
+      }
+      if (breakRooms > 0 && breakRoomsFreq) {
+        const visits = visitsPerMonth[breakRoomsFreq];
+        const baseCost = breakRooms * 35 * visits;
+        const cost = getFacilityMonthlyCost(breakRooms, 35, breakRoomsFreq);
+        const discountInfo = discountRates[breakRoomsFreq];
+        breakdown.push({ 
+          label: `Break Rooms (${breakRoomsFreq})`, 
+          amount: cost,
+          originalAmount: discountInfo.rate !== 0 ? baseCost : null,
+          discountPercent: discountInfo.label,
+          discountAmount: baseCost - cost,
+          isUpcharge: discountInfo.rate > 0
+        });
+      }
+      if (restrooms > 0 && restroomsFreq) {
+        const visits = visitsPerMonth[restroomsFreq];
+        const baseCost = restrooms * 25 * visits;
+        const cost = getFacilityMonthlyCost(restrooms, 25, restroomsFreq);
+        const discountInfo = discountRates[restroomsFreq];
+        breakdown.push({ 
+          label: `Restrooms (${restroomsFreq})`, 
+          amount: cost,
+          originalAmount: discountInfo.rate !== 0 ? baseCost : null,
+          discountPercent: discountInfo.label,
+          discountAmount: baseCost - cost,
+          isUpcharge: discountInfo.rate > 0
+        });
+      }
+      if (receptions > 0 && receptionsFreq) {
+        const visits = visitsPerMonth[receptionsFreq];
+        const baseCost = receptions * 40 * visits;
+        const cost = getFacilityMonthlyCost(receptions, 40, receptionsFreq);
+        const discountInfo = discountRates[receptionsFreq];
+        breakdown.push({ 
+          label: `Lobby/Reception (${receptionsFreq})`, 
+          amount: cost,
+          originalAmount: discountInfo.rate !== 0 ? baseCost : null,
+          discountPercent: discountInfo.label,
+          discountAmount: baseCost - cost,
+          isUpcharge: discountInfo.rate > 0
+        });
+      }
+      if (serverRooms > 0 && serverRoomsFreq) {
+        const visits = visitsPerMonth[serverRoomsFreq];
+        const baseCost = serverRooms * 30 * visits;
+        const cost = getFacilityMonthlyCost(serverRooms, 30, serverRoomsFreq);
+        const discountInfo = discountRates[serverRoomsFreq];
+        breakdown.push({ 
+          label: `Server/IT Rooms (${serverRoomsFreq})`, 
+          amount: cost,
+          originalAmount: discountInfo.rate !== 0 ? baseCost : null,
+          discountPercent: discountInfo.label,
+          discountAmount: baseCost - cost,
+          isUpcharge: discountInfo.rate > 0
+        });
+      }
+      if (storageRooms > 0 && storageRoomsFreq) {
+        const visits = visitsPerMonth[storageRoomsFreq];
+        const baseCost = storageRooms * 20 * visits;
+        const cost = getFacilityMonthlyCost(storageRooms, 20, storageRoomsFreq);
+        const discountInfo = discountRates[storageRoomsFreq];
+        breakdown.push({ 
+          label: `Storage/Archive (${storageRoomsFreq})`, 
+          amount: cost,
+          originalAmount: discountInfo.rate !== 0 ? baseCost : null,
+          discountPercent: discountInfo.label,
+          discountAmount: baseCost - cost,
+          isUpcharge: discountInfo.rate > 0
+        });
+      }
     } else if (marketSegment === "healthcare") {
       if (examRooms > 0) breakdown.push({ label: `Exam Rooms (${examRooms})`, amount: examRooms * PRICING.rooms.examRoom });
       if (waitingAreas > 0) breakdown.push({ label: `Waiting Areas (${waitingAreas})`, amount: waitingAreas * PRICING.rooms.waitingArea });
@@ -2081,8 +2449,8 @@ style={{
 
     </div>
 
-    {/* Cleaning Frequency - NOT for hospitality (they have individual facility frequencies) */}
-    {marketSegment !== "hospitality" && (
+    {/* Cleaning Frequency - NOT for hospitality or office (they have individual facility frequencies) */}
+    {marketSegment !== "hospitality" && marketSegment !== "office" && (
     <div style={{ marginBottom: "30px" }}>
       <label style={{
         display: "flex",
@@ -2177,89 +2545,163 @@ style={{
           gridTemplateColumns: "repeat(2, 1fr)",
           gap: "12px",
         }}>
-          {/* Workstations */}
+          {/* Workspaces - Configure Button */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
-            border: "1px solid rgba(184, 115, 51, 0.2)",
+            gridColumn: "1 / -1", // Full width
+            background: "linear-gradient(135deg, rgba(184, 115, 51, 0.12) 0%, rgba(143, 170, 184, 0.12) 100%)",
+            border: "2px dashed rgba(184, 115, 51, 0.4)",
             borderRadius: "16px",
-            padding: "16px",
+            padding: "20px",
             display: "flex",
             flexDirection: "column",
-            gap: "10px",
+            gap: "15px",
           }}>
-            <div style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}>
-              <div>
-                <div style={{
-                  fontSize: "14px",
-                  fontWeight: "800",
-                  color: "#B87333",
-                  marginBottom: "2px",
-                }}>
-                  💼 Workstations
-                </div>
-                <div style={{
-                  fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.6)",
-                  fontWeight: "600",
-                }}>
-                  $8 each
-                </div>
-              </div>
-              <div style={{
-                fontSize: "24px",
-                fontWeight: "900",
+            <button
+              onClick={() => {
+                setWsEditingIndex(null);
+                setShowWorkspaceModal(true);
+              }}
+              style={{
+                padding: "16px",
+                borderRadius: "12px",
+                border: "none",
+                background: "linear-gradient(135deg, #B87333 0%, #D4955A 100%)",
                 color: "white",
-                minWidth: "40px",
-                textAlign: "right",
+                fontSize: "15px",
+                fontWeight: "800",
+                cursor: "pointer",
+                transition: "all 0.3s ease",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "10px",
+              }}
+            >
+              💼 Configure Workspaces
+            </button>
+            
+            {/* List of configured workspace types */}
+            {workspaceConfigs.length > 0 && (
+              <div style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "8px",
               }}>
-                {workstations}
+                {workspaceConfigs.map((config, index) => (
+                  <div
+                    key={index}
+                    style={{
+                      background: "rgba(255, 255, 255, 0.05)",
+                      borderRadius: "10px",
+                      padding: "12px 15px",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      border: "1px solid rgba(255, 255, 255, 0.1)",
+                    }}
+                  >
+                    <div style={{ flex: 1 }}>
+                      <div style={{
+                        fontSize: "13px",
+                        fontWeight: "700",
+                        color: "white",
+                        marginBottom: "3px",
+                      }}>
+                        {getWorkspaceLabel(config)} × {config.quantity}
+                      </div>
+                      <div style={{
+                        fontSize: "11px",
+                        color: "rgba(255, 255, 255, 0.6)",
+                        fontWeight: "600",
+                      }}>
+                        ${config.pricePerClean}/clean × {config.quantity} = ${config.pricePerClean * config.quantity}/clean
+                      </div>
+                    </div>
+                    <div style={{ display: "flex", gap: "8px" }}>
+                      <button
+                        onClick={() => editWorkspaceConfig(index)}
+                        style={{
+                          padding: "6px 12px",
+                          borderRadius: "6px",
+                          border: "none",
+                          background: "rgba(184, 115, 51, 0.2)",
+                          color: "#D4955A",
+                          fontSize: "11px",
+                          fontWeight: "700",
+                          cursor: "pointer",
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => deleteWorkspaceConfig(index)}
+                        style={{
+                          padding: "6px 12px",
+                          borderRadius: "6px",
+                          border: "none",
+                          background: "rgba(239, 68, 68, 0.2)",
+                          color: "#ef4444",
+                          fontSize: "11px",
+                          fontWeight: "700",
+                          cursor: "pointer",
+                        }}
+                      >
+                        ×
+                      </button>
+                    </div>
+                  </div>
+                ))}
               </div>
-            </div>
-            <div style={{
-              display: "flex",
-              gap: "8px",
-            }}>
-              <button
-                onClick={() => setWorkstations(Math.max(0, workstations - 1))}
-                style={{
-                  flex: 1,
-                  padding: "10px",
-                  borderRadius: "10px",
-                  border: "none",
-                  background: workstations > 0 
-                    ? "rgba(239, 68, 68, 0.15)" 
-                    : "rgba(255, 255, 255, 0.05)",
-                  color: workstations > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
-                  fontSize: "18px",
-                  fontWeight: "900",
-                  cursor: workstations > 0 ? "pointer" : "not-allowed",
-                  transition: "all 0.2s ease",
-                }}
-              >
-                −
-              </button>
-              <button
-                onClick={() => setWorkstations(workstations + 1)}
-                style={{
-                  flex: 1,
-                  padding: "10px",
-                  borderRadius: "10px",
-                  border: "none",
-                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
-                  color: "white",
-                  fontSize: "18px",
-                  fontWeight: "900",
-                  cursor: "pointer",
-                  transition: "all 0.2s ease",
-                }}
-              >
-                +
-              </button>
-            </div>
+            )}
+            
+            {/* Daily Workspace Count - Only show if workspaces configured */}
+            {workspaceConfigs.length > 0 && (
+              <div style={{
+                marginTop: "5px",
+                padding: "15px",
+                background: "rgba(143, 170, 184, 0.08)",
+                borderRadius: "10px",
+                border: "1px solid rgba(143, 170, 184, 0.2)",
+              }}>
+                <label style={{
+                  fontSize: "12px",
+                  fontWeight: "700",
+                  color: "#B87333",
+                  marginBottom: "8px",
+                  display: "block",
+                  letterSpacing: "0.5px",
+                  textTransform: "uppercase",
+                }}>
+                  📊 Workspaces Cleaned Per Day *
+                </label>
+                <input
+                  type="number"
+                  value={dailyWorkspaceCount}
+                  onChange={(e) => setDailyWorkspaceCount(e.target.value)}
+                  placeholder="e.g., 35"
+                  min="1"
+                  style={{
+                    width: "100%",
+                    padding: "12px 15px",
+                    borderRadius: "10px",
+                    border: "2px solid rgba(184, 115, 51, 0.3)",
+                    background: "rgba(255, 255, 255, 0.05)",
+                    color: "white",
+                    fontSize: "14px",
+                    fontWeight: "600",
+                    outline: "none",
+                  }}
+                />
+                <div style={{
+                  fontSize: "10px",
+                  color: "rgba(255, 255, 255, 0.5)",
+                  marginTop: "6px",
+                  fontStyle: "italic",
+                }}>
+                  How many workspaces are typically cleaned each day?
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Conference Rooms */}
@@ -2284,14 +2726,14 @@ style={{
                   color: "#B87333",
                   marginBottom: "2px",
                 }}>
-                  🗂️ Conference
+                  🗂️ Conference Rooms
                 </div>
                 <div style={{
                   fontSize: "11px",
                   color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
-                  $25 each
+                  $45/clean
                 </div>
               </div>
               <div style={{
@@ -2345,6 +2787,34 @@ style={{
                 +
               </button>
             </div>
+            {/* Frequency Selector */}
+            {conferenceRooms > 0 && (
+              <select
+                value={conferenceRoomsFreq}
+                onChange={(e) => setConferenceRoomsFreq(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "8px 10px",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(184, 115, 51, 0.3)",
+                  background: "rgba(255, 255, 255, 0.05)",
+                  color: conferenceRoomsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
+                  fontSize: "11px",
+                  fontWeight: "600",
+                  outline: "none",
+                  cursor: "pointer",
+                }}
+              >
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
+                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (30/mo) - 20% OFF</option>
+                <option value="5x-week" style={{ background: "#2E3A47", color: "white" }}>5x/Week (22/mo) - 15% OFF</option>
+                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (13/mo) - 10% OFF</option>
+                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - 5% OFF</option>
+                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo)</option>
+                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +10%</option>
+                <option value="monthly" style={{ background: "#2E3A47", color: "white" }}>Monthly (1/mo) +20%</option>
+              </select>
+            )}
           </div>
 
           {/* Break Rooms */}
@@ -2376,7 +2846,7 @@ style={{
                   color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
-                  $30 each
+                  $35/clean
                 </div>
               </div>
               <div style={{
@@ -2430,6 +2900,34 @@ style={{
                 +
               </button>
             </div>
+            {/* Frequency Selector */}
+            {breakRooms > 0 && (
+              <select
+                value={breakRoomsFreq}
+                onChange={(e) => setBreakRoomsFreq(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "8px 10px",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(184, 115, 51, 0.3)",
+                  background: "rgba(255, 255, 255, 0.05)",
+                  color: breakRoomsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
+                  fontSize: "11px",
+                  fontWeight: "600",
+                  outline: "none",
+                  cursor: "pointer",
+                }}
+              >
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
+                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (30/mo) - 20% OFF</option>
+                <option value="5x-week" style={{ background: "#2E3A47", color: "white" }}>5x/Week (22/mo) - 15% OFF</option>
+                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (13/mo) - 10% OFF</option>
+                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - 5% OFF</option>
+                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo)</option>
+                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +10%</option>
+                <option value="monthly" style={{ background: "#2E3A47", color: "white" }}>Monthly (1/mo) +20%</option>
+              </select>
+            )}
           </div>
 
           {/* Restrooms */}
@@ -2461,7 +2959,7 @@ style={{
                   color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
-                  $35 each
+                  $25/clean
                 </div>
               </div>
               <div style={{
@@ -2515,6 +3013,34 @@ style={{
                 +
               </button>
             </div>
+            {/* Frequency Selector */}
+            {restrooms > 0 && (
+              <select
+                value={restroomsFreq}
+                onChange={(e) => setRestroomsFreq(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "8px 10px",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(184, 115, 51, 0.3)",
+                  background: "rgba(255, 255, 255, 0.05)",
+                  color: restroomsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
+                  fontSize: "11px",
+                  fontWeight: "600",
+                  outline: "none",
+                  cursor: "pointer",
+                }}
+              >
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
+                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (30/mo) - 20% OFF</option>
+                <option value="5x-week" style={{ background: "#2E3A47", color: "white" }}>5x/Week (22/mo) - 15% OFF</option>
+                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (13/mo) - 10% OFF</option>
+                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - 5% OFF</option>
+                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo)</option>
+                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +10%</option>
+                <option value="monthly" style={{ background: "#2E3A47", color: "white" }}>Monthly (1/mo) +20%</option>
+              </select>
+            )}
           </div>
 
           {/* Reception/Lobby */}
@@ -2546,7 +3072,7 @@ style={{
                   color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
-                  $40 each
+                  $40/clean
                 </div>
               </div>
               <div style={{
@@ -2600,6 +3126,34 @@ style={{
                 +
               </button>
             </div>
+            {/* Frequency Selector */}
+            {receptions > 0 && (
+              <select
+                value={receptionsFreq}
+                onChange={(e) => setReceptionsFreq(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "8px 10px",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(184, 115, 51, 0.3)",
+                  background: "rgba(255, 255, 255, 0.05)",
+                  color: receptionsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
+                  fontSize: "11px",
+                  fontWeight: "600",
+                  outline: "none",
+                  cursor: "pointer",
+                }}
+              >
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
+                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (30/mo) - 20% OFF</option>
+                <option value="5x-week" style={{ background: "#2E3A47", color: "white" }}>5x/Week (22/mo) - 15% OFF</option>
+                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (13/mo) - 10% OFF</option>
+                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - 5% OFF</option>
+                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo)</option>
+                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +10%</option>
+                <option value="monthly" style={{ background: "#2E3A47", color: "white" }}>Monthly (1/mo) +20%</option>
+              </select>
+            )}
           </div>
 
           {/* Server Rooms */}
@@ -2631,7 +3185,7 @@ style={{
                   color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
-                  $50 each
+                  $30/clean
                 </div>
               </div>
               <div style={{
@@ -2685,6 +3239,34 @@ style={{
                 +
               </button>
             </div>
+            {/* Frequency Selector */}
+            {serverRooms > 0 && (
+              <select
+                value={serverRoomsFreq}
+                onChange={(e) => setServerRoomsFreq(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "8px 10px",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(184, 115, 51, 0.3)",
+                  background: "rgba(255, 255, 255, 0.05)",
+                  color: serverRoomsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
+                  fontSize: "11px",
+                  fontWeight: "600",
+                  outline: "none",
+                  cursor: "pointer",
+                }}
+              >
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
+                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (30/mo) - 20% OFF</option>
+                <option value="5x-week" style={{ background: "#2E3A47", color: "white" }}>5x/Week (22/mo) - 15% OFF</option>
+                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (13/mo) - 10% OFF</option>
+                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - 5% OFF</option>
+                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo)</option>
+                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +10%</option>
+                <option value="monthly" style={{ background: "#2E3A47", color: "white" }}>Monthly (1/mo) +20%</option>
+              </select>
+            )}
           </div>
 
           {/* Storage Rooms */}
@@ -2709,14 +3291,14 @@ style={{
                   color: "#B87333",
                   marginBottom: "2px",
                 }}>
-                  📦 Storage Rooms
+                  📦 Storage/Archive
                 </div>
                 <div style={{
                   fontSize: "11px",
                   color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
-                  $20 each
+                  $20/clean
                 </div>
               </div>
               <div style={{
@@ -2770,96 +3352,41 @@ style={{
                 +
               </button>
             </div>
-          </div>
-
-          {/* Private Offices */}
-          <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
-            border: "1px solid rgba(184, 115, 51, 0.2)",
-            borderRadius: "16px",
-            padding: "16px",
-            display: "flex",
-            flexDirection: "column",
-            gap: "10px",
-          }}>
-            <div style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}>
-              <div>
-                <div style={{
-                  fontSize: "14px",
-                  fontWeight: "800",
-                  color: "#B87333",
-                  marginBottom: "2px",
-                }}>
-                  🚪 Private Offices
-                </div>
-                <div style={{
+            {/* Frequency Selector */}
+            {storageRooms > 0 && (
+              <select
+                value={storageRoomsFreq}
+                onChange={(e) => setStorageRoomsFreq(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "8px 10px",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(184, 115, 51, 0.3)",
+                  background: "rgba(255, 255, 255, 0.05)",
+                  color: storageRoomsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
-                }}>
-                  $30 each
-                </div>
-              </div>
-              <div style={{
-                fontSize: "24px",
-                fontWeight: "900",
-                color: "white",
-                minWidth: "40px",
-                textAlign: "right",
-              }}>
-                {privateOffices}
-              </div>
-            </div>
-            <div style={{
-              display: "flex",
-              gap: "8px",
-            }}>
-              <button
-                onClick={() => setPrivateOffices(Math.max(0, privateOffices - 1))}
-                style={{
-                  flex: 1,
-                  padding: "10px",
-                  borderRadius: "10px",
-                  border: "none",
-                  background: privateOffices > 0 
-                    ? "rgba(239, 68, 68, 0.15)" 
-                    : "rgba(255, 255, 255, 0.05)",
-                  color: privateOffices > 0 ? "#ef4444" : "rgba(255, 255, 255, 0.3)",
-                  fontSize: "18px",
-                  fontWeight: "900",
-                  cursor: privateOffices > 0 ? "pointer" : "not-allowed",
-                  transition: "all 0.2s ease",
-                }}
-              >
-                −
-              </button>
-              <button
-                onClick={() => setPrivateOffices(privateOffices + 1)}
-                style={{
-                  flex: 1,
-                  padding: "10px",
-                  borderRadius: "10px",
-                  border: "none",
-                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
-                  color: "white",
-                  fontSize: "18px",
-                  fontWeight: "900",
+                  outline: "none",
                   cursor: "pointer",
-                  transition: "all 0.2s ease",
                 }}
               >
-                +
-              </button>
-            </div>
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
+                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (30/mo) - 20% OFF</option>
+                <option value="5x-week" style={{ background: "#2E3A47", color: "white" }}>5x/Week (22/mo) - 15% OFF</option>
+                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (13/mo) - 10% OFF</option>
+                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - 5% OFF</option>
+                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo)</option>
+                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +10%</option>
+                <option value="monthly" style={{ background: "#2E3A47", color: "white" }}>Monthly (1/mo) +20%</option>
+              </select>
+            )}
           </div>
         </div>
       </div>
     )}
 
+
+    {/* Healthcare */}
     {marketSegment === "healthcare" && (
       <div style={{ marginBottom: "30px" }}>
         <label style={{
@@ -5960,8 +6487,8 @@ style={{
               </div>
             ))}
 
-            {/* Total Savings - Only for hospitality */}
-            {marketSegment === "hospitality" && (() => {
+            {/* Total Savings - For hospitality and office */}
+            {(marketSegment === "hospitality" || marketSegment === "office") && (() => {
               const totalSavings = getPriceBreakdown().reduce((sum, item) => {
                 if (item.discountAmount && !item.isUpcharge) {
                   return sum + item.discountAmount;
@@ -6398,7 +6925,7 @@ style={{
             ))}
             
             {/* Total Savings - Mobile */}
-            {marketSegment === "hospitality" && (() => {
+            {(marketSegment === "hospitality" || marketSegment === "office") && (() => {
               const totalSavings = getPriceBreakdown().reduce((sum, item) => {
                 if (item.discountAmount && !item.isUpcharge) {
                   return sum + item.discountAmount;
@@ -6946,6 +7473,522 @@ style={{
   </div>
 )}
 
+{/* Workspace Configuration Modal (Office) */}
+{showWorkspaceModal && (
+  <div style={{
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: "rgba(0, 0, 0, 0.85)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 9999,
+    padding: "20px",
+    overflowY: "auto",
+  }}>
+    <div style={{
+      background: "linear-gradient(135deg, #2E3A47 0%, #1A252F 100%)",
+      borderRadius: "24px",
+      padding: "40px 35px",
+      maxWidth: "700px",
+      width: "100%",
+      maxHeight: "90vh",
+      overflowY: "auto",
+      border: "1px solid rgba(184, 115, 51, 0.3)",
+      boxShadow: "0 30px 80px rgba(0, 0, 0, 0.7)",
+    }}>
+      <h2 style={{
+        fontSize: "26px",
+        fontWeight: "900",
+        color: "white",
+        marginBottom: "8px",
+        letterSpacing: "-0.5px",
+      }}>
+        💼 Configure Workspace
+      </h2>
+      <p style={{
+        fontSize: "14px",
+        color: "rgba(255, 255, 255, 0.6)",
+        marginBottom: "30px",
+        fontWeight: "600",
+      }}>
+        {wsEditingIndex !== null ? "Update workspace configuration" : "Create a custom workspace type"}
+      </p>
+
+      {/* Template Selection */}
+      {!wsTemplate && (
+        <div>
+          <label style={{
+            fontSize: "12px",
+            fontWeight: "700",
+            color: "#B87333",
+            marginBottom: "15px",
+            display: "block",
+            letterSpacing: "0.5px",
+            textTransform: "uppercase",
+          }}>
+            Choose a Template
+          </label>
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(2, 1fr)",
+            gap: "12px",
+            marginBottom: "25px",
+          }}>
+            {[
+              { id: "executive", icon: "🏢", name: "Executive Office", desc: "Private, Large" },
+              { id: "manager", icon: "💼", name: "Manager Office", desc: "Private, Medium" },
+              { id: "cubicle", icon: "🪑", name: "Cubicle", desc: "Partial, Small" },
+              { id: "open-desk", icon: "📋", name: "Open Desk", desc: "Hot-desk, Minimal" },
+              { id: "creative", icon: "🎨", name: "Creative Space", desc: "Collaborative" },
+              { id: "custom", icon: "🎯", name: "Custom", desc: "Build from scratch" },
+            ].map((template) => (
+              <button
+                key={template.id}
+                onClick={() => applyWorkspaceTemplate(template.id)}
+                style={{
+                  padding: "18px 16px",
+                  borderRadius: "12px",
+                  border: "2px solid rgba(184, 115, 51, 0.2)",
+                  background: "rgba(255, 255, 255, 0.03)",
+                  color: "white",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                  textAlign: "left",
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.borderColor = "rgba(184, 115, 51, 0.5)";
+                  e.currentTarget.style.background = "rgba(184, 115, 51, 0.08)";
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.borderColor = "rgba(184, 115, 51, 0.2)";
+                  e.currentTarget.style.background = "rgba(255, 255, 255, 0.03)";
+                }}
+              >
+                <div style={{
+                  fontSize: "24px",
+                  marginBottom: "6px",
+                }}>
+                  {template.icon}
+                </div>
+                <div style={{
+                  fontSize: "13px",
+                  fontWeight: "800",
+                  marginBottom: "3px",
+                }}>
+                  {template.name}
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.5)",
+                  fontWeight: "600",
+                }}>
+                  {template.desc}
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Customization Options */}
+      {wsTemplate && (
+        <div style={{ marginBottom: "25px" }}>
+          {/* Privacy Level */}
+          <div style={{ marginBottom: "20px" }}>
+            <label style={{
+              fontSize: "12px",
+              fontWeight: "700",
+              color: "#B87333",
+              marginBottom: "10px",
+              display: "block",
+              letterSpacing: "0.5px",
+              textTransform: "uppercase",
+            }}>
+              🚪 Privacy Level
+            </label>
+            <div style={{ display: "flex", gap: "8px" }}>
+              {[
+                { value: "open", label: "Open" },
+                { value: "partial", label: "Cubicle" },
+                { value: "private", label: "Private" },
+              ].map((option) => (
+                <button
+                  key={option.value}
+                  onClick={() => setWsPrivacy(option.value)}
+                  style={{
+                    flex: 1,
+                    padding: "12px",
+                    borderRadius: "10px",
+                    border: wsPrivacy === option.value ? "2px solid #D4955A" : "2px solid rgba(255, 255, 255, 0.1)",
+                    background: wsPrivacy === option.value ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
+                    color: "white",
+                    fontSize: "13px",
+                    fontWeight: "800",
+                    cursor: "pointer",
+                  }}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Size */}
+          <div style={{ marginBottom: "20px" }}>
+            <label style={{
+              fontSize: "12px",
+              fontWeight: "700",
+              color: "#B87333",
+              marginBottom: "10px",
+              display: "block",
+              letterSpacing: "0.5px",
+              textTransform: "uppercase",
+            }}>
+              📏 Size
+            </label>
+            <div style={{ display: "flex", gap: "8px" }}>
+              {[
+                { value: "small", label: "Small" },
+                { value: "medium", label: "Medium" },
+                { value: "large", label: "Large" },
+                { value: "xl", label: "XL" },
+              ].map((option) => (
+                <button
+                  key={option.value}
+                  onClick={() => setWsSize(option.value)}
+                  style={{
+                    flex: 1,
+                    padding: "12px",
+                    borderRadius: "10px",
+                    border: wsSize === option.value ? "2px solid #D4955A" : "2px solid rgba(255, 255, 255, 0.1)",
+                    background: wsSize === option.value ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
+                    color: "white",
+                    fontSize: "13px",
+                    fontWeight: "800",
+                    cursor: "pointer",
+                  }}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Complexity */}
+          <div style={{ marginBottom: "20px" }}>
+            <label style={{
+              fontSize: "12px",
+              fontWeight: "700",
+              color: "#B87333",
+              marginBottom: "10px",
+              display: "block",
+              letterSpacing: "0.5px",
+              textTransform: "uppercase",
+            }}>
+              🧹 Cleanliness Complexity
+            </label>
+            <div style={{ display: "flex", gap: "8px" }}>
+              {[
+                { value: "light", label: "Light" },
+                { value: "standard", label: "Standard" },
+                { value: "heavy", label: "Heavy" },
+              ].map((option) => (
+                <button
+                  key={option.value}
+                  onClick={() => setWsComplexity(option.value)}
+                  style={{
+                    flex: 1,
+                    padding: "12px",
+                    borderRadius: "10px",
+                    border: wsComplexity === option.value ? "2px solid #D4955A" : "2px solid rgba(255, 255, 255, 0.1)",
+                    background: wsComplexity === option.value ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
+                    color: "white",
+                    fontSize: "13px",
+                    fontWeight: "800",
+                    cursor: "pointer",
+                  }}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Flooring */}
+          <div style={{ marginBottom: "20px" }}>
+            <label style={{
+              fontSize: "12px",
+              fontWeight: "700",
+              color: "#B87333",
+              marginBottom: "10px",
+              display: "block",
+              letterSpacing: "0.5px",
+              textTransform: "uppercase",
+            }}>
+              🏢 Flooring Type
+            </label>
+            <div style={{ display: "flex", gap: "8px" }}>
+              {[
+                { value: "hard", label: "Hard Floor" },
+                { value: "carpet", label: "Carpet" },
+                { value: "industrial", label: "Industrial" },
+              ].map((option) => (
+                <button
+                  key={option.value}
+                  onClick={() => setWsFlooring(option.value)}
+                  style={{
+                    flex: 1,
+                    padding: "12px",
+                    borderRadius: "10px",
+                    border: wsFlooring === option.value ? "2px solid #D4955A" : "2px solid rgba(255, 255, 255, 0.1)",
+                    background: wsFlooring === option.value ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
+                    color: "white",
+                    fontSize: "13px",
+                    fontWeight: "800",
+                    cursor: "pointer",
+                  }}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Features */}
+          <div style={{ marginBottom: "20px" }}>
+            <label style={{
+              fontSize: "12px",
+              fontWeight: "700",
+              color: "#B87333",
+              marginBottom: "10px",
+              display: "block",
+              letterSpacing: "0.5px",
+              textTransform: "uppercase",
+            }}>
+              ⭐ Special Features
+            </label>
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              {[
+                { key: "food", label: "Food/Beverage Allowed (+$2)" },
+                { key: "equipment", label: "Equipment Heavy (+$3)" },
+                { key: "highTraffic", label: "High Traffic (+$2)" },
+              ].map((feature) => (
+                <label
+                  key={feature.key}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    padding: "12px 15px",
+                    borderRadius: "10px",
+                    border: "2px solid rgba(255, 255, 255, 0.1)",
+                    background: wsFeatures[feature.key] ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
+                    cursor: "pointer",
+                  }}
+                >
+                  <input
+                    type="checkbox"
+                    checked={wsFeatures[feature.key]}
+                    onChange={(e) => setWsFeatures({ ...wsFeatures, [feature.key]: e.target.checked })}
+                    style={{
+                      marginRight: "10px",
+                      width: "18px",
+                      height: "18px",
+                      cursor: "pointer",
+                    }}
+                  />
+                  <span style={{
+                    color: "white",
+                    fontSize: "13px",
+                    fontWeight: "700",
+                  }}>
+                    {feature.label}
+                  </span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* Price Preview */}
+          <div style={{
+            padding: "18px",
+            borderRadius: "12px",
+            background: "rgba(143, 170, 184, 0.1)",
+            border: "1px solid rgba(143, 170, 184, 0.3)",
+            marginBottom: "20px",
+          }}>
+            <div style={{
+              fontSize: "12px",
+              fontWeight: "700",
+              color: "#8FB8B8",
+              marginBottom: "8px",
+              letterSpacing: "0.5px",
+              textTransform: "uppercase",
+            }}>
+              💰 Price Per Clean
+            </div>
+            <div style={{
+              fontSize: "32px",
+              fontWeight: "900",
+              color: "white",
+            }}>
+              ${calculateWorkspacePrice({
+                privacy: wsPrivacy,
+                size: wsSize,
+                complexity: wsComplexity,
+                flooring: wsFlooring,
+                features: wsFeatures
+              })}
+            </div>
+          </div>
+
+          {/* Quantity */}
+          <div style={{ marginBottom: "25px" }}>
+            <label style={{
+              fontSize: "12px",
+              fontWeight: "700",
+              color: "#B87333",
+              marginBottom: "10px",
+              display: "block",
+              letterSpacing: "0.5px",
+              textTransform: "uppercase",
+            }}>
+              🔢 Quantity
+            </label>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              background: "rgba(255, 255, 255, 0.05)",
+              padding: "16px",
+              borderRadius: "12px",
+            }}>
+              <button
+                onClick={() => setWsQuantity(Math.max(1, wsQuantity - 10))}
+                style={{
+                  padding: "10px 16px",
+                  borderRadius: "8px",
+                  border: "none",
+                  background: "rgba(239, 68, 68, 0.2)",
+                  color: "#ef4444",
+                  fontSize: "14px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                }}
+              >
+                -10
+              </button>
+              <button
+                onClick={() => setWsQuantity(Math.max(1, wsQuantity - 1))}
+                style={{
+                  padding: "10px 16px",
+                  borderRadius: "8px",
+                  border: "none",
+                  background: "rgba(239, 68, 68, 0.2)",
+                  color: "#ef4444",
+                  fontSize: "16px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                }}
+              >
+                -1
+              </button>
+              <div style={{
+                flex: 1,
+                textAlign: "center",
+                fontSize: "28px",
+                fontWeight: "900",
+                color: "white",
+              }}>
+                {wsQuantity}
+              </div>
+              <button
+                onClick={() => setWsQuantity(wsQuantity + 1)}
+                style={{
+                  padding: "10px 16px",
+                  borderRadius: "8px",
+                  border: "none",
+                  background: "rgba(16, 185, 129, 0.2)",
+                  color: "#10b981",
+                  fontSize: "16px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                }}
+              >
+                +1
+              </button>
+              <button
+                onClick={() => setWsQuantity(wsQuantity + 10)}
+                style={{
+                  padding: "10px 16px",
+                  borderRadius: "8px",
+                  border: "none",
+                  background: "rgba(16, 185, 129, 0.2)",
+                  color: "#10b981",
+                  fontSize: "14px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                }}
+              >
+                +10
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Action Buttons */}
+      <div style={{
+        display: "flex",
+        gap: "12px",
+        marginTop: "30px",
+      }}>
+        <button
+          onClick={() => {
+            setShowWorkspaceModal(false);
+            setWsTemplate("");
+            setWsEditingIndex(null);
+          }}
+          style={{
+            flex: 1,
+            padding: "14px",
+            borderRadius: "12px",
+            border: "2px solid rgba(255, 255, 255, 0.2)",
+            background: "transparent",
+            color: "white",
+            fontSize: "14px",
+            fontWeight: "800",
+            cursor: "pointer",
+          }}
+        >
+          Cancel
+        </button>
+        {wsTemplate && (
+          <button
+            onClick={saveWorkspaceConfig}
+            style={{
+              flex: 1,
+              padding: "14px",
+              borderRadius: "12px",
+              border: "none",
+              background: "linear-gradient(135deg, #B87333 0%, #D4955A 100%)",
+              color: "white",
+              fontSize: "14px",
+              fontWeight: "800",
+              cursor: "pointer",
+            }}
+          >
+            {wsEditingIndex !== null ? "Update Workspace" : "Save Workspace"}
+          </button>
+        )}
+      </div>
+    </div>
+  </div>
+)}
+
 {/* Success Modal */}
 {showSuccessModal && (
   <div style={{
@@ -7059,6 +8102,492 @@ style={{
       >
         Done
       </button>
+    </div>
+  </div>
+)}
+
+{/* Workspace Builder Modal (Office) */}
+{showWorkspaceModal && (
+  <div style={{
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: "rgba(0, 0, 0, 0.85)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 9999,
+    padding: "20px",
+    overflowY: "auto",
+  }}>
+    <div style={{
+      background: "linear-gradient(135deg, #2E3A47 0%, #1A252F 100%)",
+      borderRadius: "24px",
+      padding: "40px 35px",
+      maxWidth: "700px",
+      width: "100%",
+      maxHeight: "90vh",
+      overflowY: "auto",
+      border: "1px solid rgba(184, 115, 51, 0.3)",
+      boxShadow: "0 30px 80px rgba(0, 0, 0, 0.7)",
+    }}>
+      <h2 style={{
+        fontSize: "26px",
+        fontWeight: "900",
+        color: "white",
+        marginBottom: "8px",
+        letterSpacing: "-0.5px",
+      }}>
+        💼 Configure Workspace
+      </h2>
+      <p style={{
+        fontSize: "14px",
+        color: "rgba(255, 255, 255, 0.6)",
+        marginBottom: "30px",
+        fontWeight: "600",
+      }}>
+        {wsEditingIndex !== null ? "Update workspace configuration" : "Add a new workspace type to your office"}
+      </p>
+
+      {/* Template Selection */}
+      {!wsTemplate && (
+        <div style={{ marginBottom: "30px" }}>
+          <label style={{
+            fontSize: "12px",
+            fontWeight: "700",
+            color: "#B87333",
+            marginBottom: "12px",
+            display: "block",
+            letterSpacing: "0.5px",
+            textTransform: "uppercase",
+          }}>
+            Choose a Template
+          </label>
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "12px",
+          }}>
+            {[
+              { id: "executive", label: "🏢 Executive Office", desc: "Private, Large, Premium" },
+              { id: "manager", label: "💼 Manager Office", desc: "Private, Medium, Standard" },
+              { id: "cubicle", label: "🪑 Cubicle", desc: "Partial, Small, Standard" },
+              { id: "open-desk", label: "📋 Open Desk", desc: "No Privacy, Minimal" },
+              { id: "creative", label: "🎨 Creative Space", desc: "Open, Collaborative" },
+              { id: "custom", label: "🎯 Custom", desc: "Build from scratch" },
+            ].map((template) => (
+              <button
+                key={template.id}
+                onClick={() => applyWorkspaceTemplate(template.id)}
+                style={{
+                  padding: "18px 16px",
+                  borderRadius: "14px",
+                  border: "2px solid rgba(184, 115, 51, 0.3)",
+                  background: "rgba(255, 255, 255, 0.05)",
+                  color: "white",
+                  cursor: "pointer",
+                  transition: "all 0.3s ease",
+                  textAlign: "left",
+                }}
+              >
+                <div style={{ fontSize: "16px", fontWeight: "800", marginBottom: "4px" }}>
+                  {template.label}
+                </div>
+                <div style={{ fontSize: "11px", color: "rgba(255, 255, 255, 0.5)", fontWeight: "600" }}>
+                  {template.desc}
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Customization Options - Only show after template selected */}
+      {wsTemplate && (
+        <>
+          {/* Privacy Level */}
+          <div style={{ marginBottom: "20px" }}>
+            <label style={{
+              fontSize: "12px",
+              fontWeight: "700",
+              color: "#B87333",
+              marginBottom: "10px",
+              display: "block",
+              letterSpacing: "0.5px",
+              textTransform: "uppercase",
+            }}>
+              🔒 Privacy Level
+            </label>
+            <div style={{ display: "flex", gap: "8px" }}>
+              {[
+                { value: "open", label: "Open", price: "$0" },
+                { value: "partial", label: "Cubicle", price: "+$3" },
+                { value: "private", label: "Private", price: "+$5" }
+              ].map(opt => (
+                <button
+                  key={opt.value}
+                  onClick={() => setWsPrivacy(opt.value)}
+                  style={{
+                    flex: 1,
+                    padding: "12px",
+                    borderRadius: "10px",
+                    border: wsPrivacy === opt.value ? "2px solid #D4955A" : "2px solid rgba(255, 255, 255, 0.1)",
+                    background: wsPrivacy === opt.value ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
+                    color: "white",
+                    fontSize: "13px",
+                    fontWeight: "800",
+                    cursor: "pointer",
+                  }}
+                >
+                  {opt.label}
+                  <div style={{ fontSize: "10px", marginTop: "3px", opacity: 0.7 }}>{opt.price}</div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Size */}
+          <div style={{ marginBottom: "20px" }}>
+            <label style={{
+              fontSize: "12px",
+              fontWeight: "700",
+              color: "#B87333",
+              marginBottom: "10px",
+              display: "block",
+              letterSpacing: "0.5px",
+              textTransform: "uppercase",
+            }}>
+              📏 Size
+            </label>
+            <div style={{ display: "flex", gap: "8px" }}>
+              {[
+                { value: "small", label: "Small", price: "$0" },
+                { value: "medium", label: "Medium", price: "+$2" },
+                { value: "large", label: "Large", price: "+$4" },
+                { value: "xl", label: "XL", price: "+$6" }
+              ].map(opt => (
+                <button
+                  key={opt.value}
+                  onClick={() => setWsSize(opt.value)}
+                  style={{
+                    flex: 1,
+                    padding: "12px",
+                    borderRadius: "10px",
+                    border: wsSize === opt.value ? "2px solid #D4955A" : "2px solid rgba(255, 255, 255, 0.1)",
+                    background: wsSize === opt.value ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
+                    color: "white",
+                    fontSize: "13px",
+                    fontWeight: "800",
+                    cursor: "pointer",
+                  }}
+                >
+                  {opt.label}
+                  <div style={{ fontSize: "10px", marginTop: "3px", opacity: 0.7 }}>{opt.price}</div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Complexity */}
+          <div style={{ marginBottom: "20px" }}>
+            <label style={{
+              fontSize: "12px",
+              fontWeight: "700",
+              color: "#B87333",
+              marginBottom: "10px",
+              display: "block",
+              letterSpacing: "0.5px",
+              textTransform: "uppercase",
+            }}>
+              🧹 Cleanliness Level
+            </label>
+            <div style={{ display: "flex", gap: "8px" }}>
+              {[
+                { value: "light", label: "Light", price: "-$2" },
+                { value: "standard", label: "Standard", price: "$0" },
+                { value: "heavy", label: "Heavy", price: "+$4" }
+              ].map(opt => (
+                <button
+                  key={opt.value}
+                  onClick={() => setWsComplexity(opt.value)}
+                  style={{
+                    flex: 1,
+                    padding: "12px",
+                    borderRadius: "10px",
+                    border: wsComplexity === opt.value ? "2px solid #D4955A" : "2px solid rgba(255, 255, 255, 0.1)",
+                    background: wsComplexity === opt.value ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
+                    color: "white",
+                    fontSize: "13px",
+                    fontWeight: "800",
+                    cursor: "pointer",
+                  }}
+                >
+                  {opt.label}
+                  <div style={{ fontSize: "10px", marginTop: "3px", opacity: 0.7 }}>{opt.price}</div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Flooring */}
+          <div style={{ marginBottom: "20px" }}>
+            <label style={{
+              fontSize: "12px",
+              fontWeight: "700",
+              color: "#B87333",
+              marginBottom: "10px",
+              display: "block",
+              letterSpacing: "0.5px",
+              textTransform: "uppercase",
+            }}>
+              🏠 Flooring Type
+            </label>
+            <div style={{ display: "flex", gap: "8px" }}>
+              {[
+                { value: "hard", label: "Hard Floor", price: "$0" },
+                { value: "carpet", label: "Carpet", price: "+$3" },
+                { value: "industrial", label: "Industrial", price: "+$2" }
+              ].map(opt => (
+                <button
+                  key={opt.value}
+                  onClick={() => setWsFlooring(opt.value)}
+                  style={{
+                    flex: 1,
+                    padding: "12px",
+                    borderRadius: "10px",
+                    border: wsFlooring === opt.value ? "2px solid #D4955A" : "2px solid rgba(255, 255, 255, 0.1)",
+                    background: wsFlooring === opt.value ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
+                    color: "white",
+                    fontSize: "13px",
+                    fontWeight: "800",
+                    cursor: "pointer",
+                  }}
+                >
+                  {opt.label}
+                  <div style={{ fontSize: "10px", marginTop: "3px", opacity: 0.7 }}>{opt.price}</div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Features */}
+          <div style={{ marginBottom: "20px" }}>
+            <label style={{
+              fontSize: "12px",
+              fontWeight: "700",
+              color: "#B87333",
+              marginBottom: "10px",
+              display: "block",
+              letterSpacing: "0.5px",
+              textTransform: "uppercase",
+            }}>
+              ✨ Special Features
+            </label>
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              {[
+                { key: "food", label: "Food/Beverage Allowed", price: "+$2" },
+                { key: "equipment", label: "Equipment Heavy", price: "+$3" },
+                { key: "highTraffic", label: "High Traffic Area", price: "+$2" }
+              ].map(feat => (
+                <button
+                  key={feat.key}
+                  onClick={() => setWsFeatures({ ...wsFeatures, [feat.key]: !wsFeatures[feat.key] })}
+                  style={{
+                    padding: "12px 16px",
+                    borderRadius: "10px",
+                    border: wsFeatures[feat.key] ? "2px solid #D4955A" : "2px solid rgba(255, 255, 255, 0.1)",
+                    background: wsFeatures[feat.key] ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
+                    color: "white",
+                    fontSize: "13px",
+                    fontWeight: "700",
+                    cursor: "pointer",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <span>{wsFeatures[feat.key] ? "✓ " : ""}{feat.label}</span>
+                  <span style={{ fontSize: "11px", opacity: 0.7 }}>{feat.price}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Price Preview */}
+          <div style={{
+            background: "rgba(184, 115, 51, 0.15)",
+            border: "2px solid rgba(184, 115, 51, 0.4)",
+            borderRadius: "14px",
+            padding: "16px",
+            marginBottom: "20px",
+          }}>
+            <div style={{
+              fontSize: "12px",
+              fontWeight: "700",
+              color: "#B87333",
+              marginBottom: "8px",
+              letterSpacing: "0.5px",
+              textTransform: "uppercase",
+            }}>
+              Price Per Clean
+            </div>
+            <div style={{
+              fontSize: "32px",
+              fontWeight: "900",
+              color: "white",
+            }}>
+              ${calculateWorkspacePrice({
+                privacy: wsPrivacy,
+                size: wsSize,
+                complexity: wsComplexity,
+                flooring: wsFlooring,
+                features: wsFeatures
+              })}
+            </div>
+          </div>
+
+          {/* Quantity */}
+          <div style={{ marginBottom: "25px" }}>
+            <label style={{
+              fontSize: "12px",
+              fontWeight: "700",
+              color: "#B87333",
+              marginBottom: "12px",
+              display: "block",
+              letterSpacing: "0.5px",
+              textTransform: "uppercase",
+            }}>
+              📊 Quantity
+            </label>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              background: "rgba(255, 255, 255, 0.05)",
+              padding: "16px",
+              borderRadius: "12px",
+            }}>
+              <button
+                onClick={() => setWsQuantity(Math.max(1, wsQuantity - 10))}
+                style={{
+                  padding: "10px 16px",
+                  borderRadius: "8px",
+                  border: "none",
+                  background: "rgba(239, 68, 68, 0.2)",
+                  color: "#ef4444",
+                  fontSize: "14px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                }}
+              >
+                -10
+              </button>
+              <button
+                onClick={() => setWsQuantity(Math.max(1, wsQuantity - 1))}
+                style={{
+                  padding: "10px 16px",
+                  borderRadius: "8px",
+                  border: "none",
+                  background: "rgba(239, 68, 68, 0.2)",
+                  color: "#ef4444",
+                  fontSize: "16px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                }}
+              >
+                -1
+              </button>
+              <div style={{
+                flex: 1,
+                textAlign: "center",
+                fontSize: "28px",
+                fontWeight: "900",
+                color: "white",
+              }}>
+                {wsQuantity}
+              </div>
+              <button
+                onClick={() => setWsQuantity(wsQuantity + 1)}
+                style={{
+                  padding: "10px 16px",
+                  borderRadius: "8px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
+                  color: "white",
+                  fontSize: "16px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                }}
+              >
+                +1
+              </button>
+              <button
+                onClick={() => setWsQuantity(wsQuantity + 10)}
+                style={{
+                  padding: "10px 16px",
+                  borderRadius: "8px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #8a5523 0%, #B87333 50%, #D4955A 100%)",
+                  color: "white",
+                  fontSize: "14px",
+                  fontWeight: "900",
+                  cursor: "pointer",
+                }}
+              >
+                +10
+              </button>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* Action Buttons */}
+      <div style={{
+        display: "flex",
+        gap: "12px",
+        marginTop: "25px",
+      }}>
+        <button
+          onClick={() => {
+            setShowWorkspaceModal(false);
+            setWsTemplate("");
+            setWsEditingIndex(null);
+          }}
+          style={{
+            flex: 1,
+            padding: "16px",
+            borderRadius: "12px",
+            border: "2px solid rgba(255, 255, 255, 0.2)",
+            background: "transparent",
+            color: "white",
+            fontSize: "15px",
+            fontWeight: "800",
+            cursor: "pointer",
+          }}
+        >
+          Cancel
+        </button>
+        {wsTemplate && (
+          <button
+            onClick={saveWorkspaceConfig}
+            style={{
+              flex: 1,
+              padding: "16px",
+              borderRadius: "12px",
+              border: "none",
+              background: "linear-gradient(135deg, #B87333 0%, #D4955A 100%)",
+              color: "white",
+              fontSize: "15px",
+              fontWeight: "800",
+              cursor: "pointer",
+            }}
+          >
+            {wsEditingIndex !== null ? "Update" : "Add"} Workspace
+          </button>
+        )}
+      </div>
     </div>
   </div>
 )}
