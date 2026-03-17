@@ -660,6 +660,27 @@ export default function CleaningSuOficinaBooking() {
       // Workspace configurations are for SERVICE DOCUMENTATION only (not priced separately)
       // Base sqft rate already covers workspace cleaning
       
+      // Workspace trash removal charges (only extra charge for workspaces)
+      if (workspaceConfigs.length > 0 && frequency) {
+        const visitsPerMonth = {
+          "monthly": 1,
+          "every-3-weeks": 1.3,
+          "bi-weekly": 2,
+          "weekly": 4,
+          "2x-week": 8,
+          "3x-week": 12,
+          "4x-week": 17,
+          "daily": 22
+        };
+        
+        const visits = visitsPerMonth[frequency] || 1;
+        workspaceConfigs.forEach(config => {
+          if (config.specialFeatures?.trashRemoval) {
+            total += config.quantity * visits * 1; // $1 per workspace per visit
+          }
+        });
+      }
+      
       // Specialty room add-ons (monthly fees beyond base rate)
       // These are charged separately because they require extra attention beyond standard cleaning
       total += getFacilityMonthlyCost(conferenceRooms, 45, conferenceRoomsFreq);
@@ -880,6 +901,33 @@ export default function CleaningSuOficinaBooking() {
           amount: 0,
           isInfo: true
         });
+        
+        // Trash removal charges (only extra workspace charge)
+        if (frequency) {
+          const visitsPerMonth = {
+            "monthly": 1,
+            "every-3-weeks": 1.3,
+            "bi-weekly": 2,
+            "weekly": 4,
+            "2x-week": 8,
+            "3x-week": 12,
+            "4x-week": 17,
+            "daily": 22
+          };
+          
+          const visits = visitsPerMonth[frequency] || 1;
+          workspaceConfigs.forEach(config => {
+            if (config.specialFeatures?.trashRemoval) {
+              const cost = config.quantity * visits * 1;
+              breakdown.push({
+                label: `Trash Removal (${config.quantity} ${getWorkspaceLabel(config).split(' (')[0]}${config.quantity > 1 ? 's' : ''})`,
+                amount: cost,
+                isUpcharge: true,
+                note: `$1/workspace × ${visits} visits`
+              });
+            }
+          });
+        }
       }
       
       // Individual facilities with their frequencies
@@ -2902,7 +2950,10 @@ style={{
                         color: "rgba(255, 255, 255, 0.6)",
                         fontWeight: "600",
                       }}>
-                        ${config.pricePerClean}/clean • {config.dailyCount || 0} cleaned/day
+                        {config.flooring === "hard" && "Hard Surface"}
+                        {config.flooring === "low-carpet" && "Low-pile Carpet"}
+                        {config.flooring === "high-carpet" && "High-pile Carpet"}
+                        {config.specialFeatures?.trashRemoval && " • Trash removal"}
                       </div>
                     </div>
                     <div style={{ display: "flex", gap: "8px" }}>
