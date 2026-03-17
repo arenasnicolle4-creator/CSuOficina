@@ -260,9 +260,9 @@ export default function CleaningSuOficinaBooking() {
       "bi-weekly": 0.28,       // 2 cleanings/month
       "weekly": 0.50,          // 4 cleanings/month (50% of 2x/week)
       "2x-week": 1.0,          // 8 cleanings/month (BASE RATE)
-      "3x-week": 1.42,         // 12 cleanings/month (42% increase)
-      "4x-week": 1.93,         // 17 cleanings/month (93% increase)
-      "daily": 2.20,           // 22 cleanings/month (2.75x visits, 20% volume discount)
+      "3x-week": 1.42,         // 12 cleanings/month (5% discount per clean)
+      "4x-week": 1.93,         // 17 cleanings/month (9% discount per clean)
+      "daily": 2.39,           // 22 cleanings/month (13% discount per clean)
     },
     
     // Legacy frequency discounts for other segments (keeping for backward compatibility)
@@ -2665,17 +2665,18 @@ style={{
               fontWeight: "600",
               outline: "none",
               cursor: "pointer",
+              fontFamily: "'Courier New', monospace",
             }}
           >
             <option value="" style={{ background: "#1A252F", color: "white" }}>Select frequency...</option>
-            <option value="monthly" style={{ background: "#1A252F", color: "white" }}>Monthly (1x) • +20% per visit</option>
-            <option value="every-3-weeks" style={{ background: "#1A252F", color: "white" }}>Every 3 Weeks (1-2x) • +29% per visit</option>
-            <option value="bi-weekly" style={{ background: "#1A252F", color: "white" }}>Bi-weekly (2x) • +12% per visit</option>
-            <option value="weekly" style={{ background: "#1A252F", color: "white" }}>Weekly (4x) • Same rate</option>
-            <option value="2x-week" style={{ background: "#1A252F", color: "white" }}>★ 2x per Week (8x) • BASE RATE</option>
-            <option value="3x-week" style={{ background: "#1A252F", color: "white" }}>3x per Week (12x) • 5% savings</option>
-            <option value="4x-week" style={{ background: "#1A252F", color: "white" }}>4x per Week (17x) • 9% savings</option>
-            <option value="daily" style={{ background: "#1A252F", color: "white" }}>Daily (22x) • 20% savings ⚡</option>
+            <option value="monthly" style={{ background: "#1A252F", color: "white" }}>Monthly            (1x Monthly)     +20% per Clean</option>
+            <option value="every-3-weeks" style={{ background: "#1A252F", color: "white" }}>Every 3 Weeks      (1-2x Monthly)   +29% per Clean</option>
+            <option value="bi-weekly" style={{ background: "#1A252F", color: "white" }}>Bi-weekly          (2x Monthly)     +12% per Clean</option>
+            <option value="weekly" style={{ background: "#1A252F", color: "white" }}>Weekly             (4x Monthly)     Same as Base</option>
+            <option value="2x-week" style={{ background: "#1A252F", color: "white" }}>2x per Week        (8x Monthly)     BASE RATE</option>
+            <option value="3x-week" style={{ background: "#1A252F", color: "white" }}>3x per Week        (12x Monthly)    5% Discount per Clean</option>
+            <option value="4x-week" style={{ background: "#1A252F", color: "white" }}>4x per Week        (17x Monthly)    9% Discount per Clean</option>
+            <option value="daily" style={{ background: "#1A252F", color: "white" }}>Daily              (22x Monthly)    13% Discount per Clean</option>
           </select>
           <div style={{
             fontSize: "11px",
