@@ -2665,17 +2665,18 @@ style={{
               fontWeight: "600",
               outline: "none",
               cursor: "pointer",
+              fontFamily: "monospace", // For better alignment
             }}
           >
             <option value="" style={{ background: "#1A252F", color: "white" }}>Select frequency...</option>
-            <option value="monthly" style={{ background: "#1A252F", color: "white" }}>Monthly (1x/month) - 85% OFF</option>
-            <option value="every-3-weeks" style={{ background: "#1A252F", color: "white" }}>Every 3 Weeks (~1.3x/month) - 79% OFF</option>
-            <option value="bi-weekly" style={{ background: "#1A252F", color: "white" }}>Bi-weekly (2x/month) - 72% OFF</option>
-            <option value="weekly" style={{ background: "#1A252F", color: "white" }}>Weekly (4x/month) - 50% OFF</option>
-            <option value="2x-week" style={{ background: "#1A252F", color: "white" }}>2x per Week (8x/month) - BASE RATE</option>
-            <option value="3x-week" style={{ background: "#1A252F", color: "white" }}>3x per Week (12x/month) - +42%</option>
-            <option value="4x-week" style={{ background: "#1A252F", color: "white" }}>4x per Week (17x/month) - +93%</option>
-            <option value="daily" style={{ background: "#1A252F", color: "white" }}>Daily (22x/month) - +120%</option>
+            <option value="monthly" style={{ background: "#1A252F", color: "white" }}>Monthly                  1x/mo      +20% per visit</option>
+            <option value="every-3-weeks" style={{ background: "#1A252F", color: "white" }}>Every 3 Weeks        ~1.3x/mo      +29% per visit</option>
+            <option value="bi-weekly" style={{ background: "#1A252F", color: "white" }}>Bi-weekly                2x/mo      +12% per visit</option>
+            <option value="weekly" style={{ background: "#1A252F", color: "white" }}>Weekly                   4x/mo       Same as base</option>
+            <option value="2x-week" style={{ background: "#1A252F", color: "white" }}>2x per Week              8x/mo      BASE RATE</option>
+            <option value="3x-week" style={{ background: "#1A252F", color: "white" }}>3x per Week             12x/mo       -5% per visit</option>
+            <option value="4x-week" style={{ background: "#1A252F", color: "white" }}>4x per Week             17x/mo       -9% per visit</option>
+            <option value="daily" style={{ background: "#1A252F", color: "white" }}>Daily                   22x/mo      -20% per visit</option>
           </select>
           <div style={{
             fontSize: "11px",
