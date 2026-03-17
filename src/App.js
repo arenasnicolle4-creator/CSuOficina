@@ -199,20 +199,20 @@ export default function CleaningSuOficinaBooking() {
 
   // Pricing Structure for Commercial Cleaning (Anchorage Market)
   const PRICING = {
-    // Base rates per square foot (WEEKLY = 4 cleanings/month) - TIERED BY SIZE
-    // These rates represent monthly cost for weekly service
+    // Base rates per square foot (2x/WEEK = 8 cleanings/month) - TIERED BY SIZE
+    // These rates represent monthly cost for 2x per week service
     baseRatesTiered: {
       office: [
-        { max: 2500, rate: 0.425 },     // 0-2,500 sqft: $0.425/sqft (weekly base)
-        { max: 3500, rate: 0.41 },      // 2,501-3,500 sqft: $0.41/sqft
-        { max: 5000, rate: 0.39 },      // 3,501-5,000 sqft: $0.39/sqft
-        { max: 7500, rate: 0.37 },      // 5,001-7,500 sqft: $0.37/sqft
-        { max: 10000, rate: 0.34 },     // 7,501-10,000 sqft: $0.34/sqft
-        { max: 15000, rate: 0.30 },     // 10,001-15,000 sqft: $0.30/sqft
-        { max: 20000, rate: 0.28 },     // 15,001-20,000 sqft: $0.28/sqft
-        { max: 30000, rate: 0.25 },     // 20,001-30,000 sqft: $0.25/sqft
-        { max: 50000, rate: 0.23 },     // 30,001-50,000 sqft: $0.23/sqft
-        { max: Infinity, rate: 0.20 },  // 50,001+ sqft: $0.20/sqft
+        { max: 2500, rate: 0.44 },      // 0-2,500 sqft: $0.44/sqft (2x/week base)
+        { max: 3500, rate: 0.43 },      // 2,501-3,500 sqft: $0.43/sqft
+        { max: 5000, rate: 0.41 },      // 3,501-5,000 sqft: $0.41/sqft
+        { max: 7500, rate: 0.39 },      // 5,001-7,500 sqft: $0.39/sqft
+        { max: 10000, rate: 0.36 },     // 7,501-10,000 sqft: $0.36/sqft
+        { max: 15000, rate: 0.32 },     // 10,001-15,000 sqft: $0.32/sqft
+        { max: 20000, rate: 0.30 },     // 15,001-20,000 sqft: $0.30/sqft
+        { max: 30000, rate: 0.27 },     // 20,001-30,000 sqft: $0.27/sqft
+        { max: 50000, rate: 0.25 },     // 30,001-50,000 sqft: $0.25/sqft
+        { max: Infinity, rate: 0.22 },  // 50,001+ sqft: $0.22/sqft
       ],
       healthcare: [
         { max: 2000, rate: 0.22 },
@@ -252,17 +252,17 @@ export default function CleaningSuOficinaBooking() {
       ],
     },
     
-    // Frequency multipliers (BASE = Weekly/4 cleanings per month)
+    // Frequency multipliers (BASE = 2x/Week = 8 cleanings per month)
     // Multiplier applied to monthly base rate
     frequencyMultipliers: {
-      "monthly": 0.30,         // 1 cleaning/month (premium for infrequent)
-      "every-3-weeks": 0.42,   // ~1.3 cleanings/month
-      "bi-weekly": 0.55,       // 2 cleanings/month (small premium)
-      "weekly": 1.0,           // 4 cleanings/month (BASE RATE)
-      "2x-week": 1.90,         // 8 cleanings/month (5% volume discount)
-      "3x-week": 2.70,         // 12 cleanings/month (10% volume discount)
-      "4x-week": 3.66,         // 17 cleanings/month (14% volume discount)
-      "daily": 4.40,           // 22 cleanings/month (20% volume discount)
+      "monthly": 0.15,         // 1 cleaning/month
+      "every-3-weeks": 0.21,   // ~1.3 cleanings/month
+      "bi-weekly": 0.28,       // 2 cleanings/month
+      "weekly": 0.50,          // 4 cleanings/month (50% of 2x/week)
+      "2x-week": 1.0,          // 8 cleanings/month (BASE RATE)
+      "3x-week": 1.42,         // 12 cleanings/month (42% increase)
+      "4x-week": 1.93,         // 17 cleanings/month (93% increase)
+      "daily": 2.20,           // 22 cleanings/month (2.75x visits, 20% volume discount)
     },
     
     // Legacy frequency discounts for other segments (keeping for backward compatibility)
@@ -2432,7 +2432,7 @@ style={{
                     marginTop: "4px",
                     fontStyle: "italic",
                   }}>
-                    {marketSegment === "office" ? "Weekly service base rate (select frequency above)" : "Before frequency adjustments"}
+                    {marketSegment === "office" ? "2x/week service base rate (select frequency above)" : "Before frequency adjustments"}
                   </div>
                 </>
               );
@@ -2683,7 +2683,7 @@ style={{
             marginTop: "8px",
             fontStyle: "italic",
           }}>
-            Base rates assume weekly cleaning. More frequent service receives volume discounts.
+            Base rates assume 2x per week cleaning. More frequent service receives volume discounts.
           </div>
         </div>
         
