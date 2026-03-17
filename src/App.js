@@ -1139,8 +1139,8 @@ export default function CleaningSuOficinaBooking() {
       
       // Individual facilities with their frequencies
       const discountRates = {
-        "daily": { rate: -0.20, label: "20%" },
-        "5x-week": { rate: -0.15, label: "15%" },
+        "daily": { rate: -0.18, label: "18%" },
+        "4x-week": { rate: -0.14, label: "14%" },
         "3x-week": { rate: -0.10, label: "10%" },
         "2x-week": { rate: -0.05, label: "5%" },
         "weekly": { rate: 0, label: "" },
@@ -1148,9 +1148,9 @@ export default function CleaningSuOficinaBooking() {
       };
       
       const visitsPerMonth = {
-        "daily": 30,
-        "5x-week": 22,
-        "3x-week": 13,
+        "daily": 22,
+        "4x-week": 17,
+        "3x-week": 12,
         "2x-week": 8,
         "weekly": 4,
         "bi-weekly": 2,
@@ -2598,8 +2598,8 @@ style={{
         gap: "12px",
       }}>
         {[
-          { value: "daily", label: "Daily", badge: "20% OFF" },
-          { value: "5x-week", label: "5x Per Week", badge: "15% OFF" },
+          { value: "daily", label: "Daily", badge: "18% OFF" },
+          { value: "4x-week", label: "4x Per Week", badge: "14% OFF" },
           { value: "3x-week", label: "3x Per Week", badge: "10% OFF" },
           { value: "2x-week", label: "2x Per Week", badge: "5% OFF" },
           { value: "weekly", label: "Weekly", badge: null },
