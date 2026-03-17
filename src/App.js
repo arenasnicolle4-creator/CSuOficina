@@ -2655,44 +2655,48 @@ style={{
             📅 Cleaning Frequency *
           </label>
           
-          <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "12px" }}>
-            {/* Frequency Dropdown */}
-            <select
-              value={frequency}
-              onChange={(e) => setFrequency(e.target.value)}
-              required
-              style={{
-                width: "100%",
-                padding: "14px 16px",
-                borderRadius: "12px",
-                border: "2px solid rgba(184, 115, 51, 0.3)",
-                background: "rgba(255, 255, 255, 0.05)",
-                color: "white",
-                fontSize: "14px",
-                fontWeight: "600",
-                outline: "none",
-                cursor: "pointer",
-              }}
-            >
-              <option value="" style={{ background: "#1A252F", color: "white" }}>Select frequency...</option>
-              <option value="monthly" style={{ background: "#1A252F", color: "white" }}>Monthly (1x per month)</option>
-              <option value="every-3-weeks" style={{ background: "#1A252F", color: "white" }}>Every 3 Weeks (~1.3x per month)</option>
-              <option value="bi-weekly" style={{ background: "#1A252F", color: "white" }}>Bi-weekly (2x per month)</option>
-              <option value="weekly" style={{ background: "#1A252F", color: "white" }}>Weekly (4x per month)</option>
-              <option value="2x-week" style={{ background: "#1A252F", color: "white" }}>2x per Week (8x per month)</option>
-              <option value="3x-week" style={{ background: "#1A252F", color: "white" }}>3x per Week (12x per month)</option>
-              <option value="4x-week" style={{ background: "#1A252F", color: "white" }}>4x per Week (17x per month)</option>
-              <option value="daily" style={{ background: "#1A252F", color: "white" }}>Daily (22x per month)</option>
-            </select>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: "16px", alignItems: "start" }}>
+            {/* Frequency Dropdown - Compact */}
+            <div>
+              <select
+                value={frequency}
+                onChange={(e) => setFrequency(e.target.value)}
+                required
+                style={{
+                  width: "100%",
+                  padding: "12px 14px",
+                  borderRadius: "10px",
+                  border: "2px solid rgba(184, 115, 51, 0.3)",
+                  background: "rgba(255, 255, 255, 0.05)",
+                  color: "white",
+                  fontSize: "13px",
+                  fontWeight: "600",
+                  outline: "none",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                }}
+              >
+                <option value="" style={{ background: "#1A252F", color: "white", padding: "8px" }}>Select...</option>
+                <option value="monthly" style={{ background: "#1A252F", color: "white", padding: "8px" }}>Monthly (1x)</option>
+                <option value="every-3-weeks" style={{ background: "#1A252F", color: "white", padding: "8px" }}>Every 3 Weeks</option>
+                <option value="bi-weekly" style={{ background: "#1A252F", color: "white", padding: "8px" }}>Bi-weekly (2x)</option>
+                <option value="weekly" style={{ background: "#1A252F", color: "white", padding: "8px" }}>Weekly (4x)</option>
+                <option value="2x-week" style={{ background: "#1A252F", color: "white", padding: "8px" }}>2x per Week (8x)</option>
+                <option value="3x-week" style={{ background: "#1A252F", color: "white", padding: "8px" }}>3x per Week (12x)</option>
+                <option value="4x-week" style={{ background: "#1A252F", color: "white", padding: "8px" }}>4x per Week (17x)</option>
+                <option value="daily" style={{ background: "#1A252F", color: "white", padding: "8px" }}>Daily (22x)</option>
+              </select>
+            </div>
             
-            {/* Price Per Visit Display */}
-            {squareFeet && frequency && (
+            {/* Price Per Visit Display - Takes More Space */}
+            {squareFeet && frequency ? (
               <div style={{
-                padding: "14px 16px",
+                padding: "16px 20px",
                 borderRadius: "12px",
-                background: "linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.15) 100%)",
-                border: "2px solid rgba(16, 185, 129, 0.3)",
-                textAlign: "center",
+                background: "linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(5, 150, 105, 0.12) 100%)",
+                border: "2px solid rgba(16, 185, 129, 0.25)",
+                boxShadow: "0 4px 12px rgba(16, 185, 129, 0.15)",
               }}>
                 {(() => {
                   const baseCost = parseInt(squareFeet) * getRateForSquareFeet(parseInt(squareFeet), marketSegment);
@@ -2714,50 +2718,113 @@ style={{
                   const pricePerVisit = monthlyCost / visits;
                   const basePerVisit = baseCost / 8; // Base is 2x/week = 8 visits
                   const hasDiscount = pricePerVisit < basePerVisit;
+                  const isPremium = pricePerVisit > basePerVisit;
                   
                   return (
-                    <>
-                      <div style={{
-                        fontSize: "10px",
-                        color: "rgba(255, 255, 255, 0.6)",
-                        fontWeight: "700",
-                        marginBottom: "4px",
-                        letterSpacing: "0.5px",
-                      }}>
-                        PRICE PER VISIT
-                      </div>
-                      {hasDiscount && (
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                      {/* Left side - Price */}
+                      <div>
                         <div style={{
-                          fontSize: "12px",
-                          color: "rgba(255, 255, 255, 0.4)",
-                          textDecoration: "line-through",
-                          fontWeight: "600",
-                        }}>
-                          ${basePerVisit.toFixed(2)}
-                        </div>
-                      )}
-                      <div style={{
-                        fontSize: hasDiscount ? "20px" : "24px",
-                        fontWeight: "900",
-                        color: hasDiscount ? "#10b981" : "#B87333",
-                        lineHeight: "1",
-                      }}>
-                        ${pricePerVisit.toFixed(2)}
-                      </div>
-                      {hasDiscount && (
-                        <div style={{
-                          fontSize: "9px",
-                          color: "#10b981",
+                          fontSize: "11px",
+                          color: "rgba(255, 255, 255, 0.6)",
                           fontWeight: "700",
-                          marginTop: "2px",
-                          letterSpacing: "0.3px",
+                          marginBottom: "6px",
+                          letterSpacing: "0.5px",
                         }}>
-                          {Math.round(((basePerVisit - pricePerVisit) / basePerVisit) * 100)}% SAVINGS
+                          PRICE PER VISIT
+                        </div>
+                        <div style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>
+                          {(hasDiscount || isPremium) && (
+                            <div style={{
+                              fontSize: "16px",
+                              color: "rgba(255, 255, 255, 0.35)",
+                              textDecoration: "line-through",
+                              fontWeight: "600",
+                            }}>
+                              ${basePerVisit.toFixed(2)}
+                            </div>
+                          )}
+                          <div style={{
+                            fontSize: "28px",
+                            fontWeight: "900",
+                            color: hasDiscount ? "#10b981" : isPremium ? "#f59e0b" : "#B87333",
+                            lineHeight: "1",
+                          }}>
+                            ${pricePerVisit.toFixed(2)}
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* Right side - Savings/Premium badge */}
+                      {hasDiscount && (
+                        <div style={{
+                          padding: "8px 14px",
+                          borderRadius: "8px",
+                          background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+                          boxShadow: "0 2px 8px rgba(16, 185, 129, 0.3)",
+                        }}>
+                          <div style={{
+                            fontSize: "10px",
+                            color: "rgba(255, 255, 255, 0.9)",
+                            fontWeight: "600",
+                            marginBottom: "2px",
+                            letterSpacing: "0.3px",
+                          }}>
+                            YOU SAVE
+                          </div>
+                          <div style={{
+                            fontSize: "18px",
+                            color: "white",
+                            fontWeight: "900",
+                            lineHeight: "1",
+                          }}>
+                            {Math.round(((basePerVisit - pricePerVisit) / basePerVisit) * 100)}%
+                          </div>
                         </div>
                       )}
-                    </>
+                      
+                      {isPremium && (
+                        <div style={{
+                          padding: "8px 14px",
+                          borderRadius: "8px",
+                          background: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)",
+                          boxShadow: "0 2px 8px rgba(245, 158, 11, 0.3)",
+                        }}>
+                          <div style={{
+                            fontSize: "10px",
+                            color: "rgba(255, 255, 255, 0.9)",
+                            fontWeight: "600",
+                            marginBottom: "2px",
+                            letterSpacing: "0.3px",
+                          }}>
+                            PREMIUM
+                          </div>
+                          <div style={{
+                            fontSize: "18px",
+                            color: "white",
+                            fontWeight: "900",
+                            lineHeight: "1",
+                          }}>
+                            +{Math.round(((pricePerVisit - basePerVisit) / basePerVisit) * 100)}%
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   );
                 })()}
+              </div>
+            ) : (
+              <div style={{
+                padding: "16px 20px",
+                borderRadius: "12px",
+                background: "rgba(255, 255, 255, 0.03)",
+                border: "2px dashed rgba(255, 255, 255, 0.1)",
+                textAlign: "center",
+                color: "rgba(255, 255, 255, 0.4)",
+                fontSize: "13px",
+                fontStyle: "italic",
+              }}>
+                Select frequency to see price per visit
               </div>
             )}
           </div>
@@ -2765,7 +2832,7 @@ style={{
           <div style={{
             fontSize: "11px",
             color: "rgba(255, 255, 255, 0.6)",
-            marginTop: "8px",
+            marginTop: "12px",
             fontStyle: "italic",
           }}>
             Base rates assume 2x per week cleaning. More frequent service receives volume discounts.
