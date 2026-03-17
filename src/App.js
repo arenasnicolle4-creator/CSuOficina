@@ -512,7 +512,7 @@ export default function CleaningSuOficinaBooking() {
       "standard": "Standard Office",
       "cubicle": "Cubicle",
       "open-desk": "Open Desk",
-      "conference": "Conference Workspace"
+      "collaborative": "Collaborative Workspace"
     };
     
     const sizeLabels = {
@@ -7800,7 +7800,7 @@ style={{
             { id: "standard", icon: "📋", name: "Standard Office" },
             { id: "cubicle", icon: "🪑", name: "Cubicle" },
             { id: "open-desk", icon: "💻", name: "Open Desk" },
-            { id: "conference", icon: "🎯", name: "Conference Workspace" },
+            { id: "collaborative", icon: "🤝", name: "Collaborative Workspace" },
           ].map((type) => (
             <button
               key={type.id}
