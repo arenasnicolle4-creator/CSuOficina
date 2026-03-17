@@ -38,19 +38,16 @@ export default function CleaningSuOficinaBooking() {
   const [workspaceConfigs, setWorkspaceConfigs] = useState([]); // Array of workspace configurations
   
   // Office - Workspace Modal builder state
-  const [wsTemplate, setWsTemplate] = useState("");
-  const [wsPrivacy, setWsPrivacy] = useState("open");
-  const [wsSize, setWsSize] = useState("medium");
-  const [wsComplexity, setWsComplexity] = useState("standard");
+  const [wsType, setWsType] = useState(""); // Workspace type (executive, manager, etc.)
+  const [wsSqftRange, setWsSqftRange] = useState(""); // Square footage range or cubicle size
   const [wsFlooring, setWsFlooring] = useState("hard");
-  const [wsFeatures, setWsFeatures] = useState({
-    food: false,
-    equipment: false,
-    highTraffic: false,
-    trash: false,
+  const [wsSpecialFeatures, setWsSpecialFeatures] = useState({
+    trashRemoval: false,
+    multiMonitor: false,
+    sensitiveDocs: false,
+    plants: false,
   });
   const [wsQuantity, setWsQuantity] = useState(1);
-  const [wsDailyCount, setWsDailyCount] = useState(1); // How many of this type cleaned per day
   const [wsEditingIndex, setWsEditingIndex] = useState(null);
   
   // Office - Individual facility frequencies
@@ -508,131 +505,47 @@ export default function CleaningSuOficinaBooking() {
   };
 
   // Workspace Builder Functions (Office)
-  const calculateWorkspacePrice = (config) => {
-    let basePrice = 8; // Starting base
-    
-    // Privacy pricing
-    if (config.privacy === "open") basePrice += 0;
-    else if (config.privacy === "partial") basePrice += 3; // Cubicle
-    else if (config.privacy === "private") basePrice += 5; // Office
-    
-    // Size pricing
-    if (config.size === "small") basePrice += 0;
-    else if (config.size === "medium") basePrice += 2;
-    else if (config.size === "large") basePrice += 4;
-    else if (config.size === "xl") basePrice += 6;
-    
-    // Complexity pricing
-    if (config.complexity === "light") basePrice -= 2; // Clean desk policy
-    else if (config.complexity === "standard") basePrice += 0;
-    else if (config.complexity === "heavy") basePrice += 4; // Cluttered
-    
-    // Flooring pricing
-    if (config.flooring === "hard") basePrice += 0;
-    else if (config.flooring === "carpet") basePrice += 3;
-    else if (config.flooring === "industrial") basePrice += 2;
-    
-    // Features pricing
-    if (config.features.food) basePrice += 2;
-    if (config.features.equipment) basePrice += 3;
-    if (config.features.highTraffic) basePrice += 2;
-    if (config.features.trash) basePrice += 1;
-    
-    return basePrice;
-  };
-
   const getWorkspaceLabel = (config) => {
-    let label = "";
+    const typeLabels = {
+      "executive": "Executive Office",
+      "manager": "Manager Office",
+      "standard": "Standard Office",
+      "cubicle": "Cubicle",
+      "open-desk": "Open Desk",
+      "conference": "Conference Workspace"
+    };
     
-    // Privacy type
-    if (config.privacy === "open") label = "Open Desk";
-    else if (config.privacy === "partial") label = "Cubicle";
-    else if (config.privacy === "private") label = "Private Office";
+    const sizeLabels = {
+      "100-150": "100-150 sqft",
+      "150-200": "150-200 sqft",
+      "200-300": "200-300 sqft",
+      "300-500": "300-500 sqft",
+      "500+": "500+ sqft",
+      "standard": "Standard",
+      "large": "Large"
+    };
     
-    // Size
-    label += ` (${config.size.charAt(0).toUpperCase() + config.size.slice(1)}`;
+    let label = typeLabels[config.type] || config.type;
     
-    // Complexity
-    if (config.complexity !== "standard") {
-      label += `, ${config.complexity}`;
+    if (config.sqftRange) {
+      label += ` (${sizeLabels[config.sqftRange] || config.sqftRange})`;
     }
     
-    // Flooring
-    if (config.flooring === "carpet") label += ", Carpet";
-    else if (config.flooring === "industrial") label += ", Industrial";
-    
-    label += ")";
+    // Add trash removal note if applicable
+    if (config.specialFeatures?.trashRemoval) {
+      label += " +Trash";
+    }
     
     return label;
   };
 
-  const applyWorkspaceTemplate = (template) => {
-    setWsTemplate(template);
-    
-    switch(template) {
-      case "executive":
-        setWsPrivacy("private");
-        setWsSize("large");
-        setWsComplexity("standard");
-        setWsFlooring("carpet");
-        setWsFeatures({ food: false, equipment: false, highTraffic: false, trash: false });
-        break;
-      case "manager":
-        setWsPrivacy("private");
-        setWsSize("medium");
-        setWsComplexity("standard");
-        setWsFlooring("carpet");
-        setWsFeatures({ food: false, equipment: false, highTraffic: false, trash: false });
-        break;
-      case "cubicle":
-        setWsPrivacy("partial");
-        setWsSize("small"); // Cubicles are standardized, size won't show in UI
-        setWsComplexity("standard");
-        setWsFlooring("carpet");
-        setWsFeatures({ food: false, equipment: false, highTraffic: false, trash: false });
-        break;
-      case "open-desk":
-        setWsPrivacy("open");
-        setWsSize("small"); // Open desks are standardized, size won't show in UI
-        setWsComplexity("light");
-        setWsFlooring("hard");
-        setWsFeatures({ food: false, equipment: false, highTraffic: false, trash: false });
-        break;
-      case "creative":
-        setWsPrivacy("open");
-        setWsSize("medium");
-        setWsComplexity("standard");
-        setWsFlooring("hard");
-        setWsFeatures({ food: true, equipment: false, highTraffic: true, trash: false });
-        break;
-      case "custom":
-        setWsPrivacy("open");
-        setWsSize("medium");
-        setWsComplexity("standard");
-        setWsFlooring("hard");
-        setWsFeatures({ food: false, equipment: false, highTraffic: false, trash: false });
-        break;
-      default:
-        break;
-    }
-  };
-
   const saveWorkspaceConfig = () => {
     const config = {
-      privacy: wsPrivacy,
-      size: wsSize,
-      complexity: wsComplexity,
+      type: wsType,
+      sqftRange: wsSqftRange,
       flooring: wsFlooring,
-      features: { ...wsFeatures },
+      specialFeatures: { ...wsSpecialFeatures },
       quantity: wsQuantity,
-      dailyCount: wsDailyCount,
-      pricePerClean: calculateWorkspacePrice({
-        privacy: wsPrivacy,
-        size: wsSize,
-        complexity: wsComplexity,
-        flooring: wsFlooring,
-        features: wsFeatures
-      })
     };
     
     if (wsEditingIndex !== null) {
@@ -648,14 +561,16 @@ export default function CleaningSuOficinaBooking() {
     
     // Reset modal
     setShowWorkspaceModal(false);
-    setWsTemplate("");
-    setWsPrivacy("open");
-    setWsSize("medium");
-    setWsComplexity("standard");
+    setWsType("");
+    setWsSqftRange("");
     setWsFlooring("hard");
-    setWsFeatures({ food: false, equipment: false, highTraffic: false, trash: false });
+    setWsSpecialFeatures({
+      trashRemoval: false,
+      multiMonitor: false,
+      sensitiveDocs: false,
+      plants: false,
+    });
     setWsQuantity(1);
-    setWsDailyCount(1);
   };
 
   const deleteWorkspaceConfig = (index) => {
@@ -664,14 +579,11 @@ export default function CleaningSuOficinaBooking() {
 
   const editWorkspaceConfig = (index) => {
     const config = workspaceConfigs[index];
-    setWsTemplate("custom"); // Set template so customization options show
-    setWsPrivacy(config.privacy);
-    setWsSize(config.size);
-    setWsComplexity(config.complexity);
+    setWsType(config.type);
+    setWsSqftRange(config.sqftRange);
     setWsFlooring(config.flooring);
-    setWsFeatures({ ...config.features });
+    setWsSpecialFeatures({ ...config.specialFeatures });
     setWsQuantity(config.quantity);
-    setWsDailyCount(config.dailyCount || 1);
     setWsEditingIndex(index);
     setShowWorkspaceModal(true);
   };
@@ -7810,545 +7722,351 @@ style={{
         marginBottom: "30px",
         fontWeight: "600",
       }}>
-        {wsEditingIndex !== null ? "Update workspace configuration" : "Create a custom workspace type"}
+        {wsEditingIndex !== null ? "Update workspace configuration" : "Document workspace types for cleaning crew"}
       </p>
 
-      {/* Template Selection */}
-      {!wsTemplate && (
-        <div>
+      {/* Workspace Type */}
+      <div style={{ marginBottom: "25px" }}>
+        <label style={{
+          fontSize: "12px",
+          fontWeight: "700",
+          color: "#B87333",
+          marginBottom: "15px",
+          display: "block",
+          letterSpacing: "0.5px",
+          textTransform: "uppercase",
+        }}>
+          🏢 Workspace Type *
+        </label>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(2, 1fr)",
+          gap: "12px",
+        }}>
+          {[
+            { id: "executive", icon: "🏢", name: "Executive Office" },
+            { id: "manager", icon: "💼", name: "Manager Office" },
+            { id: "standard", icon: "📋", name: "Standard Office" },
+            { id: "cubicle", icon: "🪑", name: "Cubicle" },
+            { id: "open-desk", icon: "💻", name: "Open Desk" },
+            { id: "conference", icon: "🎯", name: "Conference Workspace" },
+          ].map((type) => (
+            <button
+              key={type.id}
+              onClick={() => setWsType(type.id)}
+              style={{
+                padding: "16px 14px",
+                borderRadius: "12px",
+                border: wsType === type.id ? "2px solid #D4955A" : "2px solid rgba(184, 115, 51, 0.2)",
+                background: wsType === type.id ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
+                color: "white",
+                cursor: "pointer",
+                transition: "all 0.2s ease",
+                textAlign: "left",
+              }}
+            >
+              <div style={{
+                fontSize: "22px",
+                marginBottom: "4px",
+              }}>
+                {type.icon}
+              </div>
+              <div style={{
+                fontSize: "13px",
+                fontWeight: "800",
+              }}>
+                {type.name}
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Square Footage Range - Only show for offices, not cubicles/open desks */}
+      {wsType && wsType !== "cubicle" && wsType !== "open-desk" && (
+        <div style={{ marginBottom: "25px" }}>
           <label style={{
             fontSize: "12px",
             fontWeight: "700",
             color: "#B87333",
-            marginBottom: "15px",
+            marginBottom: "12px",
             display: "block",
             letterSpacing: "0.5px",
             textTransform: "uppercase",
           }}>
-            Choose a Template
+            📏 Square Footage Range *
           </label>
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
-            gap: "12px",
-            marginBottom: "25px",
-          }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "10px" }}>
             {[
-              { id: "executive", icon: "🏢", name: "Executive Office", desc: "Private, Large" },
-              { id: "manager", icon: "💼", name: "Manager Office", desc: "Private, Medium" },
-              { id: "cubicle", icon: "🪑", name: "Cubicle", desc: "Partial, Small" },
-              { id: "open-desk", icon: "📋", name: "Open Desk", desc: "Hot-desk, Minimal" },
-              { id: "creative", icon: "🎨", name: "Creative Space", desc: "Collaborative" },
-              { id: "custom", icon: "🎯", name: "Custom", desc: "Build from scratch" },
-            ].map((template) => (
+              { value: "100-150", label: "100-150 sqft" },
+              { value: "150-200", label: "150-200 sqft" },
+              { value: "200-300", label: "200-300 sqft" },
+              { value: "300-500", label: "300-500 sqft" },
+              { value: "500+", label: "500+ sqft" },
+            ].map((option) => (
               <button
-                key={template.id}
-                onClick={() => applyWorkspaceTemplate(template.id)}
+                key={option.value}
+                onClick={() => setWsSqftRange(option.value)}
                 style={{
-                  padding: "18px 16px",
-                  borderRadius: "12px",
-                  border: "2px solid rgba(184, 115, 51, 0.2)",
-                  background: "rgba(255, 255, 255, 0.03)",
+                  padding: "12px",
+                  borderRadius: "10px",
+                  border: wsSqftRange === option.value ? "2px solid #D4955A" : "2px solid rgba(255, 255, 255, 0.1)",
+                  background: wsSqftRange === option.value ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
                   color: "white",
-                  cursor: "pointer",
-                  transition: "all 0.2s ease",
-                  textAlign: "left",
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(184, 115, 51, 0.5)";
-                  e.currentTarget.style.background = "rgba(184, 115, 51, 0.08)";
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(184, 115, 51, 0.2)";
-                  e.currentTarget.style.background = "rgba(255, 255, 255, 0.03)";
-                }}
-              >
-                <div style={{
-                  fontSize: "24px",
-                  marginBottom: "6px",
-                }}>
-                  {template.icon}
-                </div>
-                <div style={{
                   fontSize: "13px",
                   fontWeight: "800",
-                  marginBottom: "3px",
-                }}>
-                  {template.name}
-                </div>
-                <div style={{
-                  fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.5)",
-                  fontWeight: "600",
-                }}>
-                  {template.desc}
-                </div>
+                  cursor: "pointer",
+                }}
+              >
+                {option.label}
               </button>
             ))}
           </div>
         </div>
       )}
 
-      {/* Customization Options */}
-      {wsTemplate && (
+      {/* Cubicle Size - Only show for cubicles */}
+      {wsType === "cubicle" && (
         <div style={{ marginBottom: "25px" }}>
-          {/* Privacy Level */}
-          <div style={{ marginBottom: "20px" }}>
-            <label style={{
-              fontSize: "12px",
-              fontWeight: "700",
-              color: "#B87333",
-              marginBottom: "10px",
-              display: "block",
-              letterSpacing: "0.5px",
-              textTransform: "uppercase",
-            }}>
-              🚪 Privacy Level
-            </label>
-            <div style={{ display: "flex", gap: "8px" }}>
-              {[
-                { value: "open", label: "Open" },
-                { value: "partial", label: "Cubicle" },
-                { value: "private", label: "Private" },
-              ].map((option) => (
-                <button
-                  key={option.value}
-                  onClick={() => setWsPrivacy(option.value)}
-                  style={{
-                    flex: 1,
-                    padding: "12px",
-                    borderRadius: "10px",
-                    border: wsPrivacy === option.value ? "2px solid #D4955A" : "2px solid rgba(255, 255, 255, 0.1)",
-                    background: wsPrivacy === option.value ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
-                    color: "white",
-                    fontSize: "13px",
-                    fontWeight: "800",
-                    cursor: "pointer",
-                  }}
-                >
-                  {option.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Size - Only for private offices and creative spaces */}
-          {(wsPrivacy === "private" || (wsPrivacy === "open" && wsTemplate === "creative")) && (
-            <div style={{ marginBottom: "20px" }}>
-              <label style={{
-                fontSize: "12px",
-                fontWeight: "700",
-                color: "#B87333",
-                marginBottom: "10px",
-                display: "block",
-                letterSpacing: "0.5px",
-                textTransform: "uppercase",
-              }}>
-                📏 Size
-              </label>
-              <div style={{ display: "flex", gap: "8px" }}>
-                {[
-                  { value: "small", label: "Small" },
-                  { value: "medium", label: "Medium" },
-                  { value: "large", label: "Large" },
-                  { value: "xl", label: "XL" },
-                ].map((option) => (
-                  <button
-                    key={option.value}
-                    onClick={() => setWsSize(option.value)}
-                    style={{
-                      flex: 1,
-                      padding: "12px",
-                      borderRadius: "10px",
-                      border: wsSize === option.value ? "2px solid #D4955A" : "2px solid rgba(255, 255, 255, 0.1)",
-                      background: wsSize === option.value ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
-                      color: "white",
-                      fontSize: "13px",
-                      fontWeight: "800",
-                      cursor: "pointer",
-                    }}
-                  >
-                    {option.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Complexity */}
-          <div style={{ marginBottom: "20px" }}>
-            <label style={{
-              fontSize: "12px",
-              fontWeight: "700",
-              color: "#B87333",
-              marginBottom: "10px",
-              display: "block",
-              letterSpacing: "0.5px",
-              textTransform: "uppercase",
-            }}>
-              🧹 Cleanliness Complexity
-            </label>
-            <div style={{ display: "flex", gap: "8px" }}>
-              {[
-                { value: "light", label: "Light" },
-                { value: "standard", label: "Standard" },
-                { value: "heavy", label: "Heavy" },
-              ].map((option) => (
-                <button
-                  key={option.value}
-                  onClick={() => setWsComplexity(option.value)}
-                  style={{
-                    flex: 1,
-                    padding: "12px",
-                    borderRadius: "10px",
-                    border: wsComplexity === option.value ? "2px solid #D4955A" : "2px solid rgba(255, 255, 255, 0.1)",
-                    background: wsComplexity === option.value ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
-                    color: "white",
-                    fontSize: "13px",
-                    fontWeight: "800",
-                    cursor: "pointer",
-                  }}
-                >
-                  {option.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Flooring */}
-          <div style={{ marginBottom: "20px" }}>
-            <label style={{
-              fontSize: "12px",
-              fontWeight: "700",
-              color: "#B87333",
-              marginBottom: "10px",
-              display: "block",
-              letterSpacing: "0.5px",
-              textTransform: "uppercase",
-            }}>
-              🏢 Flooring Type
-            </label>
-            <div style={{ display: "flex", gap: "8px" }}>
-              {[
-                { value: "hard", label: "Hard Floor" },
-                { value: "carpet", label: "Carpet" },
-                { value: "industrial", label: "Industrial" },
-              ].map((option) => (
-                <button
-                  key={option.value}
-                  onClick={() => setWsFlooring(option.value)}
-                  style={{
-                    flex: 1,
-                    padding: "12px",
-                    borderRadius: "10px",
-                    border: wsFlooring === option.value ? "2px solid #D4955A" : "2px solid rgba(255, 255, 255, 0.1)",
-                    background: wsFlooring === option.value ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
-                    color: "white",
-                    fontSize: "13px",
-                    fontWeight: "800",
-                    cursor: "pointer",
-                  }}
-                >
-                  {option.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Features */}
-          <div style={{ marginBottom: "20px" }}>
-            <label style={{
-              fontSize: "12px",
-              fontWeight: "700",
-              color: "#B87333",
-              marginBottom: "10px",
-              display: "block",
-              letterSpacing: "0.5px",
-              textTransform: "uppercase",
-            }}>
-              ⭐ Special Features
-            </label>
-            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-              {[
-                { key: "food", label: "Food/Beverage Allowed (+$2)" },
-                { key: "equipment", label: "Equipment Heavy (+$3)" },
-                { key: "highTraffic", label: "High Traffic (+$2)" },
-                { key: "trash", label: "Trash Removal (+$1)" },
-              ].map((feature) => (
-                <label
-                  key={feature.key}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    padding: "12px 15px",
-                    borderRadius: "10px",
-                    border: "2px solid rgba(255, 255, 255, 0.1)",
-                    background: wsFeatures[feature.key] ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
-                    cursor: "pointer",
-                  }}
-                >
-                  <input
-                    type="checkbox"
-                    checked={wsFeatures[feature.key]}
-                    onChange={(e) => setWsFeatures({ ...wsFeatures, [feature.key]: e.target.checked })}
-                    style={{
-                      marginRight: "10px",
-                      width: "18px",
-                      height: "18px",
-                      cursor: "pointer",
-                    }}
-                  />
-                  <span style={{
-                    color: "white",
-                    fontSize: "13px",
-                    fontWeight: "700",
-                  }}>
-                    {feature.label}
-                  </span>
-                </label>
-              ))}
-            </div>
-          </div>
-
-          {/* Price Preview */}
-          <div style={{
-            padding: "18px",
-            borderRadius: "12px",
-            background: "rgba(143, 170, 184, 0.1)",
-            border: "1px solid rgba(143, 170, 184, 0.3)",
-            marginBottom: "20px",
+          <label style={{
+            fontSize: "12px",
+            fontWeight: "700",
+            color: "#B87333",
+            marginBottom: "12px",
+            display: "block",
+            letterSpacing: "0.5px",
+            textTransform: "uppercase",
           }}>
-            <div style={{
-              fontSize: "12px",
-              fontWeight: "700",
-              color: "#8FB8B8",
-              marginBottom: "8px",
-              letterSpacing: "0.5px",
-              textTransform: "uppercase",
-            }}>
-              💰 Price Per Clean
-            </div>
-            <div style={{
-              fontSize: "32px",
-              fontWeight: "900",
-              color: "white",
-            }}>
-              ${calculateWorkspacePrice({
-                privacy: wsPrivacy,
-                size: wsSize,
-                complexity: wsComplexity,
-                flooring: wsFlooring,
-                features: wsFeatures
-              })}
-            </div>
-          </div>
-
-          {/* Quantity */}
-          <div style={{ marginBottom: "25px" }}>
-            <label style={{
-              fontSize: "12px",
-              fontWeight: "700",
-              color: "#B87333",
-              marginBottom: "10px",
-              display: "block",
-              letterSpacing: "0.5px",
-              textTransform: "uppercase",
-            }}>
-              🔢 Quantity
-            </label>
-            <div style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-              background: "rgba(255, 255, 255, 0.05)",
-              padding: "16px",
-              borderRadius: "12px",
-            }}>
+            📐 Cubicle Size *
+          </label>
+          <div style={{ display: "flex", gap: "10px" }}>
+            {[
+              { value: "standard", label: "Standard" },
+              { value: "large", label: "Large" },
+            ].map((option) => (
               <button
-                onClick={() => setWsQuantity(Math.max(1, wsQuantity - 10))}
+                key={option.value}
+                onClick={() => setWsSqftRange(option.value)}
                 style={{
-                  padding: "10px 16px",
-                  borderRadius: "8px",
-                  border: "none",
-                  background: "rgba(239, 68, 68, 0.2)",
-                  color: "#ef4444",
-                  fontSize: "14px",
-                  fontWeight: "900",
-                  cursor: "pointer",
-                }}
-              >
-                -10
-              </button>
-              <button
-                onClick={() => setWsQuantity(Math.max(1, wsQuantity - 1))}
-                style={{
-                  padding: "10px 16px",
-                  borderRadius: "8px",
-                  border: "none",
-                  background: "rgba(239, 68, 68, 0.2)",
-                  color: "#ef4444",
-                  fontSize: "16px",
-                  fontWeight: "900",
-                  cursor: "pointer",
-                }}
-              >
-                -1
-              </button>
-              <div style={{
-                flex: 1,
-                textAlign: "center",
-                fontSize: "28px",
-                fontWeight: "900",
-                color: "white",
-              }}>
-                {wsQuantity}
-              </div>
-              <button
-                onClick={() => setWsQuantity(wsQuantity + 1)}
-                style={{
-                  padding: "10px 16px",
-                  borderRadius: "8px",
-                  border: "none",
-                  background: "rgba(16, 185, 129, 0.2)",
-                  color: "#10b981",
-                  fontSize: "16px",
-                  fontWeight: "900",
-                  cursor: "pointer",
-                }}
-              >
-                +1
-              </button>
-              <button
-                onClick={() => setWsQuantity(wsQuantity + 10)}
-                style={{
-                  padding: "10px 16px",
-                  borderRadius: "8px",
-                  border: "none",
-                  background: "rgba(16, 185, 129, 0.2)",
-                  color: "#10b981",
-                  fontSize: "14px",
-                  fontWeight: "900",
-                  cursor: "pointer",
-                }}
-              >
-                +10
-              </button>
-            </div>
-          </div>
-
-          {/* Daily Clean Count */}
-          <div style={{ marginBottom: "25px" }}>
-            <label style={{
-              fontSize: "12px",
-              fontWeight: "700",
-              color: "#B87333",
-              marginBottom: "10px",
-              display: "block",
-              letterSpacing: "0.5px",
-              textTransform: "uppercase",
-            }}>
-              📊 Daily Clean Count
-            </label>
-            <div style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-              background: "rgba(255, 255, 255, 0.05)",
-              padding: "16px",
-              borderRadius: "12px",
-            }}>
-              <button
-                onClick={() => setWsDailyCount(Math.max(1, wsDailyCount - 10))}
-                style={{
-                  padding: "10px 16px",
-                  borderRadius: "8px",
-                  border: "none",
-                  background: "rgba(239, 68, 68, 0.2)",
-                  color: "#ef4444",
-                  fontSize: "14px",
-                  fontWeight: "900",
-                  cursor: "pointer",
-                }}
-              >
-                -10
-              </button>
-              <button
-                onClick={() => setWsDailyCount(Math.max(1, wsDailyCount - 1))}
-                style={{
-                  padding: "10px 16px",
-                  borderRadius: "8px",
-                  border: "none",
-                  background: "rgba(239, 68, 68, 0.2)",
-                  color: "#ef4444",
-                  fontSize: "16px",
-                  fontWeight: "900",
-                  cursor: "pointer",
-                }}
-              >
-                -1
-              </button>
-              <div style={{
-                flex: 1,
-                textAlign: "center",
-              }}>
-                <div style={{
-                  fontSize: "28px",
-                  fontWeight: "900",
+                  flex: 1,
+                  padding: "12px",
+                  borderRadius: "10px",
+                  border: wsSqftRange === option.value ? "2px solid #D4955A" : "2px solid rgba(255, 255, 255, 0.1)",
+                  background: wsSqftRange === option.value ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
                   color: "white",
-                }}>
-                  {wsDailyCount}
-                </div>
-                <div style={{
-                  fontSize: "10px",
-                  color: "rgba(255, 255, 255, 0.5)",
-                  fontWeight: "600",
-                  marginTop: "2px",
-                }}>
-                  cleaned/day
-                </div>
-              </div>
-              <button
-                onClick={() => setWsDailyCount(wsDailyCount + 1)}
-                style={{
-                  padding: "10px 16px",
-                  borderRadius: "8px",
-                  border: "none",
-                  background: "rgba(16, 185, 129, 0.2)",
-                  color: "#10b981",
-                  fontSize: "16px",
-                  fontWeight: "900",
+                  fontSize: "13px",
+                  fontWeight: "800",
                   cursor: "pointer",
                 }}
               >
-                +1
+                {option.label}
               </button>
-              <button
-                onClick={() => setWsDailyCount(wsDailyCount + 10)}
-                style={{
-                  padding: "10px 16px",
-                  borderRadius: "8px",
-                  border: "none",
-                  background: "rgba(16, 185, 129, 0.2)",
-                  color: "#10b981",
-                  fontSize: "14px",
-                  fontWeight: "900",
-                  cursor: "pointer",
-                }}
-              >
-                +10
-              </button>
-            </div>
-            <div style={{
-              fontSize: "10px",
-              color: "rgba(255, 255, 255, 0.5)",
-              marginTop: "8px",
-              fontStyle: "italic",
-            }}>
-              How many of these workspaces are cleaned each day?
-            </div>
+            ))}
           </div>
         </div>
       )}
+
+      {/* Flooring Type */}
+      <div style={{ marginBottom: "25px" }}>
+        <label style={{
+          fontSize: "12px",
+          fontWeight: "700",
+          color: "#B87333",
+          marginBottom: "12px",
+          display: "block",
+          letterSpacing: "0.5px",
+          textTransform: "uppercase",
+        }}>
+          🏢 Flooring Type
+        </label>
+        <div style={{ display: "flex", gap: "10px" }}>
+          {[
+            { value: "hard", label: "Hard Surface" },
+            { value: "low-carpet", label: "Low-pile Carpet" },
+            { value: "high-carpet", label: "High-pile Carpet" },
+          ].map((option) => (
+            <button
+              key={option.value}
+              onClick={() => setWsFlooring(option.value)}
+              style={{
+                flex: 1,
+                padding: "12px",
+                borderRadius: "10px",
+                border: wsFlooring === option.value ? "2px solid #D4955A" : "2px solid rgba(255, 255, 255, 0.1)",
+                background: wsFlooring === option.value ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
+                color: "white",
+                fontSize: "13px",
+                fontWeight: "800",
+                cursor: "pointer",
+              }}
+            >
+              {option.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Special Features */}
+      <div style={{ marginBottom: "25px" }}>
+        <label style={{
+          fontSize: "12px",
+          fontWeight: "700",
+          color: "#B87333",
+          marginBottom: "12px",
+          display: "block",
+          letterSpacing: "0.5px",
+          textTransform: "uppercase",
+        }}>
+          ⭐ Special Considerations
+        </label>
+        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+          {[
+            { key: "trashRemoval", label: "Trash Removal Required", note: "+$1 per workspace" },
+            { key: "multiMonitor", label: "Multiple Monitors/Complex Setup", note: "Note for crew" },
+            { key: "sensitiveDocs", label: "Sensitive Documents", note: "Extra care needed" },
+            { key: "plants", label: "Plants/Decor Items", note: "Work around them" },
+          ].map((feature) => (
+            <label
+              key={feature.key}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                padding: "14px 16px",
+                borderRadius: "10px",
+                border: "2px solid rgba(255, 255, 255, 0.1)",
+                background: wsSpecialFeatures[feature.key] ? "rgba(212, 149, 90, 0.2)" : "rgba(255, 255, 255, 0.03)",
+                cursor: "pointer",
+                transition: "all 0.2s ease",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", flex: 1 }}>
+                <input
+                  type="checkbox"
+                  checked={wsSpecialFeatures[feature.key]}
+                  onChange={(e) => setWsSpecialFeatures({ ...wsSpecialFeatures, [feature.key]: e.target.checked })}
+                  style={{
+                    marginRight: "12px",
+                    width: "18px",
+                    height: "18px",
+                    cursor: "pointer",
+                  }}
+                />
+                <div>
+                  <div style={{
+                    color: "white",
+                    fontSize: "13px",
+                    fontWeight: "800",
+                  }}>
+                    {feature.label}
+                  </div>
+                  <div style={{
+                    color: "rgba(255, 255, 255, 0.5)",
+                    fontSize: "11px",
+                    fontWeight: "600",
+                    marginTop: "2px",
+                  }}>
+                    {feature.note}
+                  </div>
+                </div>
+              </div>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      {/* Quantity */}
+      <div style={{ marginBottom: "30px" }}>
+        <label style={{
+          fontSize: "12px",
+          fontWeight: "700",
+          color: "#B87333",
+          marginBottom: "12px",
+          display: "block",
+          letterSpacing: "0.5px",
+          textTransform: "uppercase",
+        }}>
+          🔢 Quantity
+        </label>
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "12px",
+          background: "rgba(255, 255, 255, 0.05)",
+          padding: "16px",
+          borderRadius: "12px",
+        }}>
+          <button
+            onClick={() => setWsQuantity(Math.max(1, wsQuantity - 10))}
+            style={{
+              padding: "10px 16px",
+              borderRadius: "8px",
+              border: "none",
+              background: "rgba(239, 68, 68, 0.2)",
+              color: "#ef4444",
+              fontSize: "14px",
+              fontWeight: "900",
+              cursor: "pointer",
+            }}
+          >
+            -10
+          </button>
+          <button
+            onClick={() => setWsQuantity(Math.max(1, wsQuantity - 1))}
+            style={{
+              padding: "10px 16px",
+              borderRadius: "8px",
+              border: "none",
+              background: "rgba(239, 68, 68, 0.2)",
+              color: "#ef4444",
+              fontSize: "16px",
+              fontWeight: "900",
+              cursor: "pointer",
+            }}
+          >
+            -1
+          </button>
+          <div style={{
+            flex: 1,
+            textAlign: "center",
+            fontSize: "28px",
+            fontWeight: "900",
+            color: "white",
+          }}>
+            {wsQuantity}
+          </div>
+          <button
+            onClick={() => setWsQuantity(wsQuantity + 1)}
+            style={{
+              padding: "10px 16px",
+              borderRadius: "8px",
+              border: "none",
+              background: "linear-gradient(135deg, #B87333, #D4955A)",
+              color: "white",
+              fontSize: "16px",
+              fontWeight: "900",
+              cursor: "pointer",
+            }}
+          >
+            +1
+          </button>
+          <button
+            onClick={() => setWsQuantity(wsQuantity + 10)}
+            style={{
+              padding: "10px 16px",
+              borderRadius: "8px",
+              border: "none",
+              background: "linear-gradient(135deg, #B87333, #D4955A)",
+              color: "white",
+              fontSize: "14px",
+              fontWeight: "900",
+              cursor: "pointer",
+            }}
+          >
+            +10
+          </button>
+        </div>
+      </div>
 
       {/* Action Buttons */}
       <div style={{
@@ -8359,12 +8077,21 @@ style={{
         <button
           onClick={() => {
             setShowWorkspaceModal(false);
-            setWsTemplate("");
+            setWsType("");
+            setWsSqftRange("");
+            setWsFlooring("hard");
+            setWsSpecialFeatures({
+              trashRemoval: false,
+              multiMonitor: false,
+              sensitiveDocs: false,
+              plants: false,
+            });
+            setWsQuantity(1);
             setWsEditingIndex(null);
           }}
           style={{
             flex: 1,
-            padding: "14px",
+            padding: "16px",
             borderRadius: "12px",
             border: "2px solid rgba(255, 255, 255, 0.2)",
             background: "transparent",
@@ -8376,28 +8103,31 @@ style={{
         >
           Cancel
         </button>
-        {wsTemplate && (
-          <button
-            onClick={saveWorkspaceConfig}
-            style={{
-              flex: 1,
-              padding: "14px",
-              borderRadius: "12px",
-              border: "none",
-              background: "linear-gradient(135deg, #B87333 0%, #D4955A 100%)",
-              color: "white",
-              fontSize: "14px",
-              fontWeight: "800",
-              cursor: "pointer",
-            }}
-          >
-            {wsEditingIndex !== null ? "Update Workspace" : "Save Workspace"}
-          </button>
-        )}
+        <button
+          onClick={saveWorkspaceConfig}
+          disabled={!wsType || (wsType !== "open-desk" && !wsSqftRange)}
+          style={{
+            flex: 2,
+            padding: "16px",
+            borderRadius: "12px",
+            border: "none",
+            background: (!wsType || (wsType !== "open-desk" && !wsSqftRange))
+              ? "rgba(255, 255, 255, 0.1)"
+              : "linear-gradient(135deg, #B87333, #D4955A)",
+            color: "white",
+            fontSize: "14px",
+            fontWeight: "800",
+            cursor: (!wsType || (wsType !== "open-desk" && !wsSqftRange)) ? "not-allowed" : "pointer",
+            opacity: (!wsType || (wsType !== "open-desk" && !wsSqftRange)) ? 0.5 : 1,
+          }}
+        >
+          {wsEditingIndex !== null ? "Update Workspace" : "Save Workspace"}
+        </button>
       </div>
     </div>
   </div>
 )}
+
 
 {/* Success Modal */}
 {showSuccessModal && (
