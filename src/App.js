@@ -6890,38 +6890,6 @@ style={{
         )}
       </div>
 
-      {/* Frequency Discount/Upcharge */}
-      {frequency && getFrequencyDiscount() > 0 && (
-        <div style={{
-          padding: "15px 25px",
-          background: PRICING.frequencyDiscounts[frequency] >= 0
-            ? "linear-gradient(135deg, #10b981 0%, #059669 100%)"
-            : "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)",
-        }}>
-          <div style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}>
-            <div style={{
-              color: "white",
-              fontSize: "14px",
-              fontWeight: "800",
-              textTransform: "uppercase",
-            }}>
-              {PRICING.frequencyDiscounts[frequency] >= 0 ? "Discount" : "Upcharge"}
-            </div>
-            <div style={{
-              color: "white",
-              fontSize: "14px",
-              fontWeight: "900",
-            }}>
-              {PRICING.frequencyDiscounts[frequency] >= 0 ? "-" : "+"}${getFrequencyDiscount().toFixed(2)}
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Price Disclaimer */}
       <div style={{
         padding: "12px 20px",
