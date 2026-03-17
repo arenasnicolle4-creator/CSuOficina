@@ -6731,9 +6731,6 @@ style={{
   </div>
 )}
 
-</div>
-</div>
-
 {/* Price Sidebar - Desktop Only */}
 {(step === 2 || step === 3 || step === 4) && (
   <div
