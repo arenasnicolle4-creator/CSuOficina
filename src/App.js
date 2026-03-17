@@ -268,7 +268,7 @@ export default function CleaningSuOficinaBooking() {
     // Legacy frequency discounts for other segments (keeping for backward compatibility)
     frequencyDiscounts: {
       "daily": 0.20,           // 20% discount for daily cleaning
-      "5x-week": 0.15,         // 15% discount for 5x/week
+      "4x-week": 0.15,         // 15% discount for 4x/week
       "3x-week": 0.10,         // 10% discount for 3x/week
       "2x-week": 0.05,         // 5% discount for 2x/week
       "weekly": 0,             // No discount for weekly
@@ -680,37 +680,34 @@ export default function CleaningSuOficinaBooking() {
   const getFacilityMonthlyCost = (quantity, pricePerClean, frequency) => {
     if (!quantity || !frequency) return 0;
     
+    // Visits per month - consistent with main office pricing
     const visitsPerMonth = {
-      "daily": 30,
-      "5x-week": 22,
-      "3x-week": 13,
-      "2x-week": 8,
-      "weekly": 4,
-      "bi-weekly": 2,
-      "monthly": 1,
+      "daily": 22,        // 22 visits per month
+      "4x-week": 17,      // 17 visits per month
+      "3x-week": 12,      // 12 visits per month
+      "2x-week": 8,       // 8 visits per month (BASE)
+      "weekly": 4,        // 4 visits per month
+      "bi-weekly": 2,     // 2 visits per month
+      "monthly": 1,       // 1 visit per month
     };
     
-    const discountRates = {
-      "daily": -0.20,      // 20% discount
-      "5x-week": -0.15,    // 15% discount
-      "3x-week": -0.10,    // 10% discount
-      "2x-week": -0.05,    // 5% discount
-      "weekly": 0,         // No discount
-      "bi-weekly": 0.10,   // 10% upcharge
-      "monthly": 0.20,     // 20% upcharge
+    // Frequency multipliers - 2x/week is BASE (1.0x)
+    // More frequent = discount per visit, Less frequent = premium per visit
+    const frequencyMultipliers = {
+      "daily": 0.82,       // 18% discount per visit
+      "4x-week": 0.86,     // 14% discount per visit
+      "3x-week": 0.90,     // 10% discount per visit
+      "2x-week": 1.0,      // BASE RATE (no discount/premium)
+      "weekly": 1.05,      // 5% premium per visit
+      "bi-weekly": 1.12,   // 12% premium per visit
+      "monthly": 1.20,     // 20% premium per visit
     };
     
     const visits = visitsPerMonth[frequency] || 0;
-    const baseCost = quantity * pricePerClean * visits;
-    const discountRate = discountRates[frequency] || 0;
+    const multiplier = frequencyMultipliers[frequency] || 1.0;
     
-    if (discountRate >= 0) {
-      // It's an upcharge
-      return baseCost * (1 + discountRate);
-    } else {
-      // It's a discount
-      return baseCost * (1 + discountRate); // discountRate is negative, so this reduces cost
-    }
+    // Calculate: quantity × price per visit × visits per month × frequency multiplier
+    return quantity * pricePerClean * visits * multiplier;
   };
 
   // Get the per-sqft rate based on size tier
@@ -838,21 +835,21 @@ export default function CleaningSuOficinaBooking() {
       ];
       
       const visitsPerMonth = {
-        "daily": 30,
-        "5x-week": 22,
-        "3x-week": 13,
-        "2x-week": 8,
-        "weekly": 4,
-        "bi-weekly": 2,
+        "daily": 22,       // Daily = 22 visits
+        "4x-week": 17,     // 4x per week = 17 visits
+        "3x-week": 12,     // 3x per week = 12 visits
+        "2x-week": 8,      // 2x per week = 8 visits
+        "weekly": 4,       // Weekly = 4 visits
+        "bi-weekly": 2,    // Bi-weekly = 2 visits
       };
       
       const discountRates = {
-        "daily": -0.20,
-        "5x-week": -0.15,
-        "3x-week": -0.10,
-        "2x-week": -0.05,
-        "weekly": 0,
-        "bi-weekly": 0.10,
+        "daily": -0.18,    // 18% discount
+        "4x-week": -0.14,  // 14% discount
+        "3x-week": -0.10,  // 10% discount
+        "2x-week": -0.05,  // 5% discount
+        "weekly": 0,       // No discount
+        "bi-weekly": 0.10, // 10% upcharge
       };
       
       facilities.forEach(({ qty, price, freq }) => {
@@ -950,20 +947,30 @@ export default function CleaningSuOficinaBooking() {
       }
       
       // Individual facilities with their frequencies
-      const discountRates = {
-        "daily": { rate: -0.20, label: "20%" },
-        "5x-week": { rate: -0.15, label: "15%" },
-        "3x-week": { rate: -0.10, label: "10%" },
-        "2x-week": { rate: -0.05, label: "5%" },
-        "weekly": { rate: 0, label: "" },
-        "bi-weekly": { rate: 0.10, label: "10%" },
-        "monthly": { rate: 0.20, label: "20%" },
+      const frequencyMultipliers = {
+        "daily": 0.82,       // 18% discount per visit
+        "4x-week": 0.86,     // 14% discount per visit
+        "3x-week": 0.90,     // 10% discount per visit
+        "2x-week": 1.0,      // BASE RATE (no discount/premium)
+        "weekly": 1.05,      // 5% premium per visit
+        "bi-weekly": 1.12,   // 12% premium per visit
+        "monthly": 1.20,     // 20% premium per visit
+      };
+      
+      const discountLabels = {
+        "daily": "18%",
+        "4x-week": "14%",
+        "3x-week": "10%",
+        "2x-week": "",
+        "weekly": "5%",
+        "bi-weekly": "12%",
+        "monthly": "20%",
       };
       
       const visitsPerMonth = {
-        "daily": 30,
-        "5x-week": 22,
-        "3x-week": 13,
+        "daily": 22,
+        "4x-week": 17,
+        "3x-week": 12,
         "2x-week": 8,
         "weekly": 4,
         "bi-weekly": 2,
@@ -972,86 +979,110 @@ export default function CleaningSuOficinaBooking() {
       
       if (conferenceRooms > 0 && conferenceRoomsFreq) {
         const visits = visitsPerMonth[conferenceRoomsFreq];
-        const baseCost = conferenceRooms * 45 * visits;
-        const cost = getFacilityMonthlyCost(conferenceRooms, 45, conferenceRoomsFreq);
-        const discountInfo = discountRates[conferenceRoomsFreq];
+        const multiplier = frequencyMultipliers[conferenceRoomsFreq];
+        const basePerVisit = 45;
+        const baseCost = conferenceRooms * basePerVisit * visits; // Base cost without multiplier
+        const cost = conferenceRooms * basePerVisit * visits * multiplier; // Actual cost with multiplier
+        const hasDiscount = multiplier < 1.0;
+        const isPremium = multiplier > 1.0;
+        
         breakdown.push({ 
           label: `Conference Rooms (${conferenceRoomsFreq})`, 
           amount: cost,
-          originalAmount: discountInfo.rate !== 0 ? baseCost : null,
-          discountPercent: discountInfo.label,
-          discountAmount: baseCost - cost,
-          isUpcharge: discountInfo.rate > 0
+          originalAmount: (hasDiscount || isPremium) ? baseCost : null,
+          discountPercent: discountLabels[conferenceRoomsFreq],
+          discountAmount: hasDiscount ? (baseCost - cost) : 0,
+          isUpcharge: isPremium
         });
       }
       if (breakRooms > 0 && breakRoomsFreq) {
         const visits = visitsPerMonth[breakRoomsFreq];
-        const baseCost = breakRooms * 35 * visits;
-        const cost = getFacilityMonthlyCost(breakRooms, 35, breakRoomsFreq);
-        const discountInfo = discountRates[breakRoomsFreq];
+        const multiplier = frequencyMultipliers[breakRoomsFreq];
+        const basePerVisit = 35;
+        const baseCost = breakRooms * basePerVisit * visits;
+        const cost = breakRooms * basePerVisit * visits * multiplier;
+        const hasDiscount = multiplier < 1.0;
+        const isPremium = multiplier > 1.0;
+        
         breakdown.push({ 
           label: `Break Rooms (${breakRoomsFreq})`, 
           amount: cost,
-          originalAmount: discountInfo.rate !== 0 ? baseCost : null,
-          discountPercent: discountInfo.label,
-          discountAmount: baseCost - cost,
-          isUpcharge: discountInfo.rate > 0
+          originalAmount: (hasDiscount || isPremium) ? baseCost : null,
+          discountPercent: discountLabels[breakRoomsFreq],
+          discountAmount: hasDiscount ? (baseCost - cost) : 0,
+          isUpcharge: isPremium
         });
       }
       if (restrooms > 0 && restroomsFreq) {
         const visits = visitsPerMonth[restroomsFreq];
-        const baseCost = restrooms * 25 * visits;
-        const cost = getFacilityMonthlyCost(restrooms, 25, restroomsFreq);
-        const discountInfo = discountRates[restroomsFreq];
+        const multiplier = frequencyMultipliers[restroomsFreq];
+        const basePerVisit = 25;
+        const baseCost = restrooms * basePerVisit * visits;
+        const cost = restrooms * basePerVisit * visits * multiplier;
+        const hasDiscount = multiplier < 1.0;
+        const isPremium = multiplier > 1.0;
+        
         breakdown.push({ 
           label: `Restrooms (${restroomsFreq})`, 
           amount: cost,
-          originalAmount: discountInfo.rate !== 0 ? baseCost : null,
-          discountPercent: discountInfo.label,
-          discountAmount: baseCost - cost,
-          isUpcharge: discountInfo.rate > 0
+          originalAmount: (hasDiscount || isPremium) ? baseCost : null,
+          discountPercent: discountLabels[restroomsFreq],
+          discountAmount: hasDiscount ? (baseCost - cost) : 0,
+          isUpcharge: isPremium
         });
       }
       if (receptions > 0 && receptionsFreq) {
         const visits = visitsPerMonth[receptionsFreq];
-        const baseCost = receptions * 40 * visits;
-        const cost = getFacilityMonthlyCost(receptions, 40, receptionsFreq);
-        const discountInfo = discountRates[receptionsFreq];
+        const multiplier = frequencyMultipliers[receptionsFreq];
+        const basePerVisit = 40;
+        const baseCost = receptions * basePerVisit * visits;
+        const cost = receptions * basePerVisit * visits * multiplier;
+        const hasDiscount = multiplier < 1.0;
+        const isPremium = multiplier > 1.0;
+        
         breakdown.push({ 
           label: `Lobby/Reception (${receptionsFreq})`, 
           amount: cost,
-          originalAmount: discountInfo.rate !== 0 ? baseCost : null,
-          discountPercent: discountInfo.label,
-          discountAmount: baseCost - cost,
-          isUpcharge: discountInfo.rate > 0
+          originalAmount: (hasDiscount || isPremium) ? baseCost : null,
+          discountPercent: discountLabels[receptionsFreq],
+          discountAmount: hasDiscount ? (baseCost - cost) : 0,
+          isUpcharge: isPremium
         });
       }
       if (serverRooms > 0 && serverRoomsFreq) {
         const visits = visitsPerMonth[serverRoomsFreq];
-        const baseCost = serverRooms * 30 * visits;
-        const cost = getFacilityMonthlyCost(serverRooms, 30, serverRoomsFreq);
-        const discountInfo = discountRates[serverRoomsFreq];
+        const multiplier = frequencyMultipliers[serverRoomsFreq];
+        const basePerVisit = 30;
+        const baseCost = serverRooms * basePerVisit * visits;
+        const cost = serverRooms * basePerVisit * visits * multiplier;
+        const hasDiscount = multiplier < 1.0;
+        const isPremium = multiplier > 1.0;
+        
         breakdown.push({ 
           label: `Server/IT Rooms (${serverRoomsFreq})`, 
           amount: cost,
-          originalAmount: discountInfo.rate !== 0 ? baseCost : null,
-          discountPercent: discountInfo.label,
-          discountAmount: baseCost - cost,
-          isUpcharge: discountInfo.rate > 0
+          originalAmount: (hasDiscount || isPremium) ? baseCost : null,
+          discountPercent: discountLabels[serverRoomsFreq],
+          discountAmount: hasDiscount ? (baseCost - cost) : 0,
+          isUpcharge: isPremium
         });
       }
       if (storageRooms > 0 && storageRoomsFreq) {
         const visits = visitsPerMonth[storageRoomsFreq];
-        const baseCost = storageRooms * 20 * visits;
-        const cost = getFacilityMonthlyCost(storageRooms, 20, storageRoomsFreq);
-        const discountInfo = discountRates[storageRoomsFreq];
+        const multiplier = frequencyMultipliers[storageRoomsFreq];
+        const basePerVisit = 20;
+        const baseCost = storageRooms * basePerVisit * visits;
+        const cost = storageRooms * basePerVisit * visits * multiplier;
+        const hasDiscount = multiplier < 1.0;
+        const isPremium = multiplier > 1.0;
+        
         breakdown.push({ 
           label: `Storage/Archive (${storageRoomsFreq})`, 
           amount: cost,
-          originalAmount: discountInfo.rate !== 0 ? baseCost : null,
-          discountPercent: discountInfo.label,
-          discountAmount: baseCost - cost,
-          isUpcharge: discountInfo.rate > 0
+          originalAmount: (hasDiscount || isPremium) ? baseCost : null,
+          discountPercent: discountLabels[storageRoomsFreq],
+          discountAmount: hasDiscount ? (baseCost - cost) : 0,
+          isUpcharge: isPremium
         });
       }
     } else if (marketSegment === "healthcare") {
@@ -3057,12 +3088,12 @@ style={{
                 }}
               >
                 <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
-                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (30/mo) - 20% OFF</option>
-                <option value="5x-week" style={{ background: "#2E3A47", color: "white" }}>5x/Week (22/mo) - 15% OFF</option>
-                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (13/mo) - 10% OFF</option>
-                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - 5% OFF</option>
-                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo)</option>
-                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +10%</option>
+                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
+                <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
+                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
+                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - BASE</option>
+                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo) +5%</option>
+                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +12%</option>
                 <option value="monthly" style={{ background: "#2E3A47", color: "white" }}>Monthly (1/mo) +20%</option>
               </select>
             )}
@@ -3170,12 +3201,12 @@ style={{
                 }}
               >
                 <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
-                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (30/mo) - 20% OFF</option>
-                <option value="5x-week" style={{ background: "#2E3A47", color: "white" }}>5x/Week (22/mo) - 15% OFF</option>
-                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (13/mo) - 10% OFF</option>
-                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - 5% OFF</option>
-                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo)</option>
-                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +10%</option>
+                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
+                <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
+                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
+                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - BASE</option>
+                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo) +5%</option>
+                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +12%</option>
                 <option value="monthly" style={{ background: "#2E3A47", color: "white" }}>Monthly (1/mo) +20%</option>
               </select>
             )}
@@ -3283,12 +3314,12 @@ style={{
                 }}
               >
                 <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
-                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (30/mo) - 20% OFF</option>
-                <option value="5x-week" style={{ background: "#2E3A47", color: "white" }}>5x/Week (22/mo) - 15% OFF</option>
-                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (13/mo) - 10% OFF</option>
-                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - 5% OFF</option>
-                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo)</option>
-                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +10%</option>
+                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
+                <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
+                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
+                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - BASE</option>
+                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo) +5%</option>
+                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +12%</option>
                 <option value="monthly" style={{ background: "#2E3A47", color: "white" }}>Monthly (1/mo) +20%</option>
               </select>
             )}
@@ -3396,12 +3427,12 @@ style={{
                 }}
               >
                 <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
-                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (30/mo) - 20% OFF</option>
-                <option value="5x-week" style={{ background: "#2E3A47", color: "white" }}>5x/Week (22/mo) - 15% OFF</option>
-                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (13/mo) - 10% OFF</option>
-                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - 5% OFF</option>
-                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo)</option>
-                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +10%</option>
+                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
+                <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
+                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
+                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - BASE</option>
+                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo) +5%</option>
+                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +12%</option>
                 <option value="monthly" style={{ background: "#2E3A47", color: "white" }}>Monthly (1/mo) +20%</option>
               </select>
             )}
@@ -3509,12 +3540,12 @@ style={{
                 }}
               >
                 <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
-                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (30/mo) - 20% OFF</option>
-                <option value="5x-week" style={{ background: "#2E3A47", color: "white" }}>5x/Week (22/mo) - 15% OFF</option>
-                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (13/mo) - 10% OFF</option>
-                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - 5% OFF</option>
-                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo)</option>
-                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +10%</option>
+                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
+                <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
+                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
+                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - BASE</option>
+                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo) +5%</option>
+                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +12%</option>
                 <option value="monthly" style={{ background: "#2E3A47", color: "white" }}>Monthly (1/mo) +20%</option>
               </select>
             )}
@@ -3622,12 +3653,12 @@ style={{
                 }}
               >
                 <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
-                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (30/mo) - 20% OFF</option>
-                <option value="5x-week" style={{ background: "#2E3A47", color: "white" }}>5x/Week (22/mo) - 15% OFF</option>
-                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (13/mo) - 10% OFF</option>
-                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - 5% OFF</option>
-                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo)</option>
-                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +10%</option>
+                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
+                <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
+                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
+                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - BASE</option>
+                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo) +5%</option>
+                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +12%</option>
                 <option value="monthly" style={{ background: "#2E3A47", color: "white" }}>Monthly (1/mo) +20%</option>
               </select>
             )}
@@ -4533,12 +4564,12 @@ style={{
                 }}
               >
                 <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
-                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (30/mo) - 20% OFF</option>
-                <option value="5x-week" style={{ background: "#2E3A47", color: "white" }}>5x/Week (22/mo) - 15% OFF</option>
-                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (13/mo) - 10% OFF</option>
-                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - 5% OFF</option>
-                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo)</option>
-                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +10%</option>
+                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
+                <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
+                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
+                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - BASE</option>
+                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo) +5%</option>
+                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +12%</option>
               </select>
             )}
           </div>
@@ -4645,12 +4676,12 @@ style={{
                 }}
               >
                 <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
-                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (30/mo) - 20% OFF</option>
-                <option value="5x-week" style={{ background: "#2E3A47", color: "white" }}>5x/Week (22/mo) - 15% OFF</option>
-                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (13/mo) - 10% OFF</option>
-                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - 5% OFF</option>
-                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo)</option>
-                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +10%</option>
+                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
+                <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
+                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
+                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - BASE</option>
+                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo) +5%</option>
+                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +12%</option>
               </select>
             )}
           </div>
@@ -4757,12 +4788,12 @@ style={{
                 }}
               >
                 <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
-                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (30/mo) - 20% OFF</option>
-                <option value="5x-week" style={{ background: "#2E3A47", color: "white" }}>5x/Week (22/mo) - 15% OFF</option>
-                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (13/mo) - 10% OFF</option>
-                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - 5% OFF</option>
-                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo)</option>
-                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +10%</option>
+                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
+                <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
+                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
+                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - BASE</option>
+                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo) +5%</option>
+                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +12%</option>
               </select>
             )}
           </div>
@@ -4869,12 +4900,12 @@ style={{
                 }}
               >
                 <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
-                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (30/mo) - 20% OFF</option>
-                <option value="5x-week" style={{ background: "#2E3A47", color: "white" }}>5x/Week (22/mo) - 15% OFF</option>
-                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (13/mo) - 10% OFF</option>
-                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - 5% OFF</option>
-                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo)</option>
-                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +10%</option>
+                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
+                <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
+                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
+                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - BASE</option>
+                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo) +5%</option>
+                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +12%</option>
               </select>
             )}
           </div>
@@ -4981,12 +5012,12 @@ style={{
                 }}
               >
                 <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
-                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (30/mo) - 20% OFF</option>
-                <option value="5x-week" style={{ background: "#2E3A47", color: "white" }}>5x/Week (22/mo) - 15% OFF</option>
-                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (13/mo) - 10% OFF</option>
-                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - 5% OFF</option>
-                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo)</option>
-                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +10%</option>
+                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
+                <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
+                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
+                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - BASE</option>
+                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo) +5%</option>
+                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +12%</option>
               </select>
             )}
           </div>
@@ -5093,12 +5124,12 @@ style={{
                 }}
               >
                 <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
-                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (30/mo) - 20% OFF</option>
-                <option value="5x-week" style={{ background: "#2E3A47", color: "white" }}>5x/Week (22/mo) - 15% OFF</option>
-                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (13/mo) - 10% OFF</option>
-                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - 5% OFF</option>
-                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo)</option>
-                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +10%</option>
+                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
+                <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
+                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
+                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - BASE</option>
+                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo) +5%</option>
+                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +12%</option>
               </select>
             )}
           </div>
@@ -5205,12 +5236,12 @@ style={{
                 }}
               >
                 <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
-                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (30/mo) - 20% OFF</option>
-                <option value="5x-week" style={{ background: "#2E3A47", color: "white" }}>5x/Week (22/mo) - 15% OFF</option>
-                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (13/mo) - 10% OFF</option>
-                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - 5% OFF</option>
-                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo)</option>
-                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +10%</option>
+                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
+                <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
+                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
+                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - BASE</option>
+                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo) +5%</option>
+                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +12%</option>
               </select>
             )}
           </div>
@@ -5319,12 +5350,12 @@ style={{
                 }}
               >
                 <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
-                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (30/mo) - 20% OFF</option>
-                <option value="5x-week" style={{ background: "#2E3A47", color: "white" }}>5x/Week (22/mo) - 15% OFF</option>
-                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (13/mo) - 10% OFF</option>
-                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - 5% OFF</option>
-                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo)</option>
-                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +10%</option>
+                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
+                <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
+                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
+                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - BASE</option>
+                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo) +5%</option>
+                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +12%</option>
               </select>
             )}
           </div>
