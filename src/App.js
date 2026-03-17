@@ -2407,12 +2407,13 @@ style={{
                   ${adjustedCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </div>
                 <div style={{
-                  fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.5)",
-                  marginTop: "4px",
-                  fontStyle: "italic",
+                  fontSize: "13px",
+                  color: hasDiscount ? "#10b981" : "#B87333",
+                  marginTop: "6px",
+                  fontWeight: "800",
+                  letterSpacing: "0.3px",
                 }}>
-                  {frequencyLabels[frequency]} service rate
+                  {frequencyLabels[frequency]} • Monthly Total
                 </div>
               </>
             );
@@ -2678,14 +2679,14 @@ style={{
                 }}
               >
                 <option value="" style={{ background: "#1A252F", color: "white", padding: "8px" }}>Select...</option>
-                <option value="monthly" style={{ background: "#1A252F", color: "white", padding: "8px" }}>Monthly (1x)</option>
-                <option value="every-3-weeks" style={{ background: "#1A252F", color: "white", padding: "8px" }}>Every 3 Weeks</option>
-                <option value="bi-weekly" style={{ background: "#1A252F", color: "white", padding: "8px" }}>Bi-weekly (2x)</option>
-                <option value="weekly" style={{ background: "#1A252F", color: "white", padding: "8px" }}>Weekly (4x)</option>
-                <option value="2x-week" style={{ background: "#1A252F", color: "white", padding: "8px" }}>2x per Week (8x)</option>
-                <option value="3x-week" style={{ background: "#1A252F", color: "white", padding: "8px" }}>3x per Week (12x)</option>
-                <option value="4x-week" style={{ background: "#1A252F", color: "white", padding: "8px" }}>4x per Week (17x)</option>
-                <option value="daily" style={{ background: "#1A252F", color: "white", padding: "8px" }}>Daily (22x)</option>
+                <option value="monthly" style={{ background: "#1A252F", color: "white", padding: "8px" }}>Monthly (1x Monthly)</option>
+                <option value="every-3-weeks" style={{ background: "#1A252F", color: "white", padding: "8px" }}>Every 3 Weeks (1-2x Monthly)</option>
+                <option value="bi-weekly" style={{ background: "#1A252F", color: "white", padding: "8px" }}>Bi-weekly (2x Monthly)</option>
+                <option value="weekly" style={{ background: "#1A252F", color: "white", padding: "8px" }}>Weekly (4x Monthly)</option>
+                <option value="2x-week" style={{ background: "#1A252F", color: "white", padding: "8px" }}>2x per Week (8x Monthly)</option>
+                <option value="3x-week" style={{ background: "#1A252F", color: "white", padding: "8px" }}>3x per Week (12x Monthly)</option>
+                <option value="4x-week" style={{ background: "#1A252F", color: "white", padding: "8px" }}>4x per Week (17x Monthly)</option>
+                <option value="daily" style={{ background: "#1A252F", color: "white", padding: "8px" }}>Daily (22x Monthly)</option>
               </select>
             </div>
             
