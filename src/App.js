@@ -2097,7 +2097,7 @@ style={{
           padding: "18px 20px",
           borderRadius: "16px",
           border: "2px solid rgba(184, 115, 51, 0.3)",
-          background: "rgba(255, 255, 255, 0.05)",
+          background: "rgba(255, 255, 255, 0.08)",
           color: "white",
           fontSize: "15px",
           fontWeight: "600",
@@ -2138,7 +2138,7 @@ style={{
             padding: "16px 18px",
             borderRadius: "14px",
             border: "2px solid rgba(184, 115, 51, 0.3)",
-            background: "rgba(255, 255, 255, 0.05)",
+            background: "rgba(255, 255, 255, 0.08)",
             color: "white",
             fontSize: "14px",
             fontWeight: "600",
@@ -2167,7 +2167,7 @@ style={{
             padding: "16px 18px",
             borderRadius: "14px",
             border: "2px solid rgba(184, 115, 51, 0.3)",
-            background: "rgba(255, 255, 255, 0.05)",
+            background: "rgba(255, 255, 255, 0.08)",
             color: "white",
             fontSize: "14px",
             fontWeight: "600",
@@ -2197,7 +2197,7 @@ style={{
             padding: "16px 18px",
             borderRadius: "14px",
             border: "2px solid rgba(184, 115, 51, 0.3)",
-            background: "rgba(255, 255, 255, 0.05)",
+            background: "rgba(255, 255, 255, 0.08)",
             color: "white",
             fontSize: "14px",
             fontWeight: "600",
@@ -2286,7 +2286,7 @@ style={{
           padding: "18px",
           borderRadius: "16px",
           border: "2px solid rgba(184, 115, 51, 0.3)",
-          background: "rgba(255, 255, 255, 0.05)",
+          background: "rgba(255, 255, 255, 0.08)",
           color: "white",
           fontSize: "15px",
           fontWeight: "800",
@@ -2555,7 +2555,7 @@ style={{
               paddingRight: "55px",
               borderRadius: "16px",
               border: "2px solid rgba(184, 115, 51, 0.3)",
-              background: "rgba(255, 255, 255, 0.05)",
+              background: "rgba(255, 255, 255, 0.08)",
               color: "white",
               fontSize: "17px",
               fontWeight: "700",
@@ -2704,7 +2704,7 @@ style={{
                   padding: "12px 14px",
                   borderRadius: "10px",
                   border: "2px solid rgba(184, 115, 51, 0.3)",
-                  background: "rgba(255, 255, 255, 0.05)",
+                  background: "rgba(255, 255, 255, 0.08)",
                   color: "white",
                   fontSize: "13px",
                   fontWeight: "600",
@@ -2898,22 +2898,27 @@ style={{
                 setShowWorkspaceModal(true);
               }}
               style={{
-                padding: "16px",
+                width: "100%",
+                padding: "18px 20px",
                 borderRadius: "12px",
-                border: "none",
+                border: "2px solid #5DEBF1",
                 background: "linear-gradient(135deg, #B87333 0%, #D4955A 100%)",
                 color: "white",
                 fontSize: "15px",
                 fontWeight: "800",
                 cursor: "pointer",
                 transition: "all 0.3s ease",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "10px",
+                boxShadow: "0 0 20px rgba(93, 235, 241, 0.3)",
               }}
             >
-              💼 Configure Workspaces
+              <div style={{ textAlign: "center" }}>
+                <div style={{ fontSize: "16px", marginBottom: "4px" }}>
+                  💼 Configure Workspaces
+                </div>
+                <div style={{ fontSize: "11px", fontWeight: "600", opacity: 0.9 }}>
+                  Tell us how many offices, cubicles & desks you have
+                </div>
+              </div>
             </button>
             
             {/* List of configured workspace types */}
@@ -2927,7 +2932,7 @@ style={{
                   <div
                     key={index}
                     style={{
-                      background: "rgba(255, 255, 255, 0.05)",
+                      background: "rgba(255, 255, 255, 0.08)",
                       borderRadius: "10px",
                       padding: "12px 15px",
                       display: "flex",
@@ -2996,7 +3001,7 @@ style={{
 
           {/* Conference Rooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -3079,23 +3084,36 @@ style={{
             </div>
             {/* Frequency Selector */}
             {conferenceRooms > 0 && (
-              <select
+              <div>
+                <label style={{
+                  display: "block",
+                  fontSize: "12px",
+                  fontWeight: "800",
+                  color: "#5DEBF1",
+                  marginBottom: "6px",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.5px",
+                }}>
+                  ⏰ Select Cleaning Frequency *
+                </label>
+                <select
                 value={conferenceRoomsFreq}
                 onChange={(e) => setConferenceRoomsFreq(e.target.value)}
                 style={{
                   width: "100%",
-                  padding: "8px 10px",
-                  borderRadius: "8px",
-                  border: "1px solid rgba(184, 115, 51, 0.3)",
-                  background: "rgba(255, 255, 255, 0.05)",
-                  color: conferenceRoomsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
-                  fontSize: "11px",
-                  fontWeight: "600",
+                  padding: "12px 14px",
+                  borderRadius: "10px",
+                  border: conferenceRoomsFreq ? "2px solid #5DEBF1" : "2px solid rgba(239, 68, 68, 0.5)",
+                  background: conferenceRoomsFreq ? "rgba(93, 235, 241, 0.1)" : "rgba(239, 68, 68, 0.1)",
+                  color: conferenceRoomsFreq ? "white" : "#ef4444",
+                  fontSize: "13px",
+                  fontWeight: "700",
                   outline: "none",
                   cursor: "pointer",
+                  boxShadow: conferenceRoomsFreq ? "none" : "0 0 0 3px rgba(239, 68, 68, 0.2)",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
+                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -3104,12 +3122,13 @@ style={{
                 <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +12%</option>
                 <option value="monthly" style={{ background: "#2E3A47", color: "white" }}>Monthly (1/mo) +20%</option>
               </select>
+              </div>
             )}
           </div>
 
           {/* Break Rooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -3192,23 +3211,36 @@ style={{
             </div>
             {/* Frequency Selector */}
             {breakRooms > 0 && (
-              <select
+              <div>
+                <label style={{
+                  display: "block",
+                  fontSize: "12px",
+                  fontWeight: "800",
+                  color: "#5DEBF1",
+                  marginBottom: "6px",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.5px",
+                }}>
+                  ⏰ Select Cleaning Frequency *
+                </label>
+                <select
                 value={breakRoomsFreq}
                 onChange={(e) => setBreakRoomsFreq(e.target.value)}
                 style={{
                   width: "100%",
-                  padding: "8px 10px",
-                  borderRadius: "8px",
-                  border: "1px solid rgba(184, 115, 51, 0.3)",
-                  background: "rgba(255, 255, 255, 0.05)",
-                  color: breakRoomsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
-                  fontSize: "11px",
-                  fontWeight: "600",
+                  padding: "12px 14px",
+                  borderRadius: "10px",
+                  border: breakRoomsFreq ? "2px solid #5DEBF1" : "2px solid rgba(239, 68, 68, 0.5)",
+                  background: breakRoomsFreq ? "rgba(93, 235, 241, 0.1)" : "rgba(239, 68, 68, 0.1)",
+                  color: breakRoomsFreq ? "white" : "#ef4444",
+                  fontSize: "13px",
+                  fontWeight: "700",
                   outline: "none",
                   cursor: "pointer",
+                  boxShadow: breakRoomsFreq ? "none" : "0 0 0 3px rgba(239, 68, 68, 0.2)",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
+                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -3217,12 +3249,13 @@ style={{
                 <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +12%</option>
                 <option value="monthly" style={{ background: "#2E3A47", color: "white" }}>Monthly (1/mo) +20%</option>
               </select>
+              </div>
             )}
           </div>
 
           {/* Restrooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -3305,23 +3338,36 @@ style={{
             </div>
             {/* Frequency Selector */}
             {restrooms > 0 && (
-              <select
+              <div>
+                <label style={{
+                  display: "block",
+                  fontSize: "12px",
+                  fontWeight: "800",
+                  color: "#5DEBF1",
+                  marginBottom: "6px",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.5px",
+                }}>
+                  ⏰ Select Cleaning Frequency *
+                </label>
+                <select
                 value={restroomsFreq}
                 onChange={(e) => setRestroomsFreq(e.target.value)}
                 style={{
                   width: "100%",
-                  padding: "8px 10px",
-                  borderRadius: "8px",
-                  border: "1px solid rgba(184, 115, 51, 0.3)",
-                  background: "rgba(255, 255, 255, 0.05)",
-                  color: restroomsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
-                  fontSize: "11px",
-                  fontWeight: "600",
+                  padding: "12px 14px",
+                  borderRadius: "10px",
+                  border: restroomsFreq ? "2px solid #5DEBF1" : "2px solid rgba(239, 68, 68, 0.5)",
+                  background: restroomsFreq ? "rgba(93, 235, 241, 0.1)" : "rgba(239, 68, 68, 0.1)",
+                  color: restroomsFreq ? "white" : "#ef4444",
+                  fontSize: "13px",
+                  fontWeight: "700",
                   outline: "none",
                   cursor: "pointer",
+                  boxShadow: restroomsFreq ? "none" : "0 0 0 3px rgba(239, 68, 68, 0.2)",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
+                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -3330,12 +3376,13 @@ style={{
                 <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +12%</option>
                 <option value="monthly" style={{ background: "#2E3A47", color: "white" }}>Monthly (1/mo) +20%</option>
               </select>
+              </div>
             )}
           </div>
 
           {/* Reception/Lobby */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -3426,7 +3473,7 @@ style={{
                   padding: "8px 10px",
                   borderRadius: "8px",
                   border: "1px solid rgba(184, 115, 51, 0.3)",
-                  background: "rgba(255, 255, 255, 0.05)",
+                  background: "rgba(255, 255, 255, 0.08)",
                   color: receptionsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
                   fontSize: "11px",
                   fontWeight: "600",
@@ -3448,7 +3495,7 @@ style={{
 
           {/* Server Rooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -3531,23 +3578,36 @@ style={{
             </div>
             {/* Frequency Selector */}
             {serverRooms > 0 && (
-              <select
+              <div>
+                <label style={{
+                  display: "block",
+                  fontSize: "12px",
+                  fontWeight: "800",
+                  color: "#5DEBF1",
+                  marginBottom: "6px",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.5px",
+                }}>
+                  ⏰ Select Cleaning Frequency *
+                </label>
+                <select
                 value={serverRoomsFreq}
                 onChange={(e) => setServerRoomsFreq(e.target.value)}
                 style={{
                   width: "100%",
-                  padding: "8px 10px",
-                  borderRadius: "8px",
-                  border: "1px solid rgba(184, 115, 51, 0.3)",
-                  background: "rgba(255, 255, 255, 0.05)",
-                  color: serverRoomsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
-                  fontSize: "11px",
-                  fontWeight: "600",
+                  padding: "12px 14px",
+                  borderRadius: "10px",
+                  border: serverRoomsFreq ? "2px solid #5DEBF1" : "2px solid rgba(239, 68, 68, 0.5)",
+                  background: serverRoomsFreq ? "rgba(93, 235, 241, 0.1)" : "rgba(239, 68, 68, 0.1)",
+                  color: serverRoomsFreq ? "white" : "#ef4444",
+                  fontSize: "13px",
+                  fontWeight: "700",
                   outline: "none",
                   cursor: "pointer",
+                  boxShadow: serverRoomsFreq ? "none" : "0 0 0 3px rgba(239, 68, 68, 0.2)",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
+                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -3561,7 +3621,7 @@ style={{
 
           {/* Storage Rooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -3644,23 +3704,36 @@ style={{
             </div>
             {/* Frequency Selector */}
             {storageRooms > 0 && (
-              <select
+              <div>
+                <label style={{
+                  display: "block",
+                  fontSize: "12px",
+                  fontWeight: "800",
+                  color: "#5DEBF1",
+                  marginBottom: "6px",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.5px",
+                }}>
+                  ⏰ Select Cleaning Frequency *
+                </label>
+                <select
                 value={storageRoomsFreq}
                 onChange={(e) => setStorageRoomsFreq(e.target.value)}
                 style={{
                   width: "100%",
-                  padding: "8px 10px",
-                  borderRadius: "8px",
-                  border: "1px solid rgba(184, 115, 51, 0.3)",
-                  background: "rgba(255, 255, 255, 0.05)",
-                  color: storageRoomsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
-                  fontSize: "11px",
-                  fontWeight: "600",
+                  padding: "12px 14px",
+                  borderRadius: "10px",
+                  border: storageRoomsFreq ? "2px solid #5DEBF1" : "2px solid rgba(239, 68, 68, 0.5)",
+                  background: storageRoomsFreq ? "rgba(93, 235, 241, 0.1)" : "rgba(239, 68, 68, 0.1)",
+                  color: storageRoomsFreq ? "white" : "#ef4444",
+                  fontSize: "13px",
+                  fontWeight: "700",
                   outline: "none",
                   cursor: "pointer",
+                  boxShadow: storageRoomsFreq ? "none" : "0 0 0 3px rgba(239, 68, 68, 0.2)",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
+                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -3697,7 +3770,7 @@ style={{
         }}>
           {/* Exam Rooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -3782,7 +3855,7 @@ style={{
 
           {/* Waiting Areas */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -3867,7 +3940,7 @@ style={{
 
           {/* Procedure Rooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -3952,7 +4025,7 @@ style={{
 
           {/* Laboratories - NEW */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -4037,7 +4110,7 @@ style={{
 
           {/* Sterilization Rooms - NEW */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -4122,7 +4195,7 @@ style={{
 
           {/* Nurse Stations - NEW */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -4207,7 +4280,7 @@ style={{
 
           {/* Consultation Rooms - NEW */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -4357,7 +4430,7 @@ style={{
                   <div
                     key={index}
                     style={{
-                      background: "rgba(255, 255, 255, 0.05)",
+                      background: "rgba(255, 255, 255, 0.08)",
                       borderRadius: "10px",
                       padding: "12px 15px",
                       display: "flex",
@@ -4451,7 +4524,7 @@ style={{
                     padding: "12px 15px",
                     borderRadius: "10px",
                     border: "2px solid rgba(184, 115, 51, 0.3)",
-                    background: "rgba(255, 255, 255, 0.05)",
+                    background: "rgba(255, 255, 255, 0.08)",
                     color: "white",
                     fontSize: "14px",
                     fontWeight: "600",
@@ -4472,7 +4545,7 @@ style={{
 
           {/* Common Areas */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -4563,7 +4636,7 @@ style={{
                   padding: "8px 10px",
                   borderRadius: "8px",
                   border: "1px solid rgba(184, 115, 51, 0.3)",
-                  background: "rgba(255, 255, 255, 0.05)",
+                  background: "rgba(255, 255, 255, 0.08)",
                   color: commonAreasFreq ? "white" : "rgba(255, 255, 255, 0.5)",
                   fontSize: "11px",
                   fontWeight: "600",
@@ -4584,7 +4657,7 @@ style={{
 
           {/* Dining Areas */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -4675,7 +4748,7 @@ style={{
                   padding: "8px 10px",
                   borderRadius: "8px",
                   border: "1px solid rgba(184, 115, 51, 0.3)",
-                  background: "rgba(255, 255, 255, 0.05)",
+                  background: "rgba(255, 255, 255, 0.08)",
                   color: diningAreasFreq ? "white" : "rgba(255, 255, 255, 0.5)",
                   fontSize: "11px",
                   fontWeight: "600",
@@ -4696,7 +4769,7 @@ style={{
 
           {/* Fitness Centers - NEW */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -4787,7 +4860,7 @@ style={{
                   padding: "8px 10px",
                   borderRadius: "8px",
                   border: "1px solid rgba(184, 115, 51, 0.3)",
-                  background: "rgba(255, 255, 255, 0.05)",
+                  background: "rgba(255, 255, 255, 0.08)",
                   color: fitnessCentersFreq ? "white" : "rgba(255, 255, 255, 0.5)",
                   fontSize: "11px",
                   fontWeight: "600",
@@ -4808,7 +4881,7 @@ style={{
 
           {/* Pool/Spa Areas - NEW */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -4899,7 +4972,7 @@ style={{
                   padding: "8px 10px",
                   borderRadius: "8px",
                   border: "1px solid rgba(184, 115, 51, 0.3)",
-                  background: "rgba(255, 255, 255, 0.05)",
+                  background: "rgba(255, 255, 255, 0.08)",
                   color: poolSpasFreq ? "white" : "rgba(255, 255, 255, 0.5)",
                   fontSize: "11px",
                   fontWeight: "600",
@@ -4920,7 +4993,7 @@ style={{
 
           {/* Event/Banquet Spaces - NEW */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -5011,7 +5084,7 @@ style={{
                   padding: "8px 10px",
                   borderRadius: "8px",
                   border: "1px solid rgba(184, 115, 51, 0.3)",
-                  background: "rgba(255, 255, 255, 0.05)",
+                  background: "rgba(255, 255, 255, 0.08)",
                   color: eventSpacesFreq ? "white" : "rgba(255, 255, 255, 0.5)",
                   fontSize: "11px",
                   fontWeight: "600",
@@ -5032,7 +5105,7 @@ style={{
 
           {/* Laundry Rooms - NEW */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -5123,7 +5196,7 @@ style={{
                   padding: "8px 10px",
                   borderRadius: "8px",
                   border: "1px solid rgba(184, 115, 51, 0.3)",
-                  background: "rgba(255, 255, 255, 0.05)",
+                  background: "rgba(255, 255, 255, 0.08)",
                   color: laundryRoomsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
                   fontSize: "11px",
                   fontWeight: "600",
@@ -5144,7 +5217,7 @@ style={{
 
           {/* Lobby/Reception - NEW */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -5227,23 +5300,36 @@ style={{
             </div>
             {/* Frequency Selector */}
             {lobbyReceptions > 0 && (
-              <select
+              <div>
+                <label style={{
+                  display: "block",
+                  fontSize: "12px",
+                  fontWeight: "800",
+                  color: "#5DEBF1",
+                  marginBottom: "6px",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.5px",
+                }}>
+                  ⏰ Select Cleaning Frequency *
+                </label>
+                <select
                 value={lobbyReceptionsFreq}
                 onChange={(e) => setLobbyReceptionsFreq(e.target.value)}
                 style={{
                   width: "100%",
-                  padding: "8px 10px",
-                  borderRadius: "8px",
-                  border: "1px solid rgba(184, 115, 51, 0.3)",
-                  background: "rgba(255, 255, 255, 0.05)",
-                  color: lobbyReceptionsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
-                  fontSize: "11px",
-                  fontWeight: "600",
+                  padding: "12px 14px",
+                  borderRadius: "10px",
+                  border: lobbyReceptionsFreq ? "2px solid #5DEBF1" : "2px solid rgba(239, 68, 68, 0.5)",
+                  background: lobbyReceptionsFreq ? "rgba(93, 235, 241, 0.1)" : "rgba(239, 68, 68, 0.1)",
+                  color: lobbyReceptionsFreq ? "white" : "#ef4444",
+                  fontSize: "13px",
+                  fontWeight: "700",
                   outline: "none",
                   cursor: "pointer",
+                  boxShadow: lobbyReceptionsFreq ? "none" : "0 0 0 3px rgba(239, 68, 68, 0.2)",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
+                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -5256,7 +5342,7 @@ style={{
 
           {/* Shared/Public Bathrooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -5349,7 +5435,7 @@ style={{
                   padding: "8px 10px",
                   borderRadius: "8px",
                   border: "1px solid rgba(184, 115, 51, 0.3)",
-                  background: "rgba(255, 255, 255, 0.05)",
+                  background: "rgba(255, 255, 255, 0.08)",
                   color: sharedBathroomsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
                   fontSize: "11px",
                   fontWeight: "600",
@@ -5391,7 +5477,7 @@ style={{
         }}>
           {/* Fitting/Dressing Rooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -5476,7 +5562,7 @@ style={{
 
           {/* Showroom/Display Areas */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -5561,7 +5647,7 @@ style={{
 
           {/* Stockrooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -5646,7 +5732,7 @@ style={{
 
           {/* Customer Restrooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -5731,7 +5817,7 @@ style={{
 
           {/* POS/Checkout Areas */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -5837,7 +5923,7 @@ style={{
         }}>
           {/* Loading Docks */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -5922,7 +6008,7 @@ style={{
 
           {/* Equipment/Maintenance Areas */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -6007,7 +6093,7 @@ style={{
 
           {/* Break Rooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -6092,7 +6178,7 @@ style={{
 
           {/* Restrooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -6177,7 +6263,7 @@ style={{
 
           {/* Office/Admin Areas */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -6272,7 +6358,7 @@ style={{
           padding: "18px",
           borderRadius: "16px",
           border: "2px solid rgba(184, 115, 51, 0.3)",
-          background: "rgba(255, 255, 255, 0.05)",
+          background: "rgba(255, 255, 255, 0.08)",
           color: "white",
           fontSize: "15px",
           fontWeight: "800",
@@ -6535,7 +6621,7 @@ style={{
           padding: "18px 20px",
           borderRadius: "16px",
           border: "2px solid rgba(184, 115, 51, 0.3)",
-          background: "rgba(255, 255, 255, 0.05)",
+          background: "rgba(255, 255, 255, 0.08)",
           color: "white",
           fontSize: "14px",
           fontWeight: "600",
@@ -6587,7 +6673,7 @@ style={{
           padding: "18px",
           borderRadius: "16px",
           border: "2px solid rgba(184, 115, 51, 0.3)",
-          background: "rgba(255, 255, 255, 0.05)",
+          background: "rgba(255, 255, 255, 0.08)",
           color: "white",
           fontSize: "15px",
           fontWeight: "800",
@@ -7298,7 +7384,7 @@ style={{
                 padding: "18px 16px",
                 borderRadius: "14px",
                 border: "2px solid rgba(184, 115, 51, 0.3)",
-                background: "rgba(255, 255, 255, 0.05)",
+                background: "rgba(255, 255, 255, 0.08)",
                 color: "white",
                 cursor: "pointer",
                 transition: "all 0.3s ease",
@@ -7372,7 +7458,7 @@ style={{
               display: "flex",
               alignItems: "center",
               gap: "12px",
-              background: "rgba(255, 255, 255, 0.05)",
+              background: "rgba(255, 255, 255, 0.08)",
               padding: "16px",
               borderRadius: "12px",
             }}>
@@ -7608,7 +7694,7 @@ style={{
               display: "flex",
               alignItems: "center",
               gap: "12px",
-              background: "rgba(255, 255, 255, 0.05)",
+              background: "rgba(255, 255, 255, 0.08)",
               padding: "16px",
               borderRadius: "12px",
             }}>
@@ -8043,7 +8129,7 @@ style={{
           display: "flex",
           alignItems: "center",
           gap: "12px",
-          background: "rgba(255, 255, 255, 0.05)",
+          background: "rgba(255, 255, 255, 0.08)",
           padding: "16px",
           borderRadius: "12px",
         }}>
