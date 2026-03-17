@@ -5351,6 +5351,7 @@ style={{
                 <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo) +5%</option>
                 <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +12%</option>
               </select>
+              </div>
             )}
           </div>
 
