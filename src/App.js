@@ -906,8 +906,28 @@ export default function CleaningSuOficinaBooking() {
     if (marketSegment === "office" && frequency) {
       const frequencyMultiplier = PRICING.frequencyMultipliers[frequency] || 1.0;
       const adjustedCost = baseSqftCost * frequencyMultiplier;
-      const hasDiscount = frequencyMultiplier > 1.0; // More frequent = discount
-      const isPremium = frequencyMultiplier < 1.0; // Less frequent = premium
+      
+      // Calculate visits per month for the selected frequency
+      const visitsPerMonth = {
+        "monthly": 1,
+        "every-3-weeks": 1.3,
+        "bi-weekly": 2,
+        "weekly": 4,
+        "2x-week": 8,
+        "3x-week": 12,
+        "4x-week": 17,
+        "daily": 22
+      };
+      
+      const visits = visitsPerMonth[frequency] || 8;
+      const baseVisits = 8; // 2x/week is our baseline
+      
+      // Calculate what it WOULD cost at full rate (no discount)
+      const basePerVisit = baseSqftCost / baseVisits; // Cost per visit at base rate
+      const fullRateCost = basePerVisit * visits; // What it would cost at full rate for this many visits
+      
+      const hasDiscount = adjustedCost < fullRateCost; // Paying less = discount
+      const isPremium = adjustedCost > fullRateCost; // Paying more = premium
       
       // Frequency labels for display
       const frequencyLabels = {
@@ -924,11 +944,11 @@ export default function CleaningSuOficinaBooking() {
       breakdown.push({
         label: `Base Cleaning (${sqft.toLocaleString()} sqft - ${frequencyLabels[frequency] || frequency})`,
         amount: adjustedCost,
-        originalAmount: frequencyMultiplier !== 1.0 ? baseSqftCost : null,
-        discountPercent: frequencyMultiplier !== 1.0 ? `${frequencyMultiplier}x` : "",
-        discountAmount: hasDiscount ? (adjustedCost - baseSqftCost) : 0, // Positive value for savings
+        originalAmount: frequency !== "2x-week" ? fullRateCost : null,
+        discountPercent: frequency !== "2x-week" ? "" : "",
+        discountAmount: hasDiscount ? (fullRateCost - adjustedCost) : 0,
         isUpcharge: isPremium,
-        note: frequencyMultiplier < 1.0 ? "Lower frequency" : frequencyMultiplier > 1.0 ? "Volume discount" : ""
+        note: isPremium ? "Lower frequency" : hasDiscount ? "Volume discount" : ""
       });
     } else {
       breakdown.push({
@@ -2408,7 +2428,28 @@ style={{
           if (marketSegment === "office" && frequency && squareFeet) {
             const frequencyMultiplier = PRICING.frequencyMultipliers[frequency] || 1.0;
             const adjustedCost = baseCost * frequencyMultiplier;
-            const hasDiscount = frequencyMultiplier !== 1.0;
+            
+            // Calculate visits per month for the selected frequency
+            const visitsPerMonth = {
+              "monthly": 1,
+              "every-3-weeks": 1.3,
+              "bi-weekly": 2,
+              "weekly": 4,
+              "2x-week": 8,
+              "3x-week": 12,
+              "4x-week": 17,
+              "daily": 22
+            };
+            
+            const visits = visitsPerMonth[frequency] || 8;
+            const baseVisits = 8; // 2x/week is our baseline
+            
+            // Calculate what it WOULD cost at full rate (no discount)
+            const basePerVisit = baseCost / baseVisits; // Cost per visit at base rate
+            const fullRateCost = basePerVisit * visits; // What it would cost at full rate for this many visits
+            
+            const hasDiscount = adjustedCost < fullRateCost; // Paying less = discount
+            const isPremium = adjustedCost > fullRateCost; // Paying more = premium
             
             const frequencyLabels = {
               "monthly": "Monthly",
@@ -2423,7 +2464,7 @@ style={{
             
             return (
               <>
-                {hasDiscount && (
+                {frequency !== "2x-week" && (
                   <div style={{
                     fontSize: "18px",
                     fontWeight: "700",
@@ -2431,19 +2472,19 @@ style={{
                     textDecoration: "line-through",
                     marginBottom: "4px",
                   }}>
-                    ${baseCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    ${fullRateCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                   </div>
                 )}
                 <div style={{
                   fontSize: "28px",
                   fontWeight: "900",
-                  color: hasDiscount ? "#10b981" : "#B87333",
+                  color: hasDiscount ? "#10b981" : isPremium ? "#f59e0b" : "#B87333",
                 }}>
                   ${adjustedCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </div>
                 <div style={{
                   fontSize: "13px",
-                  color: hasDiscount ? "#10b981" : "#B87333",
+                  color: hasDiscount ? "#10b981" : isPremium ? "#f59e0b" : "#B87333",
                   marginTop: "6px",
                   fontWeight: "800",
                   letterSpacing: "0.3px",
