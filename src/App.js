@@ -2428,10 +2428,14 @@ style={{
                   ${baseCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </div>
                 <div style={{
-                  fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.5)",
-                  marginTop: "4px",
-                  fontStyle: "italic",
+                  fontSize: "12px",
+                  color: "rgba(255, 255, 255, 0.9)",
+                  marginTop: "6px",
+                  fontWeight: "700",
+                  background: "rgba(184, 115, 51, 0.2)",
+                  padding: "4px 8px",
+                  borderRadius: "6px",
+                  display: "inline-block",
                 }}>
                   {marketSegment === "office" ? "2x/week service base rate (select frequency below)" : "Before frequency adjustments"}
                 </div>
@@ -2650,34 +2654,114 @@ style={{
           }}>
             📅 Cleaning Frequency *
           </label>
-          <select
-            value={frequency}
-            onChange={(e) => setFrequency(e.target.value)}
-            required
-            style={{
-              width: "100%",
-              padding: "14px 16px",
-              borderRadius: "12px",
-              border: "2px solid rgba(184, 115, 51, 0.3)",
-              background: "rgba(255, 255, 255, 0.05)",
-              color: "white",
-              fontSize: "14px",
-              fontWeight: "600",
-              outline: "none",
-              cursor: "pointer",
-              fontFamily: "'Courier New', monospace",
-            }}
-          >
-            <option value="" style={{ background: "#1A252F", color: "white" }}>Select frequency...</option>
-            <option value="monthly" style={{ background: "#1A252F", color: "white" }}>Monthly            (1x Monthly)     +20% per Clean</option>
-            <option value="every-3-weeks" style={{ background: "#1A252F", color: "white" }}>Every 3 Weeks      (1-2x Monthly)   +29% per Clean</option>
-            <option value="bi-weekly" style={{ background: "#1A252F", color: "white" }}>Bi-weekly          (2x Monthly)     +12% per Clean</option>
-            <option value="weekly" style={{ background: "#1A252F", color: "white" }}>Weekly             (4x Monthly)     Same as Base</option>
-            <option value="2x-week" style={{ background: "#1A252F", color: "white" }}>2x per Week        (8x Monthly)     BASE RATE</option>
-            <option value="3x-week" style={{ background: "#1A252F", color: "white" }}>3x per Week        (12x Monthly)    5% Discount per Clean</option>
-            <option value="4x-week" style={{ background: "#1A252F", color: "white" }}>4x per Week        (17x Monthly)    9% Discount per Clean</option>
-            <option value="daily" style={{ background: "#1A252F", color: "white" }}>Daily              (22x Monthly)    13% Discount per Clean</option>
-          </select>
+          
+          <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "12px" }}>
+            {/* Frequency Dropdown */}
+            <select
+              value={frequency}
+              onChange={(e) => setFrequency(e.target.value)}
+              required
+              style={{
+                width: "100%",
+                padding: "14px 16px",
+                borderRadius: "12px",
+                border: "2px solid rgba(184, 115, 51, 0.3)",
+                background: "rgba(255, 255, 255, 0.05)",
+                color: "white",
+                fontSize: "14px",
+                fontWeight: "600",
+                outline: "none",
+                cursor: "pointer",
+              }}
+            >
+              <option value="" style={{ background: "#1A252F", color: "white" }}>Select frequency...</option>
+              <option value="monthly" style={{ background: "#1A252F", color: "white" }}>Monthly (1x per month)</option>
+              <option value="every-3-weeks" style={{ background: "#1A252F", color: "white" }}>Every 3 Weeks (~1.3x per month)</option>
+              <option value="bi-weekly" style={{ background: "#1A252F", color: "white" }}>Bi-weekly (2x per month)</option>
+              <option value="weekly" style={{ background: "#1A252F", color: "white" }}>Weekly (4x per month)</option>
+              <option value="2x-week" style={{ background: "#1A252F", color: "white" }}>2x per Week (8x per month)</option>
+              <option value="3x-week" style={{ background: "#1A252F", color: "white" }}>3x per Week (12x per month)</option>
+              <option value="4x-week" style={{ background: "#1A252F", color: "white" }}>4x per Week (17x per month)</option>
+              <option value="daily" style={{ background: "#1A252F", color: "white" }}>Daily (22x per month)</option>
+            </select>
+            
+            {/* Price Per Visit Display */}
+            {squareFeet && frequency && (
+              <div style={{
+                padding: "14px 16px",
+                borderRadius: "12px",
+                background: "linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.15) 100%)",
+                border: "2px solid rgba(16, 185, 129, 0.3)",
+                textAlign: "center",
+              }}>
+                {(() => {
+                  const baseCost = parseInt(squareFeet) * getRateForSquareFeet(parseInt(squareFeet), marketSegment);
+                  const frequencyMultiplier = PRICING.frequencyMultipliers[frequency] || 1.0;
+                  const monthlyCost = baseCost * frequencyMultiplier;
+                  
+                  const visitsPerMonth = {
+                    "monthly": 1,
+                    "every-3-weeks": 1.3,
+                    "bi-weekly": 2,
+                    "weekly": 4,
+                    "2x-week": 8,
+                    "3x-week": 12,
+                    "4x-week": 17,
+                    "daily": 22
+                  };
+                  
+                  const visits = visitsPerMonth[frequency];
+                  const pricePerVisit = monthlyCost / visits;
+                  const basePerVisit = baseCost / 8; // Base is 2x/week = 8 visits
+                  const hasDiscount = pricePerVisit < basePerVisit;
+                  
+                  return (
+                    <>
+                      <div style={{
+                        fontSize: "10px",
+                        color: "rgba(255, 255, 255, 0.6)",
+                        fontWeight: "700",
+                        marginBottom: "4px",
+                        letterSpacing: "0.5px",
+                      }}>
+                        PRICE PER VISIT
+                      </div>
+                      {hasDiscount && (
+                        <div style={{
+                          fontSize: "12px",
+                          color: "rgba(255, 255, 255, 0.4)",
+                          textDecoration: "line-through",
+                          fontWeight: "600",
+                        }}>
+                          ${basePerVisit.toFixed(2)}
+                        </div>
+                      )}
+                      <div style={{
+                        fontSize: hasDiscount ? "20px" : "24px",
+                        fontWeight: "900",
+                        color: hasDiscount ? "#10b981" : "#B87333",
+                        lineHeight: "1",
+                      }}>
+                        ${pricePerVisit.toFixed(2)}
+                      </div>
+                      {hasDiscount && (
+                        <div style={{
+                          fontSize: "9px",
+                          color: "#10b981",
+                          fontWeight: "700",
+                          marginTop: "2px",
+                          letterSpacing: "0.3px",
+                        }}>
+                          {Math.round(((basePerVisit - pricePerVisit) / basePerVisit) * 100)}% SAVINGS
+                        </div>
+                      )}
+                    </>
+                  );
+                })()}
+              </div>
+            )}
+          </div>
+          
           <div style={{
             fontSize: "11px",
             color: "rgba(255, 255, 255, 0.6)",
