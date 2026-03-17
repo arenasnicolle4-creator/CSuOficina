@@ -902,10 +902,12 @@ export default function CleaningSuOficinaBooking() {
     const baseRate = getRateForSquareFeet(sqft, marketSegment);
     const baseSqftCost = sqft * baseRate;
     
-    // Apply frequency multiplier for office (base assumes weekly)
+    // Apply frequency multiplier for office (base assumes 2x/week as baseline)
     if (marketSegment === "office" && frequency) {
       const frequencyMultiplier = PRICING.frequencyMultipliers[frequency] || 1.0;
       const adjustedCost = baseSqftCost * frequencyMultiplier;
+      const hasDiscount = frequencyMultiplier > 1.0; // More frequent = discount
+      const isPremium = frequencyMultiplier < 1.0; // Less frequent = premium
       
       // Frequency labels for display
       const frequencyLabels = {
@@ -924,6 +926,8 @@ export default function CleaningSuOficinaBooking() {
         amount: adjustedCost,
         originalAmount: frequencyMultiplier !== 1.0 ? baseSqftCost : null,
         discountPercent: frequencyMultiplier !== 1.0 ? `${frequencyMultiplier}x` : "",
+        discountAmount: hasDiscount ? (adjustedCost - baseSqftCost) : 0, // Positive value for savings
+        isUpcharge: isPremium,
         note: frequencyMultiplier < 1.0 ? "Lower frequency" : frequencyMultiplier > 1.0 ? "Volume discount" : ""
       });
     } else {
