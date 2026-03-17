@@ -7055,7 +7055,6 @@ style={{
     </div>
   </div>
 )}
-</div>
 
 {/* MOBILE-ONLY PRICE DISPLAY - STICKY AT BOTTOM */}
 {(step === 2 || step === 3 || step === 4) && (
