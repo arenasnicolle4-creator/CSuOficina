@@ -3003,12 +3003,12 @@ style={{
               }}
               style={{
                 width: "100%",
-                padding: "18px 20px",
+                padding: "22px 20px",
                 borderRadius: "12px",
                 border: "2px solid #5DEBF1",
                 background: "linear-gradient(135deg, #B87333 0%, #D4955A 100%)",
                 color: "white",
-                fontSize: "15px",
+                fontSize: "19px",
                 fontWeight: "800",
                 cursor: "pointer",
                 transition: "all 0.3s ease",
@@ -3017,7 +3017,7 @@ style={{
               }}
             >
               💼 Configure Workspaces
-              <div style={{ fontSize: "11px", fontWeight: "600", opacity: 0.9, marginTop: "4px" }}>
+              <div style={{ fontSize: "14px", fontWeight: "700", opacity: 0.95, marginTop: "6px" }}>
                 Tell us how many offices, cubicles & desks you have
               </div>
             </button>
