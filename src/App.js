@@ -3003,22 +3003,50 @@ style={{
               }}
               style={{
                 width: "100%",
-                padding: "22px 20px",
-                borderRadius: "12px",
+                padding: "24px 20px",
+                borderRadius: "14px",
                 border: "2px solid #5DEBF1",
                 background: "linear-gradient(135deg, #B87333 0%, #D4955A 100%)",
                 color: "white",
-                fontSize: "19px",
-                fontWeight: "800",
                 cursor: "pointer",
                 transition: "all 0.3s ease",
-                boxShadow: "0 0 20px rgba(93, 235, 241, 0.3)",
+                boxShadow: "0 0 28px rgba(93, 235, 241, 0.4), 0 8px 24px rgba(184, 115, 51, 0.4)",
                 textAlign: "center",
+                position: "relative",
+                overflow: "hidden",
               }}
             >
-              💼 Configure Workspaces
-              <div style={{ fontSize: "14px", fontWeight: "700", opacity: 0.95, marginTop: "6px" }}>
-                Tell us how many offices, cubicles & desks you have
+              {/* Shimmer overlay */}
+              <div style={{
+                position: "absolute",
+                top: 0, left: "-75%",
+                width: "50%",
+                height: "100%",
+                background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)",
+                transform: "skewX(-20deg)",
+                pointerEvents: "none",
+              }} />
+              <div style={{
+                fontSize: "22px",
+                fontWeight: "900",
+                letterSpacing: "0.5px",
+                textTransform: "uppercase",
+                textShadow: "0 2px 8px rgba(0,0,0,0.3)",
+              }}>
+                💼 Configure Workspaces
+              </div>
+              <div style={{
+                fontSize: "13px",
+                fontWeight: "700",
+                marginTop: "7px",
+                color: "rgba(255,255,255,0.92)",
+                letterSpacing: "0.8px",
+                textTransform: "uppercase",
+                textShadow: "0 1px 4px rgba(0,0,0,0.25)",
+                borderTop: "1px solid rgba(255,255,255,0.25)",
+                paddingTop: "8px",
+              }}>
+                ✦ Tell us your offices, cubicles & desks ✦
               </div>
             </button>
             
