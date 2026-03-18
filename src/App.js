@@ -2898,24 +2898,22 @@ style={{
                 setShowWorkspaceModal(true);
               }}
               style={{
-                width: "100%",
-                padding: "18px 20px",
+                padding: "16px",
                 borderRadius: "12px",
-                border: "2px solid #5DEBF1",
+                border: "none",
                 background: "linear-gradient(135deg, #B87333 0%, #D4955A 100%)",
                 color: "white",
                 fontSize: "15px",
                 fontWeight: "800",
                 cursor: "pointer",
                 transition: "all 0.3s ease",
-                boxShadow: "0 0 20px rgba(93, 235, 241, 0.3)",
-                textAlign: "center",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "10px",
               }}
             >
               💼 Configure Workspaces
-              <div style={{ fontSize: "11px", fontWeight: "600", opacity: 0.9, marginTop: "4px" }}>
-                Tell us how many offices, cubicles & desks you have
-              </div>
             </button>
             
             {/* List of configured workspace types */}
@@ -3086,18 +3084,18 @@ style={{
                 onChange={(e) => setConferenceRoomsFreq(e.target.value)}
                 style={{
                   width: "100%",
-                  padding: "12px 14px",
-                  borderRadius: "10px",
-                  border: conferenceRoomsFreq ? "2px solid #5DEBF1" : "2px solid rgba(239, 68, 68, 0.5)",
-                  background: conferenceRoomsFreq ? "rgba(93, 235, 241, 0.1)" : "rgba(239, 68, 68, 0.1)",
-                  color: conferenceRoomsFreq ? "white" : "#ef4444",
-                  fontSize: "13px",
-                  fontWeight: "700",
+                  padding: "8px 10px",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(184, 115, 51, 0.3)",
+                  background: "rgba(255, 255, 255, 0.08)",
+                  color: conferenceRoomsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
+                  fontSize: "11px",
+                  fontWeight: "600",
                   outline: "none",
                   cursor: "pointer",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -3199,18 +3197,18 @@ style={{
                 onChange={(e) => setBreakRoomsFreq(e.target.value)}
                 style={{
                   width: "100%",
-                  padding: "12px 14px",
-                  borderRadius: "10px",
-                  border: breakRoomsFreq ? "2px solid #5DEBF1" : "2px solid rgba(239, 68, 68, 0.5)",
-                  background: breakRoomsFreq ? "rgba(93, 235, 241, 0.1)" : "rgba(239, 68, 68, 0.1)",
-                  color: breakRoomsFreq ? "white" : "#ef4444",
-                  fontSize: "13px",
-                  fontWeight: "700",
+                  padding: "8px 10px",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(184, 115, 51, 0.3)",
+                  background: "rgba(255, 255, 255, 0.08)",
+                  color: breakRoomsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
+                  fontSize: "11px",
+                  fontWeight: "600",
                   outline: "none",
                   cursor: "pointer",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -3312,18 +3310,18 @@ style={{
                 onChange={(e) => setRestroomsFreq(e.target.value)}
                 style={{
                   width: "100%",
-                  padding: "12px 14px",
-                  borderRadius: "10px",
-                  border: restroomsFreq ? "2px solid #5DEBF1" : "2px solid rgba(239, 68, 68, 0.5)",
-                  background: restroomsFreq ? "rgba(93, 235, 241, 0.1)" : "rgba(239, 68, 68, 0.1)",
-                  color: restroomsFreq ? "white" : "#ef4444",
-                  fontSize: "13px",
-                  fontWeight: "700",
+                  padding: "8px 10px",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(184, 115, 51, 0.3)",
+                  background: "rgba(255, 255, 255, 0.08)",
+                  color: restroomsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
+                  fontSize: "11px",
+                  fontWeight: "600",
                   outline: "none",
                   cursor: "pointer",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -3425,18 +3423,18 @@ style={{
                 onChange={(e) => setReceptionsFreq(e.target.value)}
                 style={{
                   width: "100%",
-                  padding: "12px 14px",
-                  borderRadius: "10px",
-                  border: receptionsFreq ? "2px solid #5DEBF1" : "2px solid rgba(239, 68, 68, 0.5)",
-                  background: receptionsFreq ? "rgba(93, 235, 241, 0.1)" : "rgba(239, 68, 68, 0.1)",
-                  color: receptionsFreq ? "white" : "#ef4444",
-                  fontSize: "13px",
-                  fontWeight: "700",
+                  padding: "8px 10px",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(184, 115, 51, 0.3)",
+                  background: "rgba(255, 255, 255, 0.08)",
+                  color: receptionsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
+                  fontSize: "11px",
+                  fontWeight: "600",
                   outline: "none",
                   cursor: "pointer",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -3538,18 +3536,18 @@ style={{
                 onChange={(e) => setServerRoomsFreq(e.target.value)}
                 style={{
                   width: "100%",
-                  padding: "12px 14px",
-                  borderRadius: "10px",
-                  border: serverRoomsFreq ? "2px solid #5DEBF1" : "2px solid rgba(239, 68, 68, 0.5)",
-                  background: serverRoomsFreq ? "rgba(93, 235, 241, 0.1)" : "rgba(239, 68, 68, 0.1)",
-                  color: serverRoomsFreq ? "white" : "#ef4444",
-                  fontSize: "13px",
-                  fontWeight: "700",
+                  padding: "8px 10px",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(184, 115, 51, 0.3)",
+                  background: "rgba(255, 255, 255, 0.08)",
+                  color: serverRoomsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
+                  fontSize: "11px",
+                  fontWeight: "600",
                   outline: "none",
                   cursor: "pointer",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -3651,18 +3649,18 @@ style={{
                 onChange={(e) => setStorageRoomsFreq(e.target.value)}
                 style={{
                   width: "100%",
-                  padding: "12px 14px",
-                  borderRadius: "10px",
-                  border: storageRoomsFreq ? "2px solid #5DEBF1" : "2px solid rgba(239, 68, 68, 0.5)",
-                  background: storageRoomsFreq ? "rgba(93, 235, 241, 0.1)" : "rgba(239, 68, 68, 0.1)",
-                  color: storageRoomsFreq ? "white" : "#ef4444",
-                  fontSize: "13px",
-                  fontWeight: "700",
+                  padding: "8px 10px",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(184, 115, 51, 0.3)",
+                  background: "rgba(255, 255, 255, 0.08)",
+                  color: storageRoomsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
+                  fontSize: "11px",
+                  fontWeight: "600",
                   outline: "none",
                   cursor: "pointer",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -4573,7 +4571,7 @@ style={{
                   cursor: "pointer",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -4685,7 +4683,7 @@ style={{
                   cursor: "pointer",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -4797,7 +4795,7 @@ style={{
                   cursor: "pointer",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -4909,7 +4907,7 @@ style={{
                   cursor: "pointer",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -5021,7 +5019,7 @@ style={{
                   cursor: "pointer",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -5133,7 +5131,7 @@ style={{
                   cursor: "pointer",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -5245,7 +5243,7 @@ style={{
                   cursor: "pointer",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -5359,7 +5357,7 @@ style={{
                   cursor: "pointer",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -8303,9 +8301,6 @@ style={{
 )}
 
 
-</div>
-</div>
-</div>
 </div>
 );
 }
