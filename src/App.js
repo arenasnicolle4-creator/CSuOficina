@@ -1375,7 +1375,7 @@ export default function CleaningSuOficinaBooking() {
     ref={formTopRef}
     style={{
         minHeight: "100vh",
-        backgroundColor: "#0A0E13",
+        backgroundColor: "#0F171E",
         backgroundImage: `
           radial-gradient(circle at 20% 30%, rgba(46,58,71,0.55) 0%, transparent 45%),
           radial-gradient(circle at 80% 68%, rgba(61,79,92,0.45) 0%, transparent 40%),
@@ -1676,13 +1676,13 @@ style={{
 <div
 className="form-card-animated"
 style={{
-  backgroundColor: "#E8EAED",
+  backgroundColor: "#0F171E",
   backgroundImage: `
-    radial-gradient(circle at 20% 30%, rgba(20,22,25,0.12) 0%, transparent 45%),
-    radial-gradient(circle at 80% 68%, rgba(30,32,35,0.10) 0%, transparent 40%),
+    radial-gradient(circle at 20% 30%, rgba(46,58,71,0.55) 0%, transparent 45%),
+    radial-gradient(circle at 80% 68%, rgba(61,79,92,0.45) 0%, transparent 40%),
     radial-gradient(circle at 55% 8%, rgba(184,115,51,0.06) 0%, transparent 30%),
-    radial-gradient(ellipse at 5% 88%, rgba(20,22,25,0.08) 0%, transparent 40%),
-    radial-gradient(circle 1px at center, rgba(0,0,0,0.03) 0%, transparent 100%)
+    radial-gradient(ellipse at 5% 88%, rgba(46,58,71,0.4) 0%, transparent 40%),
+    radial-gradient(circle 1px at center, rgba(255,255,255,0.07) 0%, transparent 100%)
   `,
   backgroundSize: "100% 100%, 100% 100%, 100% 100%, 100% 100%, 26px 26px",
   borderRadius: "32px",
@@ -2108,7 +2108,7 @@ style={{
       />
       <p style={{
         fontSize: "12px",
-        color: "rgba(255, 255, 255, 0.75)",
+        color: "rgba(255, 255, 255, 0.5)",
         fontWeight: "600",
         marginTop: "8px",
       }}>
@@ -2267,7 +2267,7 @@ style={{
             </div>
             <div style={{
               fontSize: "11px",
-              color: "rgba(255, 255, 255, 0.85)",
+              color: "rgba(255, 255, 255, 0.6)",
               fontWeight: "600",
             }}>
               {segment.desc}
@@ -2568,7 +2568,7 @@ style={{
             right: "20px",
             top: "50%",
             transform: "translateY(-50%)",
-            color: "rgba(255, 255, 255, 0.75)",
+            color: "rgba(255, 255, 255, 0.5)",
             fontSize: "14px",
             fontWeight: "700",
             pointerEvents: "none",
@@ -2763,7 +2763,7 @@ style={{
                       <div>
                         <div style={{
                           fontSize: "11px",
-                          color: "rgba(255, 255, 255, 0.85)",
+                          color: "rgba(255, 255, 255, 0.6)",
                           fontWeight: "700",
                           marginBottom: "6px",
                           letterSpacing: "0.5px",
@@ -2868,7 +2868,7 @@ style={{
           
           <div style={{
             fontSize: "11px",
-            color: "rgba(255, 255, 255, 0.85)",
+            color: "rgba(255, 255, 255, 0.6)",
             marginTop: "12px",
             fontStyle: "italic",
           }}>
@@ -2949,7 +2949,7 @@ style={{
                       </div>
                       <div style={{
                         fontSize: "11px",
-                        color: "rgba(255, 255, 255, 0.85)",
+                        color: "rgba(255, 255, 255, 0.6)",
                         fontWeight: "600",
                       }}>
                         {config.flooring === "hard" && "Hard Surface"}
@@ -3022,7 +3022,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $45/clean
@@ -3136,7 +3136,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $35/clean
@@ -3250,7 +3250,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $25/clean
@@ -3364,7 +3364,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $40/clean
@@ -3478,7 +3478,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $30/clean
@@ -3592,7 +3592,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $20/clean
@@ -3729,7 +3729,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $40 each
@@ -3814,7 +3814,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $30 each
@@ -3899,7 +3899,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $60 each
@@ -3984,7 +3984,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $75 each
@@ -4069,7 +4069,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $65 each
@@ -4154,7 +4154,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $35 each
@@ -4239,7 +4239,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $35 each
@@ -4385,7 +4385,7 @@ style={{
                       </div>
                       <div style={{
                         fontSize: "11px",
-                        color: "rgba(255, 255, 255, 0.85)",
+                        color: "rgba(255, 255, 255, 0.6)",
                         fontWeight: "600",
                       }}>
                         ${config.pricePerClean}/clean × {config.quantity} = ${config.pricePerClean * config.quantity}/clean
@@ -4468,7 +4468,7 @@ style={{
                 />
                 <div style={{
                   fontSize: "10px",
-                  color: "rgba(255, 255, 255, 0.75)",
+                  color: "rgba(255, 255, 255, 0.5)",
                   marginTop: "6px",
                   fontStyle: "italic",
                 }}>
@@ -4504,7 +4504,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $35/clean
@@ -4616,7 +4616,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $50/clean
@@ -4728,7 +4728,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $60/clean
@@ -4840,7 +4840,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $75/clean
@@ -4952,7 +4952,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $100/clean
@@ -5064,7 +5064,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $40/clean
@@ -5176,7 +5176,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $55/clean
@@ -5288,7 +5288,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   {sharedBathrooms === 0 ? "$14 half / $21 full" : 
@@ -5423,7 +5423,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $18 each
@@ -5508,7 +5508,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $30 each
@@ -5593,7 +5593,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $25 each
@@ -5678,7 +5678,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $35 each
@@ -5763,7 +5763,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $20 each
@@ -5869,7 +5869,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $50 each
@@ -5954,7 +5954,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $40 each
@@ -6039,7 +6039,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $30 each
@@ -6124,7 +6124,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $35 each
@@ -6209,7 +6209,7 @@ style={{
                 </div>
                 <div style={{
                   fontSize: "11px",
-                  color: "rgba(255, 255, 255, 0.85)",
+                  color: "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
                   $25 each
@@ -6655,13 +6655,13 @@ style={{
     }}
   >
     <div style={{
-      backgroundColor: "#E8EAED",
+      backgroundColor: "#0F171E",
       backgroundImage: `
-        radial-gradient(circle at 20% 30%, rgba(20,22,25,0.12) 0%, transparent 45%),
-        radial-gradient(circle at 80% 68%, rgba(30,32,35,0.10) 0%, transparent 40%),
+        radial-gradient(circle at 20% 30%, rgba(46,58,71,0.55) 0%, transparent 45%),
+        radial-gradient(circle at 80% 68%, rgba(61,79,92,0.45) 0%, transparent 40%),
         radial-gradient(circle at 55% 8%, rgba(184,115,51,0.06) 0%, transparent 30%),
-        radial-gradient(ellipse at 5% 88%, rgba(20,22,25,0.08) 0%, transparent 40%),
-        radial-gradient(circle 1px at center, rgba(0,0,0,0.03) 0%, transparent 100%)
+        radial-gradient(ellipse at 5% 88%, rgba(46,58,71,0.4) 0%, transparent 40%),
+        radial-gradient(circle 1px at center, rgba(255,255,255,0.07) 0%, transparent 100%)
       `,
       backgroundSize: "100% 100%, 100% 100%, 100% 100%, 100% 100%, 26px 26px",
       borderRadius: "28px",
@@ -6712,7 +6712,7 @@ style={{
           <div style={{
             textAlign: "center",
             padding: "40px 20px",
-            color: "rgba(255, 255, 255, 0.75)",
+            color: "rgba(255, 255, 255, 0.5)",
             fontSize: "14px",
             fontWeight: "600",
           }}>
@@ -6971,13 +6971,13 @@ style={{
 {(step === 2 || step === 3 || step === 4) && (
   <div className="mobile-price-sticky">
     <div style={{
-      backgroundColor: "#E8EAED",
+      backgroundColor: "#0F171E",
       backgroundImage: `
-        radial-gradient(circle at 20% 30%, rgba(20,22,25,0.12) 0%, transparent 45%),
-        radial-gradient(circle at 80% 68%, rgba(30,32,35,0.10) 0%, transparent 40%),
+        radial-gradient(circle at 20% 30%, rgba(46,58,71,0.55) 0%, transparent 45%),
+        radial-gradient(circle at 80% 68%, rgba(61,79,92,0.45) 0%, transparent 40%),
         radial-gradient(circle at 55% 8%, rgba(184,115,51,0.06) 0%, transparent 30%),
-        radial-gradient(ellipse at 5% 88%, rgba(20,22,25,0.08) 0%, transparent 40%),
-        radial-gradient(circle 1px at center, rgba(0,0,0,0.03) 0%, transparent 100%)
+        radial-gradient(ellipse at 5% 88%, rgba(46,58,71,0.4) 0%, transparent 40%),
+        radial-gradient(circle 1px at center, rgba(255,255,255,0.07) 0%, transparent 100%)
       `,
       backgroundSize: "100% 100%, 100% 100%, 100% 100%, 100% 100%, 26px 26px",
       borderRadius: "20px 20px 0 0",
@@ -7119,7 +7119,7 @@ style={{
           <div style={{
             textAlign: "center",
             padding: "20px",
-            color: "rgba(255, 255, 255, 0.75)",
+            color: "rgba(255, 255, 255, 0.5)",
             fontSize: "14px",
             fontWeight: "600",
           }}>
@@ -7277,7 +7277,7 @@ style={{
       </h2>
       <p style={{
         fontSize: "14px",
-        color: "rgba(255, 255, 255, 0.85)",
+        color: "rgba(255, 255, 255, 0.6)",
         marginBottom: "30px",
         fontWeight: "600",
       }}>
@@ -7316,7 +7316,7 @@ style={{
               <div style={{ fontSize: "16px", fontWeight: "800", marginBottom: "4px" }}>
                 {template.label}
               </div>
-              <div style={{ fontSize: "11px", color: "rgba(255, 255, 255, 0.75)", fontWeight: "600" }}>
+              <div style={{ fontSize: "11px", color: "rgba(255, 255, 255, 0.5)", fontWeight: "600" }}>
                 {template.desc}
               </div>
             </button>
@@ -7418,7 +7418,7 @@ style={{
                 {modalBathrooms === 0 && (
                   <div style={{
                     fontSize: "11px",
-                    color: "rgba(255, 255, 255, 0.75)",
+                    color: "rgba(255, 255, 255, 0.5)",
                     fontWeight: "600",
                   }}>
                     Shared/Public Only
@@ -7427,7 +7427,7 @@ style={{
                 {modalBathrooms % 1 !== 0 && modalBathrooms > 0 && (
                   <div style={{
                     fontSize: "11px",
-                    color: "rgba(255, 255, 255, 0.75)",
+                    color: "rgba(255, 255, 255, 0.5)",
                     fontWeight: "600",
                   }}>
                     {Math.floor(modalBathrooms)} Full + Half Bath
@@ -7436,7 +7436,7 @@ style={{
                 {modalBathrooms % 1 === 0 && modalBathrooms > 0 && (
                   <div style={{
                     fontSize: "11px",
-                    color: "rgba(255, 255, 255, 0.75)",
+                    color: "rgba(255, 255, 255, 0.5)",
                     fontWeight: "600",
                   }}>
                     Full Bathroom{modalBathrooms > 1 ? 's' : ''}
@@ -7576,7 +7576,7 @@ style={{
             padding: "16px",
             marginBottom: "25px",
           }}>
-            <div style={{ fontSize: "12px", color: "rgba(255, 255, 255, 0.85)", marginBottom: "8px", fontWeight: "600" }}>
+            <div style={{ fontSize: "12px", color: "rgba(255, 255, 255, 0.6)", marginBottom: "8px", fontWeight: "600" }}>
               Price per clean:
             </div>
             <div style={{ fontSize: "32px", fontWeight: "900", color: "#D4955A" }}>
@@ -7588,7 +7588,7 @@ style={{
                 livingArea: modalLivingArea
               })}
             </div>
-            <div style={{ fontSize: "11px", color: "rgba(255, 255, 255, 0.75)", marginTop: "4px", fontWeight: "600" }}>
+            <div style={{ fontSize: "11px", color: "rgba(255, 255, 255, 0.5)", marginTop: "4px", fontWeight: "600" }}>
               {getRoomTypeLabel({
                 beds: modalBeds,
                 bathrooms: modalBathrooms,
@@ -7777,7 +7777,7 @@ style={{
       </h2>
       <p style={{
         fontSize: "14px",
-        color: "rgba(255, 255, 255, 0.85)",
+        color: "rgba(255, 255, 255, 0.6)",
         marginBottom: "30px",
         fontWeight: "600",
       }}>
@@ -8020,7 +8020,7 @@ style={{
                     {feature.label}
                   </div>
                   <div style={{
-                    color: "rgba(255, 255, 255, 0.75)",
+                    color: "rgba(255, 255, 255, 0.5)",
                     fontSize: "11px",
                     fontWeight: "600",
                     marginTop: "2px",
