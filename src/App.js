@@ -2909,15 +2909,12 @@ style={{
                 cursor: "pointer",
                 transition: "all 0.3s ease",
                 boxShadow: "0 0 20px rgba(93, 235, 241, 0.3)",
+                textAlign: "center",
               }}
             >
-              <div style={{ textAlign: "center" }}>
-                <div style={{ fontSize: "16px", marginBottom: "4px" }}>
-                  💼 Configure Workspaces
-                </div>
-                <div style={{ fontSize: "11px", fontWeight: "600", opacity: 0.9 }}>
-                  Tell us how many offices, cubicles & desks you have
-                </div>
+              💼 Configure Workspaces
+              <div style={{ fontSize: "11px", fontWeight: "600", opacity: 0.9, marginTop: "4px" }}>
+                Tell us how many offices, cubicles & desks you have
               </div>
             </button>
             
@@ -3098,7 +3095,6 @@ style={{
                   fontWeight: "700",
                   outline: "none",
                   cursor: "pointer",
-                  boxShadow: conferenceRoomsFreq ? "none" : "0 0 0 3px rgba(239, 68, 68, 0.2)",
                 }}
               >
                 <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
@@ -8304,12 +8300,12 @@ style={{
       </button>
     </div>
   </div>
-    </div>
-    </div>
-    </div>
-    </div>
 )}
 
 
+</div>
+</div>
+</div>
+</div>
 );
 }
