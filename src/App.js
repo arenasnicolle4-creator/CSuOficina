@@ -2898,22 +2898,24 @@ style={{
                 setShowWorkspaceModal(true);
               }}
               style={{
-                padding: "16px",
+                width: "100%",
+                padding: "18px 20px",
                 borderRadius: "12px",
-                border: "none",
+                border: "2px solid #5DEBF1",
                 background: "linear-gradient(135deg, #B87333 0%, #D4955A 100%)",
                 color: "white",
                 fontSize: "15px",
                 fontWeight: "800",
                 cursor: "pointer",
                 transition: "all 0.3s ease",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "10px",
+                boxShadow: "0 0 20px rgba(93, 235, 241, 0.3)",
+                textAlign: "center",
               }}
             >
               💼 Configure Workspaces
+              <div style={{ fontSize: "11px", fontWeight: "600", opacity: 0.9, marginTop: "4px" }}>
+                Tell us how many offices, cubicles & desks you have
+              </div>
             </button>
             
             {/* List of configured workspace types */}
