@@ -2692,28 +2692,79 @@ style={{
             📅 Cleaning Frequency *
           </label>
           
-          <div style={{ marginBottom: "20px" }}>
-            {/* Frequency Cards Grid */}
+          <div style={{ display: "grid", gridTemplateColumns: "280px 1fr", gap: "16px", alignItems: "start" }}>
+            {/* Frequency Cards Grid - Left Side */}
             <div style={{ 
               display: "grid", 
-              gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
-              gap: "12px",
-              marginBottom: "16px"
+              gridTemplateColumns: "repeat(2, 1fr)",
+              gap: "10px",
             }}>
+              {/* Daily - spans both columns at top */}
+              <div
+                onClick={() => setFrequency("daily")}
+                style={{
+                  gridColumn: "1 / -1",
+                  padding: "14px 12px",
+                  borderRadius: "10px",
+                  border: frequency === "daily" 
+                    ? "2px solid #5DEBF1" 
+                    : "2px solid rgba(184, 115, 51, 0.3)",
+                  background: frequency === "daily"
+                    ? "linear-gradient(135deg, rgba(93, 235, 241, 0.15) 0%, rgba(93, 235, 241, 0.05) 100%)"
+                    : "rgba(255, 255, 255, 0.03)",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                  boxShadow: frequency === "daily" 
+                    ? "0 0 20px rgba(93, 235, 241, 0.3)" 
+                    : "none",
+                  transform: frequency === "daily" ? "scale(1.02)" : "scale(1)",
+                  textAlign: "center",
+                }}
+                onMouseEnter={(e) => {
+                  if (frequency !== "daily") {
+                    e.currentTarget.style.borderColor = "rgba(184, 115, 51, 0.5)";
+                    e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (frequency !== "daily") {
+                    e.currentTarget.style.borderColor = "rgba(184, 115, 51, 0.3)";
+                    e.currentTarget.style.background = "rgba(255, 255, 255, 0.03)";
+                  }
+                }}
+              >
+                <div style={{
+                  fontSize: "15px",
+                  fontWeight: "800",
+                  color: frequency === "daily" ? "#5DEBF1" : "white",
+                  marginBottom: "3px",
+                }}>
+                  Daily
+                </div>
+                <div style={{
+                  fontSize: "11px",
+                  color: frequency === "daily" ? "#5DEBF1" : "rgba(255, 255, 255, 0.6)",
+                  fontWeight: "600",
+                }}>
+                  22x/mo
+                </div>
+              </div>
+              
+              {/* Regular 2-column options */}
               {[
                 { value: "monthly", label: "Monthly", visits: "1x/mo", popular: false },
                 { value: "bi-weekly", label: "Bi-Weekly", visits: "2x/mo", popular: false },
                 { value: "weekly", label: "Weekly", visits: "4x/mo", popular: true },
                 { value: "2x-week", label: "2x Week", visits: "8x/mo", popular: true },
                 { value: "3x-week", label: "3x Week", visits: "12x/mo", popular: false },
-                { value: "daily", label: "Daily", visits: "22x/mo", popular: false }
+                { value: "4x-week", label: "4x Week", visits: "17x/mo", popular: false }
               ].map((option) => (
                 <div
                   key={option.value}
                   onClick={() => setFrequency(option.value)}
                   style={{
-                    padding: "16px 12px",
-                    borderRadius: "12px",
+                    padding: "14px 10px",
+                    borderRadius: "10px",
                     border: frequency === option.value 
                       ? "2px solid #5DEBF1" 
                       : "2px solid rgba(184, 115, 51, 0.3)",
@@ -2759,10 +2810,10 @@ style={{
                     </div>
                   )}
                   <div style={{
-                    fontSize: "15px",
+                    fontSize: "14px",
                     fontWeight: "800",
                     color: frequency === option.value ? "#5DEBF1" : "white",
-                    marginBottom: "4px",
+                    marginBottom: "3px",
                     textAlign: "center",
                   }}>
                     {option.label}
@@ -3139,8 +3190,44 @@ style={{
                 gridTemplateColumns: "repeat(2, 1fr)",
                 gap: "8px"
               }}>
+                {/* Daily - spans both columns */}
+                <div
+                  onClick={() => setConferenceRoomsFreq("daily")}
+                  style={{
+                    gridColumn: "1 / -1",
+                    padding: "10px 8px",
+                    borderRadius: "8px",
+                    border: conferenceRoomsFreq === "daily" 
+                      ? "2px solid #5DEBF1" 
+                      : "1px solid rgba(184, 115, 51, 0.3)",
+                    background: conferenceRoomsFreq === "daily"
+                      ? "rgba(93, 235, 241, 0.12)"
+                      : "rgba(255, 255, 255, 0.02)",
+                    cursor: "pointer",
+                    transition: "all 0.15s ease",
+                    textAlign: "center",
+                  }}
+                >
+                  <div style={{
+                    fontSize: "12px",
+                    fontWeight: "700",
+                    color: conferenceRoomsFreq === "daily" ? "#5DEBF1" : "white",
+                    marginBottom: "2px",
+                  }}>
+                    Daily
+                  </div>
+                  <div style={{
+                    fontSize: "9px",
+                    color: conferenceRoomsFreq === "daily" ? "#5DEBF1" : "rgba(255, 255, 255, 0.5)",
+                    fontWeight: "600",
+                  }}>
+                    18% OFF
+                  </div>
+                </div>
+                
+                {/* Regular 2-column options */}
                 {[
-                  { value: "daily", label: "Daily", discount: "18% OFF" },
+                  { value: "4x-week", label: "4x/Week", discount: "14% OFF" },
                   { value: "3x-week", label: "3x/Week", discount: "10% OFF" },
                   { value: "2x-week", label: "2x/Week", discount: "BASE" },
                   { value: "weekly", label: "Weekly", discount: "+5%" },
