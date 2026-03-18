@@ -2692,41 +2692,94 @@ style={{
             📅 Cleaning Frequency *
           </label>
           
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: "16px", alignItems: "start" }}>
-            {/* Frequency Dropdown - Compact */}
-            <div>
-              <select
-                value={frequency}
-                onChange={(e) => setFrequency(e.target.value)}
-                required
-                style={{
-                  width: "100%",
-                  padding: "12px 14px",
-                  borderRadius: "10px",
-                  border: frequency ? "2px solid #5DEBF1" : "2px solid rgba(239, 68, 68, 0.5)",
-                  background: frequency ? "rgba(93, 235, 241, 0.1)" : "rgba(239, 68, 68, 0.1)",
-                  color: frequency ? "white" : "#ef4444",
-                  fontSize: "13px",
-                  fontWeight: "700",
-                  outline: "none",
-                  cursor: "pointer",
-                  transition: "all 0.2s ease",
-                  boxShadow: frequency ? "0 2px 8px rgba(0,0,0,0.1)" : "0 0 0 3px rgba(239, 68, 68, 0.2)",
-                }}
-              >
-                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
-                <option value="monthly" style={{ background: "#1A252F", color: "white", padding: "8px" }}>Monthly (1x Monthly)</option>
-                <option value="every-3-weeks" style={{ background: "#1A252F", color: "white", padding: "8px" }}>Every 3 Weeks (1-2x Monthly)</option>
-                <option value="bi-weekly" style={{ background: "#1A252F", color: "white", padding: "8px" }}>Bi-weekly (2x Monthly)</option>
-                <option value="weekly" style={{ background: "#1A252F", color: "white", padding: "8px" }}>Weekly (4x Monthly)</option>
-                <option value="2x-week" style={{ background: "#1A252F", color: "white", padding: "8px" }}>2x per Week (8x Monthly)</option>
-                <option value="3x-week" style={{ background: "#1A252F", color: "white", padding: "8px" }}>3x per Week (12x Monthly)</option>
-                <option value="4x-week" style={{ background: "#1A252F", color: "white", padding: "8px" }}>4x per Week (17x Monthly)</option>
-                <option value="daily" style={{ background: "#1A252F", color: "white", padding: "8px" }}>Daily (22x Monthly)</option>
-              </select>
+          <div style={{ marginBottom: "20px" }}>
+            {/* Frequency Cards Grid */}
+            <div style={{ 
+              display: "grid", 
+              gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
+              gap: "12px",
+              marginBottom: "16px"
+            }}>
+              {[
+                { value: "monthly", label: "Monthly", visits: "1x/mo", popular: false },
+                { value: "bi-weekly", label: "Bi-Weekly", visits: "2x/mo", popular: false },
+                { value: "weekly", label: "Weekly", visits: "4x/mo", popular: true },
+                { value: "2x-week", label: "2x Week", visits: "8x/mo", popular: true },
+                { value: "3x-week", label: "3x Week", visits: "12x/mo", popular: false },
+                { value: "daily", label: "Daily", visits: "22x/mo", popular: false }
+              ].map((option) => (
+                <div
+                  key={option.value}
+                  onClick={() => setFrequency(option.value)}
+                  style={{
+                    padding: "16px 12px",
+                    borderRadius: "12px",
+                    border: frequency === option.value 
+                      ? "2px solid #5DEBF1" 
+                      : "2px solid rgba(184, 115, 51, 0.3)",
+                    background: frequency === option.value
+                      ? "linear-gradient(135deg, rgba(93, 235, 241, 0.15) 0%, rgba(93, 235, 241, 0.05) 100%)"
+                      : "rgba(255, 255, 255, 0.03)",
+                    cursor: "pointer",
+                    transition: "all 0.2s ease",
+                    position: "relative",
+                    boxShadow: frequency === option.value 
+                      ? "0 0 20px rgba(93, 235, 241, 0.3)" 
+                      : "none",
+                    transform: frequency === option.value ? "scale(1.02)" : "scale(1)",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (frequency !== option.value) {
+                      e.currentTarget.style.borderColor = "rgba(184, 115, 51, 0.5)";
+                      e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (frequency !== option.value) {
+                      e.currentTarget.style.borderColor = "rgba(184, 115, 51, 0.3)";
+                      e.currentTarget.style.background = "rgba(255, 255, 255, 0.03)";
+                    }
+                  }}
+                >
+                  {option.popular && (
+                    <div style={{
+                      position: "absolute",
+                      top: "-8px",
+                      right: "8px",
+                      background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+                      color: "white",
+                      fontSize: "9px",
+                      fontWeight: "800",
+                      padding: "2px 8px",
+                      borderRadius: "6px",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.5px",
+                    }}>
+                      Popular
+                    </div>
+                  )}
+                  <div style={{
+                    fontSize: "15px",
+                    fontWeight: "800",
+                    color: frequency === option.value ? "#5DEBF1" : "white",
+                    marginBottom: "4px",
+                    textAlign: "center",
+                  }}>
+                    {option.label}
+                  </div>
+                  <div style={{
+                    fontSize: "11px",
+                    color: frequency === option.value ? "#5DEBF1" : "rgba(255, 255, 255, 0.6)",
+                    fontWeight: "600",
+                    textAlign: "center",
+                  }}>
+                    {option.visits}
+                  </div>
+                </div>
+              ))}
             </div>
             
-            {/* Price Per Visit Display - Takes More Space */}
+            {/* Price Per Visit Display */}
             {squareFeet && frequency ? (
               <div style={{
                 padding: "16px 20px",
@@ -3081,32 +3134,54 @@ style={{
             </div>
             {/* Frequency Selector */}
             {conferenceRooms > 0 && (
-              <select
-                value={conferenceRoomsFreq}
-                onChange={(e) => setConferenceRoomsFreq(e.target.value)}
-                style={{
-                  width: "100%",
-                  padding: "12px 14px",
-                  borderRadius: "10px",
-                  border: conferenceRoomsFreq ? "2px solid #5DEBF1" : "2px solid rgba(239, 68, 68, 0.5)",
-                  background: conferenceRoomsFreq ? "rgba(93, 235, 241, 0.1)" : "rgba(239, 68, 68, 0.1)",
-                  color: conferenceRoomsFreq ? "white" : "#ef4444",
-                  fontSize: "13px",
-                  fontWeight: "700",
-                  boxShadow: conferenceRoomsFreq ? "none" : "0 0 0 3px rgba(239, 68, 68, 0.2)",
-                  outline: "none",
-                  cursor: "pointer",
-                }}
-              >
-                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
-                <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
-                <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
-                <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
-                <option value="2x-week" style={{ background: "#2E3A47", color: "white" }}>2x/Week (8/mo) - BASE</option>
-                <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo) +5%</option>
-                <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +12%</option>
-                <option value="monthly" style={{ background: "#2E3A47", color: "white" }}>Monthly (1/mo) +20%</option>
-              </select>
+              <div style={{ 
+                display: "grid", 
+                gridTemplateColumns: "repeat(2, 1fr)",
+                gap: "8px"
+              }}>
+                {[
+                  { value: "daily", label: "Daily", discount: "18% OFF" },
+                  { value: "3x-week", label: "3x/Week", discount: "10% OFF" },
+                  { value: "2x-week", label: "2x/Week", discount: "BASE" },
+                  { value: "weekly", label: "Weekly", discount: "+5%" },
+                  { value: "bi-weekly", label: "Bi-Weekly", discount: "+12%" },
+                  { value: "monthly", label: "Monthly", discount: "+20%" }
+                ].map((option) => (
+                  <div
+                    key={option.value}
+                    onClick={() => setConferenceRoomsFreq(option.value)}
+                    style={{
+                      padding: "10px 8px",
+                      borderRadius: "8px",
+                      border: conferenceRoomsFreq === option.value 
+                        ? "2px solid #5DEBF1" 
+                        : "1px solid rgba(184, 115, 51, 0.3)",
+                      background: conferenceRoomsFreq === option.value
+                        ? "rgba(93, 235, 241, 0.12)"
+                        : "rgba(255, 255, 255, 0.02)",
+                      cursor: "pointer",
+                      transition: "all 0.15s ease",
+                      textAlign: "center",
+                    }}
+                  >
+                    <div style={{
+                      fontSize: "12px",
+                      fontWeight: "700",
+                      color: conferenceRoomsFreq === option.value ? "#5DEBF1" : "white",
+                      marginBottom: "2px",
+                    }}>
+                      {option.label}
+                    </div>
+                    <div style={{
+                      fontSize: "9px",
+                      color: conferenceRoomsFreq === option.value ? "#5DEBF1" : "rgba(255, 255, 255, 0.5)",
+                      fontWeight: "600",
+                    }}>
+                      {option.discount}
+                    </div>
+                  </div>
+                ))}
+              </div>
             )}
           </div>
 
