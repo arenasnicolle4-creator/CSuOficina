@@ -2703,18 +2703,18 @@ style={{
                   width: "100%",
                   padding: "12px 14px",
                   borderRadius: "10px",
-                  border: "2px solid rgba(184, 115, 51, 0.3)",
-                  background: "rgba(255, 255, 255, 0.08)",
-                  color: "white",
+                  border: frequency ? "2px solid #5DEBF1" : "2px solid rgba(239, 68, 68, 0.5)",
+                  background: frequency ? "rgba(93, 235, 241, 0.1)" : "rgba(239, 68, 68, 0.1)",
+                  color: frequency ? "white" : "#ef4444",
                   fontSize: "13px",
-                  fontWeight: "600",
+                  fontWeight: "700",
                   outline: "none",
                   cursor: "pointer",
                   transition: "all 0.2s ease",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                  boxShadow: frequency ? "0 2px 8px rgba(0,0,0,0.1)" : "0 0 0 3px rgba(239, 68, 68, 0.2)",
                 }}
               >
-                <option value="" style={{ background: "#1A252F", color: "white", padding: "8px" }}>Select...</option>
+                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
                 <option value="monthly" style={{ background: "#1A252F", color: "white", padding: "8px" }}>Monthly (1x Monthly)</option>
                 <option value="every-3-weeks" style={{ background: "#1A252F", color: "white", padding: "8px" }}>Every 3 Weeks (1-2x Monthly)</option>
                 <option value="bi-weekly" style={{ background: "#1A252F", color: "white", padding: "8px" }}>Bi-weekly (2x Monthly)</option>
