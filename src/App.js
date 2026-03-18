@@ -1678,11 +1678,11 @@ className="form-card-animated"
 style={{
   backgroundColor: "#0F171E",
   backgroundImage: `
-    radial-gradient(circle at 20% 30%, rgba(46,58,71,0.35) 0%, transparent 45%),
-    radial-gradient(circle at 80% 68%, rgba(61,79,92,0.30) 0%, transparent 40%),
-    radial-gradient(circle at 55% 8%, rgba(184,115,51,0.08) 0%, transparent 30%),
-    radial-gradient(ellipse at 5% 88%, rgba(46,58,71,0.25) 0%, transparent 40%),
-    radial-gradient(circle 1px at center, rgba(255,255,255,0.05) 0%, transparent 100%)
+    radial-gradient(circle at 20% 30%, rgba(46,58,71,0.15) 0%, transparent 45%),
+    radial-gradient(circle at 80% 68%, rgba(61,79,92,0.12) 0%, transparent 40%),
+    radial-gradient(circle at 55% 8%, rgba(184,115,51,0.04) 0%, transparent 30%),
+    radial-gradient(ellipse at 5% 88%, rgba(46,58,71,0.10) 0%, transparent 40%),
+    radial-gradient(circle 1px at center, rgba(255,255,255,0.03) 0%, transparent 100%)
   `,
   backgroundSize: "100% 100%, 100% 100%, 100% 100%, 100% 100%, 26px 26px",
   borderRadius: "32px",
@@ -6657,11 +6657,11 @@ style={{
     <div style={{
       backgroundColor: "#0F171E",
       backgroundImage: `
-        radial-gradient(circle at 20% 30%, rgba(46,58,71,0.35) 0%, transparent 45%),
-        radial-gradient(circle at 80% 68%, rgba(61,79,92,0.30) 0%, transparent 40%),
-        radial-gradient(circle at 55% 8%, rgba(184,115,51,0.08) 0%, transparent 30%),
-        radial-gradient(ellipse at 5% 88%, rgba(46,58,71,0.25) 0%, transparent 40%),
-        radial-gradient(circle 1px at center, rgba(255,255,255,0.05) 0%, transparent 100%)
+        radial-gradient(circle at 20% 30%, rgba(46,58,71,0.15) 0%, transparent 45%),
+        radial-gradient(circle at 80% 68%, rgba(61,79,92,0.12) 0%, transparent 40%),
+        radial-gradient(circle at 55% 8%, rgba(184,115,51,0.04) 0%, transparent 30%),
+        radial-gradient(ellipse at 5% 88%, rgba(46,58,71,0.10) 0%, transparent 40%),
+        radial-gradient(circle 1px at center, rgba(255,255,255,0.03) 0%, transparent 100%)
       `,
       backgroundSize: "100% 100%, 100% 100%, 100% 100%, 100% 100%, 26px 26px",
       borderRadius: "28px",
