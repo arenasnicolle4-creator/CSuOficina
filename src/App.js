@@ -1676,7 +1676,7 @@ style={{
 <div
 className="form-card-animated"
 style={{
-  backgroundColor: "#1A2632",
+  backgroundColor: "#2A3A4A",
   backgroundImage: `
     radial-gradient(circle at 20% 30%, rgba(46,58,71,0.35) 0%, transparent 45%),
     radial-gradient(circle at 80% 68%, rgba(61,79,92,0.30) 0%, transparent 40%),
@@ -6655,7 +6655,7 @@ style={{
     }}
   >
     <div style={{
-      backgroundColor: "#1A2632",
+      backgroundColor: "#2A3A4A",
       backgroundImage: `
         radial-gradient(circle at 20% 30%, rgba(46,58,71,0.35) 0%, transparent 45%),
         radial-gradient(circle at 80% 68%, rgba(61,79,92,0.30) 0%, transparent 40%),
@@ -6971,7 +6971,7 @@ style={{
 {(step === 2 || step === 3 || step === 4) && (
   <div className="mobile-price-sticky">
     <div style={{
-      backgroundColor: "#1A2632",
+      backgroundColor: "#2A3A4A",
       backgroundImage: `
         radial-gradient(circle at 20% 30%, rgba(46,58,71,0.35) 0%, transparent 45%),
         radial-gradient(circle at 80% 68%, rgba(61,79,92,0.30) 0%, transparent 40%),
