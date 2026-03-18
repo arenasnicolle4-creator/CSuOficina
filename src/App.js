@@ -3465,36 +3465,23 @@ style={{
             </div>
             {/* Frequency Selector */}
             {receptions > 0 && (
-              <div>
-                <label style={{
-                  display: "block",
-                  fontSize: "12px",
-                  fontWeight: "800",
-                  color: "#5DEBF1",
-                  marginBottom: "6px",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.5px",
-                }}>
-                  ⏰ Select Cleaning Frequency *
-                </label>
-                <select
+              <select
                 value={receptionsFreq}
                 onChange={(e) => setReceptionsFreq(e.target.value)}
                 style={{
                   width: "100%",
-                  padding: "12px 14px",
-                  borderRadius: "10px",
-                  border: receptionsFreq ? "2px solid #5DEBF1" : "2px solid rgba(239, 68, 68, 0.5)",
-                  background: receptionsFreq ? "rgba(93, 235, 241, 0.1)" : "rgba(239, 68, 68, 0.1)",
-                  color: receptionsFreq ? "white" : "#ef4444",
-                  fontSize: "13px",
-                  fontWeight: "700",
+                  padding: "8px 10px",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(184, 115, 51, 0.3)",
+                  background: "rgba(255, 255, 255, 0.08)",
+                  color: receptionsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
+                  fontSize: "11px",
+                  fontWeight: "600",
                   outline: "none",
                   cursor: "pointer",
-                  boxShadow: receptionsFreq ? "none" : "0 0 0 3px rgba(239, 68, 68, 0.2)",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
+                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -3503,7 +3490,6 @@ style={{
                 <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +12%</option>
                 <option value="monthly" style={{ background: "#2E3A47", color: "white" }}>Monthly (1/mo) +20%</option>
               </select>
-              </div>
             )}
           </div>
 
@@ -3630,11 +3616,10 @@ style={{
                 <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +12%</option>
                 <option value="monthly" style={{ background: "#2E3A47", color: "white" }}>Monthly (1/mo) +20%</option>
               </select>
-              </div>
             )}
           </div>
 
-          {/* Storage/Archive */}
+          {/* Storage Rooms */}
           <div style={{
             background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
@@ -3757,10 +3742,11 @@ style={{
                 <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +12%</option>
                 <option value="monthly" style={{ background: "#2E3A47", color: "white" }}>Monthly (1/mo) +20%</option>
               </select>
-              </div>
             )}
           </div>
-        )}
+        </div>
+      </div>
+    )}
 
 
     {/* Healthcare */}
@@ -5351,7 +5337,6 @@ style={{
                 <option value="weekly" style={{ background: "#2E3A47", color: "white" }}>Weekly (4/mo) +5%</option>
                 <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +12%</option>
               </select>
-              </div>
             )}
           </div>
 
@@ -6731,6 +6716,9 @@ style={{
   </div>
 )}
 
+</div>
+</div>
+
 {/* Price Sidebar - Desktop Only */}
 {(step === 2 || step === 3 || step === 4) && (
   <div
@@ -7055,6 +7043,7 @@ style={{
     </div>
   </div>
 )}
+</div>
 
 {/* MOBILE-ONLY PRICE DISPLAY - STICKY AT BOTTOM */}
 {(step === 2 || step === 3 || step === 4) && (
@@ -8274,15 +8263,6 @@ style={{
       </div>
     </div>
   </div>
-  </div>
-  </div>
-  </div>
-  </div>
-  </div>
-  </div>
-  </div>
-  </div>
-  </div>
 )}
 
 
@@ -8405,5 +8385,14 @@ style={{
     </div>
   </div>
 )}
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 );
 }
