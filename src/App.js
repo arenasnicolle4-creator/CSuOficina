@@ -1678,11 +1678,11 @@ className="form-card-animated"
 style={{
   backgroundColor: "#0F171E",
   backgroundImage: `
-    radial-gradient(circle at 20% 30%, rgba(46,58,71,0.55) 0%, transparent 45%),
-    radial-gradient(circle at 80% 68%, rgba(61,79,92,0.45) 0%, transparent 40%),
-    radial-gradient(circle at 55% 8%, rgba(184,115,51,0.06) 0%, transparent 30%),
-    radial-gradient(ellipse at 5% 88%, rgba(46,58,71,0.4) 0%, transparent 40%),
-    radial-gradient(circle 1px at center, rgba(255,255,255,0.07) 0%, transparent 100%)
+    radial-gradient(circle at 20% 30%, rgba(46,58,71,0.75) 0%, transparent 45%),
+    radial-gradient(circle at 80% 68%, rgba(61,79,92,0.65) 0%, transparent 40%),
+    radial-gradient(circle at 55% 8%, rgba(184,115,51,0.12) 0%, transparent 30%),
+    radial-gradient(ellipse at 5% 88%, rgba(46,58,71,0.6) 0%, transparent 40%),
+    radial-gradient(circle 1px at center, rgba(255,255,255,0.09) 0%, transparent 100%)
   `,
   backgroundSize: "100% 100%, 100% 100%, 100% 100%, 100% 100%, 26px 26px",
   borderRadius: "32px",
@@ -2097,7 +2097,7 @@ style={{
           padding: "18px 20px",
           borderRadius: "16px",
           border: "2px solid rgba(184, 115, 51, 0.3)",
-          background: "rgba(255, 255, 255, 0.08)",
+          background: "rgba(255, 255, 255, 0.05)",
           color: "white",
           fontSize: "15px",
           fontWeight: "600",
@@ -2138,7 +2138,7 @@ style={{
             padding: "16px 18px",
             borderRadius: "14px",
             border: "2px solid rgba(184, 115, 51, 0.3)",
-            background: "rgba(255, 255, 255, 0.08)",
+            background: "rgba(255, 255, 255, 0.05)",
             color: "white",
             fontSize: "14px",
             fontWeight: "600",
@@ -2167,7 +2167,7 @@ style={{
             padding: "16px 18px",
             borderRadius: "14px",
             border: "2px solid rgba(184, 115, 51, 0.3)",
-            background: "rgba(255, 255, 255, 0.08)",
+            background: "rgba(255, 255, 255, 0.05)",
             color: "white",
             fontSize: "14px",
             fontWeight: "600",
@@ -2197,7 +2197,7 @@ style={{
             padding: "16px 18px",
             borderRadius: "14px",
             border: "2px solid rgba(184, 115, 51, 0.3)",
-            background: "rgba(255, 255, 255, 0.08)",
+            background: "rgba(255, 255, 255, 0.05)",
             color: "white",
             fontSize: "14px",
             fontWeight: "600",
@@ -2286,7 +2286,7 @@ style={{
           padding: "18px",
           borderRadius: "16px",
           border: "2px solid rgba(184, 115, 51, 0.3)",
-          background: "rgba(255, 255, 255, 0.08)",
+          background: "rgba(255, 255, 255, 0.05)",
           color: "white",
           fontSize: "15px",
           fontWeight: "800",
@@ -2555,7 +2555,7 @@ style={{
               paddingRight: "55px",
               borderRadius: "16px",
               border: "2px solid rgba(184, 115, 51, 0.3)",
-              background: "rgba(255, 255, 255, 0.08)",
+              background: "rgba(255, 255, 255, 0.05)",
               color: "white",
               fontSize: "17px",
               fontWeight: "700",
@@ -2929,7 +2929,7 @@ style={{
                   <div
                     key={index}
                     style={{
-                      background: "rgba(255, 255, 255, 0.08)",
+                      background: "rgba(255, 255, 255, 0.05)",
                       borderRadius: "10px",
                       padding: "12px 15px",
                       display: "flex",
@@ -2998,7 +2998,7 @@ style={{
 
           {/* Conference Rooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -3112,7 +3112,7 @@ style={{
 
           {/* Break Rooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -3226,7 +3226,7 @@ style={{
 
           {/* Restrooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -3340,7 +3340,7 @@ style={{
 
           {/* Reception/Lobby */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -3454,7 +3454,7 @@ style={{
 
           {/* Server Rooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -3568,7 +3568,7 @@ style={{
 
           {/* Storage Rooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -3705,7 +3705,7 @@ style={{
         }}>
           {/* Exam Rooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -3790,7 +3790,7 @@ style={{
 
           {/* Waiting Areas */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -3875,7 +3875,7 @@ style={{
 
           {/* Procedure Rooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -3960,7 +3960,7 @@ style={{
 
           {/* Laboratories - NEW */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -4045,7 +4045,7 @@ style={{
 
           {/* Sterilization Rooms - NEW */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -4130,7 +4130,7 @@ style={{
 
           {/* Nurse Stations - NEW */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -4215,7 +4215,7 @@ style={{
 
           {/* Consultation Rooms - NEW */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -4365,7 +4365,7 @@ style={{
                   <div
                     key={index}
                     style={{
-                      background: "rgba(255, 255, 255, 0.08)",
+                      background: "rgba(255, 255, 255, 0.05)",
                       borderRadius: "10px",
                       padding: "12px 15px",
                       display: "flex",
@@ -4459,7 +4459,7 @@ style={{
                     padding: "12px 15px",
                     borderRadius: "10px",
                     border: "2px solid rgba(184, 115, 51, 0.3)",
-                    background: "rgba(255, 255, 255, 0.08)",
+                    background: "rgba(255, 255, 255, 0.05)",
                     color: "white",
                     fontSize: "14px",
                     fontWeight: "600",
@@ -4480,7 +4480,7 @@ style={{
 
           {/* Common Areas */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -4571,7 +4571,7 @@ style={{
                   padding: "8px 10px",
                   borderRadius: "8px",
                   border: "1px solid rgba(184, 115, 51, 0.3)",
-                  background: "rgba(255, 255, 255, 0.08)",
+                  background: "rgba(255, 255, 255, 0.05)",
                   color: commonAreasFreq ? "white" : "rgba(255, 255, 255, 0.5)",
                   fontSize: "11px",
                   fontWeight: "600",
@@ -4592,7 +4592,7 @@ style={{
 
           {/* Dining Areas */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -4683,7 +4683,7 @@ style={{
                   padding: "8px 10px",
                   borderRadius: "8px",
                   border: "1px solid rgba(184, 115, 51, 0.3)",
-                  background: "rgba(255, 255, 255, 0.08)",
+                  background: "rgba(255, 255, 255, 0.05)",
                   color: diningAreasFreq ? "white" : "rgba(255, 255, 255, 0.5)",
                   fontSize: "11px",
                   fontWeight: "600",
@@ -4704,7 +4704,7 @@ style={{
 
           {/* Fitness Centers - NEW */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -4795,7 +4795,7 @@ style={{
                   padding: "8px 10px",
                   borderRadius: "8px",
                   border: "1px solid rgba(184, 115, 51, 0.3)",
-                  background: "rgba(255, 255, 255, 0.08)",
+                  background: "rgba(255, 255, 255, 0.05)",
                   color: fitnessCentersFreq ? "white" : "rgba(255, 255, 255, 0.5)",
                   fontSize: "11px",
                   fontWeight: "600",
@@ -4816,7 +4816,7 @@ style={{
 
           {/* Pool/Spa Areas - NEW */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -4907,7 +4907,7 @@ style={{
                   padding: "8px 10px",
                   borderRadius: "8px",
                   border: "1px solid rgba(184, 115, 51, 0.3)",
-                  background: "rgba(255, 255, 255, 0.08)",
+                  background: "rgba(255, 255, 255, 0.05)",
                   color: poolSpasFreq ? "white" : "rgba(255, 255, 255, 0.5)",
                   fontSize: "11px",
                   fontWeight: "600",
@@ -4928,7 +4928,7 @@ style={{
 
           {/* Event/Banquet Spaces - NEW */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -5019,7 +5019,7 @@ style={{
                   padding: "8px 10px",
                   borderRadius: "8px",
                   border: "1px solid rgba(184, 115, 51, 0.3)",
-                  background: "rgba(255, 255, 255, 0.08)",
+                  background: "rgba(255, 255, 255, 0.05)",
                   color: eventSpacesFreq ? "white" : "rgba(255, 255, 255, 0.5)",
                   fontSize: "11px",
                   fontWeight: "600",
@@ -5040,7 +5040,7 @@ style={{
 
           {/* Laundry Rooms - NEW */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -5131,7 +5131,7 @@ style={{
                   padding: "8px 10px",
                   borderRadius: "8px",
                   border: "1px solid rgba(184, 115, 51, 0.3)",
-                  background: "rgba(255, 255, 255, 0.08)",
+                  background: "rgba(255, 255, 255, 0.05)",
                   color: laundryRoomsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
                   fontSize: "11px",
                   fontWeight: "600",
@@ -5152,7 +5152,7 @@ style={{
 
           {/* Lobby/Reception - NEW */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -5243,7 +5243,7 @@ style={{
                   padding: "8px 10px",
                   borderRadius: "8px",
                   border: "1px solid rgba(184, 115, 51, 0.3)",
-                  background: "rgba(255, 255, 255, 0.08)",
+                  background: "rgba(255, 255, 255, 0.05)",
                   color: lobbyReceptionsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
                   fontSize: "11px",
                   fontWeight: "600",
@@ -5264,7 +5264,7 @@ style={{
 
           {/* Shared/Public Bathrooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -5357,7 +5357,7 @@ style={{
                   padding: "8px 10px",
                   borderRadius: "8px",
                   border: "1px solid rgba(184, 115, 51, 0.3)",
-                  background: "rgba(255, 255, 255, 0.08)",
+                  background: "rgba(255, 255, 255, 0.05)",
                   color: sharedBathroomsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
                   fontSize: "11px",
                   fontWeight: "600",
@@ -5399,7 +5399,7 @@ style={{
         }}>
           {/* Fitting/Dressing Rooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -5484,7 +5484,7 @@ style={{
 
           {/* Showroom/Display Areas */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -5569,7 +5569,7 @@ style={{
 
           {/* Stockrooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -5654,7 +5654,7 @@ style={{
 
           {/* Customer Restrooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -5739,7 +5739,7 @@ style={{
 
           {/* POS/Checkout Areas */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -5845,7 +5845,7 @@ style={{
         }}>
           {/* Loading Docks */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -5930,7 +5930,7 @@ style={{
 
           {/* Equipment/Maintenance Areas */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -6015,7 +6015,7 @@ style={{
 
           {/* Break Rooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -6100,7 +6100,7 @@ style={{
 
           {/* Restrooms */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -6185,7 +6185,7 @@ style={{
 
           {/* Office/Admin Areas */}
           <div style={{
-            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.18) 0%, rgba(184, 115, 51, 0.18) 100%)",
+            background: "linear-gradient(135deg, rgba(138, 85, 35, 0.08) 0%, rgba(184, 115, 51, 0.08) 100%)",
             border: "1px solid rgba(184, 115, 51, 0.2)",
             borderRadius: "16px",
             padding: "16px",
@@ -6280,7 +6280,7 @@ style={{
           padding: "18px",
           borderRadius: "16px",
           border: "2px solid rgba(184, 115, 51, 0.3)",
-          background: "rgba(255, 255, 255, 0.08)",
+          background: "rgba(255, 255, 255, 0.05)",
           color: "white",
           fontSize: "15px",
           fontWeight: "800",
@@ -6543,7 +6543,7 @@ style={{
           padding: "18px 20px",
           borderRadius: "16px",
           border: "2px solid rgba(184, 115, 51, 0.3)",
-          background: "rgba(255, 255, 255, 0.08)",
+          background: "rgba(255, 255, 255, 0.05)",
           color: "white",
           fontSize: "14px",
           fontWeight: "600",
@@ -6595,7 +6595,7 @@ style={{
           padding: "18px",
           borderRadius: "16px",
           border: "2px solid rgba(184, 115, 51, 0.3)",
-          background: "rgba(255, 255, 255, 0.08)",
+          background: "rgba(255, 255, 255, 0.05)",
           color: "white",
           fontSize: "15px",
           fontWeight: "800",
@@ -6657,11 +6657,11 @@ style={{
     <div style={{
       backgroundColor: "#0F171E",
       backgroundImage: `
-        radial-gradient(circle at 20% 30%, rgba(46,58,71,0.55) 0%, transparent 45%),
-        radial-gradient(circle at 80% 68%, rgba(61,79,92,0.45) 0%, transparent 40%),
-        radial-gradient(circle at 55% 8%, rgba(184,115,51,0.06) 0%, transparent 30%),
-        radial-gradient(ellipse at 5% 88%, rgba(46,58,71,0.4) 0%, transparent 40%),
-        radial-gradient(circle 1px at center, rgba(255,255,255,0.07) 0%, transparent 100%)
+        radial-gradient(circle at 20% 30%, rgba(46,58,71,0.75) 0%, transparent 45%),
+        radial-gradient(circle at 80% 68%, rgba(61,79,92,0.65) 0%, transparent 40%),
+        radial-gradient(circle at 55% 8%, rgba(184,115,51,0.12) 0%, transparent 30%),
+        radial-gradient(ellipse at 5% 88%, rgba(46,58,71,0.6) 0%, transparent 40%),
+        radial-gradient(circle 1px at center, rgba(255,255,255,0.09) 0%, transparent 100%)
       `,
       backgroundSize: "100% 100%, 100% 100%, 100% 100%, 100% 100%, 26px 26px",
       borderRadius: "28px",
@@ -7306,7 +7306,7 @@ style={{
                 padding: "18px 16px",
                 borderRadius: "14px",
                 border: "2px solid rgba(184, 115, 51, 0.3)",
-                background: "rgba(255, 255, 255, 0.08)",
+                background: "rgba(255, 255, 255, 0.05)",
                 color: "white",
                 cursor: "pointer",
                 transition: "all 0.3s ease",
@@ -7380,7 +7380,7 @@ style={{
               display: "flex",
               alignItems: "center",
               gap: "12px",
-              background: "rgba(255, 255, 255, 0.08)",
+              background: "rgba(255, 255, 255, 0.05)",
               padding: "16px",
               borderRadius: "12px",
             }}>
@@ -7616,7 +7616,7 @@ style={{
               display: "flex",
               alignItems: "center",
               gap: "12px",
-              background: "rgba(255, 255, 255, 0.08)",
+              background: "rgba(255, 255, 255, 0.05)",
               padding: "16px",
               borderRadius: "12px",
             }}>
@@ -8051,7 +8051,7 @@ style={{
           display: "flex",
           alignItems: "center",
           gap: "12px",
-          background: "rgba(255, 255, 255, 0.08)",
+          background: "rgba(255, 255, 255, 0.05)",
           padding: "16px",
           borderRadius: "12px",
         }}>
