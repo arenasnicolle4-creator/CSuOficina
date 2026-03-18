@@ -1676,13 +1676,13 @@ style={{
 <div
 className="form-card-animated"
 style={{
-  backgroundColor: "#2A2E32",
+  backgroundColor: "#E8EAED",
   backgroundImage: `
-    radial-gradient(circle at 20% 30%, rgba(60,62,65,0.35) 0%, transparent 45%),
-    radial-gradient(circle at 80% 68%, rgba(70,72,75,0.30) 0%, transparent 40%),
-    radial-gradient(circle at 55% 8%, rgba(184,115,51,0.08) 0%, transparent 30%),
-    radial-gradient(ellipse at 5% 88%, rgba(60,62,65,0.25) 0%, transparent 40%),
-    radial-gradient(circle 1px at center, rgba(255,255,255,0.05) 0%, transparent 100%)
+    radial-gradient(circle at 20% 30%, rgba(20,22,25,0.12) 0%, transparent 45%),
+    radial-gradient(circle at 80% 68%, rgba(30,32,35,0.10) 0%, transparent 40%),
+    radial-gradient(circle at 55% 8%, rgba(184,115,51,0.06) 0%, transparent 30%),
+    radial-gradient(ellipse at 5% 88%, rgba(20,22,25,0.08) 0%, transparent 40%),
+    radial-gradient(circle 1px at center, rgba(0,0,0,0.03) 0%, transparent 100%)
   `,
   backgroundSize: "100% 100%, 100% 100%, 100% 100%, 100% 100%, 26px 26px",
   borderRadius: "32px",
@@ -1775,7 +1775,7 @@ style={{
   textTransform: "uppercase",
 }}
 >
-Professional Commercial Cleaning [V3-TEST]
+Professional Commercial Cleaning
 </p>
 </>
 )}
@@ -6655,13 +6655,13 @@ style={{
     }}
   >
     <div style={{
-      backgroundColor: "#2A2E32",
+      backgroundColor: "#E8EAED",
       backgroundImage: `
-        radial-gradient(circle at 20% 30%, rgba(60,62,65,0.35) 0%, transparent 45%),
-        radial-gradient(circle at 80% 68%, rgba(70,72,75,0.30) 0%, transparent 40%),
-        radial-gradient(circle at 55% 8%, rgba(184,115,51,0.08) 0%, transparent 30%),
-        radial-gradient(ellipse at 5% 88%, rgba(60,62,65,0.25) 0%, transparent 40%),
-        radial-gradient(circle 1px at center, rgba(255,255,255,0.05) 0%, transparent 100%)
+        radial-gradient(circle at 20% 30%, rgba(20,22,25,0.12) 0%, transparent 45%),
+        radial-gradient(circle at 80% 68%, rgba(30,32,35,0.10) 0%, transparent 40%),
+        radial-gradient(circle at 55% 8%, rgba(184,115,51,0.06) 0%, transparent 30%),
+        radial-gradient(ellipse at 5% 88%, rgba(20,22,25,0.08) 0%, transparent 40%),
+        radial-gradient(circle 1px at center, rgba(0,0,0,0.03) 0%, transparent 100%)
       `,
       backgroundSize: "100% 100%, 100% 100%, 100% 100%, 100% 100%, 26px 26px",
       borderRadius: "28px",
@@ -6971,13 +6971,13 @@ style={{
 {(step === 2 || step === 3 || step === 4) && (
   <div className="mobile-price-sticky">
     <div style={{
-      backgroundColor: "#2A2E32",
+      backgroundColor: "#E8EAED",
       backgroundImage: `
-        radial-gradient(circle at 20% 30%, rgba(60,62,65,0.35) 0%, transparent 45%),
-        radial-gradient(circle at 80% 68%, rgba(70,72,75,0.30) 0%, transparent 40%),
-        radial-gradient(circle at 55% 8%, rgba(184,115,51,0.08) 0%, transparent 30%),
-        radial-gradient(ellipse at 5% 88%, rgba(60,62,65,0.25) 0%, transparent 40%),
-        radial-gradient(circle 1px at center, rgba(255,255,255,0.05) 0%, transparent 100%)
+        radial-gradient(circle at 20% 30%, rgba(20,22,25,0.12) 0%, transparent 45%),
+        radial-gradient(circle at 80% 68%, rgba(30,32,35,0.10) 0%, transparent 40%),
+        radial-gradient(circle at 55% 8%, rgba(184,115,51,0.06) 0%, transparent 30%),
+        radial-gradient(ellipse at 5% 88%, rgba(20,22,25,0.08) 0%, transparent 40%),
+        radial-gradient(circle 1px at center, rgba(0,0,0,0.03) 0%, transparent 100%)
       `,
       backgroundSize: "100% 100%, 100% 100%, 100% 100%, 100% 100%, 26px 26px",
       borderRadius: "20px 20px 0 0",
