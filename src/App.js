@@ -2746,18 +2746,20 @@ style={{
                   color: frequency === "daily" ? "#5DEBF1" : "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
-                  22x/mo
+                  18% OFF
                 </div>
               </div>
               
-              {/* Regular 2-column options */}
+              {/* Row 1: 4x Week | 3x Week */}
+              {/* Row 2: 2x Week | Weekly */}
+              {/* Row 3: Bi-Weekly | Monthly */}
               {[
-                { value: "monthly", label: "Monthly", visits: "1x/mo", popular: false },
-                { value: "bi-weekly", label: "Bi-Weekly", visits: "2x/mo", popular: false },
-                { value: "weekly", label: "Weekly", visits: "4x/mo", popular: true },
-                { value: "2x-week", label: "2x Week", visits: "8x/mo", popular: true },
-                { value: "3x-week", label: "3x Week", visits: "12x/mo", popular: false },
-                { value: "4x-week", label: "4x Week", visits: "17x/mo", popular: false }
+                { value: "4x-week", label: "4x Week", discount: "14% OFF" },
+                { value: "3x-week", label: "3x Week", discount: "10% OFF" },
+                { value: "2x-week", label: "2x Week", discount: "BASE" },
+                { value: "weekly",  label: "Weekly",  discount: "+5%" },
+                { value: "bi-weekly", label: "Bi-Weekly", discount: "+12%" },
+                { value: "monthly",   label: "Monthly",   discount: "+20%" },
               ].map((option) => (
                 <div
                   key={option.value}
@@ -2773,11 +2775,11 @@ style={{
                       : "rgba(255, 255, 255, 0.03)",
                     cursor: "pointer",
                     transition: "all 0.2s ease",
-                    position: "relative",
                     boxShadow: frequency === option.value 
                       ? "0 0 20px rgba(93, 235, 241, 0.3)" 
                       : "none",
                     transform: frequency === option.value ? "scale(1.02)" : "scale(1)",
+                    textAlign: "center",
                   }}
                   onMouseEnter={(e) => {
                     if (frequency !== option.value) {
@@ -2792,29 +2794,11 @@ style={{
                     }
                   }}
                 >
-                  {option.popular && (
-                    <div style={{
-                      position: "absolute",
-                      top: "-8px",
-                      right: "8px",
-                      background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
-                      color: "white",
-                      fontSize: "9px",
-                      fontWeight: "800",
-                      padding: "2px 8px",
-                      borderRadius: "6px",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.5px",
-                    }}>
-                      Popular
-                    </div>
-                  )}
                   <div style={{
                     fontSize: "14px",
                     fontWeight: "800",
                     color: frequency === option.value ? "#5DEBF1" : "white",
                     marginBottom: "3px",
-                    textAlign: "center",
                   }}>
                     {option.label}
                   </div>
@@ -2822,9 +2806,8 @@ style={{
                     fontSize: "11px",
                     color: frequency === option.value ? "#5DEBF1" : "rgba(255, 255, 255, 0.6)",
                     fontWeight: "600",
-                    textAlign: "center",
                   }}>
-                    {option.visits}
+                    {option.discount}
                   </div>
                 </div>
               ))}
