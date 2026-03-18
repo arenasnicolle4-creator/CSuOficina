@@ -3084,19 +3084,7 @@ style={{
             </div>
             {/* Frequency Selector */}
             {conferenceRooms > 0 && (
-              <div>
-                <label style={{
-                  display: "block",
-                  fontSize: "12px",
-                  fontWeight: "800",
-                  color: "#5DEBF1",
-                  marginBottom: "6px",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.5px",
-                }}>
-                  ⏰ Select Cleaning Frequency *
-                </label>
-                <select
+              <select
                 value={conferenceRoomsFreq}
                 onChange={(e) => setConferenceRoomsFreq(e.target.value)}
                 style={{
@@ -3122,7 +3110,6 @@ style={{
                 <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +12%</option>
                 <option value="monthly" style={{ background: "#2E3A47", color: "white" }}>Monthly (1/mo) +20%</option>
               </select>
-              </div>
             )}
           </div>
 
@@ -3211,19 +3198,7 @@ style={{
             </div>
             {/* Frequency Selector */}
             {breakRooms > 0 && (
-              <div>
-                <label style={{
-                  display: "block",
-                  fontSize: "12px",
-                  fontWeight: "800",
-                  color: "#5DEBF1",
-                  marginBottom: "6px",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.5px",
-                }}>
-                  ⏰ Select Cleaning Frequency *
-                </label>
-                <select
+              <select
                 value={breakRoomsFreq}
                 onChange={(e) => setBreakRoomsFreq(e.target.value)}
                 style={{
@@ -3237,7 +3212,6 @@ style={{
                   fontWeight: "700",
                   outline: "none",
                   cursor: "pointer",
-                  boxShadow: breakRoomsFreq ? "none" : "0 0 0 3px rgba(239, 68, 68, 0.2)",
                 }}
               >
                 <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
@@ -3249,7 +3223,6 @@ style={{
                 <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +12%</option>
                 <option value="monthly" style={{ background: "#2E3A47", color: "white" }}>Monthly (1/mo) +20%</option>
               </select>
-              </div>
             )}
           </div>
 
@@ -3338,19 +3311,7 @@ style={{
             </div>
             {/* Frequency Selector */}
             {restrooms > 0 && (
-              <div>
-                <label style={{
-                  display: "block",
-                  fontSize: "12px",
-                  fontWeight: "800",
-                  color: "#5DEBF1",
-                  marginBottom: "6px",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.5px",
-                }}>
-                  ⏰ Select Cleaning Frequency *
-                </label>
-                <select
+              <select
                 value={restroomsFreq}
                 onChange={(e) => setRestroomsFreq(e.target.value)}
                 style={{
@@ -3364,7 +3325,6 @@ style={{
                   fontWeight: "700",
                   outline: "none",
                   cursor: "pointer",
-                  boxShadow: restroomsFreq ? "none" : "0 0 0 3px rgba(239, 68, 68, 0.2)",
                 }}
               >
                 <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
@@ -3376,7 +3336,6 @@ style={{
                 <option value="bi-weekly" style={{ background: "#2E3A47", color: "white" }}>Bi-Weekly (2/mo) +12%</option>
                 <option value="monthly" style={{ background: "#2E3A47", color: "white" }}>Monthly (1/mo) +20%</option>
               </select>
-              </div>
             )}
           </div>
 
@@ -3470,18 +3429,18 @@ style={{
                 onChange={(e) => setReceptionsFreq(e.target.value)}
                 style={{
                   width: "100%",
-                  padding: "8px 10px",
-                  borderRadius: "8px",
-                  border: "1px solid rgba(184, 115, 51, 0.3)",
-                  background: "rgba(255, 255, 255, 0.08)",
-                  color: receptionsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
-                  fontSize: "11px",
-                  fontWeight: "600",
+                  padding: "12px 14px",
+                  borderRadius: "10px",
+                  border: receptionsFreq ? "2px solid #5DEBF1" : "2px solid rgba(239, 68, 68, 0.5)",
+                  background: receptionsFreq ? "rgba(93, 235, 241, 0.1)" : "rgba(239, 68, 68, 0.1)",
+                  color: receptionsFreq ? "white" : "#ef4444",
+                  fontSize: "13px",
+                  fontWeight: "700",
                   outline: "none",
                   cursor: "pointer",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
+                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -3578,19 +3537,7 @@ style={{
             </div>
             {/* Frequency Selector */}
             {serverRooms > 0 && (
-              <div>
-                <label style={{
-                  display: "block",
-                  fontSize: "12px",
-                  fontWeight: "800",
-                  color: "#5DEBF1",
-                  marginBottom: "6px",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.5px",
-                }}>
-                  ⏰ Select Cleaning Frequency *
-                </label>
-                <select
+              <select
                 value={serverRoomsFreq}
                 onChange={(e) => setServerRoomsFreq(e.target.value)}
                 style={{
@@ -3604,7 +3551,6 @@ style={{
                   fontWeight: "700",
                   outline: "none",
                   cursor: "pointer",
-                  boxShadow: serverRoomsFreq ? "none" : "0 0 0 3px rgba(239, 68, 68, 0.2)",
                 }}
               >
                 <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
@@ -3704,19 +3650,7 @@ style={{
             </div>
             {/* Frequency Selector */}
             {storageRooms > 0 && (
-              <div>
-                <label style={{
-                  display: "block",
-                  fontSize: "12px",
-                  fontWeight: "800",
-                  color: "#5DEBF1",
-                  marginBottom: "6px",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.5px",
-                }}>
-                  ⏰ Select Cleaning Frequency *
-                </label>
-                <select
+              <select
                 value={storageRoomsFreq}
                 onChange={(e) => setStorageRoomsFreq(e.target.value)}
                 style={{
@@ -3730,7 +3664,6 @@ style={{
                   fontWeight: "700",
                   outline: "none",
                   cursor: "pointer",
-                  boxShadow: storageRoomsFreq ? "none" : "0 0 0 3px rgba(239, 68, 68, 0.2)",
                 }}
               >
                 <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
@@ -4644,7 +4577,7 @@ style={{
                   cursor: "pointer",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
+                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -4756,7 +4689,7 @@ style={{
                   cursor: "pointer",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
+                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -4868,7 +4801,7 @@ style={{
                   cursor: "pointer",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
+                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -4980,7 +4913,7 @@ style={{
                   cursor: "pointer",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
+                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -5092,7 +5025,7 @@ style={{
                   cursor: "pointer",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
+                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -5204,7 +5137,7 @@ style={{
                   cursor: "pointer",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
+                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -5300,33 +5233,20 @@ style={{
             </div>
             {/* Frequency Selector */}
             {lobbyReceptions > 0 && (
-              <div>
-                <label style={{
-                  display: "block",
-                  fontSize: "12px",
-                  fontWeight: "800",
-                  color: "#5DEBF1",
-                  marginBottom: "6px",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.5px",
-                }}>
-                  ⏰ Select Cleaning Frequency *
-                </label>
-                <select
+              <select
                 value={lobbyReceptionsFreq}
                 onChange={(e) => setLobbyReceptionsFreq(e.target.value)}
                 style={{
                   width: "100%",
-                  padding: "12px 14px",
-                  borderRadius: "10px",
-                  border: lobbyReceptionsFreq ? "2px solid #5DEBF1" : "2px solid rgba(239, 68, 68, 0.5)",
-                  background: lobbyReceptionsFreq ? "rgba(93, 235, 241, 0.1)" : "rgba(239, 68, 68, 0.1)",
-                  color: lobbyReceptionsFreq ? "white" : "#ef4444",
-                  fontSize: "13px",
-                  fontWeight: "700",
+                  padding: "8px 10px",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(184, 115, 51, 0.3)",
+                  background: "rgba(255, 255, 255, 0.08)",
+                  color: lobbyReceptionsFreq ? "white" : "rgba(255, 255, 255, 0.5)",
+                  fontSize: "11px",
+                  fontWeight: "600",
                   outline: "none",
                   cursor: "pointer",
-                  boxShadow: lobbyReceptionsFreq ? "none" : "0 0 0 3px rgba(239, 68, 68, 0.2)",
                 }}
               >
                 <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
@@ -5443,7 +5363,7 @@ style={{
                   cursor: "pointer",
                 }}
               >
-                <option value="" style={{ background: "#2E3A47", color: "rgba(255,255,255,0.5)" }}>Select Frequency</option>
+                <option value="" style={{ background: "#2E3A47", color: "#ef4444" }}>⚠️ SELECT FREQUENCY REQUIRED</option>
                 <option value="daily" style={{ background: "#2E3A47", color: "white" }}>Daily (22/mo) - 18% OFF</option>
                 <option value="4x-week" style={{ background: "#2E3A47", color: "white" }}>4x/Week (17/mo) - 14% OFF</option>
                 <option value="3x-week" style={{ background: "#2E3A47", color: "white" }}>3x/Week (12/mo) - 10% OFF</option>
@@ -8387,9 +8307,6 @@ style={{
 )}
 
 
-</div>
-</div>
-</div>
 </div>
 </div>
 </div>
