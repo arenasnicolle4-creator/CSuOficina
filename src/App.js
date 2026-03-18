@@ -2746,7 +2746,7 @@ style={{
                   color: frequency === "daily" ? "#5DEBF1" : "rgba(255, 255, 255, 0.6)",
                   fontWeight: "600",
                 }}>
-                  18% OFF
+                  13% OFF
                 </div>
               </div>
               
@@ -2754,10 +2754,10 @@ style={{
               {/* Row 2: 2x Week | Weekly */}
               {/* Row 3: Bi-Weekly | Monthly */}
               {[
-                { value: "4x-week", label: "4x Week", discount: "14% OFF" },
-                { value: "3x-week", label: "3x Week", discount: "10% OFF" },
+                { value: "4x-week", label: "4x Week", discount: "9% OFF" },
+                { value: "3x-week", label: "3x Week", discount: "5% OFF" },
                 { value: "2x-week", label: "2x Week", discount: "BASE" },
-                { value: "weekly",  label: "Weekly",  discount: "+5%" },
+                { value: "weekly",  label: "Weekly",  discount: "BASE" },
                 { value: "bi-weekly", label: "Bi-Weekly", discount: "+12%" },
                 { value: "monthly",   label: "Monthly",   discount: "+20%" },
               ].map((option) => (
