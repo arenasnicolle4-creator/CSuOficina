@@ -7736,10 +7736,6 @@ style={{
     </div>
   </div>
 )}
-  </div>
-  </div>
-  </div>
-  </div>
 
 {/* Workspace Configuration Modal (Office) */}
 {showWorkspaceModal && (
@@ -8308,6 +8304,10 @@ style={{
       </button>
     </div>
   </div>
+    </div>
+    </div>
+    </div>
+    </div>
 )}
 
 
