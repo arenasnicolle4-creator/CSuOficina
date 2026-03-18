@@ -16,6 +16,7 @@ export default function CleaningSuOficinaBooking() {
   
   // Step 2: Location & Market Segment
   const [streetAddress, setStreetAddress] = useState("");
+  const [suiteUnit, setSuiteUnit] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zipCode, setZipCode] = useState("");
@@ -1293,6 +1294,7 @@ export default function CleaningSuOficinaBooking() {
     
     // Location
     formData.append('Address', streetAddress);
+    formData.append('Suite/Unit', suiteUnit);
     formData.append('City', city);
     formData.append('State', state);
     formData.append('ZIP', zipCode);
@@ -2114,6 +2116,38 @@ style={{
       }}>
         📍 Start typing street address for suggestions
       </p>
+      {/* Suite / Unit */}
+      <div style={{ marginTop: "14px" }}>
+        <label style={{
+          fontSize: "12px",
+          fontWeight: "700",
+          color: "#B87333",
+          marginBottom: "8px",
+          display: "block",
+          letterSpacing: "0.5px",
+          textTransform: "uppercase",
+        }}>
+          Apt. / Suite / Unit <span style={{ color: "rgba(255,255,255,0.4)", fontWeight: "600", textTransform: "none", fontSize: "11px" }}>(optional)</span>
+        </label>
+        <input
+          type="text"
+          placeholder="e.g. Suite 200, Unit 4B, Floor 3..."
+          value={suiteUnit}
+          onChange={(e) => setSuiteUnit(e.target.value)}
+          style={{
+            width: "100%",
+            padding: "16px 20px",
+            borderRadius: "14px",
+            border: "2px solid rgba(184, 115, 51, 0.3)",
+            background: "rgba(255, 255, 255, 0.05)",
+            color: "white",
+            fontSize: "14px",
+            fontWeight: "600",
+            outline: "none",
+            transition: "all 0.3s ease",
+          }}
+        />
+      </div>
     </div>
 
     {/* City, State, ZIP */}
@@ -8476,6 +8510,7 @@ style={{
           setPhone("");
           setBusinessName("");
           setStreetAddress("");
+          setSuiteUnit("");
           setCity("");
           setState("");
           setZipCode("");
