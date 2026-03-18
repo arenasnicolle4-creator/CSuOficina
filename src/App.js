@@ -1676,12 +1676,12 @@ style={{
 <div
 className="form-card-animated"
 style={{
-  backgroundColor: "#2A3A4A",
+  backgroundColor: "#2A2E32",
   backgroundImage: `
-    radial-gradient(circle at 20% 30%, rgba(46,58,71,0.35) 0%, transparent 45%),
-    radial-gradient(circle at 80% 68%, rgba(61,79,92,0.30) 0%, transparent 40%),
+    radial-gradient(circle at 20% 30%, rgba(60,62,65,0.35) 0%, transparent 45%),
+    radial-gradient(circle at 80% 68%, rgba(70,72,75,0.30) 0%, transparent 40%),
     radial-gradient(circle at 55% 8%, rgba(184,115,51,0.08) 0%, transparent 30%),
-    radial-gradient(ellipse at 5% 88%, rgba(46,58,71,0.25) 0%, transparent 40%),
+    radial-gradient(ellipse at 5% 88%, rgba(60,62,65,0.25) 0%, transparent 40%),
     radial-gradient(circle 1px at center, rgba(255,255,255,0.05) 0%, transparent 100%)
   `,
   backgroundSize: "100% 100%, 100% 100%, 100% 100%, 100% 100%, 26px 26px",
@@ -6655,12 +6655,12 @@ style={{
     }}
   >
     <div style={{
-      backgroundColor: "#2A3A4A",
+      backgroundColor: "#2A2E32",
       backgroundImage: `
-        radial-gradient(circle at 20% 30%, rgba(46,58,71,0.35) 0%, transparent 45%),
-        radial-gradient(circle at 80% 68%, rgba(61,79,92,0.30) 0%, transparent 40%),
+        radial-gradient(circle at 20% 30%, rgba(60,62,65,0.35) 0%, transparent 45%),
+        radial-gradient(circle at 80% 68%, rgba(70,72,75,0.30) 0%, transparent 40%),
         radial-gradient(circle at 55% 8%, rgba(184,115,51,0.08) 0%, transparent 30%),
-        radial-gradient(ellipse at 5% 88%, rgba(46,58,71,0.25) 0%, transparent 40%),
+        radial-gradient(ellipse at 5% 88%, rgba(60,62,65,0.25) 0%, transparent 40%),
         radial-gradient(circle 1px at center, rgba(255,255,255,0.05) 0%, transparent 100%)
       `,
       backgroundSize: "100% 100%, 100% 100%, 100% 100%, 100% 100%, 26px 26px",
@@ -6971,12 +6971,12 @@ style={{
 {(step === 2 || step === 3 || step === 4) && (
   <div className="mobile-price-sticky">
     <div style={{
-      backgroundColor: "#2A3A4A",
+      backgroundColor: "#2A2E32",
       backgroundImage: `
-        radial-gradient(circle at 20% 30%, rgba(46,58,71,0.35) 0%, transparent 45%),
-        radial-gradient(circle at 80% 68%, rgba(61,79,92,0.30) 0%, transparent 40%),
+        radial-gradient(circle at 20% 30%, rgba(60,62,65,0.35) 0%, transparent 45%),
+        radial-gradient(circle at 80% 68%, rgba(70,72,75,0.30) 0%, transparent 40%),
         radial-gradient(circle at 55% 8%, rgba(184,115,51,0.08) 0%, transparent 30%),
-        radial-gradient(ellipse at 5% 88%, rgba(46,58,71,0.25) 0%, transparent 40%),
+        radial-gradient(ellipse at 5% 88%, rgba(60,62,65,0.25) 0%, transparent 40%),
         radial-gradient(circle 1px at center, rgba(255,255,255,0.05) 0%, transparent 100%)
       `,
       backgroundSize: "100% 100%, 100% 100%, 100% 100%, 100% 100%, 26px 26px",
