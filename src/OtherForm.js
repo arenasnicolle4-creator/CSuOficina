@@ -670,6 +670,47 @@ export default function OtherForm({ sharedInfo, onBack }) {
 
           </div>
         </div>
+
+        {/* ── PRICE SIDEBAR ─────────────────────────────────────────────────── */}
+        <div style={{ position:"sticky", top:"20px", height:"fit-content" }}>
+          <div style={{ ...CARD_BG, borderRadius:"28px", overflow:"hidden", boxShadow:"0 25px 70px rgba(0,0,0,0.6)", border:"1px solid rgba(184,115,51,0.2)", display:"flex", flexDirection:"column", maxHeight:"calc(100vh - 40px)" }}>
+            <div style={{ padding:"25px", textAlign:"center", borderBottom:"1px solid rgba(255,255,255,0.1)" }}>
+              <div style={{ fontSize:"16px", color:"#B87333", fontWeight:"800", marginBottom:"8px", letterSpacing:"1.5px", textTransform:"uppercase" }}>Price Breakdown</div>
+              <div style={{ fontSize:"14px", color:"#D4955A", fontWeight:"700", background:"rgba(143,170,184,0.12)", padding:"4px 12px", borderRadius:"6px", display:"inline-block" }}>Monthly Estimate</div>
+            </div>
+            <div style={{ padding:"20px 25px", overflowY:"auto", flex:1 }}>
+              {getPriceBreakdown().length === 0 ? (
+                <div style={{ textAlign:"center", padding:"40px 20px", color:"rgba(255,255,255,0.5)", fontSize:"14px", fontWeight:"600" }}>Complete the form to see pricing</div>
+              ) : (
+                <>
+                  {getPriceBreakdown().map((item, i) => (
+                    <div key={i} style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", padding:"12px 0", borderBottom: i < getPriceBreakdown().length - 1 ? "1px solid rgba(255,255,255,0.1)" : "none" }}>
+                      <div style={{ color:"rgba(255,255,255,0.8)", fontSize:"14px", fontWeight:"600", flex:1 }}>{item.label}</div>
+                      <div style={{ color:"white", fontSize:"14px", fontWeight:"800" }}>${item.amount.toFixed(2)}</div>
+                    </div>
+                  ))}
+                  <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"16px 0", marginTop:"10px", borderTop:"2px solid rgba(93,235,241,0.3)" }}>
+                    <div style={{ color:"#B87333", fontSize:"14px", fontWeight:"800", textTransform:"uppercase", letterSpacing:"0.5px" }}>Subtotal</div>
+                    <div style={{ color:"white", fontSize:"16px", fontWeight:"900" }}>${calculateSubtotal().toFixed(2)}</div>
+                  </div>
+                </>
+              )}
+            </div>
+            <div style={{ padding:"12px 20px", background:"rgba(255,255,255,0.1)", borderTop:"1px solid rgba(255,255,255,0.1)" }}>
+              <p style={{ color:"rgba(255,255,255,0.8)", fontSize:"11px", margin:0, fontWeight:"600", textAlign:"center", fontStyle:"italic" }}>💡 Estimate only. Final prices may vary.</p>
+            </div>
+            <div style={{ padding:"25px", background:"rgba(93,235,241,0.15)", backdropFilter:"blur(10px)", borderTop:"1px solid rgba(93,235,241,0.3)" }}>
+              <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+                <div>
+                  <div style={{ color:"white", fontWeight:"900", fontSize:"16px", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"6px" }}>Total</div>
+                  <div style={{ fontSize:"12px", color:"#D4955A", fontWeight:"700", background:"rgba(143,170,184,0.12)", padding:"3px 10px", borderRadius:"6px", display:"inline-block" }}>per month</div>
+                </div>
+                <div style={{ color:"white", fontWeight:"900", fontSize:"36px" }}>${calculateSubtotal().toFixed(2)}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       {/* ── SUCCESS MODAL ───────────────────────────────────────────────────── */}
