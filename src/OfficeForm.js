@@ -602,16 +602,16 @@ export default function OfficeForm({ sharedInfo, onBack }) {
             <div style={{ display:"flex", gap:"8px" }}>
               <button onClick={()=>f.set(Math.max(0,f.val-1))} style={{ flex:1, padding:"10px", borderRadius:"10px", border:"none", background:f.val>0?"rgba(239,68,68,0.12)":"rgba(230,230,230,0.6)", color:f.val>0?"#ef4444":"rgba(255,255,255,0.3)", fontSize:"18px", fontWeight:"900", cursor:f.val>0?"pointer":"not-allowed" }}>−</button>
               <div style={{ flex:1, position:"relative", overflow:"hidden", borderRadius:"10px" }}>
-                {/* Rings bottom-left */}
-                <svg style={{ position:"absolute", bottom:"-24px", left:"-24px", width:"76px", height:"76px", pointerEvents:"none", zIndex:0 }} viewBox="0 0 76 76">
+                <button onClick={()=>f.set(f.val+1)} style={{ width:"100%", padding:"10px", borderRadius:"10px", border:"1.5px solid rgba(212,160,23,0.5)", background:"linear-gradient(160deg, rgba(255,255,255,0.98) 0%, #EDE5CE 55%, #E8E0C8 100%)", color:"#5C3D10", fontSize:"18px", fontWeight:"900", cursor:"pointer", position:"relative", zIndex:1, boxShadow:"0 2px 8px rgba(180,160,120,0.2)" }}>+</button>
+                {/* Rings bottom-left — rendered after button so they paint on top */}
+                <svg style={{ position:"absolute", bottom:"-24px", left:"-24px", width:"76px", height:"76px", pointerEvents:"none", zIndex:2 }} viewBox="0 0 76 76">
                   <circle cx="38" cy="38" r="35" fill="none" stroke="rgba(120,80,0,0.55)" strokeWidth="1.5"/>
                   <circle cx="38" cy="38" r="25" fill="none" stroke="rgba(120,80,0,0.35)" strokeWidth="1"/>
                 </svg>
                 {/* Dots spread around button */}
-                <div style={{ position:"absolute", width:"4px", height:"4px", borderRadius:"50%", background:"rgba(120,80,0,0.5)", bottom:"10px", left:"26px", zIndex:0, pointerEvents:"none" }}/>
-                <div style={{ position:"absolute", width:"3px", height:"3px", borderRadius:"50%", background:"rgba(120,80,0,0.4)", top:"6px", right:"10px", zIndex:0, pointerEvents:"none" }}/>
-                <div style={{ position:"absolute", width:"3px", height:"3px", borderRadius:"50%", background:"rgba(120,80,0,0.35)", top:"50%", right:"18px", zIndex:0, pointerEvents:"none" }}/>
-                <button onClick={()=>f.set(f.val+1)} style={{ width:"100%", padding:"10px", borderRadius:"10px", border:"1.5px solid rgba(212,160,23,0.5)", background:"linear-gradient(160deg, rgba(255,255,255,0.98) 0%, #EDE5CE 55%, #E8E0C8 100%)", color:"#5C3D10", fontSize:"18px", fontWeight:"900", cursor:"pointer", position:"relative", zIndex:1, boxShadow:"0 2px 8px rgba(180,160,120,0.2)" }}>+</button>
+                <div style={{ position:"absolute", width:"5px", height:"5px", borderRadius:"50%", background:"rgba(120,80,0,0.55)", bottom:"8px", left:"24px", zIndex:2, pointerEvents:"none" }}/>
+                <div style={{ position:"absolute", width:"4px", height:"4px", borderRadius:"50%", background:"rgba(120,80,0,0.45)", top:"6px", right:"10px", zIndex:2, pointerEvents:"none" }}/>
+                <div style={{ position:"absolute", width:"3px", height:"3px", borderRadius:"50%", background:"rgba(120,80,0,0.4)", top:"50%", right:"16px", zIndex:2, pointerEvents:"none" }}/>
               </div>
             </div>
             {f.val > 0 && <FreqGrid value={f.freq} onChange={f.setFreq}/>}
