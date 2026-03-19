@@ -381,13 +381,13 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         <div style={{ padding:"12px 20px", background:"rgba(255,255,255,0.1)", borderTop:"1px solid rgba(255,255,255,0.1)", borderBottom:"1px solid rgba(255,255,255,0.1)" }}>
           <p style={{ color:"#666", fontSize:"11px", margin:0, fontWeight:"600", textAlign:"center", fontStyle:"italic" }}>💡 Estimate based on monthly contract. Final prices may vary.</p>
         </div>
-        <div style={{ padding:"25px", background:"linear-gradient(135deg, #B8860B, #D4A017, #F0C040)", borderTop:"1px solid rgba(212,160,23,0.4)" }}>
+        <div style={{ padding:"25px", background:"linear-gradient(180deg, rgba(255,245,200,0.95) 0%, rgba(240,192,64,0.85) 45%, rgba(184,134,11,0.95) 100%)", borderTop:"1px solid rgba(212,160,23,0.5)" }}>
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
             <div>
               <div style={{ color:"white", fontWeight:"900", fontSize:"14px", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"4px" }}>Total</div>
-              <div style={{ fontSize:"14px", color:"white", fontWeight:"700", background:"rgba(0,0,0,0.2)", padding:"3px 10px", borderRadius:"6px" }}>per month</div>
+              <div style={{ fontSize:"14px", color:"#3D2600", fontWeight:"700", background:"rgba(255,255,255,0.35)", padding:"3px 10px", borderRadius:"6px" }}>per month</div>
             </div>
-            <div style={{ color:"white", fontWeight:"900", fontSize:"36px", textShadow:"0 2px 12px rgba(0,0,0,0.4), 0 1px 3px rgba(0,0,0,0.3)" }}>${total.toFixed(2)}</div>
+            <div style={{ color:"#1A0E00", fontWeight:"900", fontSize:"36px", textShadow:"0 1px 4px rgba(255,255,255,0.6)" }}>${total.toFixed(2)}</div>
           </div>
         </div>
       </div>
@@ -623,7 +623,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
           ].map(a=>(
             <div key={a.key} onClick={()=>setAddOns({...addOns,[a.key]:!addOns[a.key]})} style={{ padding:"18px 16px", borderRadius:"16px", cursor:"pointer", transition:"all 0.3s ease", display:"flex", alignItems:"flex-start", gap:"10px",
               border:addOns[a.key]?"1.5px solid rgba(212,160,23,0.6)":"1.5px solid rgba(212,160,23,0.25)",
-              background:addOns[a.key]?"linear-gradient(160deg, rgba(255,255,255,0.9) 0%, rgba(255,220,80,0.55) 50%, rgba(240,192,64,0.7) 100%)":"rgba(255,255,255,0.85)",
+              background:addOns[a.key]?"linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(255,235,140,0.5) 40%, rgba(212,160,23,0.65) 100%)":"rgba(255,255,255,0.85)",
               boxShadow:addOns[a.key]?"0 4px 16px rgba(212,160,23,0.3)":"0 2px 6px rgba(0,0,0,0.04)" }}>
               <div style={{ width:"20px", height:"20px", borderRadius:"6px", border:addOns[a.key]?"none":"2px solid rgba(212,160,23,0.4)", background:addOns[a.key]?"linear-gradient(135deg,#10b981,#059669)":"rgba(255,255,255,0.5)", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, marginTop:"2px" }}>
                 {addOns[a.key]&&<CheckCircle2 size={14} color="white"/>}
@@ -849,12 +849,12 @@ export default function OfficeForm({ sharedInfo, onBack }) {
           {/* Form card */}
           <div style={CARD_STYLE}>
             {/* Header */}
-            <div style={{ background:"linear-gradient(160deg, #F5EDD6 0%, #FDF6E3 50%, #F5EDD6 100%)", borderBottom:"1px solid rgba(212,160,23,0.3)", padding:"30px", textAlign:"center", position:"relative", overflow:"hidden" }}>
-              <div style={{ position:"absolute", top:0, left:0, right:0, bottom:0, background:"radial-gradient(circle at 50% 50%, rgba(240,192,64,0.25) 0%, transparent 65%)", pointerEvents:"none" }}/>
+            <div style={{ background:"linear-gradient(120deg, #FAFAFA 0%, #FFF8E1 35%, rgba(240,192,64,0.25) 65%, rgba(212,160,23,0.35) 100%)", borderBottom:"1px solid rgba(212,160,23,0.25)", padding:"30px", textAlign:"center", position:"relative", overflow:"hidden" }}>
+              <div style={{ position:"absolute", top:0, left:0, right:0, bottom:0, background:"radial-gradient(ellipse at 50% 60%, rgba(240,192,64,0.3) 0%, rgba(255,230,100,0.1) 50%, transparent 70%)", pointerEvents:"none" }}/>
               <div style={{ position:"relative", zIndex:1 }}>
                 <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:"8px" }}>
-                  <div style={{ fontFamily:"'Oswald', sans-serif", fontSize:"42px", fontWeight:"300", letterSpacing:"8px", color:"white", textShadow:"0 0 20px rgba(255,255,255,0.9), 0 0 50px rgba(255,215,0,0.6), 0 0 100px rgba(255,200,0,0.3)" }}>CLEANING</div>
-                  <div style={{ fontFamily:"'Allura', cursive", fontSize:"46px", color:"#F0C040", letterSpacing:"3px", marginTop:"-8px" }}>Su Oficina</div>
+                  <div style={{ fontFamily:"'Oswald', sans-serif", fontSize:"42px", fontWeight:"300", letterSpacing:"8px", color:"white", textShadow:"0 0 15px rgba(255,255,255,1), 0 0 35px rgba(255,220,0,0.8), 0 0 70px rgba(212,160,23,0.5)" }}>CLEANING</div>
+                  <div style={{ fontFamily:"'Allura', cursive", fontSize:"46px", color:"#C8860A", letterSpacing:"3px", marginTop:"-8px", fontWeight:"400" }}>Su Oficina</div>
                 </div>
                 <div style={{ height:"2px", width:"80px", background:"linear-gradient(90deg,transparent,#F0C040,transparent)", margin:"14px auto 10px", boxShadow:"0 0 10px rgba(240,192,64,0.5)" }}/>
                 <div style={{ color:"#5C4A1E", fontSize:"13px", fontWeight:"700", letterSpacing:"2px", textTransform:"uppercase" }}>🏢 Office Cleaning Quote</div>
