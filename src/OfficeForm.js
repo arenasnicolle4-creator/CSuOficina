@@ -603,13 +603,13 @@ export default function OfficeForm({ sharedInfo, onBack }) {
               <button onClick={()=>f.set(Math.max(0,f.val-1))} style={{ flex:1, padding:"10px", borderRadius:"10px", border:"none", background:f.val>0?"rgba(239,68,68,0.12)":"rgba(230,230,230,0.6)", color:f.val>0?"#ef4444":"rgba(255,255,255,0.3)", fontSize:"18px", fontWeight:"900", cursor:f.val>0?"pointer":"not-allowed" }}>−</button>
               <div style={{ flex:1, position:"relative", overflow:"hidden", borderRadius:"10px" }}>
                 {/* Rings bottom-left */}
-                <svg style={{ position:"absolute", bottom:"-20px", left:"-20px", width:"72px", height:"72px", pointerEvents:"none", zIndex:0 }} viewBox="0 0 72 72">
-                  <circle cx="36" cy="36" r="33" fill="none" stroke="rgba(240,192,64,0.5)" strokeWidth="1"/>
-                  <circle cx="36" cy="36" r="24" fill="none" stroke="rgba(255,240,160,0.3)" strokeWidth="0.7"/>
+                <svg style={{ position:"absolute", bottom:"-24px", left:"-24px", width:"76px", height:"76px", pointerEvents:"none", zIndex:0 }} viewBox="0 0 76 76">
+                  <circle cx="38" cy="38" r="35" fill="none" stroke="rgba(120,80,0,0.55)" strokeWidth="1.5"/>
+                  <circle cx="38" cy="38" r="25" fill="none" stroke="rgba(120,80,0,0.35)" strokeWidth="1"/>
                 </svg>
                 {/* Dots */}
-                <div style={{ position:"absolute", width:"3px", height:"3px", borderRadius:"50%", background:"rgba(240,192,64,0.8)", bottom:"8px", left:"24px", zIndex:0, pointerEvents:"none" }}/>
-                <div style={{ position:"absolute", width:"2px", height:"2px", borderRadius:"50%", background:"rgba(255,240,160,0.6)", bottom:"16px", left:"9px", zIndex:0, pointerEvents:"none" }}/>
+                <div style={{ position:"absolute", width:"4px", height:"4px", borderRadius:"50%", background:"rgba(120,80,0,0.65)", bottom:"10px", left:"26px", zIndex:0, pointerEvents:"none" }}/>
+                <div style={{ position:"absolute", width:"3px", height:"3px", borderRadius:"50%", background:"rgba(120,80,0,0.5)", bottom:"18px", left:"10px", zIndex:0, pointerEvents:"none" }}/>
                 <button onClick={()=>f.set(f.val+1)} style={{ width:"100%", padding:"10px", borderRadius:"10px", border:"1.5px solid rgba(212,160,23,0.5)", background:"linear-gradient(160deg, rgba(255,255,255,0.95) 0%, rgba(255,230,120,0.6) 50%, rgba(212,160,23,0.75) 100%)", color:"#5C3D10", fontSize:"18px", fontWeight:"900", cursor:"pointer", position:"relative", zIndex:1, boxShadow:"0 0 10px rgba(212,160,23,0.3), inset 0 0 6px rgba(255,240,160,0.15)" }}>+</button>
               </div>
             </div>
