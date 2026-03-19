@@ -65,7 +65,7 @@ const BG_STYLE = {
   backgroundImage: `
     radial-gradient(circle at 20% 30%, rgba(180,190,200,0.5) 0%, transparent 45%),
     radial-gradient(circle at 80% 68%, rgba(200,210,220,0.4) 0%, transparent 40%),
-    radial-gradient(circle at 55% 8%, rgba(184,115,51,0.08) 0%, transparent 30%),
+    radial-gradient(circle at 55% 8%, rgba(212,160,23,0.08) 0%, transparent 30%),
     radial-gradient(ellipse at 5% 88%, rgba(180,190,200,0.35) 0%, transparent 40%),
     radial-gradient(circle 1px at center, rgba(100,110,120,0.08) 0%, transparent 100%)
   `,
@@ -79,7 +79,7 @@ const CARD_STYLE = {
   backgroundImage: `
     radial-gradient(circle at 20% 30%, rgba(180,190,200,0.25) 0%, transparent 45%),
     radial-gradient(circle at 80% 68%, rgba(200,210,220,0.2) 0%, transparent 40%),
-    radial-gradient(circle at 55% 8%, rgba(184,115,51,0.05) 0%, transparent 30%),
+    radial-gradient(circle at 55% 8%, rgba(212,160,23,0.05) 0%, transparent 30%),
     radial-gradient(ellipse at 5% 88%, rgba(180,190,200,0.18) 0%, transparent 40%),
     radial-gradient(circle 1px at center, rgba(100,110,120,0.05) 0%, transparent 100%)
   `,
@@ -87,17 +87,17 @@ const CARD_STYLE = {
   borderRadius: "32px",
   overflow: "hidden",
   boxShadow: "0 20px 60px rgba(0,0,0,0.12), 0 4px 16px rgba(0,0,0,0.06)",
-  border: "1px solid rgba(184,115,51,0.2)",
+  border: "1px solid rgba(212,160,23,0.2)",
 };
 
 const labelSt = {
-  fontSize: "12px", fontWeight: "700", color: "#8B7322",
+  fontSize: "12px", fontWeight: "700", color: "#A07B15",
   marginBottom: "8px", display: "block", letterSpacing: "0.5px", textTransform: "uppercase",
 };
 
 const inputSt = {
   width: "100%", padding: "16px 18px", borderRadius: "14px",
-  border: "2px solid rgba(184,115,51,0.35)", background: "#F8F9FA",
+  border: "2px solid rgba(212,160,23,0.35)", background: "#F8F9FA",
   color: "#1A1A2E", fontSize: "14px", fontWeight: "600", outline: "none",
   transition: "all 0.3s ease", boxSizing: "border-box",
 };
@@ -115,14 +115,14 @@ function FreqGrid({ value, onChange }) {
   const fc = (sel) => ({
     padding: "10px 8px", borderRadius: "8px", cursor: "pointer",
     transition: "all 0.15s ease", textAlign: "center",
-    border: sel ? "2px solid #0891B2" : "1px solid rgba(184,115,51,0.25)",
+    border: sel ? "2px solid #0891B2" : "1px solid rgba(212,160,23,0.25)",
     background: sel ? "linear-gradient(135deg,rgba(8,145,178,0.12),rgba(6,182,212,0.06))" : "rgba(255,255,255,0.7)",
   });
   return (
     <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "8px" }}>
       <div onClick={() => onChange("daily")} style={{ ...fc(value === "daily"), gridColumn: "1 / -1" }}>
         <div style={{ fontSize: "12px", fontWeight: "700", color: value === "daily" ? "#0891B2" : "#2D3748", marginBottom: "2px" }}>Daily</div>
-        <div style={{ fontSize: "9px", fontWeight: "600", color: value === "daily" ? "#0891B2" : "#8B7322" }}>18% OFF</div>
+        <div style={{ fontSize: "9px", fontWeight: "600", color: value === "daily" ? "#0891B2" : "#A07B15" }}>18% OFF</div>
       </div>
       {options.map(o => (
         <div key={o.value} onClick={() => onChange(o.value)} style={fc(value === o.value)}>
@@ -339,10 +339,10 @@ export default function OfficeForm({ sharedInfo, onBack }) {
   // ── Sidebar ───────────────────────────────────────────────────────────────
   const Sidebar = () => (
     <div style={{ maxHeight:"calc(100vh - 40px)", display:"flex", flexDirection:"column" }}>
-      <div style={{ ...CARD_STYLE, borderRadius:"28px", display:"flex", flexDirection:"column", maxHeight:"100%", backgroundColor:"#FEFCF5", border:"1px solid rgba(201,162,39,0.25)" }}>
-        <div style={{ padding:"25px", textAlign:"center", borderBottom:"1px solid rgba(201,162,39,0.2)" }}>
-          <div style={{ fontSize:"16px", color:"#8B7322", fontWeight:"800", marginBottom:"8px", letterSpacing:"1.5px", textTransform:"uppercase" }}>Price Breakdown</div>
-          <div style={{ fontSize:"14px", color:"#8B7322", fontWeight:"700", background:"rgba(184,115,51,0.1)", padding:"4px 12px", borderRadius:"6px", display:"inline-block" }}>Monthly Estimate</div>
+      <div style={{ ...CARD_STYLE, borderRadius:"28px", display:"flex", flexDirection:"column", maxHeight:"100%", backgroundColor:"#FEFCF5", border:"1px solid rgba(212,160,23,0.25)" }}>
+        <div style={{ padding:"25px", textAlign:"center", borderBottom:"1px solid rgba(212,160,23,0.2)" }}>
+          <div style={{ fontSize:"16px", color:"#A07B15", fontWeight:"800", marginBottom:"8px", letterSpacing:"1.5px", textTransform:"uppercase" }}>Price Breakdown</div>
+          <div style={{ fontSize:"14px", color:"#A07B15", fontWeight:"700", background:"rgba(212,160,23,0.1)", padding:"4px 12px", borderRadius:"6px", display:"inline-block" }}>Monthly Estimate</div>
         </div>
         <div style={{ padding:"20px 25px", overflowY:"auto", flex:1 }}>
           {breakdown.length === 0 ? (
@@ -372,7 +372,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
                 </div>
               )}
               <div style={{ display:"flex", justifyContent:"space-between", padding:"16px 0", marginTop:"10px", borderTop:"2px solid rgba(93,235,241,0.3)" }}>
-                <div style={{ color:"#8B7322", fontSize:"14px", fontWeight:"800", textTransform:"uppercase" }}>Subtotal</div>
+                <div style={{ color:"#A07B15", fontSize:"14px", fontWeight:"800", textTransform:"uppercase" }}>Subtotal</div>
                 <div style={{ color:"#1A1A2E", fontSize:"16px", fontWeight:"900" }}>${subtotal.toFixed(2)}</div>
               </div>
             </>
@@ -402,7 +402,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
   const renderStep1 = () => (
     <div className="fade-in-up">
       <div style={{ textAlign:"center", marginBottom:"40px" }}>
-        <div style={{ width:"90px", height:"90px", background:"linear-gradient(135deg,#8B7322,#C9A227,#D4AF37)", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 24px", boxShadow:"0 20px 50px rgba(184,115,51,0.25)", border:"4px solid rgba(255,255,255,0.9)", fontSize:"44px" }}>🏢</div>
+        <div style={{ width:"90px", height:"90px", background:"linear-gradient(135deg,#A07B15,#D4A017,#F0C040)", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 24px", boxShadow:"0 20px 50px rgba(212,160,23,0.25)", border:"4px solid rgba(255,255,255,0.9)", fontSize:"44px" }}>🏢</div>
         <h2 style={{ fontSize:"28px", fontWeight:"900", color:"#1A2535", margin:"0 0 12px", letterSpacing:"-0.5px" }}>What type of office?</h2>
         <p style={{ color:"#666", fontSize:"16px", fontWeight:"500", margin:0 }}>Select the option that best describes your space</p>
       </div>
@@ -410,7 +410,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         {OFFICE_TYPES.map(ot => (
           <div key={ot.value} onClick={() => setOfficeType(ot.value)} style={{
             padding:"20px 16px", borderRadius:"16px", cursor:"pointer", transition:"all 0.2s ease",
-            border: officeType===ot.value ? "2px solid #0891B2" : "2px solid rgba(184,115,51,0.2)",
+            border: officeType===ot.value ? "2px solid #0891B2" : "2px solid rgba(212,160,23,0.2)",
             background: officeType===ot.value ? "linear-gradient(135deg,rgba(8,145,178,0.12),rgba(6,182,212,0.06))" : "rgba(255,255,255,0.7)",
             boxShadow: officeType===ot.value ? "0 0 18px rgba(6,182,212,0.3)" : "0 2px 8px rgba(0,0,0,0.04)",
           }}>
@@ -420,10 +420,10 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         ))}
       </div>
       <div style={{ display:"flex", gap:"15px" }}>
-        <button onClick={goBack} style={{ flex:1, padding:"18px", borderRadius:"16px", border:"2px solid rgba(184,115,51,0.3)", background:"white", color:"#8B7322", fontSize:"15px", fontWeight:"800", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
+        <button onClick={goBack} style={{ flex:1, padding:"18px", borderRadius:"16px", border:"2px solid rgba(212,160,23,0.3)", background:"white", color:"#A07B15", fontSize:"15px", fontWeight:"800", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
           <ChevronLeft size={20}/> Back
         </button>
-        <button onClick={goNext} disabled={!officeType} style={{ flex:2, padding:"18px", borderRadius:"16px", border:"none", background:officeType?"linear-gradient(135deg,#C9A227,#D4AF37)":"rgba(201,162,39,0.15)", fontSize:"15px", fontWeight:"800", cursor:officeType?"pointer":"not-allowed", color:officeType?"white":"#9A8030", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
+        <button onClick={goNext} disabled={!officeType} style={{ flex:2, padding:"18px", borderRadius:"16px", border:"none", background:officeType?"linear-gradient(135deg,#D4A017,#F0C040)":"rgba(212,160,23,0.15)", fontSize:"15px", fontWeight:"800", cursor:officeType?"pointer":"not-allowed", color:officeType?"white":"#9A8030", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
           Continue <ChevronRight size={20}/>
         </button>
       </div>
@@ -436,13 +436,13 @@ export default function OfficeForm({ sharedInfo, onBack }) {
 
       {/* Square Footage */}
       <div style={{ marginBottom:"30px" }}>
-        <label style={{ display:"flex", alignItems:"center", justifyContent:"space-between", fontSize:"14px", fontWeight:"800", color:"#8B7322", marginBottom:"20px", letterSpacing:"1px", textTransform:"uppercase" }}>
-          <div style={{ display:"flex", alignItems:"center", gap:"8px" }}><Building2 size={18} color="#8B7322"/>Total Square Footage *</div>
+        <label style={{ display:"flex", alignItems:"center", justifyContent:"space-between", fontSize:"14px", fontWeight:"800", color:"#A07B15", marginBottom:"20px", letterSpacing:"1px", textTransform:"uppercase" }}>
+          <div style={{ display:"flex", alignItems:"center", gap:"8px" }}><Building2 size={18} color="#A07B15"/>Total Square Footage *</div>
           <div style={{ fontSize:"24px", fontWeight:"900", color:"#1A2535" }}>{sqft.toLocaleString()} sqft</div>
         </label>
 
         {/* Running total box */}
-        <div style={{ padding:"12px 16px", borderRadius:"12px", background:"linear-gradient(135deg,rgba(184,115,51,0.06),rgba(212,149,90,0.1))", border:"1px solid rgba(184,115,51,0.2)", marginBottom:"20px", textAlign:"center" }}>
+        <div style={{ padding:"12px 16px", borderRadius:"12px", background:"linear-gradient(135deg,rgba(212,160,23,0.06),rgba(240,192,64,0.1))", border:"1px solid rgba(212,160,23,0.2)", marginBottom:"20px", textAlign:"center" }}>
           <div style={{ fontSize:"14px", color:"#555", fontWeight:"600", marginBottom:"4px" }}>Base Monthly Cost</div>
           {frequency && sqft ? (() => {
             const v    = VISITS[frequency] || 8;
@@ -454,14 +454,14 @@ export default function OfficeForm({ sharedInfo, onBack }) {
             return (
               <>
                 {frequency !== "2x-week" && <div style={{ fontSize:"18px", fontWeight:"700", color:"rgba(100,100,100,0.4)", textDecoration:"line-through", marginBottom:"4px" }}>${full.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}</div>}
-                <div style={{ fontSize:"28px", fontWeight:"900", color:disc?"#059669":prem?"#d97706":"#8B7322" }}>${adjBaseCost.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
-                <div style={{ fontSize:"13px", color:disc?"#059669":prem?"#d97706":"#8B7322", marginTop:"6px", fontWeight:"800" }}>{lbl} • Monthly Total</div>
+                <div style={{ fontSize:"28px", fontWeight:"900", color:disc?"#059669":prem?"#d97706":"#A07B15" }}>${adjBaseCost.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
+                <div style={{ fontSize:"13px", color:disc?"#059669":prem?"#d97706":"#A07B15", marginTop:"6px", fontWeight:"800" }}>{lbl} • Monthly Total</div>
               </>
             );
           })() : (
             <>
-              <div style={{ fontSize:"28px", fontWeight:"900", color:"#8B7322" }}>${baseCost.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
-              <div style={{ fontSize:"12px", color:"#8B7322", marginTop:"6px", fontWeight:"700", background:"rgba(184,115,51,0.12)", padding:"4px 8px", borderRadius:"6px", display:"inline-block" }}>2x/week base rate — select frequency below</div>
+              <div style={{ fontSize:"28px", fontWeight:"900", color:"#A07B15" }}>${baseCost.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
+              <div style={{ fontSize:"12px", color:"#A07B15", marginTop:"6px", fontWeight:"700", background:"rgba(212,160,23,0.12)", padding:"4px 8px", borderRadius:"6px", display:"inline-block" }}>2x/week base rate — select frequency below</div>
             </>
           )}
         </div>
@@ -469,25 +469,25 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         {/* Slider */}
         <input type="range" min="500" max="50000" step="100" value={squareFeet||500} onChange={e=>setSquareFeet(e.target.value)}
           style={{ width:"100%", height:"8px", borderRadius:"4px", outline:"none", cursor:"pointer", WebkitAppearance:"none", appearance:"none", marginBottom:"16px",
-            background:`linear-gradient(to right, #C9A227 0%, #C9A227 ${((parseInt(squareFeet||500)-500)/(50000-500))*100}%, rgba(184,115,51,0.15) ${((parseInt(squareFeet||500)-500)/(50000-500))*100}%, rgba(184,115,51,0.15) 100%)` }}/>
-        <style>{`input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#8B7322,#C9A227,#D4AF37);cursor:pointer;border:3px solid white;box-shadow:0 4px 12px rgba(143,170,184,0.5);}input[type="range"]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#8B7322,#C9A227,#D4AF37);cursor:pointer;border:3px solid white;}`}</style>
+            background:`linear-gradient(to right, #D4A017 0%, #D4A017 ${((parseInt(squareFeet||500)-500)/(50000-500))*100}%, rgba(212,160,23,0.15) ${((parseInt(squareFeet||500)-500)/(50000-500))*100}%, rgba(212,160,23,0.15) 100%)` }}/>
+        <style>{`input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#A07B15,#D4A017,#F0C040);cursor:pointer;border:3px solid white;box-shadow:0 4px 12px rgba(143,170,184,0.5);}input[type="range"]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#A07B15,#D4A017,#F0C040);cursor:pointer;border:3px solid white;}`}</style>
 
         {/* Manual input */}
         <div style={{ position:"relative" }}>
           <input type="number" min="500" max="50000" value={squareFeet||""} onChange={e=>setSquareFeet(e.target.value)} onBlur={e=>{const v=parseInt(e.target.value)||0;if(v<500)setSquareFeet("500");else if(v>50000)setSquareFeet("50000");}} placeholder="Enter square feet..."
             style={{ ...inputSt, paddingRight:"55px", fontSize:"17px", fontWeight:"700" }}/>
-          <div style={{ position:"absolute", right:"20px", top:"50%", transform:"translateY(-50%)", color:"#8B7322", fontSize:"14px", fontWeight:"700", pointerEvents:"none" }}>sqft</div>
+          <div style={{ position:"absolute", right:"20px", top:"50%", transform:"translateY(-50%)", color:"#A07B15", fontSize:"14px", fontWeight:"700", pointerEvents:"none" }}>sqft</div>
         </div>
       </div>
 
       {/* Cleaning Frequency */}
-      <div style={{ marginBottom:"24px", background:"linear-gradient(135deg,rgba(184,115,51,0.05),rgba(212,149,90,0.04))", borderRadius:"16px", padding:"20px", border:"1px solid rgba(184,115,51,0.2)" }}>
-        <label style={{ ...labelSt, marginBottom:"12px", color:"#8B7322" }}>📅 Cleaning Frequency *</label>
+      <div style={{ marginBottom:"24px", background:"linear-gradient(135deg,rgba(212,160,23,0.05),rgba(240,192,64,0.04))", borderRadius:"16px", padding:"20px", border:"1px solid rgba(212,160,23,0.2)" }}>
+        <label style={{ ...labelSt, marginBottom:"12px", color:"#A07B15" }}>📅 Cleaning Frequency *</label>
         <div style={{ display:"grid", gridTemplateColumns:"280px 1fr", gap:"16px", alignItems:"start" }}>
           {/* Cards */}
           <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:"10px" }}>
             <div onClick={()=>setFrequency("daily")} style={{ gridColumn:"1/-1", padding:"14px 12px", borderRadius:"10px", cursor:"pointer", transition:"all 0.2s ease", textAlign:"center",
-              border:frequency==="daily"?"2px solid #0891B2":"2px solid rgba(184,115,51,0.2)",
+              border:frequency==="daily"?"2px solid #0891B2":"2px solid rgba(212,160,23,0.2)",
               background:frequency==="daily"?"linear-gradient(135deg,rgba(8,145,178,0.12),rgba(6,182,212,0.06))":"rgba(255,255,255,0.7)",
               boxShadow:frequency==="daily"?"0 0 18px rgba(6,182,212,0.35)":"0 2px 6px rgba(0,0,0,0.04)" }}>
               <div style={{ fontSize:"15px", fontWeight:"800", color:frequency==="daily"?"#0891B2":"#2D3748", marginBottom:"3px" }}>Daily</div>
@@ -502,7 +502,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
               {value:"monthly",  label:"Monthly",  disc:"+20%"},
             ].map(o=>(
               <div key={o.value} onClick={()=>setFrequency(o.value)} style={{ padding:"14px 10px", borderRadius:"10px", cursor:"pointer", transition:"all 0.2s ease", textAlign:"center",
-                border:frequency===o.value?"2px solid #0891B2":"2px solid rgba(184,115,51,0.2)",
+                border:frequency===o.value?"2px solid #0891B2":"2px solid rgba(212,160,23,0.2)",
                 background:frequency===o.value?"linear-gradient(135deg,rgba(8,145,178,0.12),rgba(6,182,212,0.06))":"rgba(255,255,255,0.7)",
                 boxShadow:frequency===o.value?"0 0 18px rgba(6,182,212,0.35)":"0 2px 6px rgba(0,0,0,0.04)" }}>
                 <div style={{ fontSize:"14px", fontWeight:"800", color:frequency===o.value?"#0891B2":"#2D3748", marginBottom:"3px" }}>{o.label}</div>
@@ -521,7 +521,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
                 <div style={{ fontSize:"11px", color:"#888", fontWeight:"700", marginBottom:"6px", letterSpacing:"0.5px" }}>PRICE PER VISIT</div>
                 <div style={{ display:"flex", alignItems:"baseline", gap:"8px", marginBottom:"12px" }}>
                   {(disc||prem) && <div style={{ fontSize:"16px", color:"rgba(100,100,100,0.4)", textDecoration:"line-through", fontWeight:"600" }}>${bpv.toFixed(2)}</div>}
-                  <div style={{ fontSize:"28px", fontWeight:"900", color:disc?"#059669":prem?"#d97706":"#8B7322", lineHeight:"1" }}>${ppv.toFixed(2)}</div>
+                  <div style={{ fontSize:"28px", fontWeight:"900", color:disc?"#059669":prem?"#d97706":"#A07B15", lineHeight:"1" }}>${ppv.toFixed(2)}</div>
                 </div>
                 {disc && <div style={{ padding:"8px 14px", borderRadius:"8px", background:"linear-gradient(135deg,#10b981,#059669)", display:"inline-block" }}>
                   <div style={{ fontSize:"10px", color:"rgba(255,255,255,0.9)", fontWeight:"600", marginBottom:"2px" }}>YOU SAVE</div>
@@ -534,15 +534,15 @@ export default function OfficeForm({ sharedInfo, onBack }) {
               </div>
             );
           })() : (
-            <div style={{ padding:"16px 20px", borderRadius:"12px", background:"rgba(184,115,51,0.04)", border:"2px dashed rgba(184,115,51,0.2)", textAlign:"center", color:"rgba(100,100,100,0.6)", fontSize:"13px", fontStyle:"italic" }}>Select frequency to see price per visit</div>
+            <div style={{ padding:"16px 20px", borderRadius:"12px", background:"rgba(212,160,23,0.04)", border:"2px dashed rgba(212,160,23,0.2)", textAlign:"center", color:"rgba(100,100,100,0.6)", fontSize:"13px", fontStyle:"italic" }}>Select frequency to see price per visit</div>
           )}
         </div>
         <div style={{ fontSize:"11px", color:"#7A6520", marginTop:"12px", fontStyle:"italic" }}>Base rates assume 2x per week cleaning. More frequent service receives volume discounts.</div>
       </div>
 
       {/* Workspace button */}
-      <div style={{ marginBottom:"20px", background:"linear-gradient(135deg,rgba(184,115,51,0.06),rgba(212,149,90,0.04))", border:"2px dashed rgba(184,115,51,0.35)", borderRadius:"16px", padding:"20px", display:"flex", flexDirection:"column", gap:"15px" }}>
-        <button onClick={()=>{setWsEditingIndex(null);setShowWsModal(true);}} style={{ width:"100%", padding:"24px 20px", borderRadius:"14px", border:"2px solid #5DEBF1", background:"linear-gradient(135deg,#C9A227,#D4AF37)", color:"white", cursor:"pointer", boxShadow:"0 0 28px rgba(93,235,241,0.4), 0 8px 24px rgba(184,115,51,0.4)", textAlign:"center", position:"relative", overflow:"hidden" }}>
+      <div style={{ marginBottom:"20px", background:"linear-gradient(135deg,rgba(212,160,23,0.06),rgba(240,192,64,0.04))", border:"2px dashed rgba(212,160,23,0.35)", borderRadius:"16px", padding:"20px", display:"flex", flexDirection:"column", gap:"15px" }}>
+        <button onClick={()=>{setWsEditingIndex(null);setShowWsModal(true);}} style={{ width:"100%", padding:"24px 20px", borderRadius:"14px", border:"2px solid #5DEBF1", background:"linear-gradient(135deg,#D4A017,#F0C040)", color:"white", cursor:"pointer", boxShadow:"0 0 28px rgba(93,235,241,0.4), 0 8px 24px rgba(212,160,23,0.4)", textAlign:"center", position:"relative", overflow:"hidden" }}>
           <div style={{ position:"absolute", top:0, left:"-75%", width:"50%", height:"100%", background:"linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent)", transform:"skewX(-20deg)", pointerEvents:"none" }}/>
           <div style={{ fontSize:"22px", fontWeight:"900", letterSpacing:"0.5px", textTransform:"uppercase", textShadow:"0 2px 8px rgba(0,0,0,0.3)" }}>💼 Configure Workspaces</div>
           <div style={{ fontSize:"13px", fontWeight:"700", marginTop:"7px", color:"rgba(255,255,255,0.92)", letterSpacing:"0.8px", textTransform:"uppercase", borderTop:"1px solid rgba(255,255,255,0.25)", paddingTop:"8px" }}>✦ Tell us your offices, cubicles & desks ✦</div>
@@ -550,13 +550,13 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         {workspaceConfigs.length > 0 && (
           <div style={{ display:"flex", flexDirection:"column", gap:"8px" }}>
             {workspaceConfigs.map((cfg, i) => (
-              <div key={i} style={{ background:"rgba(255,255,255,0.8)", borderRadius:"10px", padding:"12px 15px", display:"flex", justifyContent:"space-between", alignItems:"center", border:"1px solid rgba(184,115,51,0.15)" }}>
+              <div key={i} style={{ background:"rgba(255,255,255,0.8)", borderRadius:"10px", padding:"12px 15px", display:"flex", justifyContent:"space-between", alignItems:"center", border:"1px solid rgba(212,160,23,0.15)" }}>
                 <div style={{ flex:1 }}>
                   <div style={{ fontSize:"13px", fontWeight:"700", color:"#1A1A2E", marginBottom:"3px" }}>{getWsLabel(cfg)} × {cfg.quantity}</div>
                   <div style={{ fontSize:"11px", color:"#888", fontWeight:"600" }}>{cfg.flooring==="hard"?"Hard Surface":cfg.flooring==="low-carpet"?"Low-pile Carpet":"High-pile Carpet"}{cfg.specialFeatures?.trashRemoval&&" • Trash removal"}</div>
                 </div>
                 <div style={{ display:"flex", gap:"8px" }}>
-                  <button onClick={()=>editWorkspace(i)} style={{ padding:"6px 12px", borderRadius:"6px", border:"none", background:"rgba(184,115,51,0.2)", color:"#D4AF37", fontSize:"11px", fontWeight:"700", cursor:"pointer" }}>Edit</button>
+                  <button onClick={()=>editWorkspace(i)} style={{ padding:"6px 12px", borderRadius:"6px", border:"none", background:"rgba(212,160,23,0.2)", color:"#F0C040", fontSize:"11px", fontWeight:"700", cursor:"pointer" }}>Edit</button>
                   <button onClick={()=>setWorkspaceConfigs(workspaceConfigs.filter((_,idx)=>idx!==i))} style={{ padding:"6px 12px", borderRadius:"6px", border:"none", background:"rgba(239,68,68,0.2)", color:"#ef4444", fontSize:"11px", fontWeight:"700", cursor:"pointer" }}>×</button>
                 </div>
               </div>
@@ -575,10 +575,10 @@ export default function OfficeForm({ sharedInfo, onBack }) {
           {label:"🖥️ Server/IT Rooms",  desc:"Data & IT closets",          price:"$30/clean", val:serverRooms,     set:setServerRooms,     freq:serverFreq,  setFreq:setServerFreq},
           {label:"📦 Storage/Archive",  desc:"File & storage rooms",       price:"$20/clean", val:storageRooms,    set:setStorageRooms,    freq:storageFreq, setFreq:setStorageFreq},
         ].map(f=>(
-          <div key={f.label} style={{ background:"linear-gradient(135deg,rgba(255,255,255,0.9),rgba(248,245,240,0.95))", border:"1px solid rgba(184,115,51,0.2)", borderRadius:"16px", padding:"16px", display:"flex", flexDirection:"column", gap:"10px" }}>
+          <div key={f.label} style={{ background:"linear-gradient(135deg,rgba(255,255,255,0.9),rgba(248,245,240,0.95))", border:"1px solid rgba(212,160,23,0.2)", borderRadius:"16px", padding:"16px", display:"flex", flexDirection:"column", gap:"10px" }}>
             <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between" }}>
               <div>
-                <div style={{ fontSize:"14px", fontWeight:"800", color:"#C9A227", marginBottom:"2px" }}>{f.label}</div>
+                <div style={{ fontSize:"14px", fontWeight:"800", color:"#D4A017", marginBottom:"2px" }}>{f.label}</div>
                 <div style={{ fontSize:"11px", color:"#7A6520", fontWeight:"600" }}>{f.desc}</div>
                 <div style={{ fontSize:"11px", color:"#9A8030", fontWeight:"700" }}>{f.price}</div>
               </div>
@@ -586,7 +586,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
             </div>
             <div style={{ display:"flex", gap:"8px" }}>
               <button onClick={()=>f.set(Math.max(0,f.val-1))} style={{ flex:1, padding:"10px", borderRadius:"10px", border:"none", background:f.val>0?"rgba(239,68,68,0.12)":"rgba(230,230,230,0.6)", color:f.val>0?"#ef4444":"rgba(255,255,255,0.3)", fontSize:"18px", fontWeight:"900", cursor:f.val>0?"pointer":"not-allowed" }}>−</button>
-              <button onClick={()=>f.set(f.val+1)} style={{ flex:1, padding:"10px", borderRadius:"10px", border:"none", background:"linear-gradient(135deg,#8B7322,#C9A227,#D4AF37)", color:"white", fontSize:"18px", fontWeight:"900", cursor:"pointer" }}>+</button>
+              <button onClick={()=>f.set(f.val+1)} style={{ flex:1, padding:"10px", borderRadius:"10px", border:"none", background:"linear-gradient(135deg,#A07B15,#D4A017,#F0C040)", color:"white", fontSize:"18px", fontWeight:"900", cursor:"pointer" }}>+</button>
             </div>
             {f.val > 0 && <FreqGrid value={f.freq} onChange={f.setFreq}/>}
           </div>
@@ -594,10 +594,10 @@ export default function OfficeForm({ sharedInfo, onBack }) {
       </div>
 
       <div style={{ display:"flex", gap:"15px" }}>
-        <button onClick={goBack} style={{ flex:1, padding:"18px", borderRadius:"16px", border:"2px solid rgba(184,115,51,0.3)", background:"white", color:"#8B7322", fontSize:"15px", fontWeight:"800", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
+        <button onClick={goBack} style={{ flex:1, padding:"18px", borderRadius:"16px", border:"2px solid rgba(212,160,23,0.3)", background:"white", color:"#A07B15", fontSize:"15px", fontWeight:"800", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
           <ChevronLeft size={20}/> Back
         </button>
-        <button onClick={goNext} disabled={!squareFeet||!frequency} style={{ flex:2, padding:"18px", borderRadius:"16px", border:"none", background:(squareFeet&&frequency)?"linear-gradient(135deg,#C9A227,#D4AF37)":"rgba(201,162,39,0.15)", fontSize:"15px", fontWeight:"800", cursor:(squareFeet&&frequency)?"pointer":"not-allowed", color:(squareFeet&&frequency)?"white":"#9A8030", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
+        <button onClick={goNext} disabled={!squareFeet||!frequency} style={{ flex:2, padding:"18px", borderRadius:"16px", border:"none", background:(squareFeet&&frequency)?"linear-gradient(135deg,#D4A017,#F0C040)":"rgba(212,160,23,0.15)", fontSize:"15px", fontWeight:"800", cursor:(squareFeet&&frequency)?"pointer":"not-allowed", color:(squareFeet&&frequency)?"white":"#9A8030", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
           Continue <ChevronRight size={20}/>
         </button>
       </div>
@@ -609,8 +609,8 @@ export default function OfficeForm({ sharedInfo, onBack }) {
     <div className="fade-in-up">
       {/* Add-ons */}
       <div style={{ marginBottom:"30px" }}>
-        <label style={{ display:"flex", alignItems:"center", fontSize:"14px", fontWeight:"800", color:"#8B7322", marginBottom:"15px", gap:"8px", letterSpacing:"1px", textTransform:"uppercase" }}>
-          <CheckCircle2 size={18} color="#C9A227"/>Additional Services (Optional)
+        <label style={{ display:"flex", alignItems:"center", fontSize:"14px", fontWeight:"800", color:"#A07B15", marginBottom:"15px", gap:"8px", letterSpacing:"1px", textTransform:"uppercase" }}>
+          <CheckCircle2 size={18} color="#D4A017"/>Additional Services (Optional)
         </label>
         <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:"12px" }}>
           {[
@@ -622,15 +622,15 @@ export default function OfficeForm({ sharedInfo, onBack }) {
             {key:"disinfection",     label:"Disinfection",         price:"$0.15/sqft"},
           ].map(a=>(
             <div key={a.key} onClick={()=>setAddOns({...addOns,[a.key]:!addOns[a.key]})} style={{ padding:"18px 16px", borderRadius:"16px", cursor:"pointer", transition:"all 0.3s ease", display:"flex", alignItems:"flex-start", gap:"10px",
-              border:addOns[a.key]?"2px solid #C9A227":"2px solid rgba(201,162,39,0.3)",
-              background:addOns[a.key]?"linear-gradient(135deg,#C9A227,#D4AF37)":"rgba(255,255,255,0.85)",
-              boxShadow:addOns[a.key]?"0 4px 16px rgba(201,162,39,0.3)":"0 2px 6px rgba(0,0,0,0.04)" }}>
-              <div style={{ width:"20px", height:"20px", borderRadius:"6px", border:addOns[a.key]?"none":"2px solid rgba(201,162,39,0.4)", background:addOns[a.key]?"linear-gradient(135deg,#10b981,#059669)":"rgba(255,255,255,0.5)", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, marginTop:"2px" }}>
+              border:addOns[a.key]?"2px solid #D4A017":"2px solid rgba(212,160,23,0.3)",
+              background:addOns[a.key]?"linear-gradient(135deg,#D4A017,#F0C040)":"rgba(255,255,255,0.85)",
+              boxShadow:addOns[a.key]?"0 4px 16px rgba(212,160,23,0.3)":"0 2px 6px rgba(0,0,0,0.04)" }}>
+              <div style={{ width:"20px", height:"20px", borderRadius:"6px", border:addOns[a.key]?"none":"2px solid rgba(212,160,23,0.4)", background:addOns[a.key]?"linear-gradient(135deg,#10b981,#059669)":"rgba(255,255,255,0.5)", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, marginTop:"2px" }}>
                 {addOns[a.key]&&<CheckCircle2 size={14} color="white"/>}
               </div>
               <div>
                 <div style={{ fontSize:"14px", fontWeight:"800", marginBottom:"3px", color:addOns[a.key]?"white":"#1A1A2E" }}>{a.label}</div>
-                <div style={{ fontSize:"11px", color:addOns[a.key]?"rgba(255,255,255,0.85)":"#8B7322", fontWeight:"700" }}>{a.price}</div>
+                <div style={{ fontSize:"11px", color:addOns[a.key]?"rgba(255,255,255,0.85)":"#A07B15", fontWeight:"700" }}>{a.price}</div>
               </div>
             </div>
           ))}
@@ -639,33 +639,33 @@ export default function OfficeForm({ sharedInfo, onBack }) {
 
       {/* Preferred Days */}
       <div style={{ marginBottom:"30px" }}>
-        <label style={{ display:"flex", alignItems:"center", fontSize:"14px", fontWeight:"800", color:"#8B7322", marginBottom:"15px", gap:"8px", letterSpacing:"1px", textTransform:"uppercase" }}>
-          <Calendar size={18} color="#8B7322"/>Preferred Days (Optional)
+        <label style={{ display:"flex", alignItems:"center", fontSize:"14px", fontWeight:"800", color:"#A07B15", marginBottom:"15px", gap:"8px", letterSpacing:"1px", textTransform:"uppercase" }}>
+          <Calendar size={18} color="#A07B15"/>Preferred Days (Optional)
         </label>
         <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"10px" }}>
           {["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map(d=>(
             <div key={d} onClick={()=>setPreferredDays(preferredDays.includes(d)?preferredDays.filter(x=>x!==d):[...preferredDays,d])}
               style={{ padding:"14px 10px", borderRadius:"12px", cursor:"pointer", textAlign:"center", fontSize:"14px", fontWeight:"800", transition:"all 0.3s ease",
-                border:preferredDays.includes(d)?"2px solid #C9A227":"2px solid rgba(201,162,39,0.3)",
-                background:preferredDays.includes(d)?"linear-gradient(135deg,#C9A227,#D4AF37)":"rgba(255,255,255,0.85)",
+                border:preferredDays.includes(d)?"2px solid #D4A017":"2px solid rgba(212,160,23,0.3)",
+                background:preferredDays.includes(d)?"linear-gradient(135deg,#D4A017,#F0C040)":"rgba(255,255,255,0.85)",
                 color:preferredDays.includes(d)?"white":"#1A1A2E",
-                boxShadow:preferredDays.includes(d)?"0 4px 14px rgba(201,162,39,0.35)":"0 2px 6px rgba(0,0,0,0.04)" }}>{d}</div>
+                boxShadow:preferredDays.includes(d)?"0 4px 14px rgba(212,160,23,0.35)":"0 2px 6px rgba(0,0,0,0.04)" }}>{d}</div>
           ))}
         </div>
       </div>
 
       {/* Preferred Time */}
       <div style={{ marginBottom:"30px" }}>
-        <label style={{ display:"flex", alignItems:"center", fontSize:"14px", fontWeight:"800", color:"#8B7322", marginBottom:"15px", gap:"8px", letterSpacing:"1px", textTransform:"uppercase" }}>
-          <Clock size={18} color="#8B7322"/>Preferred Time (Optional)
+        <label style={{ display:"flex", alignItems:"center", fontSize:"14px", fontWeight:"800", color:"#A07B15", marginBottom:"15px", gap:"8px", letterSpacing:"1px", textTransform:"uppercase" }}>
+          <Clock size={18} color="#A07B15"/>Preferred Time (Optional)
         </label>
         <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:"10px" }}>
           {["Morning (6-10am)","Mid-Day (10am-2pm)","Afternoon (2-6pm)","Evening (6-10pm)","Overnight (10pm-6am)"].map(t=>(
             <div key={t} onClick={()=>setPreferredTime(t)} style={{ padding:"14px 12px", borderRadius:"12px", cursor:"pointer", fontSize:"12px", fontWeight:"800", textAlign:"center", transition:"all 0.3s ease",
-              border:preferredTime===t?"2px solid #C9A227":"2px solid rgba(201,162,39,0.3)",
-              background:preferredTime===t?"linear-gradient(135deg,#C9A227,#D4AF37)":"rgba(255,255,255,0.85)",
+              border:preferredTime===t?"2px solid #D4A017":"2px solid rgba(212,160,23,0.3)",
+              background:preferredTime===t?"linear-gradient(135deg,#D4A017,#F0C040)":"rgba(255,255,255,0.85)",
               color:preferredTime===t?"white":"#1A1A2E",
-              boxShadow:preferredTime===t?"0 4px 14px rgba(201,162,39,0.35)":"0 2px 6px rgba(0,0,0,0.04)" }}>{t}</div>
+              boxShadow:preferredTime===t?"0 4px 14px rgba(212,160,23,0.35)":"0 2px 6px rgba(0,0,0,0.04)" }}>{t}</div>
           ))}
         </div>
       </div>
@@ -678,16 +678,16 @@ export default function OfficeForm({ sharedInfo, onBack }) {
       </div>
 
       {/* Terms */}
-      <div style={{ padding:"20px", borderRadius:"16px", background:"rgba(184,115,51,0.06)", border:"1px solid rgba(184,115,51,0.2)", marginBottom:"30px" }}>
+      <div style={{ padding:"20px", borderRadius:"16px", background:"rgba(212,160,23,0.06)", border:"1px solid rgba(212,160,23,0.2)", marginBottom:"30px" }}>
         <p style={{ fontSize:"12px", color:"#555", fontWeight:"600", lineHeight:"1.6", margin:0 }}>
           By submitting this request, you agree to our{" "}
-          <a href="https://img1.wsimg.com/blobby/go/a218c663-7c40-48f5-aae1-0c7e30c1037f/downloads/Terms%20and%20Conditions.pdf?ver=1721081910935" target="_blank" rel="noopener noreferrer" style={{ color:"#D4AF37", textDecoration:"underline", fontWeight:"700" }}>Terms & Conditions</a>.{" "}
+          <a href="https://img1.wsimg.com/blobby/go/a218c663-7c40-48f5-aae1-0c7e30c1037f/downloads/Terms%20and%20Conditions.pdf?ver=1721081910935" target="_blank" rel="noopener noreferrer" style={{ color:"#F0C040", textDecoration:"underline", fontWeight:"700" }}>Terms & Conditions</a>.{" "}
           Our team will review your request and contact you within 24 hours to confirm details and schedule service.
         </p>
       </div>
 
       <div style={{ display:"flex", gap:"15px" }}>
-        <button onClick={goBack} style={{ flex:1, padding:"18px", borderRadius:"16px", border:"2px solid rgba(184,115,51,0.3)", background:"white", color:"#8B7322", fontSize:"15px", fontWeight:"800", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
+        <button onClick={goBack} style={{ flex:1, padding:"18px", borderRadius:"16px", border:"2px solid rgba(212,160,23,0.3)", background:"white", color:"#A07B15", fontSize:"15px", fontWeight:"800", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
           <ChevronLeft size={20}/> Back
         </button>
         <button onClick={handleSubmit} style={{ flex:2, padding:"18px", borderRadius:"16px", border:"none", background:"linear-gradient(135deg,#10b981,#059669)", color:"white", fontSize:"15px", fontWeight:"800", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
@@ -700,7 +700,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
   // ── Workspace Modal ───────────────────────────────────────────────────────
   const renderWsModal = () => (
     <div style={{ position:"fixed", top:0, left:0, right:0, bottom:0, background:"rgba(0,0,0,0.85)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:9999, padding:"20px", overflowY:"auto" }}>
-      <div style={{ background:"linear-gradient(135deg,#FFFFFF,#F5F0EB)", borderRadius:"24px", padding:"40px 35px", maxWidth:"700px", width:"100%", maxHeight:"90vh", overflowY:"auto", border:"1px solid rgba(184,115,51,0.25)", boxShadow:"0 30px 80px rgba(0,0,0,0.15)" }}>
+      <div style={{ background:"linear-gradient(135deg,#FFFFFF,#F5F0EB)", borderRadius:"24px", padding:"40px 35px", maxWidth:"700px", width:"100%", maxHeight:"90vh", overflowY:"auto", border:"1px solid rgba(212,160,23,0.25)", boxShadow:"0 30px 80px rgba(0,0,0,0.15)" }}>
         <h2 style={{ fontSize:"26px", fontWeight:"900", color:"#1A1A2E", minWidth:"40px", textAlign:"right", marginBottom:"8px" }}>💼 Configure Workspace</h2>
         <p style={{ fontSize:"14px", color:"#666", marginBottom:"30px", fontWeight:"600" }}>{wsEditingIndex!==null?"Update workspace configuration":"Document workspace types for cleaning crew"}</p>
 
@@ -708,7 +708,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
           <label style={labelSt}>🏢 Workspace Type *</label>
           <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:"12px" }}>
             {[{id:"executive",icon:"🏢",name:"Executive Office"},{id:"manager",icon:"💼",name:"Manager Office"},{id:"standard",icon:"📋",name:"Standard Office"},{id:"cubicle",icon:"🪑",name:"Cubicle"},{id:"open-desk",icon:"💻",name:"Open Desk"},{id:"collaborative",icon:"🤝",name:"Collaborative Workspace"}].map(t=>(
-              <button key={t.id} onClick={()=>setWsType(t.id)} style={{ padding:"16px 14px", borderRadius:"12px", border:wsType===t.id?"2px solid #C9A227":"2px solid rgba(201,162,39,0.25)", background:wsType===t.id?"linear-gradient(135deg,rgba(201,162,39,0.15),rgba(212,175,55,0.08))":"rgba(255,255,255,0.8)", color:wsType===t.id?"#5C4A1E":"#2D3748", cursor:"pointer", textAlign:"left" }}>
+              <button key={t.id} onClick={()=>setWsType(t.id)} style={{ padding:"16px 14px", borderRadius:"12px", border:wsType===t.id?"2px solid #D4A017":"2px solid rgba(212,160,23,0.25)", background:wsType===t.id?"linear-gradient(135deg,rgba(212,160,23,0.15),rgba(212,175,55,0.08))":"rgba(255,255,255,0.8)", color:wsType===t.id?"#5C4A1E":"#2D3748", cursor:"pointer", textAlign:"left" }}>
                 <div style={{ fontSize:"22px", marginBottom:"4px" }}>{t.icon}</div>
                 <div style={{ fontSize:"13px", fontWeight:"800" }}>{t.name}</div>
               </button>
@@ -721,7 +721,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
             <label style={labelSt}>📏 Square Footage Range *</label>
             <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:"10px" }}>
               {[{value:"100-150",label:"100-150 sqft"},{value:"150-200",label:"150-200 sqft"},{value:"200-300",label:"200-300 sqft"},{value:"300-500",label:"300-500 sqft"},{value:"500+",label:"500+ sqft"}].map(o=>(
-                <button key={o.value} onClick={()=>setWsSqftRange(o.value)} style={{ padding:"12px", borderRadius:"10px", border:wsSqftRange===o.value?"2px solid #C9A227":"2px solid rgba(201,162,39,0.25)", background:wsSqftRange===o.value?"linear-gradient(135deg,rgba(201,162,39,0.15),rgba(212,175,55,0.08))":"rgba(255,255,255,0.8)", color:wsSqftRange===o.value?"#5C4A1E":"#2D3748", fontSize:"13px", fontWeight:"800", cursor:"pointer" }}>{o.label}</button>
+                <button key={o.value} onClick={()=>setWsSqftRange(o.value)} style={{ padding:"12px", borderRadius:"10px", border:wsSqftRange===o.value?"2px solid #D4A017":"2px solid rgba(212,160,23,0.25)", background:wsSqftRange===o.value?"linear-gradient(135deg,rgba(212,160,23,0.15),rgba(212,175,55,0.08))":"rgba(255,255,255,0.8)", color:wsSqftRange===o.value?"#5C4A1E":"#2D3748", fontSize:"13px", fontWeight:"800", cursor:"pointer" }}>{o.label}</button>
               ))}
             </div>
           </div>
@@ -732,7 +732,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
             <label style={labelSt}>📐 Cubicle Size *</label>
             <div style={{ display:"flex", gap:"10px" }}>
               {[{value:"standard",label:"Standard"},{value:"large",label:"Large"}].map(o=>(
-                <button key={o.value} onClick={()=>setWsSqftRange(o.value)} style={{ flex:1, padding:"12px", borderRadius:"10px", border:wsSqftRange===o.value?"2px solid #C9A227":"2px solid rgba(201,162,39,0.25)", background:wsSqftRange===o.value?"linear-gradient(135deg,rgba(201,162,39,0.15),rgba(212,175,55,0.08))":"rgba(255,255,255,0.8)", color:wsSqftRange===o.value?"#5C4A1E":"#2D3748", fontSize:"13px", fontWeight:"800", cursor:"pointer" }}>{o.label}</button>
+                <button key={o.value} onClick={()=>setWsSqftRange(o.value)} style={{ flex:1, padding:"12px", borderRadius:"10px", border:wsSqftRange===o.value?"2px solid #D4A017":"2px solid rgba(212,160,23,0.25)", background:wsSqftRange===o.value?"linear-gradient(135deg,rgba(212,160,23,0.15),rgba(212,175,55,0.08))":"rgba(255,255,255,0.8)", color:wsSqftRange===o.value?"#5C4A1E":"#2D3748", fontSize:"13px", fontWeight:"800", cursor:"pointer" }}>{o.label}</button>
               ))}
             </div>
           </div>
@@ -742,7 +742,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
           <label style={labelSt}>🏢 Flooring Type</label>
           <div style={{ display:"flex", gap:"10px" }}>
             {[{value:"hard",label:"Hard Surface"},{value:"low-carpet",label:"Low-pile Carpet"},{value:"high-carpet",label:"High-pile Carpet"}].map(o=>(
-              <button key={o.value} onClick={()=>setWsFlooring(o.value)} style={{ flex:1, padding:"12px", borderRadius:"10px", border:wsFlooring===o.value?"2px solid #C9A227":"2px solid rgba(201,162,39,0.25)", background:wsFlooring===o.value?"linear-gradient(135deg,rgba(201,162,39,0.15),rgba(212,175,55,0.08))":"rgba(255,255,255,0.8)", color:wsFlooring===o.value?"#5C4A1E":"#2D3748", fontSize:"13px", fontWeight:"800", cursor:"pointer" }}>{o.label}</button>
+              <button key={o.value} onClick={()=>setWsFlooring(o.value)} style={{ flex:1, padding:"12px", borderRadius:"10px", border:wsFlooring===o.value?"2px solid #D4A017":"2px solid rgba(212,160,23,0.25)", background:wsFlooring===o.value?"linear-gradient(135deg,rgba(212,160,23,0.15),rgba(212,175,55,0.08))":"rgba(255,255,255,0.8)", color:wsFlooring===o.value?"#5C4A1E":"#2D3748", fontSize:"13px", fontWeight:"800", cursor:"pointer" }}>{o.label}</button>
             ))}
           </div>
         </div>
@@ -751,7 +751,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
           <label style={labelSt}>⭐ Special Considerations</label>
           <div style={{ display:"flex", flexDirection:"column", gap:"10px" }}>
             {[{key:"trashRemoval",label:"Trash Removal Required",note:"+$1 per workspace"},{key:"multiMonitor",label:"Multiple Monitors/Complex Setup",note:"Note for crew"},{key:"sensitiveDocs",label:"Sensitive Documents",note:"Extra care needed"},{key:"plants",label:"Plants/Decor Items",note:"Work around them"}].map(f=>(
-              <label key={f.key} style={{ display:"flex", alignItems:"center", padding:"14px 16px", borderRadius:"10px", border:"1px solid rgba(201,162,39,0.25)", background:wsFeatures[f.key]?"linear-gradient(135deg,rgba(201,162,39,0.12),rgba(212,175,55,0.06))":"rgba(255,255,255,0.7)", cursor:"pointer" }}>
+              <label key={f.key} style={{ display:"flex", alignItems:"center", padding:"14px 16px", borderRadius:"10px", border:"1px solid rgba(212,160,23,0.25)", background:wsFeatures[f.key]?"linear-gradient(135deg,rgba(212,160,23,0.12),rgba(212,175,55,0.06))":"rgba(255,255,255,0.7)", cursor:"pointer" }}>
                 <input type="checkbox" checked={wsFeatures[f.key]} onChange={e=>setWsFeatures({...wsFeatures,[f.key]:e.target.checked})} style={{ marginRight:"12px", width:"18px", height:"18px", cursor:"pointer" }}/>
                 <div>
                   <div style={{ color:"#1A1A2E", fontSize:"13px", fontWeight:"800" }}>{f.label}</div>
@@ -764,20 +764,20 @@ export default function OfficeForm({ sharedInfo, onBack }) {
 
         <div style={{ marginBottom:"30px" }}>
           <label style={labelSt}>🔢 Quantity</label>
-          <div style={{ display:"flex", alignItems:"center", gap:"12px", background:"rgba(184,115,51,0.06)", padding:"16px", borderRadius:"12px" }}>
+          <div style={{ display:"flex", alignItems:"center", gap:"12px", background:"rgba(212,160,23,0.06)", padding:"16px", borderRadius:"12px" }}>
             <button onClick={()=>setWsQuantity(Math.max(1,wsQuantity-10))} style={{ padding:"10px 16px", borderRadius:"8px", border:"none", background:"rgba(239,68,68,0.2)", color:"#ef4444", fontSize:"14px", fontWeight:"900", cursor:"pointer" }}>-10</button>
             <button onClick={()=>setWsQuantity(Math.max(1,wsQuantity-1))}  style={{ padding:"10px 16px", borderRadius:"8px", border:"none", background:"rgba(239,68,68,0.2)", color:"#ef4444", fontSize:"16px", fontWeight:"900", cursor:"pointer" }}>-1</button>
             <div style={{ flex:1, textAlign:"center", fontSize:"28px", fontWeight:"900", color:"#1A1A2E" }}>{wsQuantity}</div>
-            <button onClick={()=>setWsQuantity(wsQuantity+1)}  style={{ padding:"10px 16px", borderRadius:"8px", border:"none", background:"linear-gradient(135deg,#C9A227,#D4AF37)", color:"white", fontSize:"16px", fontWeight:"900", cursor:"pointer" }}>+1</button>
-            <button onClick={()=>setWsQuantity(wsQuantity+10)} style={{ padding:"10px 16px", borderRadius:"8px", border:"none", background:"linear-gradient(135deg,#C9A227,#D4AF37)", color:"white", fontSize:"14px", fontWeight:"900", cursor:"pointer" }}>+10</button>
+            <button onClick={()=>setWsQuantity(wsQuantity+1)}  style={{ padding:"10px 16px", borderRadius:"8px", border:"none", background:"linear-gradient(135deg,#D4A017,#F0C040)", color:"white", fontSize:"16px", fontWeight:"900", cursor:"pointer" }}>+1</button>
+            <button onClick={()=>setWsQuantity(wsQuantity+10)} style={{ padding:"10px 16px", borderRadius:"8px", border:"none", background:"linear-gradient(135deg,#D4A017,#F0C040)", color:"white", fontSize:"14px", fontWeight:"900", cursor:"pointer" }}>+10</button>
           </div>
         </div>
 
         <div style={{ display:"flex", gap:"12px" }}>
           <button onClick={()=>{setShowWsModal(false);setWsType("");setWsSqftRange("");setWsFlooring("hard");setWsFeatures({trashRemoval:false,multiMonitor:false,sensitiveDocs:false,plants:false});setWsQuantity(1);setWsEditingIndex(null);}}
-            style={{ flex:1, padding:"16px", borderRadius:"12px", border:"2px solid rgba(184,115,51,0.3)", background:"white", color:"#8B7322", fontSize:"14px", fontWeight:"800", cursor:"pointer" }}>Cancel</button>
+            style={{ flex:1, padding:"16px", borderRadius:"12px", border:"2px solid rgba(212,160,23,0.3)", background:"white", color:"#A07B15", fontSize:"14px", fontWeight:"800", cursor:"pointer" }}>Cancel</button>
           <button onClick={saveWorkspace} disabled={!wsType||(wsType!=="open-desk"&&!wsSqftRange)}
-            style={{ flex:2, padding:"16px", borderRadius:"12px", border:"none", background:(!wsType||(wsType!=="open-desk"&&!wsSqftRange))?"rgba(201,162,39,0.15)":"linear-gradient(135deg,#C9A227,#D4AF37)", color:(!wsType||(wsType!=="open-desk"&&!wsSqftRange))?"#9A8030":"white", fontSize:"14px", fontWeight:"800", cursor:(!wsType||(wsType!=="open-desk"&&!wsSqftRange))?"not-allowed":"pointer", opacity:(!wsType||(wsType!=="open-desk"&&!wsSqftRange))?0.5:1 }}>
+            style={{ flex:2, padding:"16px", borderRadius:"12px", border:"none", background:(!wsType||(wsType!=="open-desk"&&!wsSqftRange))?"rgba(212,160,23,0.15)":"linear-gradient(135deg,#D4A017,#F0C040)", color:(!wsType||(wsType!=="open-desk"&&!wsSqftRange))?"#9A8030":"white", fontSize:"14px", fontWeight:"800", cursor:(!wsType||(wsType!=="open-desk"&&!wsSqftRange))?"not-allowed":"pointer", opacity:(!wsType||(wsType!=="open-desk"&&!wsSqftRange))?0.5:1 }}>
             {wsEditingIndex!==null?"Update Workspace":"Save Workspace"}
           </button>
         </div>
@@ -788,15 +788,15 @@ export default function OfficeForm({ sharedInfo, onBack }) {
   // ── Success Modal ─────────────────────────────────────────────────────────
   const renderSuccess = () => (
     <div style={{ position:"fixed", top:0, left:0, right:0, bottom:0, background:"rgba(0,0,0,0.8)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:9999, padding:"20px" }}>
-      <div style={{ background:"linear-gradient(135deg,#FFFFFF,#FBF6EF)", borderRadius:"32px", padding:"50px 40px", maxWidth:"500px", width:"100%", textAlign:"center", border:"1px solid rgba(184,115,51,0.25)", boxShadow:"0 30px 80px rgba(0,0,0,0.12)" }}>
-        <div style={{ width:"80px", height:"80px", borderRadius:"50%", background:"linear-gradient(135deg,#C9A227,#D4AF37)", display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 30px" }}>
+      <div style={{ background:"linear-gradient(135deg,#FFFFFF,#FBF6EF)", borderRadius:"32px", padding:"50px 40px", maxWidth:"500px", width:"100%", textAlign:"center", border:"1px solid rgba(212,160,23,0.25)", boxShadow:"0 30px 80px rgba(0,0,0,0.12)" }}>
+        <div style={{ width:"80px", height:"80px", borderRadius:"50%", background:"linear-gradient(135deg,#D4A017,#F0C040)", display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 30px" }}>
           <CheckCircle2 size={48} color="white"/>
         </div>
         <h2 style={{ fontSize:"32px", fontWeight:"900", color:"#1A1A2E", marginBottom:"15px" }}>Request Submitted!</h2>
         <p style={{ fontSize:"16px", color:"#444", fontWeight:"500", lineHeight:"1.6", marginBottom:"30px" }}>
           Thank you for choosing Cleaning Su Oficina! Our team will review your request and contact you within 24 hours to confirm details and schedule your service.
         </p>
-        <button onClick={()=>window.location.reload()} style={{ padding:"18px 40px", borderRadius:"16px", border:"none", background:"linear-gradient(135deg,#C9A227,#D4AF37)", color:"white", fontSize:"16px", fontWeight:"800", cursor:"pointer", textTransform:"uppercase", letterSpacing:"0.5px" }}>Done</button>
+        <button onClick={()=>window.location.reload()} style={{ padding:"18px 40px", borderRadius:"16px", border:"none", background:"linear-gradient(135deg,#D4A017,#F0C040)", color:"white", fontSize:"16px", fontWeight:"800", cursor:"pointer", textTransform:"uppercase", letterSpacing:"0.5px" }}>Done</button>
       </div>
     </div>
   );
@@ -809,18 +809,19 @@ export default function OfficeForm({ sharedInfo, onBack }) {
       {/* Animated background */}
       <div style={{ position:"fixed", top:0, left:0, right:0, bottom:0, overflow:"hidden", pointerEvents:"none", zIndex:0 }}>
         {/* Orbs */}
-        <div style={{ position:"absolute", width:"500px", height:"500px", borderRadius:"50%", filter:"blur(90px)", background:"rgba(201,162,39,0.18)", top:"-120px", left:"-120px" }}/>
-        <div style={{ position:"absolute", width:"380px", height:"380px", borderRadius:"50%", filter:"blur(80px)", background:"rgba(180,200,215,0.45)", bottom:"-80px", right:"-80px" }}/>
-        <div style={{ position:"absolute", width:"220px", height:"220px", borderRadius:"50%", filter:"blur(60px)", background:"rgba(201,162,39,0.2)", top:"40%", left:"60%" }}/>
+        <div style={{ position:"absolute", width:"500px", height:"500px", borderRadius:"50%", filter:"blur(90px)", background:"rgba(240,192,64,0.25)", top:"-120px", left:"-120px" }}/>
+        <div style={{ position:"absolute", width:"380px", height:"380px", borderRadius:"50%", filter:"blur(80px)", background:"rgba(212,160,23,0.15)", bottom:"-80px", right:"-80px" }}/>
+        <div style={{ position:"absolute", width:"220px", height:"220px", borderRadius:"50%", filter:"blur(60px)", background:"rgba(240,192,64,0.2)", top:"35%", left:"65%" }}/>
         {/* Rings */}
-        <svg width="560" height="560" style={{ position:"absolute", top:"-100px", left:"28%", opacity:0.65 }} viewBox="0 0 560 560">
-          <circle cx="280" cy="280" r="240" fill="none" stroke="rgba(201,162,39,0.55)" strokeWidth="1.5"/>
-          <circle cx="280" cy="280" r="190" fill="none" stroke="rgba(150,170,190,0.45)" strokeWidth="1.0"/>
-          <circle cx="280" cy="280" r="140" fill="none" stroke="rgba(201,162,39,0.35)" strokeWidth="1.0"/>
+        <svg width="560" height="560" style={{ position:"absolute", top:"-100px", left:"28%", opacity:0.8 }} viewBox="0 0 560 560">
+          <circle cx="280" cy="280" r="240" fill="none" stroke="rgba(240,192,64,0.7)" strokeWidth="1.8"/>
+          <circle cx="280" cy="280" r="190" fill="none" stroke="rgba(212,160,23,0.4)" strokeWidth="1.2"/>
+          <circle cx="280" cy="280" r="140" fill="none" stroke="rgba(240,192,64,0.5)" strokeWidth="1.2"/>
+          <circle cx="280" cy="280" r="90" fill="none" stroke="rgba(212,160,23,0.3)" strokeWidth="0.8"/>
         </svg>
-        <svg width="300" height="300" style={{ position:"absolute", bottom:"-60px", right:"4%", opacity:0.55 }} viewBox="0 0 300 300">
-          <circle cx="150" cy="150" r="125" fill="none" stroke="rgba(150,170,190,0.55)" strokeWidth="1.5"/>
-          <circle cx="150" cy="150" r="80" fill="none" stroke="rgba(201,162,39,0.4)" strokeWidth="1.0"/>
+        <svg width="300" height="300" style={{ position:"absolute", bottom:"-60px", right:"4%", opacity:0.7 }} viewBox="0 0 300 300">
+          <circle cx="150" cy="150" r="125" fill="none" stroke="rgba(212,160,23,0.55)" strokeWidth="1.8"/>
+          <circle cx="150" cy="150" r="80" fill="none" stroke="rgba(240,192,64,0.5)" strokeWidth="1.2"/>
         </svg>
         {/* Floating dots */}
         {[
@@ -830,7 +831,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
           { w:"6px", l:"33%", b:"22%", dur:"10s",del:"2s"   },
           { w:"6px", l:"82%", b:"28%", dur:"7.5s",del:"3s"  },
         ].map((d,i) => (
-          <div key={i} style={{ position:"absolute", width:d.w, height:d.w, borderRadius:"50%", background:"rgba(184,115,51,0.5)", left:d.l, bottom:d.b, animation:`floatUp ${d.dur} ${d.del} infinite ease-in-out` }}/>
+          <div key={i} style={{ position:"absolute", width:d.w, height:d.w, borderRadius:"50%", background:"rgba(212,160,23,0.5)", left:d.l, bottom:d.b, animation:`floatUp ${d.dur} ${d.del} infinite ease-in-out`, boxShadow:`0 0 ${parseInt(d.w)*3}px rgba(240,192,64,0.6)` }}/>
         ))}
       </div>
       <style>{`
@@ -839,7 +840,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         .fade-in-up { animation: fadeInUp 0.5s ease-out forwards; }
         @keyframes fadeInUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
         input::placeholder, textarea::placeholder { color: rgba(100,100,100,0.5); }
-        @keyframes floatUp { 0%,100%{transform:translateY(0);opacity:0.6} 50%{transform:translateY(-18px);opacity:1} }
+        @keyframes floatUp { 0%,100%{transform:translateY(0);opacity:0.5} 50%{transform:translateY(-22px);opacity:1} }
         @media (max-width:900px) { .of-layout { grid-template-columns:1fr !important; } .of-sidebar { display:none !important; } }
       `}</style>
 
@@ -848,20 +849,20 @@ export default function OfficeForm({ sharedInfo, onBack }) {
           {/* Form card */}
           <div style={CARD_STYLE}>
             {/* Header */}
-            <div style={{ background:"linear-gradient(160deg, #F5EDD6 0%, #FDF6E3 50%, #F5EDD6 100%)", borderBottom:"1px solid rgba(201,162,39,0.3)", padding:"30px", textAlign:"center", position:"relative", overflow:"hidden" }}>
-              <div style={{ position:"absolute", top:0, left:0, right:0, bottom:0, background:"radial-gradient(circle at 50% 50%, rgba(212,175,55,0.18) 0%, transparent 70%)", pointerEvents:"none" }}/>
+            <div style={{ background:"linear-gradient(160deg, #F5EDD6 0%, #FDF6E3 50%, #F5EDD6 100%)", borderBottom:"1px solid rgba(212,160,23,0.3)", padding:"30px", textAlign:"center", position:"relative", overflow:"hidden" }}>
+              <div style={{ position:"absolute", top:0, left:0, right:0, bottom:0, background:"radial-gradient(circle at 50% 50%, rgba(240,192,64,0.25) 0%, transparent 65%)", pointerEvents:"none" }}/>
               <div style={{ position:"relative", zIndex:1 }}>
                 <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:"8px" }}>
-                  <div style={{ fontFamily:"'Oswald', sans-serif", fontSize:"42px", fontWeight:"300", letterSpacing:"8px", color:"#1A1A2E" }}>CLEANING</div>
-                  <div style={{ fontFamily:"'Allura', cursive", fontSize:"46px", color:"#C9A227", letterSpacing:"3px", marginTop:"-8px" }}>Su Oficina</div>
+                  <div style={{ fontFamily:"'Oswald', sans-serif", fontSize:"42px", fontWeight:"300", letterSpacing:"8px", color:"#1A1A2E", textShadow:"0 0 40px rgba(240,192,64,0.5), 0 0 80px rgba(240,192,64,0.2)" }}>CLEANING</div>
+                  <div style={{ fontFamily:"'Allura', cursive", fontSize:"46px", color:"#F0C040", letterSpacing:"3px", marginTop:"-8px", textShadow:"0 0 30px rgba(240,192,64,0.6), 0 2px 8px rgba(0,0,0,0.08)" }}>Su Oficina</div>
                 </div>
-                <div style={{ height:"2px", width:"60px", background:"linear-gradient(90deg,transparent,#C9A227,transparent)", margin:"14px auto 10px" }}/>
+                <div style={{ height:"2px", width:"80px", background:"linear-gradient(90deg,transparent,#F0C040,transparent)", margin:"14px auto 10px", boxShadow:"0 0 10px rgba(240,192,64,0.5)" }}/>
                 <div style={{ color:"#5C4A1E", fontSize:"13px", fontWeight:"700", letterSpacing:"2px", textTransform:"uppercase" }}>🏢 Office Cleaning Quote</div>
               </div>
             </div>
             {/* Progress */}
-            <div style={{ height:"6px", background:"rgba(184,115,51,0.15)" }}>
-              <div style={{ height:"100%", background:"linear-gradient(90deg,#8B7322,#C9A227,#D4AF37)", width:pct, transition:"width 0.5s cubic-bezier(0.4,0,0.2,1)", boxShadow:"0 0 15px rgba(184,115,51,0.6)" }}/>
+            <div style={{ height:"6px", background:"rgba(212,160,23,0.15)" }}>
+              <div style={{ height:"100%", background:"linear-gradient(90deg,#A07B15,#D4A017,#F0C040)", width:pct, transition:"width 0.5s cubic-bezier(0.4,0,0.2,1)", boxShadow:"0 0 15px rgba(212,160,23,0.6)" }}/>
             </div>
             <div style={{ padding:"50px 40px", background:"transparent" }}>
               {step===1 && renderStep1()}
