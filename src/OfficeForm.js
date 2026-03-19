@@ -454,8 +454,8 @@ export default function OfficeForm({ sharedInfo, onBack }) {
             return (
               <>
                 {frequency !== "2x-week" && <div style={{ fontSize:"18px", fontWeight:"700", color:"rgba(100,100,100,0.4)", textDecoration:"line-through", marginBottom:"4px" }}>${full.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}</div>}
-                <div style={{ fontSize:"28px", fontWeight:"900", color:disc?"#0891B2":prem?"#d97706":"#A07B15" }}>${adjBaseCost.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
-                <div style={{ fontSize:"13px", color:disc?"#0891B2":prem?"#d97706":"#A07B15", marginTop:"6px", fontWeight:"800" }}>{lbl} • Monthly Total</div>
+                <div style={{ fontSize:"28px", fontWeight:"900", color:disc?"#10b981":prem?"#d97706":"#A07B15", textShadow:disc?"0 0 10px rgba(16,185,129,0.7), 0 0 22px rgba(5,150,105,0.4)":"none" }}>${adjBaseCost.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
+                <div style={{ fontSize:"13px", color:disc?"#10b981":prem?"#d97706":"#A07B15", marginTop:"6px", fontWeight:"800", textShadow:disc?"0 0 8px rgba(16,185,129,0.6)":"none" }}>{lbl} • Monthly Total</div>
               </>
             );
           })() : (
@@ -517,15 +517,15 @@ export default function OfficeForm({ sharedInfo, onBack }) {
             const bpv = baseCost / 8;
             const disc = ppv < bpv; const prem = ppv > bpv;
             return (
-              <div style={{ padding:"16px 20px", borderRadius:"12px", background:"linear-gradient(135deg,rgba(8,145,178,0.08),rgba(6,182,212,0.05))", border:"2px solid rgba(8,145,178,0.4)", boxShadow: disc ? "0 0 18px rgba(93,235,241,0.25)" : "none" }}>
+              <div style={{ padding:"16px 20px", borderRadius:"12px", background:"linear-gradient(135deg,rgba(16,185,129,0.08),rgba(5,150,105,0.06))", border:"2px solid rgba(16,185,129,0.4)", boxShadow: disc ? "0 0 20px rgba(16,185,129,0.3), 0 0 40px rgba(5,150,105,0.15)" : "none" }}>
                 <div style={{ fontSize:"11px", color:"#888", fontWeight:"700", marginBottom:"6px", letterSpacing:"0.5px" }}>PRICE PER VISIT</div>
                 <div style={{ display:"flex", alignItems:"baseline", gap:"8px", marginBottom:"12px" }}>
                   {(disc||prem) && <div style={{ fontSize:"16px", color:"rgba(100,100,100,0.4)", textDecoration:"line-through", fontWeight:"600" }}>${bpv.toFixed(2)}</div>}
-                  <div style={{ fontSize:"28px", fontWeight:"900", color:disc?"#0ABFDB":prem?"#d97706":"#A07B15", lineHeight:"1", textShadow: disc ? "0 0 12px rgba(93,235,241,0.7), 0 0 25px rgba(6,182,212,0.4)" : "none" }}>${ppv.toFixed(2)}</div>
+                  <div style={{ fontSize:"28px", fontWeight:"900", color:disc?"#10b981":prem?"#d97706":"#A07B15", lineHeight:"1", textShadow: disc ? "0 0 12px rgba(16,185,129,0.8), 0 0 28px rgba(5,150,105,0.5)" : "none" }}>${ppv.toFixed(2)}</div>
                 </div>
-                {disc && <div style={{ padding:"8px 14px", borderRadius:"8px", background:"linear-gradient(135deg,#0891B2,#06B6D4)", display:"inline-block", boxShadow:"0 0 16px rgba(93,235,241,0.5), 0 4px 12px rgba(8,145,178,0.3)" }}>
+                {disc && <div style={{ padding:"8px 14px", borderRadius:"8px", background:"linear-gradient(135deg,#10b981,#059669)", display:"inline-block", boxShadow:"0 0 18px rgba(16,185,129,0.6), 0 0 35px rgba(5,150,105,0.3), 0 4px 12px rgba(16,185,129,0.3)" }}>
                   <div style={{ fontSize:"10px", color:"rgba(255,255,255,0.9)", fontWeight:"600", marginBottom:"2px" }}>YOU SAVE</div>
-                  <div style={{ fontSize:"18px", color:"white", fontWeight:"900", textShadow:"0 0 8px rgba(255,255,255,0.6)" }}>{Math.round(((bpv-ppv)/bpv)*100)}%</div>
+                  <div style={{ fontSize:"18px", color:"white", fontWeight:"900", textShadow:"0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(16,185,129,0.5)" }}>{Math.round(((bpv-ppv)/bpv)*100)}%</div>
                 </div>}
                 {prem && <div style={{ padding:"8px 14px", borderRadius:"8px", background:"linear-gradient(135deg,#f59e0b,#d97706)", display:"inline-block" }}>
                   <div style={{ fontSize:"10px", color:"rgba(255,255,255,0.9)", fontWeight:"600", marginBottom:"2px" }}>PREMIUM</div>
