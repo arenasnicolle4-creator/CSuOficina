@@ -517,7 +517,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
             const bpv = baseCost / 8;
             const disc = ppv < bpv; const prem = ppv > bpv;
             return (
-              <div style={{ padding:"16px 20px", borderRadius:"12px", background:"linear-gradient(135deg,rgba(16,185,129,0.08),rgba(5,150,105,0.06))", border:"2px solid rgba(16,185,129,0.3)", borderRadius:"12px" }}>
+              <div style={{ padding:"16px 20px", borderRadius:"12px", background:"linear-gradient(135deg,rgba(16,185,129,0.08),rgba(5,150,105,0.06))", border:"2px solid rgba(16,185,129,0.3)" }}>
                 <div style={{ fontSize:"11px", color:"#888", fontWeight:"700", marginBottom:"6px", letterSpacing:"0.5px" }}>PRICE PER VISIT</div>
                 <div style={{ display:"flex", alignItems:"baseline", gap:"8px", marginBottom:"12px" }}>
                   {(disc||prem) && <div style={{ fontSize:"16px", color:"rgba(100,100,100,0.4)", textDecoration:"line-through", fontWeight:"600" }}>${bpv.toFixed(2)}</div>}
