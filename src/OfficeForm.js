@@ -591,7 +591,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
           {label:"🖥️ Server / IT Rooms", price:"$30 / clean", val:serverRooms,     set:setServerRooms,     freq:serverFreq,  setFreq:setServerFreq},
           {label:"📦 Storage / Archive", price:"$20 / clean", val:storageRooms,    set:setStorageRooms,    freq:storageFreq, setFreq:setStorageFreq},
         ].map(f=>(
-          <div key={f.label} style={{ background:"linear-gradient(135deg,rgba(255,255,255,0.9),rgba(248,245,240,0.95))", border:"1px solid rgba(212,160,23,0.2)", borderRadius:"16px", padding:"16px", display:"flex", flexDirection:"column", gap:"10px" }}>
+          <div key={f.label} style={{ background:"linear-gradient(135deg,rgba(255,255,255,0.9),rgba(248,245,240,0.95))", border:"1px solid rgba(212,160,23,0.2)", borderRadius:"16px", padding:"16px", display:"flex", flexDirection:"column", gap:"10px", overflow:"visible", position:"relative" }}>
             <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between" }}>
               <div>
                 <div style={{ fontSize:"16px", fontWeight:"800", color:"#4A3728", marginBottom:"2px", letterSpacing:"-0.2px" }}>{f.label}</div>
@@ -601,10 +601,10 @@ export default function OfficeForm({ sharedInfo, onBack }) {
             </div>
             <div style={{ display:"flex", gap:"8px" }}>
               <button onClick={()=>f.set(Math.max(0,f.val-1))} style={{ flex:1, padding:"10px", borderRadius:"10px", border:"none", background:f.val>0?"rgba(239,68,68,0.12)":"rgba(230,230,230,0.6)", color:f.val>0?"#ef4444":"rgba(255,255,255,0.3)", fontSize:"18px", fontWeight:"900", cursor:f.val>0?"pointer":"not-allowed" }}>−</button>
-              <div style={{ flex:1, position:"relative", display:"flex", alignItems:"center", justifyContent:"center" }}>
-                <svg width="52" height="52" style={{ position:"absolute", top:"50%", left:"50%", transform:"translate(-50%,-50%)", pointerEvents:"none", opacity:0.5 }} viewBox="0 0 52 52">
-                  <circle cx="26" cy="26" r="23" fill="none" stroke="rgba(240,192,64,0.7)" strokeWidth="0.8"/>
-                  <circle cx="26" cy="26" r="17" fill="none" stroke="rgba(255,240,160,0.4)" strokeWidth="0.6"/>
+              <div style={{ flex:1, position:"relative", overflow:"visible" }}>
+                <svg width="70" height="70" style={{ position:"absolute", top:"50%", left:"50%", transform:"translate(-50%,-50%)", pointerEvents:"none", zIndex:2, overflow:"visible" }} viewBox="0 0 70 70">
+                  <circle cx="35" cy="35" r="32" fill="none" stroke="rgba(240,192,64,0.55)" strokeWidth="1"/>
+                  <circle cx="35" cy="35" r="24" fill="none" stroke="rgba(255,240,160,0.35)" strokeWidth="0.7"/>
                 </svg>
                 <button onClick={()=>f.set(f.val+1)} style={{ width:"100%", padding:"10px", borderRadius:"10px", border:"1px solid rgba(212,160,23,0.4)", background:"linear-gradient(135deg, #6B6560 0%, #5A5448 25%, #4E4840 50%, #5A5448 75%, #6B6560 100%)", color:"#F5E8C0", fontSize:"18px", fontWeight:"900", cursor:"pointer", position:"relative", zIndex:1 }}>+</button>
               </div>
