@@ -281,6 +281,44 @@ export default function OtherForm({ sharedInfo, onBack }) {
     return disc >= 0 ? sub * (1 - disc) : sub * (1 + Math.abs(disc));
   };
 
+  const getPriceBreakdown = () => {
+    const bd = [];
+    const sqft = parseInt(squareFeet) || 0;
+    if (!sqft || !frequency || !segment) return bd;
+    const base = sqft * getRate(sqft) * (PRICING.frequencyMultipliers[frequency] || 1);
+    bd.push({ label: `Base Cleaning (${sqft.toLocaleString()} sqft)`, amount: base });
+    if (segment === "healthcare") {
+      if (examRooms > 0)          bd.push({ label: "Exam Rooms",          amount: examRooms * PRICING.rooms.examRoom });
+      if (waitingAreas > 0)       bd.push({ label: "Waiting Areas",       amount: waitingAreas * PRICING.rooms.waitingArea });
+      if (procedureRooms > 0)     bd.push({ label: "Procedure Rooms",     amount: procedureRooms * PRICING.rooms.procedureRoom });
+      if (laboratories > 0)       bd.push({ label: "Laboratories",        amount: laboratories * PRICING.rooms.laboratory });
+      if (sterilizationRooms > 0) bd.push({ label: "Sterilization Rooms", amount: sterilizationRooms * PRICING.rooms.sterilizationRoom });
+      if (nurseStations > 0)      bd.push({ label: "Nurse Stations",      amount: nurseStations * PRICING.rooms.nurseStation });
+      if (consultRooms > 0)       bd.push({ label: "Consultation Rooms",  amount: consultRooms * PRICING.rooms.consultRoom });
+    }
+    if (segment === "retail") {
+      if (fittingRooms > 0)      bd.push({ label: "Fitting Rooms",       amount: fittingRooms * PRICING.rooms.fittingRoom });
+      if (showroomDisplays > 0)  bd.push({ label: "Showroom Displays",   amount: showroomDisplays * PRICING.rooms.showroomDisplay });
+      if (stockrooms > 0)        bd.push({ label: "Stockrooms",          amount: stockrooms * PRICING.rooms.stockroom });
+      if (customerRestrooms > 0) bd.push({ label: "Customer Restrooms",  amount: customerRestrooms * PRICING.rooms.customerRestroom });
+      if (posCheckouts > 0)      bd.push({ label: "POS/Checkout Areas",  amount: posCheckouts * PRICING.rooms.posCheckout });
+    }
+    if (segment === "industrial") {
+      if (loadingDocks > 0)          bd.push({ label: "Loading Docks",    amount: loadingDocks * PRICING.rooms.loadingDock });
+      if (equipmentAreas > 0)        bd.push({ label: "Equipment Areas",  amount: equipmentAreas * PRICING.rooms.equipmentArea });
+      if (industrialBreakRooms > 0)  bd.push({ label: "Break Rooms",      amount: industrialBreakRooms * PRICING.rooms.industrialBreakRoom });
+      if (industrialRestrooms > 0)   bd.push({ label: "Restrooms",        amount: industrialRestrooms * PRICING.rooms.industrialRestroom });
+      if (officeAreas > 0)           bd.push({ label: "Office Areas",     amount: officeAreas * PRICING.rooms.officeArea });
+    }
+    if (addOns.windowCleaning)   bd.push({ label: "Window Cleaning",          amount: PRICING.addOns.windowCleaning });
+    if (addOns.floorWaxing)      bd.push({ label: "Floor Waxing/Buffing",      amount: PRICING.addOns.floorWaxing });
+    if (addOns.carpetCleaning)   bd.push({ label: "Carpet Deep Clean",         amount: sqft * PRICING.addOns.carpetCleaning });
+    if (addOns.pressureWashing)  bd.push({ label: "Pressure Washing",          amount: sqft * PRICING.addOns.pressureWashing });
+    if (addOns.postConstruction) bd.push({ label: "Post-Construction Cleanup", amount: sqft * PRICING.addOns.postConstruction });
+    if (addOns.disinfection)     bd.push({ label: "Electrostatic Disinfection",amount: sqft * PRICING.addOns.disinfection });
+    return bd;
+  };
+
   // ── SUBMIT ──────────────────────────────────────────────────────────────────
   const handleSubmit = async () => {
     const formData = new FormData();
@@ -691,7 +729,7 @@ export default function OtherForm({ sharedInfo, onBack }) {
                   ))}
                   <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"16px 0", marginTop:"10px", borderTop:"2px solid rgba(93,235,241,0.3)" }}>
                     <div style={{ color:"#B87333", fontSize:"14px", fontWeight:"800", textTransform:"uppercase", letterSpacing:"0.5px" }}>Subtotal</div>
-                    <div style={{ color:"white", fontSize:"16px", fontWeight:"900" }}>${calculateSubtotal().toFixed(2)}</div>
+                    <div style={{ color:"white", fontSize:"16px", fontWeight:"900" }}>${calcSubtotal().toFixed(2)}</div>
                   </div>
                 </>
               )}
@@ -705,7 +743,7 @@ export default function OtherForm({ sharedInfo, onBack }) {
                   <div style={{ color:"white", fontWeight:"900", fontSize:"16px", letterSpacing:"1px", textTransform:"uppercase", marginBottom:"6px" }}>Total</div>
                   <div style={{ fontSize:"12px", color:"#D4955A", fontWeight:"700", background:"rgba(143,170,184,0.12)", padding:"3px 10px", borderRadius:"6px", display:"inline-block" }}>per month</div>
                 </div>
-                <div style={{ color:"white", fontWeight:"900", fontSize:"36px" }}>${calculateSubtotal().toFixed(2)}</div>
+                <div style={{ color:"white", fontWeight:"900", fontSize:"36px" }}>${calcSubtotal().toFixed(2)}</div>
               </div>
             </div>
           </div>
