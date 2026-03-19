@@ -854,15 +854,27 @@ export default function OfficeForm({ sharedInfo, onBack }) {
           {/* Form card */}
           <div style={CARD_STYLE}>
             {/* Header */}
-            <div style={{ background:"radial-gradient(ellipse at center, #6B5020 0%, #8B6A28 35%, #C4A040 65%, #FFF0A0 100%)", borderBottom:"1px solid rgba(212,160,23,0.3)", padding:"30px", textAlign:"center", position:"relative", overflow:"hidden" }}>
-              <div style={{ position:"absolute", top:0, left:0, right:0, bottom:0, background:"radial-gradient(circle at 50% 50%, rgba(212,160,23,0.15) 0%, transparent 65%)", pointerEvents:"none" }}/>
+            <div style={{ background:"linear-gradient(160deg, #4A3820 0%, #5A4828 50%, #4A3820 100%)", borderBottom:"1px solid rgba(212,160,23,0.3)", padding:"30px", textAlign:"center", position:"relative", overflow:"hidden" }}>
+              {/* Rings inside header */}
+              <svg width="220" height="220" style={{ position:"absolute", top:"-60px", left:"-40px", opacity:0.25, pointerEvents:"none" }} viewBox="0 0 220 220">
+                <circle cx="110" cy="110" r="100" fill="none" stroke="rgba(240,192,64,0.8)" strokeWidth="1.2"/>
+                <circle cx="110" cy="110" r="70"  fill="none" stroke="rgba(255,240,160,0.5)" strokeWidth="0.8"/>
+              </svg>
+              <svg width="180" height="180" style={{ position:"absolute", bottom:"-50px", right:"-30px", opacity:0.25, pointerEvents:"none" }} viewBox="0 0 180 180">
+                <circle cx="90" cy="90" r="80" fill="none" stroke="rgba(240,192,64,0.8)" strokeWidth="1.2"/>
+                <circle cx="90" cy="90" r="52" fill="none" stroke="rgba(255,240,160,0.5)" strokeWidth="0.8"/>
+              </svg>
+              {/* Floating dots inside header */}
+              <div style={{ position:"absolute", width:"5px", height:"5px", borderRadius:"50%", background:"rgba(255,240,160,0.7)", top:"20%", left:"12%", boxShadow:"0 0 6px rgba(240,192,64,0.6)", pointerEvents:"none" }}/>
+              <div style={{ position:"absolute", width:"4px", height:"4px", borderRadius:"50%", background:"rgba(240,192,64,0.6)", top:"60%", left:"80%", boxShadow:"0 0 5px rgba(240,192,64,0.5)", pointerEvents:"none" }}/>
+              <div style={{ position:"absolute", width:"3px", height:"3px", borderRadius:"50%", background:"rgba(255,240,160,0.5)", top:"75%", left:"25%", boxShadow:"0 0 4px rgba(240,192,64,0.4)", pointerEvents:"none" }}/>
               <div style={{ position:"relative", zIndex:1 }}>
                 <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:"8px" }}>
                   <div style={{ fontFamily:"'Oswald', sans-serif", fontSize:"42px", fontWeight:"300", letterSpacing:"8px", color:"white", textShadow:"0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(240,192,64,0.3)" }}>CLEANING</div>
                   <div style={{ fontFamily:"'Allura', cursive", fontSize:"46px", letterSpacing:"3px", marginTop:"-8px", fontWeight:"400", background:"linear-gradient(180deg, #FFF0A0 0%, #F0C040 25%, #C8900A 50%, #F0C040 75%, #FFF0A0 100%)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }}>Su Oficina</div>
                 </div>
                 <div style={{ height:"2px", width:"80px", background:"linear-gradient(90deg,transparent,#F0C040,transparent)", margin:"14px auto 10px", boxShadow:"0 0 10px rgba(240,192,64,0.5)" }}/>
-                <div style={{ color:"rgba(212,160,23,0.7)", fontSize:"13px", fontWeight:"700", letterSpacing:"2px", textTransform:"uppercase" }}>🏢 Office Cleaning Quote</div>
+                <div style={{ color:"rgba(240,192,64,0.7)", fontSize:"13px", fontWeight:"700", letterSpacing:"2px", textTransform:"uppercase" }}>🏢 Office Cleaning Quote</div>
               </div>
             </div>
             {/* Progress */}
