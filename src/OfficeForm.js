@@ -167,7 +167,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
 
   const [addOns,              setAddOns]              = useState({ windowCleaning: false, floorWaxing: false, carpetCleaning: false, pressureWashing: false, postConstruction: false, disinfection: false });
   const [preferredDays,       setPreferredDays]       = useState([]);
-  const [preferredTime,       setPreferredTime]       = useState("");
+  const [preferredTimes,      setPreferredTimes]      = useState([]);
   const [specialInstructions, setSpecialInstructions] = useState("");
   const [showSuccess,         setShowSuccess]         = useState(false);
 
@@ -316,13 +316,13 @@ export default function OfficeForm({ sharedInfo, onBack }) {
       "Server/IT Rooms": serverRooms, "Storage/Archive": storageRooms,
       "Add-ons": Object.keys(addOns).filter(k => addOns[k]).join(", ") || "None",
       "Preferred Days": preferredDays.join(", ") || "Not specified",
-      "Preferred Time": preferredTime || "Not specified",
+      "Preferred Time": preferredTimes.length ? preferredTimes.join(", ") : "Not specified",
       "Special Instructions": specialInstructions || "None",
       "TOTAL MONTHLY": `$${total.toFixed(2)}`,
       "_captcha": "false", "_template": "table",
     };
     try {
-      const res = await fetch("https://formsubmit.co/ajax/AkCleaningSuCasa@gmail.com", {
+      const res = await fetch("https://formsubmit.co/ajax/AkCleaningSuOficina@gmail.com", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Accept": "application/json" },
         body: JSON.stringify(payload),
@@ -676,11 +676,11 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         </label>
         <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:"10px" }}>
           {["Morning (6-10am)","Mid-Day (10am-2pm)","Afternoon (2-6pm)","Evening (6-10pm)","Overnight (10pm-6am)"].map(t=>(
-            <div key={t} onClick={()=>setPreferredTime(t)} style={{ padding:"14px 12px", borderRadius:"12px", cursor:"pointer", fontSize:"12px", fontWeight:"800", textAlign:"center", transition:"all 0.3s ease",
-              border:preferredTime===t?"2px solid #D4A017":"2px solid rgba(212,160,23,0.3)",
-              background:preferredTime===t?"linear-gradient(135deg,#D4A017,#F0C040)":"rgba(255,255,255,0.85)",
-              color:preferredTime===t?"white":"#4A3728",
-              boxShadow:preferredTime===t?"0 4px 14px rgba(212,160,23,0.35)":"0 2px 6px rgba(0,0,0,0.04)" }}>{t}</div>
+            <div key={t} onClick={()=>setPreferredTimes(preferredTimes.includes(t)?preferredTimes.filter(x=>x!==t):[...preferredTimes,t])} style={{ padding:"14px 12px", borderRadius:"12px", cursor:"pointer", fontSize:"12px", fontWeight:"800", textAlign:"center", transition:"all 0.3s ease",
+              border:preferredTimes.includes(t)?"2px solid #D4A017":"2px solid rgba(212,160,23,0.3)",
+              background:preferredTimes.includes(t)?"linear-gradient(135deg,#D4A017,#F0C040)":"rgba(255,255,255,0.85)",
+              color:preferredTimes.includes(t)?"white":"#4A3728",
+              boxShadow:preferredTimes.includes(t)?"0 4px 14px rgba(212,160,23,0.35)":"0 2px 6px rgba(0,0,0,0.04)" }}>{t}</div>
           ))}
         </div>
       </div>
@@ -696,7 +696,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
       <div style={{ padding:"20px", borderRadius:"16px", background:"rgba(212,160,23,0.06)", border:"1px solid rgba(212,160,23,0.2)", marginBottom:"30px" }}>
         <p style={{ fontSize:"12px", color:"#555", fontWeight:"600", lineHeight:"1.6", margin:0 }}>
           By submitting this request, you agree to our{" "}
-          <a href="https://img1.wsimg.com/blobby/go/a218c663-7c40-48f5-aae1-0c7e30c1037f/downloads/Terms%20and%20Conditions.pdf?ver=1721081910935" target="_blank" rel="noopener noreferrer" style={{ color:"#F0C040", textDecoration:"underline", fontWeight:"700" }}>Terms & Conditions</a>.{" "}
+          <a href="/TermsAndConditions.pdf" target="_blank" rel="noopener noreferrer" style={{ color:"#F0C040", textDecoration:"underline", fontWeight:"700" }}>Terms & Conditions</a>.{" "}
           Our team will review your request and contact you within 24 hours to confirm details and schedule service.
         </p>
       </div>
