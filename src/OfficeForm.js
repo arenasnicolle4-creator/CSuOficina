@@ -601,7 +601,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
             </div>
             <div style={{ display:"flex", gap:"8px" }}>
               <button onClick={()=>f.set(Math.max(0,f.val-1))} style={{ flex:1, padding:"10px", borderRadius:"10px", border:"none", background:f.val>0?"rgba(239,68,68,0.12)":"rgba(230,230,230,0.6)", color:f.val>0?"#ef4444":"rgba(255,255,255,0.3)", fontSize:"18px", fontWeight:"900", cursor:f.val>0?"pointer":"not-allowed" }}>−</button>
-              <button onClick={()=>f.set(f.val+1)} style={{ flex:1, padding:"10px", borderRadius:"10px", border:"1.5px solid rgba(62,56,48,0.4)", background:"linear-gradient(135deg, rgba(62,56,48,0.08), rgba(78,72,64,0.12))", color:"#3E3830", fontSize:"18px", fontWeight:"900", cursor:"pointer" }}>+</button>
+              <button onClick={()=>f.set(f.val+1)} style={{ flex:1, padding:"10px", borderRadius:"10px", border:"1px solid rgba(62,56,48,0.3)", background:"linear-gradient(135deg,rgba(62,56,48,0.12),rgba(78,72,64,0.12))", color:"#3E3830", fontSize:"18px", fontWeight:"900", cursor:"pointer" }}>+</button>
             </div>
             {f.val > 0 && <FreqGrid value={f.freq} onChange={f.setFreq}/>}
           </div>
