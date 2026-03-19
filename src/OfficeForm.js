@@ -340,9 +340,21 @@ export default function OfficeForm({ sharedInfo, onBack }) {
   const Sidebar = () => (
     <div style={{ maxHeight:"calc(100vh - 40px)", display:"flex", flexDirection:"column" }}>
       <div style={{ ...CARD_STYLE, borderRadius:"28px", display:"flex", flexDirection:"column", maxHeight:"100%", backgroundColor:"#FEFCF5", border:"1px solid rgba(212,160,23,0.25)" }}>
-        <div style={{ padding:"25px", textAlign:"center", borderBottom:"1px solid rgba(212,160,23,0.3)", background:"linear-gradient(160deg, #3E3830 0%, #4E4840 50%, #3E3830 100%)" }}>
-          <div style={{ fontSize:"16px", color:"white", fontWeight:"800", marginBottom:"8px", letterSpacing:"1.5px", textTransform:"uppercase" }}>Price Breakdown</div>
-          <div style={{ fontSize:"14px", color:"rgba(240,192,64,0.85)", fontWeight:"700", background:"rgba(255,255,255,0.1)", padding:"4px 12px", borderRadius:"6px", display:"inline-block" }}>Monthly Estimate</div>
+        <div style={{ padding:"25px", textAlign:"center", borderBottom:"1px solid rgba(212,160,23,0.3)", background:"linear-gradient(160deg, #3E3830 0%, #4E4840 50%, #3E3830 100%)", position:"relative", overflow:"hidden" }}>
+          {/* Rings top-right */}
+          <svg width="160" height="160" style={{ position:"absolute", top:"-40px", right:"-30px", opacity:0.25, pointerEvents:"none" }} viewBox="0 0 160 160">
+            <circle cx="80" cy="80" r="72" fill="none" stroke="rgba(240,192,64,0.8)" strokeWidth="1.2"/>
+            <circle cx="80" cy="80" r="52" fill="none" stroke="rgba(255,240,160,0.5)" strokeWidth="0.8"/>
+            <circle cx="80" cy="80" r="34" fill="none" stroke="rgba(240,192,64,0.4)" strokeWidth="0.6"/>
+          </svg>
+          {/* Dots */}
+          <div style={{ position:"absolute", width:"4px", height:"4px", borderRadius:"50%", background:"rgba(255,240,160,0.7)", top:"18%", right:"18%", boxShadow:"0 0 5px rgba(240,192,64,0.6)", pointerEvents:"none" }}/>
+          <div style={{ position:"absolute", width:"3px", height:"3px", borderRadius:"50%", background:"rgba(240,192,64,0.6)", top:"65%", right:"8%", boxShadow:"0 0 4px rgba(240,192,64,0.5)", pointerEvents:"none" }}/>
+          <div style={{ position:"absolute", width:"5px", height:"5px", borderRadius:"50%", background:"rgba(255,240,160,0.5)", top:"40%", right:"32%", boxShadow:"0 0 5px rgba(240,192,64,0.4)", pointerEvents:"none" }}/>
+          <div style={{ position:"relative", zIndex:1 }}>
+            <div style={{ fontFamily:"'Oswald', sans-serif", fontSize:"22px", fontWeight:"300", letterSpacing:"5px", textTransform:"uppercase", background:"linear-gradient(180deg, #FFF0A0 0%, #F0C040 25%, #C8900A 50%, #F0C040 75%, #FFF0A0 100%)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text", marginBottom:"8px" }}>Price Breakdown</div>
+            <div style={{ fontSize:"14px", color:"rgba(240,192,64,0.85)", fontWeight:"700", background:"rgba(255,255,255,0.1)", padding:"4px 12px", borderRadius:"6px", display:"inline-block" }}>Monthly Estimate</div>
+          </div>
         </div>
         <div style={{ padding:"20px 25px", overflowY:"auto", flex:1 }}>
           {breakdown.length === 0 ? (
