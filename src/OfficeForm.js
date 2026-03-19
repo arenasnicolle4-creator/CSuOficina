@@ -229,7 +229,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
 
     if (workspaceConfigs.length > 0) {
       const totalWs = workspaceConfigs.reduce((s, c) => s + c.quantity, 0);
-      items.push({ label: `📋 ${totalWs} workspace(s) configured (included in base)`, amount: 0, isInfo: true });
+      items.push({ label: `📋 ${totalWs} workspace(s) configured`, subtitle: "included in base rate", amount: 0, isInfo: true });
       if (trashCost > 0) items.push({ label: "Trash Removal", amount: trashCost, isUpcharge: true });
     }
 
@@ -350,9 +350,12 @@ export default function OfficeForm({ sharedInfo, onBack }) {
           ) : (
             <>
               {breakdown.map((item, i) => (
-                <div key={i} style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", padding:"12px 0", borderBottom: i < breakdown.length-1 ? "1px solid rgba(255,255,255,0.1)" : "none" }}>
+                <div key={i} style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", padding:"12px 0", borderBottom: i < breakdown.length-1 ? "1px solid rgba(212,160,23,0.12)" : "none" }}>
                   <div style={{ color:"#4A3728", fontSize:"14px", fontWeight:"600", flex:1 }}>
                     {item.label}
+                    {item.subtitle && (
+                      <div style={{ fontSize:"11px", color:"#A07B15", fontWeight:"500", fontStyle:"italic", marginTop:"3px" }}>{item.subtitle}</div>
+                    )}
                     {item.discountPercent && (
                       <span style={{ display:"inline-block", marginLeft:"8px", padding:"2px 6px", borderRadius:"4px", background: item.isUpcharge ? "linear-gradient(135deg,#f59e0b,#d97706)" : "linear-gradient(135deg,#3DA864,#2D7A4A)", fontSize:"10px", fontWeight:"900", color:"white" }}>
                         {item.isUpcharge ? `+${item.discountPercent}` : `-${item.discountPercent}`}
@@ -361,7 +364,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
                   </div>
                   <div style={{ display:"flex", flexDirection:"column", alignItems:"flex-end", gap:"2px" }}>
                     {item.originalAmount && <div style={{ color:"rgba(100,100,100,0.5)", fontSize:"12px", textDecoration:"line-through", fontWeight:"600" }}>${item.originalAmount.toFixed(2)}</div>}
-                    <div style={{ color: item.discountPercent && !item.isUpcharge ? "#1E5C38" : "#4A3728", fontSize:"14px", fontWeight:"800" }}>${item.amount.toFixed(2)}</div>
+                    {!item.isInfo && <div style={{ color: item.discountPercent && !item.isUpcharge ? "#1E5C38" : "#4A3728", fontSize:"14px", fontWeight:"800" }}>${item.amount.toFixed(2)}</div>}
                   </div>
                 </div>
               ))}
