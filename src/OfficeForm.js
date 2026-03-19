@@ -648,7 +648,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
           ].map(a=>(
             <div key={a.key} onClick={()=>setAddOns({...addOns,[a.key]:!addOns[a.key]})} style={{ padding:"18px 16px", borderRadius:"16px", cursor:"pointer", transition:"all 0.3s ease", display:"flex", alignItems:"flex-start", gap:"10px",
               border:addOns[a.key]?"1.5px solid rgba(212,160,23,0.6)":"1.5px solid rgba(212,160,23,0.25)",
-              <div style={{ width:"20px", height:"20px", borderRadius:"6px", border:addOns[a.key]?"none":"2px solid rgba(212,160,23,0.4)", background:addOns[a.key]?"linear-gradient(135deg,#3DA864,#2D7A4A)":"rgba(255,255,255,0.5)", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, marginTop:"2px" }}>
+              background:addOns[a.key]?"linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(255,235,140,0.5) 40%, rgba(212,160,23,0.65) 100%)":"#EDE5CE",
               boxShadow:addOns[a.key]?"0 4px 16px rgba(212,160,23,0.3)":"0 2px 6px rgba(0,0,0,0.04)" }}>
               <div style={{ width:"20px", height:"20px", borderRadius:"6px", border:addOns[a.key]?"none":"2px solid rgba(212,160,23,0.4)", background:addOns[a.key]?"linear-gradient(135deg,#3DA864,#2D7A4A)":"rgba(255,255,255,0.5)", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, marginTop:"2px" }}>
                 {addOns[a.key]&&<CheckCircle2 size={14} color="white"/>}
