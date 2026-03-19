@@ -81,11 +81,6 @@ const PRICING = {
   minimums: { healthcare: 399, retail: 249, industrial: 199 },
 };
 
-const FREQ_VISITS = {
-  daily: 22, "4x-week": 17, "3x-week": 12,
-  "2x-week": 8, weekly: 4, "bi-weekly": 2, monthly: 1,
-};
-
 // ─── SHARED STYLES ────────────────────────────────────────────────────────────
 const PAGE_BG = {
   minHeight: "100vh",
