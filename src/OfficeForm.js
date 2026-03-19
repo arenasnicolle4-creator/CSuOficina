@@ -354,21 +354,21 @@ export default function OfficeForm({ sharedInfo, onBack }) {
                   <div style={{ color:"rgba(255,255,255,0.8)", fontSize:"14px", fontWeight:"600", flex:1 }}>
                     {item.label}
                     {item.discountPercent && (
-                      <span style={{ display:"inline-block", marginLeft:"8px", padding:"2px 6px", borderRadius:"4px", background: item.isUpcharge ? "linear-gradient(135deg,#f59e0b,#d97706)" : "linear-gradient(135deg,#10b981,#059669)", fontSize:"10px", fontWeight:"900", color:"white" }}>
+                      <span style={{ display:"inline-block", marginLeft:"8px", padding:"2px 6px", borderRadius:"4px", background: item.isUpcharge ? "linear-gradient(135deg,#f59e0b,#d97706)" : "linear-gradient(135deg,#0891B2,#0E7490)", fontSize:"10px", fontWeight:"900", color:"white" }}>
                         {item.isUpcharge ? `+${item.discountPercent}` : `-${item.discountPercent}`}
                       </span>
                     )}
                   </div>
                   <div style={{ display:"flex", flexDirection:"column", alignItems:"flex-end", gap:"2px" }}>
                     {item.originalAmount && <div style={{ color:"rgba(100,100,100,0.5)", fontSize:"12px", textDecoration:"line-through", fontWeight:"600" }}>${item.originalAmount.toFixed(2)}</div>}
-                    <div style={{ color: item.discountPercent && !item.isUpcharge ? "#059669" : "#1A1A2E", fontSize:"14px", fontWeight:"800" }}>${item.amount.toFixed(2)}</div>
+                    <div style={{ color: item.discountPercent && !item.isUpcharge ? "#0891B2" : "#1A1A2E", fontSize:"14px", fontWeight:"800" }}>${item.amount.toFixed(2)}</div>
                   </div>
                 </div>
               ))}
               {totalSavings > 0 && (
-                <div style={{ display:"flex", justifyContent:"space-between", padding:"14px 16px", marginTop:"10px", borderRadius:"10px", background:"linear-gradient(135deg,rgba(16,185,129,0.15),rgba(5,150,105,0.15))", border:"1px solid rgba(16,185,129,0.3)" }}>
-                  <div style={{ color:"#10b981", fontSize:"14px", fontWeight:"800", textTransform:"uppercase", letterSpacing:"0.5px" }}>✓ Total Savings</div>
-                  <div style={{ color:"#10b981", fontSize:"16px", fontWeight:"900" }}>-${totalSavings.toFixed(2)}</div>
+                <div style={{ display:"flex", justifyContent:"space-between", padding:"14px 16px", marginTop:"10px", borderRadius:"10px", background:"linear-gradient(135deg,rgba(8,145,178,0.12),rgba(14,116,144,0.12))", border:"1px solid rgba(8,145,178,0.3)" }}>
+                  <div style={{ color:"#0891B2", fontSize:"14px", fontWeight:"800", textTransform:"uppercase", letterSpacing:"0.5px" }}>✓ Total Savings</div>
+                  <div style={{ color:"#0891B2", fontSize:"16px", fontWeight:"900" }}>-${totalSavings.toFixed(2)}</div>
                 </div>
               )}
               <div style={{ display:"flex", justifyContent:"space-between", padding:"16px 0", marginTop:"10px", borderTop:"2px solid rgba(93,235,241,0.3)" }}>
@@ -391,7 +391,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
           </div>
         </div>
       </div>
-      <div style={{ marginTop:"20px", padding:"20px", background:"linear-gradient(135deg,#10b981,#059669)", borderRadius:"20px", textAlign:"center", boxShadow:"0 10px 30px rgba(16,185,129,0.3)", border:"1px solid rgba(255,255,255,0.1)" }}>
+      <div style={{ marginTop:"20px", padding:"20px", background:"linear-gradient(135deg,#0891B2,#0E7490)", borderRadius:"20px", textAlign:"center", boxShadow:"0 10px 30px rgba(8,145,178,0.3)", border:"1px solid rgba(255,255,255,0.1)" }}>
         <div style={{ fontSize:"32px", marginBottom:"8px" }}>✓</div>
         <div style={{ color:"white", fontSize:"16px", fontWeight:"900", letterSpacing:"1px", lineHeight:"1.3" }}>100% SATISFACTION<br/>GUARANTEED</div>
       </div>
@@ -454,8 +454,8 @@ export default function OfficeForm({ sharedInfo, onBack }) {
             return (
               <>
                 {frequency !== "2x-week" && <div style={{ fontSize:"18px", fontWeight:"700", color:"rgba(100,100,100,0.4)", textDecoration:"line-through", marginBottom:"4px" }}>${full.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}</div>}
-                <div style={{ fontSize:"28px", fontWeight:"900", color:disc?"#059669":prem?"#d97706":"#A07B15" }}>${adjBaseCost.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
-                <div style={{ fontSize:"13px", color:disc?"#059669":prem?"#d97706":"#A07B15", marginTop:"6px", fontWeight:"800" }}>{lbl} • Monthly Total</div>
+                <div style={{ fontSize:"28px", fontWeight:"900", color:disc?"#0891B2":prem?"#d97706":"#A07B15" }}>${adjBaseCost.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
+                <div style={{ fontSize:"13px", color:disc?"#0891B2":prem?"#d97706":"#A07B15", marginTop:"6px", fontWeight:"800" }}>{lbl} • Monthly Total</div>
               </>
             );
           })() : (
@@ -521,9 +521,9 @@ export default function OfficeForm({ sharedInfo, onBack }) {
                 <div style={{ fontSize:"11px", color:"#888", fontWeight:"700", marginBottom:"6px", letterSpacing:"0.5px" }}>PRICE PER VISIT</div>
                 <div style={{ display:"flex", alignItems:"baseline", gap:"8px", marginBottom:"12px" }}>
                   {(disc||prem) && <div style={{ fontSize:"16px", color:"rgba(100,100,100,0.4)", textDecoration:"line-through", fontWeight:"600" }}>${bpv.toFixed(2)}</div>}
-                  <div style={{ fontSize:"28px", fontWeight:"900", color:disc?"#059669":prem?"#d97706":"#A07B15", lineHeight:"1" }}>${ppv.toFixed(2)}</div>
+                  <div style={{ fontSize:"28px", fontWeight:"900", color:disc?"#0891B2":prem?"#d97706":"#A07B15", lineHeight:"1" }}>${ppv.toFixed(2)}</div>
                 </div>
-                {disc && <div style={{ padding:"8px 14px", borderRadius:"8px", background:"linear-gradient(135deg,#10b981,#059669)", display:"inline-block" }}>
+                {disc && <div style={{ padding:"8px 14px", borderRadius:"8px", background:"linear-gradient(135deg,#0891B2,#0E7490)", display:"inline-block" }}>
                   <div style={{ fontSize:"10px", color:"rgba(255,255,255,0.9)", fontWeight:"600", marginBottom:"2px" }}>YOU SAVE</div>
                   <div style={{ fontSize:"18px", color:"white", fontWeight:"900" }}>{Math.round(((bpv-ppv)/bpv)*100)}%</div>
                 </div>}
