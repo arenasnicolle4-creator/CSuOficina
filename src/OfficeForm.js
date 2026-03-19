@@ -423,7 +423,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         <button onClick={goBack} style={{ flex:1, padding:"18px", borderRadius:"16px", border:"2px solid rgba(212,160,23,0.3)", background:"white", color:"#A07B15", fontSize:"15px", fontWeight:"800", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
           <ChevronLeft size={20}/> Back
         </button>
-        <button onClick={goNext} disabled={!officeType} style={{ flex:2, padding:"18px", borderRadius:"16px", border:"none", background:officeType?"linear-gradient(135deg,#D4A017,#F0C040)":"rgba(212,160,23,0.15)", fontSize:"15px", fontWeight:"800", cursor:officeType?"pointer":"not-allowed", color:officeType?"white":"#9A8030", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
+        <button onClick={goNext} disabled={!officeType} className="continue-btn" style={{ flex:2, padding:"18px", borderRadius:"16px", border: officeType?"2px solid rgba(212,160,23,0.6)":"2px solid rgba(212,160,23,0.2)", background: officeType?"rgba(255,255,255,0.9)":"rgba(255,255,255,0.4)", fontSize:"15px", fontWeight:"800", cursor:officeType?"pointer":"not-allowed", color:officeType?"#8B6914":"#B8A060", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px", transition:"all 0.25s ease", boxShadow: officeType?"0 2px 8px rgba(212,160,23,0.2)":"none" }}>
           Continue <ChevronRight size={20}/>
         </button>
       </div>
@@ -597,7 +597,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         <button onClick={goBack} style={{ flex:1, padding:"18px", borderRadius:"16px", border:"2px solid rgba(212,160,23,0.3)", background:"white", color:"#A07B15", fontSize:"15px", fontWeight:"800", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
           <ChevronLeft size={20}/> Back
         </button>
-        <button onClick={goNext} disabled={!squareFeet||!frequency} style={{ flex:2, padding:"18px", borderRadius:"16px", border:"none", background:(squareFeet&&frequency)?"linear-gradient(135deg,#D4A017,#F0C040)":"rgba(212,160,23,0.15)", fontSize:"15px", fontWeight:"800", cursor:(squareFeet&&frequency)?"pointer":"not-allowed", color:(squareFeet&&frequency)?"white":"#9A8030", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
+        <button onClick={goNext} disabled={!squareFeet||!frequency} className="continue-btn" style={{ flex:2, padding:"18px", borderRadius:"16px", border: (squareFeet&&frequency)?"2px solid rgba(212,160,23,0.6)":"2px solid rgba(212,160,23,0.2)", background: (squareFeet&&frequency)?"rgba(255,255,255,0.9)":"rgba(255,255,255,0.4)", fontSize:"15px", fontWeight:"800", cursor:(squareFeet&&frequency)?"pointer":"not-allowed", color:(squareFeet&&frequency)?"#8B6914":"#B8A060", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px", transition:"all 0.25s ease", boxShadow: (squareFeet&&frequency)?"0 2px 8px rgba(212,160,23,0.2)":"none" }}>
           Continue <ChevronRight size={20}/>
         </button>
       </div>
@@ -841,6 +841,8 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         @keyframes fadeInUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
         input::placeholder, textarea::placeholder { color: rgba(100,100,100,0.5); }
         @keyframes floatUp { 0%,100%{transform:translateY(0);opacity:0.5} 50%{transform:translateY(-22px);opacity:1} }
+        .continue-btn:not(:disabled):hover { background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,235,140,0.7) 50%, rgba(212,160,23,0.85) 100%) !important; color: #3D2600 !important; box-shadow: 0 4px 20px rgba(212,160,23,0.35) !important; border-color: rgba(212,160,23,0.8) !important; }
+        .continue-btn:not(:disabled):active { background: linear-gradient(135deg, #D4A017, #F0C040) !important; color: white !important; box-shadow: 0 2px 8px rgba(212,160,23,0.5) !important; transform: scale(0.98); }
         @media (max-width:900px) { .of-layout { grid-template-columns:1fr !important; } .of-sidebar { display:none !important; } }
       `}</style>
 
