@@ -396,13 +396,13 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         <div style={{ padding:"12px 20px", background:"rgba(255,255,255,0.1)", borderTop:"1px solid rgba(255,255,255,0.1)", borderBottom:"1px solid rgba(255,255,255,0.1)" }}>
           <p style={{ color:"#666", fontSize:"11px", margin:0, fontWeight:"600", textAlign:"center", fontStyle:"italic" }}>💡 Estimate based on monthly contract. Final prices may vary.</p>
         </div>
-        <div style={{ padding:"25px", background:"linear-gradient(160deg, rgba(255,255,255,0.95) 0%, rgba(255,235,140,0.55) 50%, rgba(212,160,23,0.6) 100%)", borderTop:"1px solid rgba(212,160,23,0.3)" }}>
+        <div style={{ padding:"25px", background:"linear-gradient(180deg, #E8E0C8 0%, #EDE5CE 40%, #F5F0E0 100%)", borderTop:"1px solid rgba(212,160,23,0.25)" }}>
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
             <div>
               <div style={{ color:"#4A3728", fontWeight:"900", fontSize:"14px", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"4px" }}>Total</div>
-              <div style={{ fontSize:"14px", color:"#5C3D10", fontWeight:"700", background:"rgba(255,255,255,0.5)", padding:"3px 10px", borderRadius:"6px" }}>per month</div>
+              <div style={{ fontSize:"14px", color:"#8B6914", fontWeight:"700", background:"rgba(255,255,255,0.5)", padding:"3px 10px", borderRadius:"6px" }}>per month</div>
             </div>
-            <div style={{ color:"#4A3728", fontWeight:"900", fontSize:"36px" }}>${total.toFixed(2)}</div>
+            <div style={{ color:"#2D1800", fontWeight:"900", fontSize:"36px" }}>${total.toFixed(2)}</div>
           </div>
         </div>
       </div>
