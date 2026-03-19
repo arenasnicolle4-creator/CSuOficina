@@ -340,7 +340,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
   const Sidebar = () => (
     <div style={{ maxHeight:"calc(100vh - 40px)", display:"flex", flexDirection:"column" }}>
       <div style={{ ...CARD_STYLE, borderRadius:"28px", display:"flex", flexDirection:"column", maxHeight:"100%", backgroundColor:"#FEFCF5", border:"1px solid rgba(212,160,23,0.25)" }}>
-        <div style={{ padding:"25px", textAlign:"center", borderBottom:"1px solid rgba(212,160,23,0.2)", background:"linear-gradient(180deg, rgba(255,248,220,0.6) 0%, rgba(180,130,10,0.65) 15%, rgba(180,130,10,0.65) 70%, rgba(240,192,64,0.35) 88%, rgba(255,248,220,0.8) 100%)", backgroundColor:"#FDF9EE" }}>
+        <div style={{ padding:"25px", textAlign:"center", borderBottom:"1px solid rgba(212,160,23,0.2)", background:"linear-gradient(180deg, rgba(255,248,220,0.7) 0%, rgba(240,192,64,0.3) 20%, rgba(180,130,10,0.65) 30%, rgba(180,130,10,0.65) 55%, rgba(240,192,64,0.3) 65%, rgba(255,248,220,0.7) 100%)", backgroundColor:"#FDF9EE" }}>
           <div style={{ fontSize:"16px", color:"white", fontWeight:"800", marginBottom:"8px", letterSpacing:"1.5px", textTransform:"uppercase", textShadow:"0 0 10px rgba(255,255,255,0.9), 0 0 25px rgba(255,240,150,0.7), 0 0 50px rgba(240,192,64,0.5)" }}>Price Breakdown</div>
           <div style={{ fontSize:"14px", color:"#3D2600", fontWeight:"700", background:"rgba(255,255,255,0.35)", padding:"4px 12px", borderRadius:"6px", display:"inline-block" }}>Monthly Estimate</div>
         </div>
@@ -442,7 +442,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         </label>
 
         {/* Running total box */}
-        <div style={{ padding:"12px 16px", borderRadius:"12px", background:"linear-gradient(135deg,rgba(212,160,23,0.06),rgba(240,192,64,0.1))", border:"1px solid rgba(212,160,23,0.2)", marginBottom:"20px", textAlign:"center" }}>
+        <div style={{ padding:"12px 16px", borderRadius:"12px", background:"linear-gradient(135deg,rgba(212,160,23,0.06),rgba(240,192,64,0.1))", border:"2px solid #5DEBF1", boxShadow:"0 0 12px rgba(93,235,241,0.2)", marginBottom:"20px", textAlign:"center" }}>
           <div style={{ fontSize:"14px", color:"#555", fontWeight:"600", marginBottom:"4px" }}>Base Monthly Cost</div>
           {frequency && sqft ? (() => {
             const v    = VISITS[frequency] || 8;
@@ -542,7 +542,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
 
       {/* Workspace button */}
       <div style={{ marginBottom:"20px", background:"linear-gradient(135deg,rgba(212,160,23,0.06),rgba(240,192,64,0.04))", border:"1.5px dashed rgba(212,160,23,0.4)", borderRadius:"16px", padding:"20px", display:"flex", flexDirection:"column", gap:"15px" }}>
-        <button onClick={()=>{setWsEditingIndex(null);setShowWsModal(true);}} style={{ width:"100%", padding:"24px 20px", borderRadius:"14px", background:"linear-gradient(160deg, rgba(255,255,255,0.95) 0%, rgba(255,230,120,0.6) 50%, rgba(240,192,64,0.75) 100%)", color:"#5C4A00", cursor:"pointer", boxShadow:"0 4px 20px rgba(212,160,23,0.25), 0 1px 4px rgba(212,160,23,0.15)", border:"1.5px solid rgba(212,160,23,0.5)", textAlign:"center", position:"relative", overflow:"hidden" }}>
+        <button onClick={()=>{setWsEditingIndex(null);setShowWsModal(true);}} style={{ width:"100%", padding:"24px 20px", borderRadius:"14px", background:"linear-gradient(160deg, rgba(255,255,255,0.95) 0%, rgba(255,230,120,0.6) 50%, rgba(240,192,64,0.75) 100%)", color:"#5C4A00", cursor:"pointer", boxShadow:"0 4px 20px rgba(212,160,23,0.25), 0 1px 4px rgba(212,160,23,0.15)", border:"1.5px solid rgba(212,160,23,0.4)", outline:"2px solid #5DEBF1", outlineOffset:"-3px", textAlign:"center", position:"relative", overflow:"hidden" }}>
           <div style={{ position:"absolute", top:0, left:"-75%", width:"50%", height:"100%", background:"linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent)", transform:"skewX(-20deg)", pointerEvents:"none" }}/>
           <div style={{ fontSize:"22px", fontWeight:"900", letterSpacing:"0.5px", textTransform:"uppercase", color:"#3D2E00", textShadow:"none" }}>💼 Configure Workspaces</div>
           <div style={{ fontSize:"13px", fontWeight:"700", marginTop:"7px", color:"rgba(61,46,0,0.75)", letterSpacing:"0.8px", textTransform:"uppercase", borderTop:"1px solid rgba(212,160,23,0.3)", paddingTop:"8px" }}>✦ Tell us your offices, cubicles & desks ✦</div>
