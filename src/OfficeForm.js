@@ -858,7 +858,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
               <div style={{ position:"relative", zIndex:1 }}>
                 <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:"8px" }}>
                   <div style={{ fontFamily:"'Oswald', sans-serif", fontSize:"42px", fontWeight:"300", letterSpacing:"8px", color:"white", textShadow:"0 2px 4px rgba(80,50,0,0.5), 0 4px 12px rgba(60,35,0,0.4), 0 8px 25px rgba(40,20,0,0.35), 0 15px 40px rgba(20,10,0,0.2)" }}>CLEANING</div>
-                  <div style={{ fontFamily:"'Allura', cursive", fontSize:"46px", letterSpacing:"3px", marginTop:"-8px", fontWeight:"400", background:"linear-gradient(180deg, #FFF0A0 0%, #F0C040 25%, #C8900A 50%, #F0C040 75%, #FFF0A0 100%)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }}>Su Oficina</div>
+                  <div style={{ fontFamily:"'Allura', cursive", fontSize:"46px", letterSpacing:"3px", marginTop:"-8px", fontWeight:"400", background:"linear-gradient(180deg, #C8900A 0%, #F0C040 35%, #FFF0A0 50%, #F0C040 65%, #C8900A 100%)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }}>Su Oficina</div>
                 </div>
                 <div style={{ height:"2px", width:"80px", background:"linear-gradient(90deg,transparent,#F0C040,transparent)", margin:"14px auto 10px", boxShadow:"0 0 10px rgba(240,192,64,0.5)" }}/>
                 <div style={{ color:"#5C4A1E", fontSize:"13px", fontWeight:"700", letterSpacing:"2px", textTransform:"uppercase" }}>🏢 Office Cleaning Quote</div>
