@@ -809,8 +809,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         @media (max-width:900px) { .of-layout { grid-template-columns:1fr !important; } .of-sidebar { display:none !important; } }
       `}</style>
 
-      <div style={{ maxWidth:"1200px", margin:"0 auto", padding:"30px 20px", display:"grid", gridTemplateColumns:"1fr 420px", gap:"30px", alignItems:"start" }}>
-        <div className="of-layout" style={{ display:"grid", gridTemplateColumns:"1fr 340px", gap:"30px", alignItems:"start" }}>
+      <div className="of-layout" style={{ maxWidth:"1200px", margin:"0 auto", padding:"30px 20px", display:"grid", gridTemplateColumns:"1fr 420px", gap:"30px", alignItems:"start" }}>
 
           {/* Form card */}
           <div style={CARD_STYLE}>
@@ -839,7 +838,6 @@ export default function OfficeForm({ sharedInfo, onBack }) {
 
           {/* Sidebar */}
           <div className="of-sidebar"><Sidebar/></div>
-        </div>
       </div>
 
       {showWsModal && renderWsModal()}
