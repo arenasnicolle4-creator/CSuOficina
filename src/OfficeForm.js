@@ -601,7 +601,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
             </div>
             <div style={{ display:"flex", gap:"8px" }}>
               <button onClick={()=>f.set(Math.max(0,f.val-1))} style={{ flex:1, padding:"10px", borderRadius:"10px", border:"none", background:f.val>0?"rgba(239,68,68,0.12)":"rgba(230,230,230,0.6)", color:f.val>0?"#ef4444":"rgba(255,255,255,0.3)", fontSize:"18px", fontWeight:"900", cursor:f.val>0?"pointer":"not-allowed" }}>−</button>
-              <button onClick={()=>f.set(f.val+1)} style={{ flex:1, padding:"10px", borderRadius:"10px", border:"1.5px solid rgba(212,160,23,0.5)", background:"linear-gradient(90deg, #C8900A 0%, #F0C040 25%, #FFF0A0 50%, #F0C040 75%, #C8900A 100%)", color:"#3D1800", fontSize:"18px", fontWeight:"900", cursor:"pointer", textShadow:"0 1px 2px rgba(255,255,255,0.4)" }>+</button>
+              <button onClick={()=>f.set(f.val+1)} style={{ flex:1, padding:"10px", borderRadius:"10px", border:"1.5px solid rgba(200,144,10,0.5)", background:"linear-gradient(90deg, #C8900A 0%, #F0C040 25%, #FFF0A0 50%, #F0C040 75%, #C8900A 100%)", color:"#3D1800", fontSize:"18px", fontWeight:"900", cursor:"pointer" }}>+</button>
             </div>
             {f.val > 0 && <FreqGrid value={f.freq} onChange={f.setFreq}/>}
           </div>
