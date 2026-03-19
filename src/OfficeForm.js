@@ -340,8 +340,8 @@ export default function OfficeForm({ sharedInfo, onBack }) {
   const Sidebar = () => (
     <div style={{ maxHeight:"calc(100vh - 40px)", display:"flex", flexDirection:"column" }}>
       <div style={{ ...CARD_STYLE, borderRadius:"28px", display:"flex", flexDirection:"column", maxHeight:"100%", backgroundColor:"#FEFCF5", border:"1px solid rgba(212,160,23,0.25)" }}>
-        <div style={{ padding:"25px", textAlign:"center", borderBottom:"1px solid rgba(212,160,23,0.2)", background:"linear-gradient(180deg, rgba(255,248,220,0.6) 0%, rgba(180,130,10,0.65) 20%, rgba(180,130,10,0.65) 50%, rgba(240,192,64,0.35) 72%, rgba(255,248,220,0.8) 100%)", backgroundColor:"#FDF9EE" }}>
-          <div style={{ fontSize:"16px", color:"white", fontWeight:"800", marginBottom:"8px", letterSpacing:"1.5px", textTransform:"uppercase", textShadow:"0 0 10px rgba(255,255,255,0.9), 0 0 25px rgba(255,240,150,0.7), 0 0 50px rgba(240,192,64,0.5)" }}>Price Breakdown</div>
+        <div style={{ padding:"25px", textAlign:"center", borderBottom:"1px solid rgba(212,160,23,0.3)", background:"linear-gradient(160deg, rgba(255,255,255,0.95) 0%, rgba(255,230,120,0.6) 50%, rgba(212,160,23,0.75) 100%)" }}>
+          <div style={{ fontSize:"16px", color:"#3D2600", fontWeight:"800", marginBottom:"8px", letterSpacing:"1.5px", textTransform:"uppercase" }}>Price Breakdown</div>
           <div style={{ fontSize:"14px", color:"#3D2600", fontWeight:"700", background:"rgba(255,255,255,0.35)", padding:"4px 12px", borderRadius:"6px", display:"inline-block" }}>Monthly Estimate</div>
         </div>
         <div style={{ padding:"20px 25px", overflowY:"auto", flex:1 }}>
