@@ -115,8 +115,8 @@ function FreqGrid({ value, onChange }) {
   const fc = (sel) => ({
     padding: "10px 8px", borderRadius: "8px", cursor: "pointer",
     transition: "all 0.15s ease", textAlign: "center",
-    border: sel ? "2px solid #B87333" : "1px solid rgba(184,115,51,0.25)",
-    background: sel ? "linear-gradient(135deg,rgba(184,115,51,0.15),rgba(212,149,90,0.08))" : "rgba(255,255,255,0.7)",
+    border: sel ? "2px solid #0891B2" : "1px solid rgba(184,115,51,0.25)",
+    background: sel ? "linear-gradient(135deg,rgba(8,145,178,0.12),rgba(6,182,212,0.06))" : "rgba(255,255,255,0.7)",
   });
   return (
     <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "8px" }}>
@@ -126,8 +126,8 @@ function FreqGrid({ value, onChange }) {
       </div>
       {options.map(o => (
         <div key={o.value} onClick={() => onChange(o.value)} style={fc(value === o.value)}>
-          <div style={{ fontSize: "12px", fontWeight: "700", color: value === o.value ? "#8a5523" : "#2D3748", marginBottom: "2px" }}>{o.label}</div>
-          <div style={{ fontSize: "9px", fontWeight: "600", color: value === o.value ? "#8a5523" : "rgba(100,100,100,0.7)" }}>{o.disc}</div>
+          <div style={{ fontSize: "12px", fontWeight: "700", color: value === o.value ? "#0891B2" : "#2D3748", marginBottom: "2px" }}>{o.label}</div>
+          <div style={{ fontSize: "9px", fontWeight: "600", color: value === o.value ? "#0891B2" : "rgba(100,100,100,0.7)" }}>{o.disc}</div>
         </div>
       ))}
     </div>
@@ -339,7 +339,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
   // ── Sidebar ───────────────────────────────────────────────────────────────
   const Sidebar = () => (
     <div style={{ maxHeight:"calc(100vh - 40px)", display:"flex", flexDirection:"column" }}>
-      <div style={{ ...CARD_STYLE, borderRadius:"28px", display:"flex", flexDirection:"column", maxHeight:"100%" }}>
+      <div style={{ ...CARD_STYLE, borderRadius:"28px", display:"flex", flexDirection:"column", maxHeight:"100%", backgroundColor:"#FDFAF7" }}>
         <div style={{ padding:"25px", textAlign:"center", borderBottom:"1px solid rgba(184,115,51,0.15)" }}>
           <div style={{ fontSize:"16px", color:"#8a5523", fontWeight:"800", marginBottom:"8px", letterSpacing:"1.5px", textTransform:"uppercase" }}>Price Breakdown</div>
           <div style={{ fontSize:"14px", color:"#8a5523", fontWeight:"700", background:"rgba(184,115,51,0.1)", padding:"4px 12px", borderRadius:"6px", display:"inline-block" }}>Monthly Estimate</div>
@@ -403,18 +403,18 @@ export default function OfficeForm({ sharedInfo, onBack }) {
     <div className="fade-in-up">
       <div style={{ textAlign:"center", marginBottom:"40px" }}>
         <div style={{ width:"90px", height:"90px", background:"linear-gradient(135deg,#8a5523,#B87333,#D4955A)", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 24px", boxShadow:"0 20px 50px rgba(184,115,51,0.25)", border:"4px solid rgba(255,255,255,0.9)", fontSize:"44px" }}>🏢</div>
-        <h2 style={{ fontSize:"28px", fontWeight:"900", color:"#1A1A2E", margin:"0 0 12px", letterSpacing:"-0.5px" }}>What type of office?</h2>
+        <h2 style={{ fontSize:"28px", fontWeight:"900", color:"#1A2535", margin:"0 0 12px", letterSpacing:"-0.5px" }}>What type of office?</h2>
         <p style={{ color:"#666", fontSize:"16px", fontWeight:"500", margin:0 }}>Select the option that best describes your space</p>
       </div>
       <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:"14px", marginBottom:"40px" }}>
         {OFFICE_TYPES.map(ot => (
           <div key={ot.value} onClick={() => setOfficeType(ot.value)} style={{
             padding:"20px 16px", borderRadius:"16px", cursor:"pointer", transition:"all 0.2s ease",
-            border: officeType===ot.value ? "2px solid #B87333" : "2px solid rgba(184,115,51,0.2)",
-            background: officeType===ot.value ? "linear-gradient(135deg,rgba(184,115,51,0.15),rgba(212,149,90,0.08))" : "rgba(255,255,255,0.7)",
-            boxShadow: officeType===ot.value ? "0 4px 16px rgba(184,115,51,0.25)" : "0 2px 8px rgba(0,0,0,0.04)",
+            border: officeType===ot.value ? "2px solid #0891B2" : "2px solid rgba(184,115,51,0.2)",
+            background: officeType===ot.value ? "linear-gradient(135deg,rgba(8,145,178,0.12),rgba(6,182,212,0.06))" : "rgba(255,255,255,0.7)",
+            boxShadow: officeType===ot.value ? "0 0 18px rgba(6,182,212,0.3)" : "0 2px 8px rgba(0,0,0,0.04)",
           }}>
-            <div style={{ fontSize:"15px", fontWeight:"800", color: officeType===ot.value?"#8a5523":"#2D3748", marginBottom:"4px" }}>{ot.label}</div>
+            <div style={{ fontSize:"15px", fontWeight:"800", color: officeType===ot.value?"#0891B2":"#2D3748", marginBottom:"4px" }}>{ot.label}</div>
             <div style={{ fontSize:"12px", color:"#888", fontWeight:"600" }}>{ot.desc}</div>
           </div>
         ))}
@@ -437,8 +437,8 @@ export default function OfficeForm({ sharedInfo, onBack }) {
       {/* Square Footage */}
       <div style={{ marginBottom:"30px" }}>
         <label style={{ display:"flex", alignItems:"center", justifyContent:"space-between", fontSize:"14px", fontWeight:"800", color:"#8a5523", marginBottom:"20px", letterSpacing:"1px", textTransform:"uppercase" }}>
-          <div style={{ display:"flex", alignItems:"center", gap:"8px" }}><Building2 size={18} color="#B87333"/>Total Square Footage *</div>
-          <div style={{ fontSize:"24px", fontWeight:"900", color:"#1A1A2E" }}>{sqft.toLocaleString()} sqft</div>
+          <div style={{ display:"flex", alignItems:"center", gap:"8px" }}><Building2 size={18} color="#8a5523"/>Total Square Footage *</div>
+          <div style={{ fontSize:"24px", fontWeight:"900", color:"#1A2535" }}>{sqft.toLocaleString()} sqft</div>
         </label>
 
         {/* Running total box */}
@@ -487,11 +487,11 @@ export default function OfficeForm({ sharedInfo, onBack }) {
           {/* Cards */}
           <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:"10px" }}>
             <div onClick={()=>setFrequency("daily")} style={{ gridColumn:"1/-1", padding:"14px 12px", borderRadius:"10px", cursor:"pointer", transition:"all 0.2s ease", textAlign:"center",
-              border:frequency==="daily"?"2px solid #B87333":"2px solid rgba(184,115,51,0.2)",
-              background:frequency==="daily"?"linear-gradient(135deg,rgba(184,115,51,0.15),rgba(212,149,90,0.08))":"rgba(255,255,255,0.7)",
-              boxShadow:frequency==="daily"?"0 4px 16px rgba(184,115,51,0.25)":"0 2px 6px rgba(0,0,0,0.04)" }}>
-              <div style={{ fontSize:"15px", fontWeight:"800", color:frequency==="daily"?"#8a5523":"#2D3748", marginBottom:"3px" }}>Daily</div>
-              <div style={{ fontSize:"11px", fontWeight:"600", color:frequency==="daily"?"#8a5523":"#888" }}>13% OFF</div>
+              border:frequency==="daily"?"2px solid #0891B2":"2px solid rgba(184,115,51,0.2)",
+              background:frequency==="daily"?"linear-gradient(135deg,rgba(8,145,178,0.12),rgba(6,182,212,0.06))":"rgba(255,255,255,0.7)",
+              boxShadow:frequency==="daily"?"0 0 18px rgba(6,182,212,0.35)":"0 2px 6px rgba(0,0,0,0.04)" }}>
+              <div style={{ fontSize:"15px", fontWeight:"800", color:frequency==="daily"?"#0891B2":"#2D3748", marginBottom:"3px" }}>Daily</div>
+              <div style={{ fontSize:"11px", fontWeight:"600", color:frequency==="daily"?"#0891B2":"#888" }}>13% OFF</div>
             </div>
             {[
               {value:"4x-week",label:"4x Week",disc:"9% OFF"},
@@ -502,11 +502,11 @@ export default function OfficeForm({ sharedInfo, onBack }) {
               {value:"monthly",  label:"Monthly",  disc:"+20%"},
             ].map(o=>(
               <div key={o.value} onClick={()=>setFrequency(o.value)} style={{ padding:"14px 10px", borderRadius:"10px", cursor:"pointer", transition:"all 0.2s ease", textAlign:"center",
-                border:frequency===o.value?"2px solid #B87333":"2px solid rgba(184,115,51,0.2)",
-                background:frequency===o.value?"linear-gradient(135deg,rgba(184,115,51,0.15),rgba(212,149,90,0.08))":"rgba(255,255,255,0.7)",
-                boxShadow:frequency===o.value?"0 4px 16px rgba(184,115,51,0.25)":"0 2px 6px rgba(0,0,0,0.04)" }}>
-                <div style={{ fontSize:"14px", fontWeight:"800", color:frequency===o.value?"#8a5523":"#2D3748", marginBottom:"3px" }}>{o.label}</div>
-                <div style={{ fontSize:"11px", fontWeight:"600", color:frequency===o.value?"#8a5523":"#888" }}>{o.disc}</div>
+                border:frequency===o.value?"2px solid #0891B2":"2px solid rgba(184,115,51,0.2)",
+                background:frequency===o.value?"linear-gradient(135deg,rgba(8,145,178,0.12),rgba(6,182,212,0.06))":"rgba(255,255,255,0.7)",
+                boxShadow:frequency===o.value?"0 0 18px rgba(6,182,212,0.35)":"0 2px 6px rgba(0,0,0,0.04)" }}>
+                <div style={{ fontSize:"14px", fontWeight:"800", color:frequency===o.value?"#0891B2":"#2D3748", marginBottom:"3px" }}>{o.label}</div>
+                <div style={{ fontSize:"11px", fontWeight:"600", color:frequency===o.value?"#0891B2":"#888" }}>{o.disc}</div>
               </div>
             ))}
           </div>
@@ -639,7 +639,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
       {/* Preferred Days */}
       <div style={{ marginBottom:"30px" }}>
         <label style={{ display:"flex", alignItems:"center", fontSize:"14px", fontWeight:"800", color:"#8a5523", marginBottom:"15px", gap:"8px", letterSpacing:"1px", textTransform:"uppercase" }}>
-          <Calendar size={18} color="#B87333"/>Preferred Days (Optional)
+          <Calendar size={18} color="#8a5523"/>Preferred Days (Optional)
         </label>
         <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"10px" }}>
           {["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map(d=>(
@@ -654,7 +654,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
       {/* Preferred Time */}
       <div style={{ marginBottom:"30px" }}>
         <label style={{ display:"flex", alignItems:"center", fontSize:"14px", fontWeight:"800", color:"#8a5523", marginBottom:"15px", gap:"8px", letterSpacing:"1px", textTransform:"uppercase" }}>
-          <Clock size={18} color="#B87333"/>Preferred Time (Optional)
+          <Clock size={18} color="#8a5523"/>Preferred Time (Optional)
         </label>
         <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:"10px" }}>
           {["Morning (6-10am)","Mid-Day (10am-2pm)","Afternoon (2-6pm)","Evening (6-10pm)","Overnight (10pm-6am)"].map(t=>(
@@ -801,21 +801,49 @@ export default function OfficeForm({ sharedInfo, onBack }) {
 
   return (
     <div style={BG_STYLE}>
+      {/* Animated background */}
+      <div style={{ position:"fixed", top:0, left:0, right:0, bottom:0, overflow:"hidden", pointerEvents:"none", zIndex:0 }}>
+        {/* Orbs */}
+        <div style={{ position:"absolute", width:"500px", height:"500px", borderRadius:"50%", filter:"blur(90px)", background:"rgba(180,190,205,0.55)", top:"-120px", left:"-120px" }}/>
+        <div style={{ position:"absolute", width:"380px", height:"380px", borderRadius:"50%", filter:"blur(80px)", background:"rgba(200,185,170,0.45)", bottom:"-80px", right:"-80px" }}/>
+        <div style={{ position:"absolute", width:"220px", height:"220px", borderRadius:"50%", filter:"blur(60px)", background:"rgba(184,115,51,0.12)", top:"40%", left:"60%" }}/>
+        {/* Rings */}
+        <svg width="560" height="560" style={{ position:"absolute", top:"-100px", left:"28%", opacity:0.35 }} viewBox="0 0 560 560">
+          <circle cx="280" cy="280" r="240" fill="none" stroke="rgba(184,115,51,0.35)" strokeWidth="1.2"/>
+          <circle cx="280" cy="280" r="190" fill="none" stroke="rgba(150,170,190,0.3)" strokeWidth="0.7"/>
+          <circle cx="280" cy="280" r="140" fill="none" stroke="rgba(184,115,51,0.2)" strokeWidth="0.7"/>
+        </svg>
+        <svg width="300" height="300" style={{ position:"absolute", bottom:"-60px", right:"4%", opacity:0.3 }} viewBox="0 0 300 300">
+          <circle cx="150" cy="150" r="125" fill="none" stroke="rgba(150,170,190,0.4)" strokeWidth="1.2"/>
+          <circle cx="150" cy="150" r="80" fill="none" stroke="rgba(184,115,51,0.25)" strokeWidth="0.7"/>
+        </svg>
+        {/* Floating dots */}
+        {[
+          { w:"5px", l:"22%", b:"12%", dur:"7s", del:"0s"   },
+          { w:"3px", l:"48%", b:"18%", dur:"9s", del:"1.5s" },
+          { w:"6px", l:"72%", b:"9%",  dur:"8s", del:"0.7s" },
+          { w:"4px", l:"33%", b:"22%", dur:"10s",del:"2s"   },
+          { w:"4px", l:"82%", b:"28%", dur:"7.5s",del:"3s"  },
+        ].map((d,i) => (
+          <div key={i} style={{ position:"absolute", width:d.w, height:d.w, borderRadius:"50%", background:"rgba(184,115,51,0.5)", left:d.l, bottom:d.b, animation:`floatUp ${d.dur} ${d.del} infinite ease-in-out` }}/>
+        ))}
+      </div>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&family=Allura&display=swap');
         .fade-in-up { animation: fadeInUp 0.5s ease-out forwards; }
         @keyframes fadeInUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
         input::placeholder, textarea::placeholder { color: rgba(100,100,100,0.5); }
+        @keyframes floatUp { 0%,100%{transform:translateY(0);opacity:0.6} 50%{transform:translateY(-18px);opacity:1} }
         @media (max-width:900px) { .of-layout { grid-template-columns:1fr !important; } .of-sidebar { display:none !important; } }
       `}</style>
 
-      <div className="of-layout" style={{ maxWidth:"1400px", margin:"0 auto", padding:"30px 20px", display:"grid", gridTemplateColumns:"1fr 380px", gap:"30px", alignItems:"start" }}>
+      <div className="of-layout" style={{ maxWidth:"1400px", margin:"0 auto", padding:"30px 20px", display:"grid", gridTemplateColumns:"1fr 380px", gap:"30px", alignItems:"start", position:"relative", zIndex:1 }}>
 
           {/* Form card */}
           <div style={CARD_STYLE}>
             {/* Header */}
-            <div style={{ backgroundColor:"rgba(255,255,255,0.85)", backdropFilter:"blur(10px)", borderBottom:"1px solid rgba(184,115,51,0.2)", padding:"30px", textAlign:"center", position:"relative", overflow:"hidden" }}>
+            <div style={{ background:"linear-gradient(160deg, #2C3E50 0%, #3D5166 60%, #4A3728 100%)", borderBottom:"1px solid rgba(184,115,51,0.3)", padding:"30px", textAlign:"center", position:"relative", overflow:"hidden" }}>
               <div style={{ position:"absolute", top:0, left:0, right:0, bottom:0, background:"radial-gradient(circle at 50% 50%, rgba(184,115,51,0.12) 0%, transparent 70%)", pointerEvents:"none" }}/>
               <div style={{ position:"relative", zIndex:1 }}>
                 <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:"8px" }}>
@@ -823,7 +851,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
                   <div style={{ fontFamily:"'Allura', cursive", fontSize:"46px", color:"#B87333", letterSpacing:"3px", marginTop:"-8px" }}>Su Oficina</div>
                 </div>
                 <div style={{ height:"2px", width:"60px", background:"linear-gradient(90deg,transparent,#B87333,transparent)", margin:"14px auto 10px" }}/>
-                <div style={{ color:"rgba(100,70,30,0.8)", fontSize:"13px", fontWeight:"600", letterSpacing:"2px", textTransform:"uppercase" }}>🏢 Office Cleaning Quote</div>
+                <div style={{ color:"rgba(255,255,255,0.75)", fontSize:"13px", fontWeight:"600", letterSpacing:"2px", textTransform:"uppercase" }}>🏢 Office Cleaning Quote</div>
               </div>
             </div>
             {/* Progress */}
