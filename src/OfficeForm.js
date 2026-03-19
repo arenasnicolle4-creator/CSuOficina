@@ -855,7 +855,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
           <div style={CARD_STYLE}>
             {/* Header */}
             <div style={{ background:"linear-gradient(180deg, #E8E0C8 0%, #EDE5CE 40%, #F5F0E0 100%)", borderBottom:"1px solid rgba(212,160,23,0.2)", padding:"30px", textAlign:"center", position:"relative", overflow:"hidden" }}>
-              <div style={{ position:"absolute", top:0, left:0, right:0, bottom:0, background:"radial-gradient(circle at 50% 50%, rgba(93,235,241,0.12) 0%, transparent 70%)", pointerEvents:"none" }}/>
+              <div style={{ position:"absolute", top:0, left:0, right:0, bottom:0, background:"radial-gradient(circle at 50% 50%, rgba(200,144,10,0.18) 0%, transparent 70%)", pointerEvents:"none" }}/>
               <div style={{ position:"relative", zIndex:1 }}>
                 <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:"8px" }}>
                   <div style={{ fontFamily:"'Oswald', sans-serif", fontSize:"42px", fontWeight:"300", letterSpacing:"8px", color:"white", textShadow:"0 2px 4px rgba(80,50,0,0.5), 0 4px 12px rgba(60,35,0,0.4), 0 8px 25px rgba(40,20,0,0.35), 0 15px 40px rgba(20,10,0,0.2)" }}>CLEANING</div>
