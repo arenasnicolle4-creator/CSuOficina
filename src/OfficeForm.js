@@ -858,10 +858,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
               <div style={{ position:"relative", zIndex:1 }}>
                 <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:"8px" }}>
                   <div style={{ fontFamily:"'Oswald', sans-serif", fontSize:"42px", fontWeight:"300", letterSpacing:"8px", color:"white", textShadow:"0 2px 4px rgba(80,50,0,0.5), 0 4px 12px rgba(60,35,0,0.4), 0 8px 25px rgba(40,20,0,0.35), 0 15px 40px rgba(20,10,0,0.2)" }}>CLEANING</div>
-                  <div style={{ fontFamily:"'Allura', cursive", fontSize:"46px", letterSpacing:"3px", marginTop:"-8px", fontWeight:"400",
-                    color:"#C9920A",
-                    textShadow:"0 1px 0 #FFF5B0, 0 2px 0 #E8C040, 0 3px 0 #C9920A, 0 4px 0 #A87200, 0 5px 6px rgba(0,0,0,0.25), 0 0 20px rgba(255,215,0,0.4), 0 0 40px rgba(212,160,23,0.2)"
-                  }}>Su Oficina</div>
+                  <div style={{ fontFamily:"'Allura', cursive", fontSize:"46px", letterSpacing:"3px", marginTop:"-8px", fontWeight:"400", color:"#D4A017", filter:"drop-shadow(0 1px 3px rgba(180,130,10,0.4))" }}>Su Oficina</div>
                 </div>
                 <div style={{ height:"2px", width:"80px", background:"linear-gradient(90deg,transparent,#F0C040,transparent)", margin:"14px auto 10px", boxShadow:"0 0 10px rgba(240,192,64,0.5)" }}/>
                 <div style={{ color:"#5C4A1E", fontSize:"13px", fontWeight:"700", letterSpacing:"2px", textTransform:"uppercase" }}>🏢 Office Cleaning Quote</div>
