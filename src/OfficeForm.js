@@ -192,7 +192,8 @@ export default function OfficeForm({ sharedInfo, onBack }) {
     facilityMonthly(serverRooms,     30, serverFreq) +
     facilityMonthly(storageRooms,    20, storageFreq);
 
-  const subtotal = Math.max(MINIMUM, adjBaseCost + trashCost + facilityTotal);
+  const rawTotal = adjBaseCost + trashCost + facilityTotal;
+  const subtotal = (sqft && frequency) ? Math.max(MINIMUM, rawTotal) : rawTotal;
 
   const addonsCost = (() => {
     let t = 0;
