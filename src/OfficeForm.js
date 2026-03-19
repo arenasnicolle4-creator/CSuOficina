@@ -454,8 +454,8 @@ export default function OfficeForm({ sharedInfo, onBack }) {
             return (
               <>
                 {frequency !== "2x-week" && <div style={{ fontSize:"18px", fontWeight:"700", color:"rgba(100,100,100,0.4)", textDecoration:"line-through", marginBottom:"4px" }}>${full.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}</div>}
-                <div style={{ fontSize:"28px", fontWeight:"900", color:disc?"#10b981":prem?"#d97706":"#A07B15", textShadow:disc?"0 0 6px rgba(16,185,129,0.45)":"none" }}>${adjBaseCost.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
-                <div style={{ fontSize:"13px", color:disc?"#10b981":prem?"#d97706":"#A07B15", marginTop:"6px", fontWeight:"800", textShadow:disc?"0 0 5px rgba(16,185,129,0.4)":"none" }}>{lbl} • Monthly Total</div>
+                <div style={{ fontSize:"28px", fontWeight:"900", color:disc?"#10b981":prem?"#d97706":"#A07B15", }}>${adjBaseCost.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
+                <div style={{ fontSize:"13px", color:disc?"#10b981":prem?"#d97706":"#A07B15", marginTop:"6px", fontWeight:"800" }}>{lbl} • Monthly Total</div>
               </>
             );
           })() : (
@@ -521,11 +521,11 @@ export default function OfficeForm({ sharedInfo, onBack }) {
                 <div style={{ fontSize:"11px", color:"#888", fontWeight:"700", marginBottom:"6px", letterSpacing:"0.5px" }}>PRICE PER VISIT</div>
                 <div style={{ display:"flex", alignItems:"baseline", gap:"8px", marginBottom:"12px" }}>
                   {(disc||prem) && <div style={{ fontSize:"16px", color:"rgba(100,100,100,0.4)", textDecoration:"line-through", fontWeight:"600" }}>${bpv.toFixed(2)}</div>}
-                  <div style={{ fontSize:"28px", fontWeight:"900", color:disc?"#10b981":prem?"#d97706":"#A07B15", lineHeight:"1", textShadow: disc ? "0 0 8px rgba(16,185,129,0.5)" : "none" }}>${ppv.toFixed(2)}</div>
+                  <div style={{ fontSize:"28px", fontWeight:"900", color:disc?"#10b981":prem?"#d97706":"#A07B15", lineHeight:"1" }}>${ppv.toFixed(2)}</div>
                 </div>
                 {disc && <div style={{ padding:"8px 14px", borderRadius:"8px", background:"linear-gradient(135deg,#10b981,#059669)", display:"inline-block", boxShadow:"0 0 18px rgba(16,185,129,0.6), 0 0 35px rgba(5,150,105,0.3), 0 4px 12px rgba(16,185,129,0.3)" }}>
                   <div style={{ fontSize:"10px", color:"rgba(255,255,255,0.9)", fontWeight:"600", marginBottom:"2px" }}>YOU SAVE</div>
-                  <div style={{ fontSize:"18px", color:"white", fontWeight:"900", textShadow:"0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(16,185,129,0.5)" }}>{Math.round(((bpv-ppv)/bpv)*100)}%</div>
+                  <div style={{ fontSize:"18px", color:"white", fontWeight:"900",  }}>{Math.round(((bpv-ppv)/bpv)*100)}%</div>
                 </div>}
                 {prem && <div style={{ padding:"8px 14px", borderRadius:"8px", background:"linear-gradient(135deg,#f59e0b,#d97706)", display:"inline-block" }}>
                   <div style={{ fontSize:"10px", color:"rgba(255,255,255,0.9)", fontWeight:"600", marginBottom:"2px" }}>PREMIUM</div>
@@ -849,7 +849,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
           {/* Form card */}
           <div style={CARD_STYLE}>
             {/* Header */}
-            <div style={{ background:"linear-gradient(180deg, rgba(255,248,220,0.6) 0%, rgba(180,130,10,0.65) 15%, rgba(180,130,10,0.65) 38%, rgba(240,192,64,0.35) 60%, rgba(255,248,220,0.8) 100%)", borderBottom:"1px solid rgba(212,160,23,0.3)", padding:"30px", textAlign:"center", position:"relative", overflow:"hidden", backgroundColor:"#FDF9EE" }}>
+            <div style={{ background:"linear-gradient(180deg, #E8E0C8 0%, #EDE5CE 40%, #F5F0E0 100%)", borderBottom:"1px solid rgba(212,160,23,0.2)", padding:"30px", textAlign:"center", position:"relative", overflow:"hidden" }}>
               <div style={{ position:"relative", zIndex:1 }}>
                 <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:"8px" }}>
                   <div style={{ fontFamily:"'Oswald', sans-serif", fontSize:"42px", fontWeight:"300", letterSpacing:"8px", color:"white", textShadow:"0 0 10px rgba(255,255,255,1), 0 0 25px rgba(255,255,255,0.9), 0 0 50px rgba(255,240,150,0.8), 0 0 90px rgba(240,192,64,0.6), 0 0 140px rgba(212,160,23,0.3)" }}>CLEANING</div>
