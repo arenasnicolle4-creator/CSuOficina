@@ -438,7 +438,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         <button onClick={goBack} style={{ flex:1, padding:"18px", borderRadius:"16px", border:"2px solid rgba(212,160,23,0.3)", background:"white", color:"#A07B15", fontSize:"15px", fontWeight:"800", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
           <ChevronLeft size={20}/> Back
         </button>
-        <button onClick={goNext} disabled={!officeType} className="continue-btn" style={{ flex:2, padding:"18px", borderRadius:"16px", border: officeType?"1px solid rgba(212,160,23,0.4)":"1px solid rgba(62,56,48,0.15)", background: officeType?"linear-gradient(160deg, #3E3830 0%, #4E4840 50%, #3E3830 100%)":"rgba(255,255,255,0.4)", fontSize:"15px", fontWeight:"800", cursor:officeType?"pointer":"not-allowed", color:officeType?"#F5E8C0":"#9A9490", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px", transition:"all 0.3s ease", boxShadow:officeType?"0 4px 16px rgba(62,56,48,0.25)":"none" }}>
+        <button onClick={goNext} disabled={!officeType} className="continue-btn" style={{ flex:2, padding:"18px", borderRadius:"16px", border: officeType?"2px solid rgba(212,160,23,0.6)":"2px solid rgba(212,160,23,0.2)", background: officeType?"rgba(255,255,255,0.9)":"rgba(255,255,255,0.4)", fontSize:"15px", fontWeight:"800", cursor:officeType?"pointer":"not-allowed", color:officeType?"#8B6914":"#B8A060", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px", transition:"all 0.25s ease", boxShadow: officeType?"0 2px 8px rgba(212,160,23,0.2)":"none" }}>
           Continue <ChevronRight size={20}/>
         </button>
       </div>
@@ -602,13 +602,15 @@ export default function OfficeForm({ sharedInfo, onBack }) {
             <div style={{ display:"flex", gap:"8px" }}>
               <button onClick={()=>f.set(Math.max(0,f.val-1))} style={{ flex:1, padding:"10px", borderRadius:"10px", border:"none", background:f.val>0?"rgba(239,68,68,0.12)":"rgba(230,230,230,0.6)", color:f.val>0?"#ef4444":"rgba(255,255,255,0.3)", fontSize:"18px", fontWeight:"900", cursor:f.val>0?"pointer":"not-allowed" }}>−</button>
               <div style={{ flex:1, position:"relative", overflow:"hidden", borderRadius:"10px" }}>
-                <svg style={{ position:"absolute", bottom:"-18px", left:"-18px", width:"70px", height:"70px", pointerEvents:"none", zIndex:0 }} viewBox="0 0 70 70">
-                  <circle cx="35" cy="35" r="32" fill="none" stroke="rgba(240,192,64,0.5)" strokeWidth="1"/>
-                  <circle cx="35" cy="35" r="23" fill="none" stroke="rgba(255,240,160,0.3)" strokeWidth="0.7"/>
+                {/* Rings bottom-left */}
+                <svg style={{ position:"absolute", bottom:"-20px", left:"-20px", width:"72px", height:"72px", pointerEvents:"none", zIndex:0 }} viewBox="0 0 72 72">
+                  <circle cx="36" cy="36" r="33" fill="none" stroke="rgba(240,192,64,0.5)" strokeWidth="1"/>
+                  <circle cx="36" cy="36" r="24" fill="none" stroke="rgba(255,240,160,0.3)" strokeWidth="0.7"/>
                 </svg>
-                <div style={{ position:"absolute", width:"3px", height:"3px", borderRadius:"50%", background:"rgba(240,192,64,0.8)", bottom:"6px", left:"22px", zIndex:0, pointerEvents:"none" }}/>
-                <div style={{ position:"absolute", width:"2px", height:"2px", borderRadius:"50%", background:"rgba(255,240,160,0.6)", bottom:"14px", left:"8px", zIndex:0, pointerEvents:"none" }}/>
-                <button onClick={()=>f.set(f.val+1)} style={{ width:"100%", padding:"10px", borderRadius:"10px", border:"1px solid rgba(212,160,23,0.4)", background:"linear-gradient(160deg, #3E3830 0%, #4E4840 50%, #3E3830 100%)", color:"#F5E8C0", fontSize:"18px", fontWeight:"900", cursor:"pointer", position:"relative", zIndex:1, boxShadow:"0 0 10px rgba(240,192,64,0.25), inset 0 0 8px rgba(240,192,64,0.08)" }}>+</button>
+                {/* Dots */}
+                <div style={{ position:"absolute", width:"3px", height:"3px", borderRadius:"50%", background:"rgba(240,192,64,0.8)", bottom:"8px", left:"24px", zIndex:0, pointerEvents:"none" }}/>
+                <div style={{ position:"absolute", width:"2px", height:"2px", borderRadius:"50%", background:"rgba(255,240,160,0.6)", bottom:"16px", left:"9px", zIndex:0, pointerEvents:"none" }}/>
+                <button onClick={()=>f.set(f.val+1)} style={{ width:"100%", padding:"10px", borderRadius:"10px", border:"1.5px solid rgba(212,160,23,0.5)", background:"linear-gradient(160deg, rgba(255,255,255,0.95) 0%, rgba(255,230,120,0.6) 50%, rgba(212,160,23,0.75) 100%)", color:"#5C3D10", fontSize:"18px", fontWeight:"900", cursor:"pointer", position:"relative", zIndex:1, boxShadow:"0 0 10px rgba(212,160,23,0.3), inset 0 0 6px rgba(255,240,160,0.15)" }}>+</button>
               </div>
             </div>
             {f.val > 0 && <FreqGrid value={f.freq} onChange={f.setFreq}/>}
@@ -620,7 +622,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         <button onClick={goBack} style={{ flex:1, padding:"18px", borderRadius:"16px", border:"2px solid rgba(212,160,23,0.3)", background:"white", color:"#A07B15", fontSize:"15px", fontWeight:"800", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
           <ChevronLeft size={20}/> Back
         </button>
-        <button onClick={goNext} disabled={!squareFeet||!frequency} className="continue-btn" style={{ flex:2, padding:"18px", borderRadius:"16px", border: (squareFeet&&frequency)?"1px solid rgba(212,160,23,0.4)":"1px solid rgba(62,56,48,0.15)", background: (squareFeet&&frequency)?"linear-gradient(160deg, #3E3830 0%, #4E4840 50%, #3E3830 100%)":"rgba(255,255,255,0.4)", fontSize:"15px", fontWeight:"800", cursor:(squareFeet&&frequency)?"pointer":"not-allowed", color:(squareFeet&&frequency)?"#F5E8C0":"#9A9490", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px", transition:"all 0.3s ease", boxShadow:(squareFeet&&frequency)?"0 4px 16px rgba(62,56,48,0.25)":"none" }}>
+        <button onClick={goNext} disabled={!squareFeet||!frequency} className="continue-btn" style={{ flex:2, padding:"18px", borderRadius:"16px", border: (squareFeet&&frequency)?"2px solid rgba(212,160,23,0.6)":"2px solid rgba(212,160,23,0.2)", background: (squareFeet&&frequency)?"rgba(255,255,255,0.9)":"rgba(255,255,255,0.4)", fontSize:"15px", fontWeight:"800", cursor:(squareFeet&&frequency)?"pointer":"not-allowed", color:(squareFeet&&frequency)?"#8B6914":"#B8A060", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px", transition:"all 0.25s ease", boxShadow: (squareFeet&&frequency)?"0 2px 8px rgba(212,160,23,0.2)":"none" }}>
           Continue <ChevronRight size={20}/>
         </button>
       </div>
@@ -646,7 +648,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
           ].map(a=>(
             <div key={a.key} onClick={()=>setAddOns({...addOns,[a.key]:!addOns[a.key]})} style={{ padding:"18px 16px", borderRadius:"16px", cursor:"pointer", transition:"all 0.3s ease", display:"flex", alignItems:"flex-start", gap:"10px",
               border:addOns[a.key]?"1.5px solid rgba(212,160,23,0.6)":"1.5px solid rgba(212,160,23,0.25)",
-              background:addOns[a.key]?"linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(255,235,140,0.5) 40%, rgba(212,160,23,0.65) 100%)":"#EDE5CE",
+              <div style={{ width:"20px", height:"20px", borderRadius:"6px", border:addOns[a.key]?"none":"2px solid rgba(212,160,23,0.4)", background:addOns[a.key]?"linear-gradient(135deg,#3DA864,#2D7A4A)":"rgba(255,255,255,0.5)", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, marginTop:"2px" }}>
               boxShadow:addOns[a.key]?"0 4px 16px rgba(212,160,23,0.3)":"0 2px 6px rgba(0,0,0,0.04)" }}>
               <div style={{ width:"20px", height:"20px", borderRadius:"6px", border:addOns[a.key]?"none":"2px solid rgba(212,160,23,0.4)", background:addOns[a.key]?"linear-gradient(135deg,#3DA864,#2D7A4A)":"rgba(255,255,255,0.5)", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, marginTop:"2px" }}>
                 {addOns[a.key]&&<CheckCircle2 size={14} color="white"/>}
@@ -864,8 +866,8 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         @keyframes fadeInUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
         input::placeholder, textarea::placeholder { color: rgba(100,100,100,0.5); }
         @keyframes floatUp { 0%,100%{transform:translateY(0);opacity:0.5} 50%{transform:translateY(-22px);opacity:1} }
-        .continue-btn:not(:disabled):hover { background: linear-gradient(160deg, #4E4840 0%, #5E5850 50%, #4E4840 100%) !important; color: #F5E8C0 !important; border-color: rgba(212,160,23,0.6) !important; box-shadow: 0 6px 20px rgba(62,56,48,0.35) !important; transform: translateY(-1px); }
-        .continue-btn:not(:disabled):active { background: linear-gradient(160deg, #2C2416 0%, #3E3830 50%, #2C2416 100%) !important; color: #F5E8C0 !important; box-shadow: 0 2px 8px rgba(62,56,48,0.3) !important; transform: scale(0.98); }
+        .continue-btn:not(:disabled):hover { background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,235,140,0.7) 50%, rgba(212,160,23,0.85) 100%) !important; color: #3D2600 !important; box-shadow: 0 4px 20px rgba(212,160,23,0.35) !important; border-color: rgba(212,160,23,0.8) !important; }
+        .continue-btn:not(:disabled):active { background: linear-gradient(135deg, #D4A017, #F0C040) !important; color: white !important; box-shadow: 0 2px 8px rgba(212,160,23,0.5) !important; transform: scale(0.98); }
         @media (max-width:900px) { .of-layout { grid-template-columns:1fr !important; } .of-sidebar { display:none !important; } }
       `}</style>
 
