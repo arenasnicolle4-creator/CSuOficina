@@ -117,7 +117,7 @@ export default function CleaningSuOficinaBooking() {
         <div className="hero-orb hero-orb-1"/><div className="hero-orb hero-orb-2"/><div className="hero-orb hero-orb-3"/>
       </div>
 
-      <div style={{ maxWidth:"680px", margin:"0 auto", padding:"30px 20px", position:"relative", zIndex:1 }}>
+      <div style={{ maxWidth:"900px", margin:"0 auto", padding:"30px 20px", position:"relative", zIndex:1 }}>
         <div style={cardStyle}>
 
           {/* Header */}
