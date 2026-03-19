@@ -144,7 +144,7 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
   return (
     <div style={PAGE_BG}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&family=Allura&display=swap');.fade-in-up{animation:fadeInUp 0.5s ease-out forwards;}@keyframes fadeInUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}input::placeholder{color:rgba(255,255,255,0.4);}`}</style>
-      <div style={{maxWidth:"1400px",margin:"0 auto",padding:"30px 20px",display:"grid",gridTemplateColumns:"1fr 380px",gap:"30px",alignItems:"start",position:"relative",zIndex:1}}>
+      <div style={{maxWidth:"1200px",margin:"0 auto",padding:"30px 20px",display:"grid",gridTemplateColumns:"1fr 420px",gap:"30px",alignItems:"start",position:"relative",zIndex:1}}>
         <div style={{...CARD_BG,borderRadius:"32px",overflow:"hidden",boxShadow:"0 30px 80px rgba(0,0,0,0.5)",border:"1px solid rgba(184,115,51,0.2)"}}>
           {/* Header */}
           <div style={{backgroundColor:"rgba(15,23,30,0.4)",backdropFilter:"blur(10px)",borderBottom:"1px solid rgba(184,115,51,0.2)",padding:"30px",textAlign:"center",position:"relative",overflow:"hidden"}}>
