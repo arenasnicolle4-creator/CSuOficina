@@ -337,7 +337,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
 
   // ── Sidebar ───────────────────────────────────────────────────────────────
   const Sidebar = () => (
-    <div style={{ position:"sticky", top:"20px", height:"fit-content", maxHeight:"calc(100vh - 40px)", display:"flex", flexDirection:"column" }}>
+    <div style={{ maxHeight:"calc(100vh - 40px)", display:"flex", flexDirection:"column" }}>
       <div style={{ ...CARD_STYLE, borderRadius:"28px", display:"flex", flexDirection:"column", maxHeight:"100%" }}>
         <div style={{ padding:"25px", textAlign:"center", borderBottom:"1px solid rgba(255,255,255,0.1)" }}>
           <div style={{ fontSize:"16px", color:"#B87333", fontWeight:"800", marginBottom:"8px", letterSpacing:"1.5px", textTransform:"uppercase" }}>Price Breakdown</div>
@@ -837,7 +837,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
           </div>
 
           {/* Sidebar */}
-          <div className="of-sidebar"><Sidebar/></div>
+          <div className="of-sidebar" style={{ position:"sticky", top:"20px", height:"fit-content" }}><Sidebar/></div>
       </div>
 
       {showWsModal && renderWsModal()}
