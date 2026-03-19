@@ -849,7 +849,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
           {/* Form card */}
           <div style={CARD_STYLE}>
             {/* Header */}
-            <div style={{ background:"linear-gradient(180deg, rgba(255,248,220,0.9) 0%, rgba(240,192,64,0.45) 25%, rgba(180,130,10,0.7) 45%, rgba(180,130,10,0.7) 55%, rgba(240,192,64,0.45) 75%, rgba(255,248,220,0.9) 100%)", borderBottom:"1px solid rgba(212,160,23,0.3)", padding:"30px", textAlign:"center", position:"relative", overflow:"hidden", backgroundColor:"#FDF9EE" }}>
+            <div style={{ background:"linear-gradient(180deg, rgba(255,248,220,0.6) 0%, rgba(180,130,10,0.65) 15%, rgba(180,130,10,0.65) 38%, rgba(240,192,64,0.35) 60%, rgba(255,248,220,0.8) 100%)", borderBottom:"1px solid rgba(212,160,23,0.3)", padding:"30px", textAlign:"center", position:"relative", overflow:"hidden", backgroundColor:"#FDF9EE" }}>
               <div style={{ position:"relative", zIndex:1 }}>
                 <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:"8px" }}>
                   <div style={{ fontFamily:"'Oswald', sans-serif", fontSize:"42px", fontWeight:"300", letterSpacing:"8px", color:"white", textShadow:"0 0 10px rgba(255,255,255,1), 0 0 25px rgba(255,255,255,0.9), 0 0 50px rgba(255,240,150,0.8), 0 0 90px rgba(240,192,64,0.6), 0 0 140px rgba(212,160,23,0.3)" }}>CLEANING</div>
