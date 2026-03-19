@@ -350,7 +350,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
           {/* Dots */}
           <div style={{ position:"absolute", width:"4px", height:"4px", borderRadius:"50%", background:"rgba(255,240,160,0.7)", top:"18%", right:"18%", boxShadow:"0 0 5px rgba(240,192,64,0.6)", pointerEvents:"none" }}/>
           <div style={{ position:"absolute", width:"3px", height:"3px", borderRadius:"50%", background:"rgba(240,192,64,0.6)", top:"65%", right:"8%", boxShadow:"0 0 4px rgba(240,192,64,0.5)", pointerEvents:"none" }}/>
-          <div style={{ position:"absolute", width:"5px", height:"5px", borderRadius:"50%", background:"rgba(255,240,160,0.5)", top:"40%", right:"32%", boxShadow:"0 0 5px rgba(240,192,64,0.4)", pointerEvents:"none" }}/>
+          <div style={{ position:"absolute", width:"5px", height:"5px", borderRadius:"50%", background:"rgba(255,240,160,0.5)", bottom:"15%", left:"8%", boxShadow:"0 0 5px rgba(240,192,64,0.4)", pointerEvents:"none" }}/>
           <div style={{ position:"relative", zIndex:1 }}>
             <div style={{ fontFamily:"'Oswald', sans-serif", fontSize:"22px", fontWeight:"300", letterSpacing:"5px", textTransform:"uppercase", background:"linear-gradient(180deg, #FFF0A0 0%, #F0C040 25%, #C8900A 50%, #F0C040 75%, #FFF0A0 100%)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text", marginBottom:"8px" }}>Price Breakdown</div>
             <div style={{ fontSize:"14px", color:"rgba(240,192,64,0.85)", fontWeight:"700", background:"rgba(255,255,255,0.1)", padding:"4px 12px", borderRadius:"6px", display:"inline-block" }}>Monthly Estimate</div>
