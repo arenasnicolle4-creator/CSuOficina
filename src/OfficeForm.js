@@ -423,7 +423,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         <button onClick={goBack} style={{ flex:1, padding:"18px", borderRadius:"16px", border:"2px solid rgba(184,115,51,0.3)", background:"white", color:"#8B7322", fontSize:"15px", fontWeight:"800", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
           <ChevronLeft size={20}/> Back
         </button>
-        <button onClick={goNext} disabled={!officeType} style={{ flex:2, padding:"18px", borderRadius:"16px", border:"none", background:officeType?"linear-gradient(135deg,#C9A227,#D4AF37)":"rgba(201,162,39,0.15)", color:"white", fontSize:"15px", fontWeight:"800", cursor:officeType?"pointer":"not-allowed", color:officeType?"white":"#9A8030", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
+        <button onClick={goNext} disabled={!officeType} style={{ flex:2, padding:"18px", borderRadius:"16px", border:"none", background:officeType?"linear-gradient(135deg,#C9A227,#D4AF37)":"rgba(201,162,39,0.15)", fontSize:"15px", fontWeight:"800", cursor:officeType?"pointer":"not-allowed", color:officeType?"white":"#9A8030", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
           Continue <ChevronRight size={20}/>
         </button>
       </div>
@@ -597,7 +597,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         <button onClick={goBack} style={{ flex:1, padding:"18px", borderRadius:"16px", border:"2px solid rgba(184,115,51,0.3)", background:"white", color:"#8B7322", fontSize:"15px", fontWeight:"800", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
           <ChevronLeft size={20}/> Back
         </button>
-        <button onClick={goNext} disabled={!squareFeet||!frequency} style={{ flex:2, padding:"18px", borderRadius:"16px", border:"none", background:(squareFeet&&frequency)?"linear-gradient(135deg,#C9A227,#D4AF37)":"rgba(201,162,39,0.15)", color:"white", fontSize:"15px", fontWeight:"800", cursor:(squareFeet&&frequency)?"pointer":"not-allowed", color:(squareFeet&&frequency)?"white":"#9A8030", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
+        <button onClick={goNext} disabled={!squareFeet||!frequency} style={{ flex:2, padding:"18px", borderRadius:"16px", border:"none", background:(squareFeet&&frequency)?"linear-gradient(135deg,#C9A227,#D4AF37)":"rgba(201,162,39,0.15)", fontSize:"15px", fontWeight:"800", cursor:(squareFeet&&frequency)?"pointer":"not-allowed", color:(squareFeet&&frequency)?"white":"#9A8030", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
           Continue <ChevronRight size={20}/>
         </button>
       </div>
