@@ -438,7 +438,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         <button onClick={goBack} style={{ flex:1, padding:"18px", borderRadius:"16px", border:"2px solid rgba(212,160,23,0.3)", background:"white", color:"#A07B15", fontSize:"15px", fontWeight:"800", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
           <ChevronLeft size={20}/> Back
         </button>
-        <button onClick={goNext} disabled={!officeType} className="continue-btn" style={{ flex:2, padding:"18px", borderRadius:"16px", border: officeType?"1px solid rgba(212,160,23,0.3)":"1px solid rgba(62,56,48,0.1)", background: officeType?"rgba(62,56,48,0.6)":"rgba(255,255,255,0.4)", fontSize:"15px", fontWeight:"800", cursor:officeType?"pointer":"not-allowed", color:officeType?"rgba(255,240,160,0.95)":"#9A9490", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px", transition:"all 0.25s ease" }}>
+        <button onClick={goNext} disabled={!officeType} className="continue-btn" style={{ flex:2, padding:"18px", borderRadius:"16px", border: officeType?"1px solid rgba(62,56,48,0.35)":"1px solid rgba(62,56,48,0.1)", background: officeType?"rgba(62,56,48,0.15)":"rgba(255,255,255,0.4)", backdropFilter:"blur(4px)", fontSize:"15px", fontWeight:"800", cursor:officeType?"pointer":"not-allowed", color:officeType?"#3E3830":"#9A9490", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px", transition:"all 0.25s ease" }}>
           Continue <ChevronRight size={20}/>
         </button>
       </div>
@@ -601,7 +601,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
             </div>
             <div style={{ display:"flex", gap:"8px" }}>
               <button onClick={()=>f.set(Math.max(0,f.val-1))} style={{ flex:1, padding:"10px", borderRadius:"10px", border:"none", background:f.val>0?"rgba(239,68,68,0.12)":"rgba(230,230,230,0.6)", color:f.val>0?"#ef4444":"rgba(255,255,255,0.3)", fontSize:"18px", fontWeight:"900", cursor:f.val>0?"pointer":"not-allowed" }}>−</button>
-              <button onClick={()=>f.set(f.val+1)} style={{ flex:1, padding:"10px", borderRadius:"10px", border:"1px solid rgba(212,160,23,0.3)", background:"rgba(62,56,48,0.6)", color:"rgba(255,240,160,0.95)", fontSize:"18px", fontWeight:"900", cursor:"pointer" }}>+</button>
+              <button onClick={()=>f.set(f.val+1)} style={{ flex:1, padding:"10px", borderRadius:"10px", border:"1px solid rgba(62,56,48,0.35)", background:"rgba(62,56,48,0.15)", backdropFilter:"blur(4px)", color:"#3E3830", fontSize:"18px", fontWeight:"900", cursor:"pointer" }}>+</button>
             </div>
             {f.val > 0 && <FreqGrid value={f.freq} onChange={f.setFreq}/>}
           </div>
@@ -612,7 +612,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         <button onClick={goBack} style={{ flex:1, padding:"18px", borderRadius:"16px", border:"2px solid rgba(212,160,23,0.3)", background:"white", color:"#A07B15", fontSize:"15px", fontWeight:"800", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
           <ChevronLeft size={20}/> Back
         </button>
-        <button onClick={goNext} disabled={!squareFeet||!frequency} className="continue-btn" style={{ flex:2, padding:"18px", borderRadius:"16px", border: (squareFeet&&frequency)?"1px solid rgba(212,160,23,0.3)":"1px solid rgba(62,56,48,0.1)", background: (squareFeet&&frequency)?"rgba(62,56,48,0.6)":"rgba(255,255,255,0.4)", fontSize:"15px", fontWeight:"800", cursor:(squareFeet&&frequency)?"pointer":"not-allowed", color:(squareFeet&&frequency)?"rgba(255,240,160,0.95)":"#9A9490", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px", transition:"all 0.25s ease" }}>
+        <button onClick={goNext} disabled={!squareFeet||!frequency} className="continue-btn" style={{ flex:2, padding:"18px", borderRadius:"16px", border: (squareFeet&&frequency)?"1px solid rgba(62,56,48,0.35)":"1px solid rgba(62,56,48,0.1)", background: (squareFeet&&frequency)?"rgba(62,56,48,0.15)":"rgba(255,255,255,0.4)", backdropFilter:"blur(4px)", fontSize:"15px", fontWeight:"800", cursor:(squareFeet&&frequency)?"pointer":"not-allowed", color:(squareFeet&&frequency)?"#3E3830":"#9A9490", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px", transition:"all 0.25s ease" }}>
           Continue <ChevronRight size={20}/>
         </button>
       </div>
@@ -856,8 +856,8 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         @keyframes fadeInUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
         input::placeholder, textarea::placeholder { color: rgba(100,100,100,0.5); }
         @keyframes floatUp { 0%,100%{transform:translateY(0);opacity:0.5} 50%{transform:translateY(-22px);opacity:1} }
-        .continue-btn:not(:disabled):hover { background: rgba(62,56,48,0.75) !important; color: rgba(255,240,160,0.95) !important; border-color: rgba(212,160,23,0.5) !important; transform: translateY(-1px); }
-        .continue-btn:not(:disabled):active { background: rgba(62,56,48,0.88) !important; color: rgba(255,240,160,0.95) !important; transform: scale(0.98); }
+        .continue-btn:not(:disabled):hover { background: rgba(62,56,48,0.28) !important; border-color: rgba(62,56,48,0.5) !important; transform: translateY(-1px); }
+        .continue-btn:not(:disabled):active { background: rgba(62,56,48,0.4) !important; transform: scale(0.98); }
         @media (max-width:900px) { .of-layout { grid-template-columns:1fr !important; } .of-sidebar { display:none !important; } }
       `}</style>
 
