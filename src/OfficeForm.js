@@ -222,7 +222,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
     items.push({
       label: `Base Cleaning (${sqft.toLocaleString()} sqft)`,
       amount: adjBaseCost,
-      originalAmount: frequency !== "2x-week" ? fullRate : null,
+      originalAmount: frequency !== "2x-week" && frequency !== "weekly" ? fullRate : null,
       discountAmount: hasDiscount ? fullRate - adjBaseCost : 0,
       isUpcharge: isPremium,
     });
@@ -468,7 +468,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
             const lbl  = { "monthly":"Monthly","bi-weekly":"Bi-weekly","weekly":"Weekly","2x-week":"2x/Week","3x-week":"3x/Week","4x-week":"4x/Week","daily":"Daily" }[frequency];
             return (
               <>
-                {frequency !== "2x-week" && <div style={{ fontSize:"18px", fontWeight:"700", color:"rgba(100,100,100,0.4)", textDecoration:"line-through", marginBottom:"4px" }}>${full.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}</div>}
+                {frequency !== "2x-week" && frequency !== "weekly" && <div style={{ fontSize:"18px", fontWeight:"700", color:"rgba(100,100,100,0.4)", textDecoration:"line-through", marginBottom:"4px" }}>${full.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}</div>}
                 <div style={{ fontSize:"28px", fontWeight:"900", color:disc?"#2E7D4F":prem?"#d97706":"#A07B15", }}>${adjBaseCost.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
                 <div style={{ fontSize:"13px", color:disc?"#2E7D4F":prem?"#d97706":"#A07B15", marginTop:"6px", fontWeight:"800" }}>{lbl} • Monthly Total</div>
               </>
