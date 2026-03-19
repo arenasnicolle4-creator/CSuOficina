@@ -609,7 +609,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
                   <circle cx="40" cy="40" r="27" fill="none" stroke="rgba(120,80,0,0.35)" strokeWidth="1"/>
                 </svg>
                 {/* Dots — gold with glow */}
-                <div style={{ position:"absolute", width:"5px", height:"5px", borderRadius:"50%", background:"rgba(212,160,23,0.9)", bottom:"8px", left:"24px", zIndex:2, pointerEvents:"none", boxShadow:"0 0 5px rgba(212,160,23,0.7)" }}/>
+                <div style={{ position:"absolute", width:"5px", height:"5px", borderRadius:"50%", background:"rgba(255,220,80,0.85)", bottom:"8px", left:"24px", zIndex:2, pointerEvents:"none", boxShadow:"0 0 6px rgba(255,220,80,0.6)" }}/>
                 <div style={{ position:"absolute", width:"3px", height:"3px", borderRadius:"50%", background:"rgba(240,192,64,0.8)", top:"6px", right:"10px", zIndex:2, pointerEvents:"none", boxShadow:"0 0 4px rgba(240,192,64,0.6)" }}/>
                 <div style={{ position:"absolute", width:"4px", height:"4px", borderRadius:"50%", background:"rgba(255,220,80,0.85)", top:"45%", right:"14px", zIndex:2, pointerEvents:"none", boxShadow:"0 0 6px rgba(255,220,80,0.6)" }}/>
               </div>
