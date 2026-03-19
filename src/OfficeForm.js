@@ -854,7 +854,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
           {/* Form card */}
           <div style={CARD_STYLE}>
             {/* Header */}
-            <div style={{ background:"linear-gradient(160deg, #4A3820 0%, #5A4828 50%, #4A3820 100%)", borderBottom:"1px solid rgba(212,160,23,0.3)", padding:"30px", textAlign:"center", position:"relative", overflow:"hidden" }}>
+            <div style={{ background:"linear-gradient(160deg, #3E3830 0%, #4E4840 50%, #3E3830 100%)", borderBottom:"1px solid rgba(212,160,23,0.3)", padding:"30px", textAlign:"center", position:"relative", overflow:"hidden" }}>
               {/* Rings inside header */}
               <svg width="220" height="220" style={{ position:"absolute", top:"-60px", left:"-40px", opacity:0.25, pointerEvents:"none" }} viewBox="0 0 220 220">
                 <circle cx="110" cy="110" r="100" fill="none" stroke="rgba(240,192,64,0.8)" strokeWidth="1.2"/>
