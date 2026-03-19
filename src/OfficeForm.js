@@ -809,7 +809,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         @media (max-width:900px) { .of-layout { grid-template-columns:1fr !important; } .of-sidebar { display:none !important; } }
       `}</style>
 
-      <div className="of-layout" style={{ maxWidth:"1200px", margin:"0 auto", padding:"30px 20px", display:"grid", gridTemplateColumns:"1fr 420px", gap:"30px", alignItems:"start" }}>
+      <div className="of-layout" style={{ maxWidth:"1400px", margin:"0 auto", padding:"30px 20px", display:"grid", gridTemplateColumns:"1fr 380px", gap:"30px", alignItems:"start" }}>
 
           {/* Form card */}
           <div style={CARD_STYLE}>
