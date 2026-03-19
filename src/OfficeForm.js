@@ -602,11 +602,13 @@ export default function OfficeForm({ sharedInfo, onBack }) {
             <div style={{ display:"flex", gap:"8px" }}>
               <button onClick={()=>f.set(Math.max(0,f.val-1))} style={{ flex:1, padding:"10px", borderRadius:"10px", border:"none", background:f.val>0?"rgba(239,68,68,0.12)":"rgba(230,230,230,0.6)", color:f.val>0?"#ef4444":"rgba(255,255,255,0.3)", fontSize:"18px", fontWeight:"900", cursor:f.val>0?"pointer":"not-allowed" }}>−</button>
               <div style={{ flex:1, position:"relative", overflow:"hidden", borderRadius:"10px" }}>
-                <svg style={{ position:"absolute", top:0, left:0, width:"100%", height:"100%", pointerEvents:"none", zIndex:2 }} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
-                  <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(240,192,64,0.45)" strokeWidth="1"/>
-                  <circle cx="50" cy="50" r="36" fill="none" stroke="rgba(255,240,160,0.25)" strokeWidth="0.7"/>
+                <svg style={{ position:"absolute", bottom:"-18px", left:"-18px", width:"70px", height:"70px", pointerEvents:"none", zIndex:0 }} viewBox="0 0 70 70">
+                  <circle cx="35" cy="35" r="32" fill="none" stroke="rgba(240,192,64,0.5)" strokeWidth="1"/>
+                  <circle cx="35" cy="35" r="23" fill="none" stroke="rgba(255,240,160,0.3)" strokeWidth="0.7"/>
                 </svg>
-                <button onClick={()=>f.set(f.val+1)} style={{ width:"100%", padding:"10px", borderRadius:"10px", border:"1px solid rgba(212,160,23,0.4)", background:"linear-gradient(160deg, #3E3830 0%, #4E4840 50%, #3E3830 100%)", color:"#F5E8C0", fontSize:"18px", fontWeight:"900", cursor:"pointer", position:"relative", zIndex:1 }}>+</button>
+                <div style={{ position:"absolute", width:"3px", height:"3px", borderRadius:"50%", background:"rgba(240,192,64,0.8)", bottom:"6px", left:"22px", zIndex:0, pointerEvents:"none" }}/>
+                <div style={{ position:"absolute", width:"2px", height:"2px", borderRadius:"50%", background:"rgba(255,240,160,0.6)", bottom:"14px", left:"8px", zIndex:0, pointerEvents:"none" }}/>
+                <button onClick={()=>f.set(f.val+1)} style={{ width:"100%", padding:"10px", borderRadius:"10px", border:"1px solid rgba(212,160,23,0.4)", background:"linear-gradient(160deg, #3E3830 0%, #4E4840 50%, #3E3830 100%)", color:"#F5E8C0", fontSize:"18px", fontWeight:"900", cursor:"pointer", position:"relative", zIndex:1, boxShadow:"0 0 10px rgba(240,192,64,0.25), inset 0 0 8px rgba(240,192,64,0.08)" }}>+</button>
               </div>
             </div>
             {f.val > 0 && <FreqGrid value={f.freq} onChange={f.setFreq}/>}
