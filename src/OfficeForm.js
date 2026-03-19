@@ -607,9 +607,10 @@ export default function OfficeForm({ sharedInfo, onBack }) {
                   <circle cx="38" cy="38" r="35" fill="none" stroke="rgba(120,80,0,0.55)" strokeWidth="1.5"/>
                   <circle cx="38" cy="38" r="25" fill="none" stroke="rgba(120,80,0,0.35)" strokeWidth="1"/>
                 </svg>
-                {/* Dots */}
-                <div style={{ position:"absolute", width:"4px", height:"4px", borderRadius:"50%", background:"rgba(120,80,0,0.65)", bottom:"10px", left:"26px", zIndex:0, pointerEvents:"none" }}/>
-                <div style={{ position:"absolute", width:"3px", height:"3px", borderRadius:"50%", background:"rgba(120,80,0,0.5)", bottom:"18px", left:"10px", zIndex:0, pointerEvents:"none" }}/>
+                {/* Dots spread around button */}
+                <div style={{ position:"absolute", width:"4px", height:"4px", borderRadius:"50%", background:"rgba(120,80,0,0.5)", bottom:"10px", left:"26px", zIndex:0, pointerEvents:"none" }}/>
+                <div style={{ position:"absolute", width:"3px", height:"3px", borderRadius:"50%", background:"rgba(120,80,0,0.4)", top:"6px", right:"10px", zIndex:0, pointerEvents:"none" }}/>
+                <div style={{ position:"absolute", width:"3px", height:"3px", borderRadius:"50%", background:"rgba(120,80,0,0.35)", top:"50%", right:"18px", zIndex:0, pointerEvents:"none" }}/>
                 <button onClick={()=>f.set(f.val+1)} style={{ width:"100%", padding:"10px", borderRadius:"10px", border:"1.5px solid rgba(212,160,23,0.5)", background:"linear-gradient(160deg, rgba(255,255,255,0.98) 0%, #EDE5CE 55%, #E8E0C8 100%)", color:"#5C3D10", fontSize:"18px", fontWeight:"900", cursor:"pointer", position:"relative", zIndex:1, boxShadow:"0 2px 8px rgba(180,160,120,0.2)" }}>+</button>
               </div>
             </div>
