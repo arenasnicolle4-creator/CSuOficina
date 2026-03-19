@@ -605,8 +605,8 @@ export default function OfficeForm({ sharedInfo, onBack }) {
                 <button onClick={()=>f.set(f.val+1)} style={{ width:"100%", padding:"10px", borderRadius:"10px", border:"1.5px solid rgba(212,160,23,0.5)", background:"linear-gradient(160deg, #E8E0C8 0%, #5A5248 60%, #3E3830 100%)", color:"#F5E8C0", fontSize:"18px", fontWeight:"900", cursor:"pointer", position:"relative", zIndex:1, boxShadow:"0 2px 8px rgba(180,160,120,0.2)" }}>+</button>
                 {/* Rings bottom-left — peeking from corner */}
                 <svg style={{ position:"absolute", bottom:"-34px", left:"-34px", width:"80px", height:"80px", pointerEvents:"none", zIndex:2 }} viewBox="0 0 80 80">
-                  <circle cx="40" cy="40" r="37" fill="none" stroke="rgba(255,220,80,0.7)" strokeWidth="1.5" style={{ filter:"drop-shadow(0 0 3px rgba(255,220,80,0.5))" }}/>
-                  <circle cx="40" cy="40" r="27" fill="none" stroke="rgba(120,80,0,0.35)" strokeWidth="1"/>
+                  <circle cx="40" cy="40" r="37" fill="none" stroke="rgba(240,192,64,0.8)" strokeWidth="1.2"/>
+                  <circle cx="40" cy="40" r="27" fill="none" stroke="rgba(255,240,160,0.5)" strokeWidth="0.8"/>
                 </svg>
                 {/* Dots — gold with glow */}
                 <div style={{ position:"absolute", width:"5px", height:"5px", borderRadius:"50%", background:"rgba(255,220,80,0.85)", bottom:"8px", left:"24px", zIndex:2, pointerEvents:"none", boxShadow:"0 0 6px rgba(255,220,80,0.6)" }}/>
