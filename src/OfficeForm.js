@@ -586,7 +586,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
             </div>
             <div style={{ display:"flex", gap:"8px" }}>
               <button onClick={()=>f.set(Math.max(0,f.val-1))} style={{ flex:1, padding:"10px", borderRadius:"10px", border:"none", background:f.val>0?"rgba(239,68,68,0.12)":"rgba(230,230,230,0.6)", color:f.val>0?"#ef4444":"rgba(255,255,255,0.3)", fontSize:"18px", fontWeight:"900", cursor:f.val>0?"pointer":"not-allowed" }}>−</button>
-              <button onClick={()=>f.set(f.val+1)} style={{ flex:1, padding:"10px", borderRadius:"10px", border:"none", background:"linear-gradient(135deg,#A07B15,#D4A017,#F0C040)", color:"white", fontSize:"18px", fontWeight:"900", cursor:"pointer" }}>+</button>
+              <button onClick={()=>f.set(f.val+1)} style={{ flex:1, padding:"10px", borderRadius:"10px", border:"1.5px solid rgba(212,160,23,0.5)", background:"linear-gradient(160deg, rgba(255,255,255,0.95) 0%, rgba(255,230,120,0.6) 50%, rgba(212,160,23,0.75) 100%)", color:"#3D2600", fontSize:"18px", fontWeight:"900", cursor:"pointer" }}>+</button>
             </div>
             {f.val > 0 && <FreqGrid value={f.freq} onChange={f.setFreq}/>}
           </div>
@@ -850,7 +850,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
           <div style={CARD_STYLE}>
             {/* Header */}
             <div style={{ background:"linear-gradient(120deg, #FAFAFA 0%, #FFF8E1 35%, rgba(240,192,64,0.25) 65%, rgba(212,160,23,0.35) 100%)", borderBottom:"1px solid rgba(212,160,23,0.25)", padding:"30px", textAlign:"center", position:"relative", overflow:"hidden" }}>
-              <div style={{ position:"absolute", top:0, left:0, right:0, bottom:0, background:"radial-gradient(ellipse at 50% 60%, rgba(240,192,64,0.3) 0%, rgba(255,230,100,0.1) 50%, transparent 70%)", pointerEvents:"none" }}/>
+              <div style={{ position:"absolute", top:0, left:0, right:0, bottom:0, background:"radial-gradient(ellipse at 50% 50%, rgba(80,60,20,0.55) 0%, rgba(60,40,10,0.3) 35%, rgba(212,160,23,0.08) 65%, transparent 85%)", pointerEvents:"none" }}/>
               <div style={{ position:"relative", zIndex:1 }}>
                 <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:"8px" }}>
                   <div style={{ fontFamily:"'Oswald', sans-serif", fontSize:"42px", fontWeight:"300", letterSpacing:"8px", color:"white", textShadow:"0 0 15px rgba(255,255,255,1), 0 0 35px rgba(255,220,0,0.8), 0 0 70px rgba(212,160,23,0.5)" }}>CLEANING</div>
