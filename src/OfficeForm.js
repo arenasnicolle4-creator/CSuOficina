@@ -391,9 +391,9 @@ export default function OfficeForm({ sharedInfo, onBack }) {
           </div>
         </div>
       </div>
-      <div style={{ marginTop:"20px", padding:"20px", background:"linear-gradient(135deg,#2E7D4F,#1E5C38)", borderRadius:"20px", textAlign:"center", boxShadow:"0 10px 30px rgba(46,125,79,0.35)", border:"1px solid rgba(255,255,255,0.15)" }}>
-        <div style={{ fontSize:"32px", marginBottom:"8px" }}>✓</div>
-        <div style={{ color:"white", fontSize:"16px", fontWeight:"900", letterSpacing:"1px", lineHeight:"1.3" }}>100% SATISFACTION<br/>GUARANTEED</div>
+      <div style={{ marginTop:"20px", padding:"14px 16px", background:"linear-gradient(135deg,rgba(46,125,79,0.12),rgba(30,92,56,0.12))", borderRadius:"12px", border:"1px solid rgba(46,125,79,0.3)", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+        <div style={{ color:"#2E7D4F", fontSize:"14px", fontWeight:"800", textTransform:"uppercase", letterSpacing:"0.5px" }}>✓ 100% Satisfaction Guaranteed</div>
+        <div style={{ fontSize:"22px" }}>🏆</div>
       </div>
     </div>
   );
@@ -543,7 +543,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
       {/* Workspace button */}
       <div style={{ marginBottom:"20px", background:"linear-gradient(135deg,rgba(255,255,255,0.85),rgba(255,248,220,0.7))", border:"2px dashed rgba(8,145,178,0.5)", borderRadius:"16px", padding:"20px", display:"flex", flexDirection:"column", gap:"15px" }}>
         <div style={{ fontSize:"11px", fontWeight:"800", color:"#0891B2", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"8px", display:"flex", alignItems:"center", gap:"6px" }}><span style={{ width:"8px", height:"8px", borderRadius:"50%", background:"#0891B2", display:"inline-block" }}></span>Step Required — Click to Configure</div>
-        <button onClick={()=>{setWsEditingIndex(null);setShowWsModal(true);}} style={{ width:"100%", padding:"24px 20px", borderRadius:"14px", background:"linear-gradient(160deg, rgba(255,255,255,0.98) 0%, rgba(255,238,160,0.45) 55%, rgba(240,192,64,0.45) 100%)", color:"#5C3D10", cursor:"pointer", boxShadow:"0 4px 20px rgba(212,160,23,0.25), 0 1px 4px rgba(212,160,23,0.15)", border:"2px solid #0891B2", textAlign:"center", position:"relative", overflow:"hidden" }}>
+        <button onClick={()=>{setWsEditingIndex(null);setShowWsModal(true);}} style={{ width:"100%", padding:"24px 20px", borderRadius:"14px", background:"linear-gradient(160deg, rgba(255,255,255,0.99) 0%, rgba(255,242,180,0.3) 60%, rgba(240,192,64,0.28) 100%)", color:"#5C3D10", cursor:"pointer", boxShadow:"0 4px 20px rgba(212,160,23,0.25), 0 1px 4px rgba(212,160,23,0.15)", border:"2px solid #0891B2", textAlign:"center", position:"relative", overflow:"hidden" }}>
           <div style={{ position:"absolute", top:0, left:"-75%", width:"50%", height:"100%", background:"linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent)", transform:"skewX(-20deg)", pointerEvents:"none" }}/>
           <div style={{ fontSize:"22px", fontWeight:"900", letterSpacing:"0.5px", textTransform:"uppercase", color:"#5C3D10", textShadow:"none" }}>💼 Configure Workspaces</div>
           <div style={{ fontSize:"13px", fontWeight:"700", marginTop:"7px", color:"rgba(61,46,0,0.8)", letterSpacing:"0.6px", textTransform:"uppercase", borderTop:"1px solid rgba(212,160,23,0.3)", paddingTop:"8px" }}>👆 Tap to tell us your offices, cubicles & desks — Required for accurate quote</div>
@@ -569,19 +569,18 @@ export default function OfficeForm({ sharedInfo, onBack }) {
       {/* Facility counters */}
       <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:"12px", marginBottom:"30px" }}>
         {[
-          {label:"🗂️ Conference Rooms", desc:"Boardrooms & meeting rooms", price:"$45/clean", val:conferenceRooms, set:setConferenceRooms, freq:confFreq,    setFreq:setConfFreq},
-          {label:"☕ Break Rooms",       desc:"Kitchen & break areas",      price:"$35/clean", val:breakRooms,      set:setBreakRooms,      freq:breakFreq,   setFreq:setBreakFreq},
-          {label:"🚻 Restrooms",         desc:"Employee restrooms",         price:"$25/clean", val:restrooms,       set:setRestrooms,       freq:restrFreq,   setFreq:setRestrFreq},
-          {label:"🏛️ Reception/Lobby",  desc:"Front desk & lobby",         price:"$40/clean", val:receptions,      set:setReceptions,      freq:recepFreq,   setFreq:setRecepFreq},
-          {label:"🖥️ Server/IT Rooms",  desc:"Data & IT closets",          price:"$30/clean", val:serverRooms,     set:setServerRooms,     freq:serverFreq,  setFreq:setServerFreq},
-          {label:"📦 Storage/Archive",  desc:"File & storage rooms",       price:"$20/clean", val:storageRooms,    set:setStorageRooms,    freq:storageFreq, setFreq:setStorageFreq},
+          {label:"🗂️ Conference Rooms", price:"$45 / clean", val:conferenceRooms, set:setConferenceRooms, freq:confFreq,    setFreq:setConfFreq},
+          {label:"☕ Break Rooms",       price:"$35 / clean", val:breakRooms,      set:setBreakRooms,      freq:breakFreq,   setFreq:setBreakFreq},
+          {label:"🚻 Restrooms",         price:"$25 / clean", val:restrooms,       set:setRestrooms,       freq:restrFreq,   setFreq:setRestrFreq},
+          {label:"🏛️ Reception / Lobby", price:"$40 / clean", val:receptions,      set:setReceptions,      freq:recepFreq,   setFreq:setRecepFreq},
+          {label:"🖥️ Server / IT Rooms", price:"$30 / clean", val:serverRooms,     set:setServerRooms,     freq:serverFreq,  setFreq:setServerFreq},
+          {label:"📦 Storage / Archive", price:"$20 / clean", val:storageRooms,    set:setStorageRooms,    freq:storageFreq, setFreq:setStorageFreq},
         ].map(f=>(
           <div key={f.label} style={{ background:"linear-gradient(135deg,rgba(255,255,255,0.9),rgba(248,245,240,0.95))", border:"1px solid rgba(212,160,23,0.2)", borderRadius:"16px", padding:"16px", display:"flex", flexDirection:"column", gap:"10px" }}>
             <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between" }}>
               <div>
-                <div style={{ fontSize:"14px", fontWeight:"800", color:"#D4A017", marginBottom:"2px" }}>{f.label}</div>
-                <div style={{ fontSize:"11px", color:"#7A6520", fontWeight:"600" }}>{f.desc}</div>
-                <div style={{ fontSize:"11px", color:"#9A8030", fontWeight:"700" }}>{f.price}</div>
+                <div style={{ fontSize:"16px", fontWeight:"800", color:"#4A3728", marginBottom:"2px", letterSpacing:"-0.2px" }}>{f.label}</div>
+                <div style={{ fontSize:"13px", color:"#A07B15", fontWeight:"700", marginTop:"3px", letterSpacing:"0.3px" }}>{f.price}</div>
               </div>
               <div style={{ fontSize:"24px", fontWeight:"900", color:"#4A3728", minWidth:"40px", textAlign:"right" }}>{f.val}</div>
             </div>
