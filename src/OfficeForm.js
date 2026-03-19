@@ -381,13 +381,13 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         <div style={{ padding:"12px 20px", background:"rgba(255,255,255,0.1)", borderTop:"1px solid rgba(255,255,255,0.1)", borderBottom:"1px solid rgba(255,255,255,0.1)" }}>
           <p style={{ color:"#666", fontSize:"11px", margin:0, fontWeight:"600", textAlign:"center", fontStyle:"italic" }}>💡 Estimate based on monthly contract. Final prices may vary.</p>
         </div>
-        <div style={{ padding:"25px", background:"rgba(93,235,241,0.15)", borderTop:"1px solid rgba(93,235,241,0.3)" }}>
+        <div style={{ padding:"25px", background:"linear-gradient(135deg, #B8860B, #D4A017, #F0C040)", borderTop:"1px solid rgba(212,160,23,0.4)" }}>
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
             <div>
-              <div style={{ color:"rgba(255,255,255,0.9)", fontWeight:"900", fontSize:"14px", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"4px" }}>Total</div>
-              <div style={{ fontSize:"14px", color:"rgba(255,255,255,0.8)", fontWeight:"700", background:"rgba(255,255,255,0.2)", padding:"3px 10px", borderRadius:"6px" }}>per month</div>
+              <div style={{ color:"white", fontWeight:"900", fontSize:"14px", letterSpacing:"1.5px", textTransform:"uppercase", marginBottom:"4px" }}>Total</div>
+              <div style={{ fontSize:"14px", color:"white", fontWeight:"700", background:"rgba(0,0,0,0.2)", padding:"3px 10px", borderRadius:"6px" }}>per month</div>
             </div>
-            <div style={{ color:"white", fontWeight:"900", fontSize:"36px", textShadow:"0 2px 8px rgba(0,0,0,0.2)" }}>${total.toFixed(2)}</div>
+            <div style={{ color:"white", fontWeight:"900", fontSize:"36px", textShadow:"0 2px 12px rgba(0,0,0,0.4), 0 1px 3px rgba(0,0,0,0.3)" }}>${total.toFixed(2)}</div>
           </div>
         </div>
       </div>
@@ -541,11 +541,11 @@ export default function OfficeForm({ sharedInfo, onBack }) {
       </div>
 
       {/* Workspace button */}
-      <div style={{ marginBottom:"20px", background:"linear-gradient(135deg,rgba(212,160,23,0.06),rgba(240,192,64,0.04))", border:"2px dashed rgba(212,160,23,0.35)", borderRadius:"16px", padding:"20px", display:"flex", flexDirection:"column", gap:"15px" }}>
-        <button onClick={()=>{setWsEditingIndex(null);setShowWsModal(true);}} style={{ width:"100%", padding:"24px 20px", borderRadius:"14px", border:"2px solid #5DEBF1", background:"linear-gradient(135deg,#D4A017,#F0C040)", color:"white", cursor:"pointer", boxShadow:"0 0 28px rgba(93,235,241,0.4), 0 8px 24px rgba(212,160,23,0.4)", textAlign:"center", position:"relative", overflow:"hidden" }}>
+      <div style={{ marginBottom:"20px", background:"linear-gradient(135deg,rgba(212,160,23,0.06),rgba(240,192,64,0.04))", border:"1.5px dashed rgba(212,160,23,0.4)", borderRadius:"16px", padding:"20px", display:"flex", flexDirection:"column", gap:"15px" }}>
+        <button onClick={()=>{setWsEditingIndex(null);setShowWsModal(true);}} style={{ width:"100%", padding:"24px 20px", borderRadius:"14px", border:"2px solid #5DEBF1", background:"linear-gradient(160deg, rgba(255,255,255,0.95) 0%, rgba(255,230,120,0.6) 50%, rgba(240,192,64,0.75) 100%)", color:"#5C4A00", cursor:"pointer", boxShadow:"0 4px 20px rgba(212,160,23,0.25), 0 1px 4px rgba(212,160,23,0.15)", border:"1.5px solid rgba(212,160,23,0.5)", textAlign:"center", position:"relative", overflow:"hidden" }}>
           <div style={{ position:"absolute", top:0, left:"-75%", width:"50%", height:"100%", background:"linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent)", transform:"skewX(-20deg)", pointerEvents:"none" }}/>
-          <div style={{ fontSize:"22px", fontWeight:"900", letterSpacing:"0.5px", textTransform:"uppercase", textShadow:"0 2px 8px rgba(0,0,0,0.3)" }}>💼 Configure Workspaces</div>
-          <div style={{ fontSize:"13px", fontWeight:"700", marginTop:"7px", color:"rgba(255,255,255,0.92)", letterSpacing:"0.8px", textTransform:"uppercase", borderTop:"1px solid rgba(255,255,255,0.25)", paddingTop:"8px" }}>✦ Tell us your offices, cubicles & desks ✦</div>
+          <div style={{ fontSize:"22px", fontWeight:"900", letterSpacing:"0.5px", textTransform:"uppercase", color:"#3D2E00", textShadow:"none" }}>💼 Configure Workspaces</div>
+          <div style={{ fontSize:"13px", fontWeight:"700", marginTop:"7px", color:"rgba(61,46,0,0.75)", letterSpacing:"0.8px", textTransform:"uppercase", borderTop:"1px solid rgba(212,160,23,0.3)", paddingTop:"8px" }}>✦ Tell us your offices, cubicles & desks ✦</div>
         </button>
         {workspaceConfigs.length > 0 && (
           <div style={{ display:"flex", flexDirection:"column", gap:"8px" }}>
@@ -622,15 +622,15 @@ export default function OfficeForm({ sharedInfo, onBack }) {
             {key:"disinfection",     label:"Disinfection",         price:"$0.15/sqft"},
           ].map(a=>(
             <div key={a.key} onClick={()=>setAddOns({...addOns,[a.key]:!addOns[a.key]})} style={{ padding:"18px 16px", borderRadius:"16px", cursor:"pointer", transition:"all 0.3s ease", display:"flex", alignItems:"flex-start", gap:"10px",
-              border:addOns[a.key]?"2px solid #D4A017":"2px solid rgba(212,160,23,0.3)",
-              background:addOns[a.key]?"linear-gradient(135deg,#D4A017,#F0C040)":"rgba(255,255,255,0.85)",
+              border:addOns[a.key]?"1.5px solid rgba(212,160,23,0.6)":"1.5px solid rgba(212,160,23,0.25)",
+              background:addOns[a.key]?"linear-gradient(160deg, rgba(255,255,255,0.9) 0%, rgba(255,220,80,0.55) 50%, rgba(240,192,64,0.7) 100%)":"rgba(255,255,255,0.85)",
               boxShadow:addOns[a.key]?"0 4px 16px rgba(212,160,23,0.3)":"0 2px 6px rgba(0,0,0,0.04)" }}>
               <div style={{ width:"20px", height:"20px", borderRadius:"6px", border:addOns[a.key]?"none":"2px solid rgba(212,160,23,0.4)", background:addOns[a.key]?"linear-gradient(135deg,#10b981,#059669)":"rgba(255,255,255,0.5)", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, marginTop:"2px" }}>
                 {addOns[a.key]&&<CheckCircle2 size={14} color="white"/>}
               </div>
               <div>
-                <div style={{ fontSize:"14px", fontWeight:"800", marginBottom:"3px", color:addOns[a.key]?"white":"#1A1A2E" }}>{a.label}</div>
-                <div style={{ fontSize:"11px", color:addOns[a.key]?"rgba(255,255,255,0.85)":"#A07B15", fontWeight:"700" }}>{a.price}</div>
+                <div style={{ fontSize:"14px", fontWeight:"800", marginBottom:"3px", color:addOns[a.key]?"#2D1E00":"#1A1A2E" }}>{a.label}</div>
+                <div style={{ fontSize:"11px", color:addOns[a.key]?"rgba(61,40,0,0.75)":"#A07B15", fontWeight:"700" }}>{a.price}</div>
               </div>
             </div>
           ))}
@@ -853,8 +853,8 @@ export default function OfficeForm({ sharedInfo, onBack }) {
               <div style={{ position:"absolute", top:0, left:0, right:0, bottom:0, background:"radial-gradient(circle at 50% 50%, rgba(240,192,64,0.25) 0%, transparent 65%)", pointerEvents:"none" }}/>
               <div style={{ position:"relative", zIndex:1 }}>
                 <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:"8px" }}>
-                  <div style={{ fontFamily:"'Oswald', sans-serif", fontSize:"42px", fontWeight:"300", letterSpacing:"8px", color:"#1A1A2E", textShadow:"0 0 40px rgba(240,192,64,0.5), 0 0 80px rgba(240,192,64,0.2)" }}>CLEANING</div>
-                  <div style={{ fontFamily:"'Allura', cursive", fontSize:"46px", color:"#F0C040", letterSpacing:"3px", marginTop:"-8px", textShadow:"0 0 30px rgba(240,192,64,0.6), 0 2px 8px rgba(0,0,0,0.08)" }}>Su Oficina</div>
+                  <div style={{ fontFamily:"'Oswald', sans-serif", fontSize:"42px", fontWeight:"300", letterSpacing:"8px", color:"white", textShadow:"0 0 20px rgba(255,255,255,0.9), 0 0 50px rgba(255,215,0,0.6), 0 0 100px rgba(255,200,0,0.3)" }}>CLEANING</div>
+                  <div style={{ fontFamily:"'Allura', cursive", fontSize:"46px", color:"#F0C040", letterSpacing:"3px", marginTop:"-8px" }}>Su Oficina</div>
                 </div>
                 <div style={{ height:"2px", width:"80px", background:"linear-gradient(90deg,transparent,#F0C040,transparent)", margin:"14px auto 10px", boxShadow:"0 0 10px rgba(240,192,64,0.5)" }}/>
                 <div style={{ color:"#5C4A1E", fontSize:"13px", fontWeight:"700", letterSpacing:"2px", textTransform:"uppercase" }}>🏢 Office Cleaning Quote</div>
