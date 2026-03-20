@@ -168,27 +168,29 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
   const getRoomTypeLabel=(c)=>{ let l=""; if(c.beds===0)l="Studio"; else if(c.beds===1)l="1-Bed"; else if(c.beds===2)l="2-Bed"; else l=`${c.beds}-Bed`; if(c.livingArea)l+=" Suite"; if(c.kitchen==="kitchenette")l+=" + Kitchenette"; else if(c.kitchen==="full")l+=" + Kitchen"; l+=` (${c.bathrooms} bath${c.bathrooms>1?"s":""})`; return l; };
   const applyTemplate=(t)=>{ setModalTemplate(t); const m={studio:[0,1,"kitchenette","small",false],standard:[2,1,"none","medium",false],deluxe:[2,1,"none","large",false],suite:[1,1.5,"kitchenette","large",true],custom:[1,1,"none","medium",false]}[t]||[1,1,"none","medium",false]; setModalBeds(m[0]);setModalBathrooms(m[1]);setModalKitchen(m[2]);setModalSize(m[3]);setModalLivingArea(m[4]); };
 
-  // Convert freqType + freqCount → monthly cleans for one room
-  // per-day: freqCount rooms cleaned daily → freqCount × 30 cleans/month per room
-  // per-week: freqCount times per week → freqCount × 4.33 cleans/month per room
-  // per-month: freqCount times per month → freqCount cleans/month per room
+  // freqCount = number of rooms of this type cleaned per day/week/month (not multiplied by quantity)
+  // Monthly cost = freqCount × period_multiplier × pricePerClean
+  // e.g. 6 studios/day × 30 days × $43/clean = $7,740/month
   const calcMonthlyCleans=(freqType, freqCount)=>{
     const n = parseFloat(freqCount) || 0;
-    if (freqType==="per-day")   return n * 30;
-    if (freqType==="per-week")  return n * 4.33;
-    if (freqType==="per-month") return n;
+    if (freqType==="per-day")   return n * 30;      // rooms cleaned/day × 30 days
+    if (freqType==="per-week")  return n * 4.33;    // rooms cleaned/week × 4.33 weeks
+    if (freqType==="per-month") return n;            // rooms cleaned/month
     return 0;
   };
 
+  // Monthly cost for one config: freqCount-rooms-cleaned × period × pricePerClean
+  const calcConfigMonthlyCost=(c)=> calcMonthlyCleans(c.freqType, c.freqCount) * (c.pricePerClean||0);
+
   const freqLabel=(freqType, freqCount)=>{
     const n = parseFloat(freqCount) || 0;
-    if (freqType==="per-day")   return `${n}x/day`;
-    if (freqType==="per-week")  return `${n}x/week`;
-    if (freqType==="per-month") return `${n}x/month`;
+    if (freqType==="per-day")   return `${n} rooms/day`;
+    if (freqType==="per-week")  return `${n} rooms/week`;
+    if (freqType==="per-month") return `${n} rooms/month`;
     return "";
   };
 
-  // Volume discount based on total monthly cleans across all guest room types
+  // Volume discount based on total monthly room-cleans across all guest room types
   const calcVolumeDiscount=(totalMonthlyCleans)=>{
     if (totalMonthlyCleans>=1200) return 0.15;
     if (totalMonthlyCleans>=900)  return 0.12;
@@ -203,7 +205,7 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
 
   const saveGuestRoom=()=>{
     const ppc = calcGuestPrice({beds:modalBeds,bathrooms:modalBathrooms,kitchen:modalKitchen,size:modalSize,livingArea:modalLivingArea});
-    const monthly = calcMonthlyCleans(modalFreqType, modalFreqCount);
+    const monthly = calcMonthlyCleans(modalFreqType, modalFreqCount); // total room-cleans/month
     const c = {beds:modalBeds,bathrooms:modalBathrooms,kitchen:modalKitchen,size:modalSize,livingArea:modalLivingArea,quantity:modalQuantity,pricePerClean:ppc,freqCount:modalFreqCount,freqType:modalFreqType,monthlyCleans:monthly};
     if(editingIndex!==null){const u=[...guestRoomConfigs];u[editingIndex]=c;setGuestRoomConfigs(u);}
     else{setGuestRoomConfigs([...guestRoomConfigs,c]);}
@@ -221,15 +223,15 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
   const getFacilityMonthlyCost=(qty,price,freq)=>{ if(!qty||!freq)return 0; return qty*price*(FREQ_VISITS[freq]||0)*(FREQ_MULT[freq]||1.0); };
   const getRateForSqft=(sqft)=>{ const tier=PRICING.baseRatesTiered.hospitality.find(t=>sqft<=t.max); return tier?tier.rate:0.10; };
 
-  // Total monthly cleans across all guest room types (for volume discount)
-  const totalGuestMonthlyCleans=()=>guestRoomConfigs.reduce((s,c)=>s+(c.quantity*(c.monthlyCleans||0)),0);
+  // Total monthly room-cleans across all guest room configs (drives volume discount)
+  const totalGuestMonthlyCleans=()=>guestRoomConfigs.reduce((s,c)=>s+(c.monthlyCleans||0),0);
 
   const calculateSubtotal=()=>{
     if(!squareFeet)return 0;
     const sqft=parseInt(squareFeet);
     let total=sqft*getRateForSqft(sqft);
     if(guestRoomConfigs.length>0){
-      const rawGuestTotal=guestRoomConfigs.reduce((s,c)=>s+(c.quantity*c.pricePerClean*(c.monthlyCleans||0)),0);
+      const rawGuestTotal=guestRoomConfigs.reduce((s,c)=>s+calcConfigMonthlyCost(c),0);
       const vd=calcVolumeDiscount(totalGuestMonthlyCleans());
       total+=rawGuestTotal*(1-vd);
     }
@@ -246,17 +248,20 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
     if(guestRoomConfigs.length>0){
       const vd=calcVolumeDiscount(totalGuestMonthlyCleans());
       guestRoomConfigs.forEach(c=>{
-        const raw=c.quantity*c.pricePerClean*(c.monthlyCleans||0);
+        const raw=calcConfigMonthlyCost(c);
         const discounted=raw*(1-vd);
-        const disc=raw*vd;
         bd.push({
           label:`${getRoomTypeLabel(c)} × ${c.quantity} (${freqLabel(c.freqType,c.freqCount)})`,
           amount:discounted,
           originalAmount:vd>0?raw:null,
-          discountAmount:vd>0?disc:0,
-          discountPercent:vd>0?`${Math.round(vd*100)}%`:"",
+          discountAmount:vd>0?raw*vd:0,
+          discountPercent:vd>0?`${Math.round(vd*100)}% vol.`:"",
         });
       });
+      if(vd===0&&totalGuestMonthlyCleans()>0){
+        const next=totalGuestMonthlyCleans()<150?150:totalGuestMonthlyCleans()<300?300:totalGuestMonthlyCleans()<450?450:totalGuestMonthlyCleans()<600?600:totalGuestMonthlyCleans()<900?900:1200;
+        bd.push({label:`💡 ${Math.round(next-totalGuestMonthlyCleans())} more cleans/mo unlocks 3% volume discount`,amount:0,isInfo:true});
+      }
     }
     const rooms=[[commonAreas,35,commonAreasFreq,"Common Areas"],[diningAreas,50,diningAreasFreq,"Dining Areas"],[fitnessCenters,60,fitnessCentersFreq,"Fitness Centers"],[poolSpas,75,poolSpasFreq,"Pool/Spa Areas"],[eventSpaces,100,eventSpacesFreq,"Event Spaces"],[laundryRooms,40,laundryRoomsFreq,"Laundry Rooms"],[lobbyReceptions,55,lobbyReceptionsFreq,"Lobby/Reception"]];
     rooms.forEach(([qty,price,freq,label])=>{ if(qty>0&&freq){const v=FREQ_VISITS[freq];const m=FREQ_MULT[freq];const base=qty*price*v;const cost=base*m;bd.push({label:`${label} (${freq})`,amount:cost,originalAmount:m!==1?base:null,discountPercent:FREQ_LABELS[freq],discountAmount:m<1?(base-cost):0,isUpcharge:m>1});} });
@@ -477,7 +482,7 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
                         <div key={i} style={{background:"rgba(255,255,255,0.8)",borderRadius:"10px",padding:"12px 15px",display:"flex",justifyContent:"space-between",alignItems:"center",border:"1px solid rgba(212,160,23,0.15)"}}>
                           <div style={{flex:1}}>
                             <div style={{fontSize:"13px",fontWeight:"700",color:"#4A3728",marginBottom:"3px"}}>{getRoomTypeLabel(c)} × {c.quantity}</div>
-                            <div style={{fontSize:"11px",color:"#A07B15",fontWeight:"600"}}>${c.pricePerClean}/clean · {freqLabel(c.freqType,c.freqCount)} · ~${(c.quantity*c.pricePerClean*(c.monthlyCleans||0)).toFixed(0)}/mo</div>
+                            <div style={{fontSize:"11px",color:"#A07B15",fontWeight:"600"}}>${c.pricePerClean}/clean · {freqLabel(c.freqType,c.freqCount)} · ~${calcConfigMonthlyCost(c).toFixed(0)}/mo</div>
                           </div>
                           <div style={{display:"flex",gap:"8px"}}>
                             <button onClick={()=>editGuestRoom(i)} style={{padding:"6px 12px",borderRadius:"6px",border:"none",background:"rgba(212,160,23,0.2)",color:"#A07B15",fontSize:"11px",fontWeight:"700",cursor:"pointer"}}>Edit</button>
@@ -716,18 +721,48 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
               {/* Plain-English summary */}
               <div style={{marginTop:"12px",padding:"10px 14px",borderRadius:"8px",background:"rgba(8,145,178,0.08)",border:"1px solid rgba(8,145,178,0.15)",textAlign:"center"}}>
                 <div style={{fontSize:"13px",fontWeight:"700",color:"#0891B2"}}>
-                  {modalQuantity} room{modalQuantity>1?"s":""} cleaned {modalFreqCount}x {modalFreqType==="per-day"?"per day":modalFreqType==="per-week"?"per week":"per month"}
-                  {" "}= <strong>~{Math.round(calcMonthlyCleans(modalFreqType,modalFreqCount)*modalQuantity)} cleans/month</strong>
+                  {modalFreqCount} room{modalFreqCount>1?"s":""} of this type cleaned{" "}
+                  {modalFreqType==="per-day"?"per day":modalFreqType==="per-week"?"per week":"per month"}
+                  {" "}= <strong>~{Math.round(calcMonthlyCleans(modalFreqType,modalFreqCount))} cleans/month</strong>
+                </div>
+                <div style={{fontSize:"11px",color:"#666",marginTop:"4px",fontWeight:"600"}}>
+                  ({modalQuantity} total rooms in building, {modalFreqCount} cleaned {modalFreqType==="per-day"?"daily":modalFreqType==="per-week"?"per week":"per month"})
                 </div>
               </div>
             </div>
 
             {/* Price preview */}
-            <div style={{padding:"15px",borderRadius:"10px",background:"linear-gradient(135deg,rgba(46,125,79,0.12),rgba(30,92,56,0.12))",border:"1px solid rgba(46,125,79,0.3)",marginBottom:"25px",textAlign:"center"}}>
-              <div style={{fontSize:"12px",color:"#888",fontWeight:"600",marginBottom:"4px"}}>ESTIMATED MONTHLY COST — THIS ROOM TYPE</div>
-              <div style={{fontSize:"28px",fontWeight:"900",color:"#2E7D4F"}}>${(calcGuestPrice({beds:modalBeds,bathrooms:modalBathrooms,kitchen:modalKitchen,size:modalSize,livingArea:modalLivingArea})*modalQuantity*calcMonthlyCleans(modalFreqType,modalFreqCount)).toFixed(2)}</div>
-              <div style={{fontSize:"11px",color:"#888",marginTop:"4px"}}>${calcGuestPrice({beds:modalBeds,bathrooms:modalBathrooms,kitchen:modalKitchen,size:modalSize,livingArea:modalLivingArea})}/clean × {modalQuantity} rooms × ~{calcMonthlyCleans(modalFreqType,modalFreqCount).toFixed(1)} cleans/mo</div>
-            </div>
+            {(()=>{
+              const ppc=calcGuestPrice({beds:modalBeds,bathrooms:modalBathrooms,kitchen:modalKitchen,size:modalSize,livingArea:modalLivingArea});
+              const rawMonthly=calcMonthlyCleans(modalFreqType,modalFreqCount)*ppc;
+              // Simulate adding this config to existing ones to show live aggregate discount
+              const existingCleans=guestRoomConfigs.filter((_,i)=>i!==editingIndex).reduce((s,c)=>s+(c.monthlyCleans||0),0);
+              const thisCleans=calcMonthlyCleans(modalFreqType,modalFreqCount);
+              const totalCleans=existingCleans+thisCleans;
+              const vd=calcVolumeDiscount(totalCleans);
+              const discounted=rawMonthly*(1-vd);
+              const nextTier=totalCleans<150?150:totalCleans<300?300:totalCleans<450?450:totalCleans<600?600:totalCleans<900?900:totalCleans<1200?1200:null;
+              return (
+                <div style={{padding:"15px",borderRadius:"10px",background:"linear-gradient(135deg,rgba(46,125,79,0.12),rgba(30,92,56,0.12))",border:"1px solid rgba(46,125,79,0.3)",marginBottom:"25px"}}>
+                  <div style={{textAlign:"center",marginBottom:vd>0||nextTier?"10px":"0"}}>
+                    <div style={{fontSize:"12px",color:"#888",fontWeight:"600",marginBottom:"4px"}}>ESTIMATED MONTHLY COST — THIS ROOM TYPE</div>
+                    {vd>0&&<div style={{fontSize:"14px",color:"rgba(100,100,100,0.5)",textDecoration:"line-through",fontWeight:"600",marginBottom:"2px"}}>${rawMonthly.toFixed(2)}</div>}
+                    <div style={{fontSize:"28px",fontWeight:"900",color:"#2E7D4F"}}>${discounted.toFixed(2)}</div>
+                    <div style={{fontSize:"11px",color:"#888",marginTop:"4px"}}>${ppc}/clean × ~{calcMonthlyCleans(modalFreqType,modalFreqCount).toFixed(1)} cleans/mo{vd>0?` − ${Math.round(vd*100)}% vol. discount`:""}</div>
+                  </div>
+                  {vd>0&&(
+                    <div style={{padding:"8px 12px",borderRadius:"8px",background:"linear-gradient(135deg,#3DA864,#2D7A4A)",textAlign:"center"}}>
+                      <div style={{fontSize:"12px",color:"white",fontWeight:"800"}}>✓ {Math.round(vd*100)}% volume discount applied — {Math.round(totalCleans)} total cleans/mo across all room types</div>
+                    </div>
+                  )}
+                  {!vd&&nextTier&&thisCleans>0&&(
+                    <div style={{padding:"8px 12px",borderRadius:"8px",background:"rgba(212,160,23,0.1)",border:"1px solid rgba(212,160,23,0.2)",textAlign:"center"}}>
+                      <div style={{fontSize:"11px",color:"#A07B15",fontWeight:"700"}}>💡 {Math.round(nextTier-totalCleans)} more cleans/mo unlocks 3% volume discount</div>
+                    </div>
+                  )}
+                </div>
+              );
+            })()}
 
             <div style={{display:"flex",gap:"12px"}}>
               <button onClick={()=>{setShowGuestRoomModal(false);resetModal();}} style={{flex:1,padding:"16px",borderRadius:"12px",border:"2px solid rgba(212,160,23,0.3)",background:"white",color:"#A07B15",fontSize:"14px",fontWeight:"800",cursor:"pointer"}}>Cancel</button>
