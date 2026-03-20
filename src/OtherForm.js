@@ -406,7 +406,7 @@ export default function OtherForm({ sharedInfo, onBack }) {
   );
 
   return (
-    <div style={BG_STYLE}>
+    <div style={{...BG_STYLE, paddingBottom: mobileBarHeight ? mobileBarHeight + 20 : undefined}}>
       {/* Animated background */}
       <div style={{position:"fixed",top:0,left:0,right:0,bottom:0,overflow:"hidden",pointerEvents:"none",zIndex:0}}>
         <div style={{position:"absolute",width:"500px",height:"500px",borderRadius:"50%",filter:"blur(90px)",background:"rgba(240,192,64,0.25)",top:"-120px",left:"-120px"}}/>
@@ -435,9 +435,11 @@ export default function OtherForm({ sharedInfo, onBack }) {
         input, textarea, select { font-size: 16px !important; touch-action: manipulation; }
         input::placeholder, textarea::placeholder { color: rgba(100,100,100,0.5); }
         button { touch-action: manipulation; }
+        html, body, * { -webkit-text-size-adjust: 100% !important; text-size-adjust: 100% !important; }
         @keyframes floatUp { 0%,100%{transform:translateY(0);opacity:0.5} 50%{transform:translateY(-22px);opacity:1} }
         .continue-btn:not(:disabled):hover { background: linear-gradient(160deg, #EDE5CE 0%, #4E4840 60%, #3E3830 100%) !important; color: #F5E8C0 !important; box-shadow: 0 4px 16px rgba(180,160,120,0.3) !important; border-color: rgba(212,160,23,0.6) !important; transform: translateY(-1px); }
         .continue-btn:not(:disabled):active { background: linear-gradient(160deg, #DDD5B8 0%, #3E3830 60%, #2C2416 100%) !important; color: #F5E8C0 !important; transform: scale(0.98); }
+        .of2-mobile-price { display:none; }
         @media (max-width: 900px) { .of2-layout { grid-template-columns:1fr !important; } .of2-sidebar { display:none !important; } .of2-mobile-price { display:block !important; } }
         @media (max-width: 640px) {
           .of2-layout { padding: 12px !important; gap: 0 !important; }
@@ -467,7 +469,7 @@ export default function OtherForm({ sharedInfo, onBack }) {
         }
       `}</style>
 
-      <div className="of2-layout" style={{maxWidth:"1400px",margin:"0 auto",padding:"30px 20px",display:"grid",gridTemplateColumns:"1fr 380px",gap:"30px",alignItems:"start",position:"relative",zIndex:1,paddingBottom: mobileBarHeight || undefined}}>
+      <div className="of2-layout" style={{maxWidth:"1400px",margin:"0 auto",padding:"30px 20px",display:"grid",gridTemplateColumns:"1fr 380px",gap:"30px",alignItems:"start",position:"relative",zIndex:1}}>
 
         <div style={CARD_STYLE}>
           {/* Header */}
@@ -762,7 +764,7 @@ export default function OtherForm({ sharedInfo, onBack }) {
       </div>
 
       {/* Mobile sticky price bar */}
-      <div ref={mobileBarRef} className="of2-mobile-price" style={{display:"none",position:"fixed",bottom:0,left:0,right:0,zIndex:1000}}>
+      <div ref={mobileBarRef} className="of2-mobile-price" style={{position:"fixed",bottom:0,left:0,right:0,zIndex:1000}}>
         <div style={{background:"linear-gradient(160deg, #3E3830 0%, #4E4840 50%, #3E3830 100%)",borderTop:"2px solid rgba(212,160,23,0.4)",boxShadow:"0 -8px 30px rgba(0,0,0,0.3)"}}>
           <div style={{padding:"12px 20px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
             <div>
