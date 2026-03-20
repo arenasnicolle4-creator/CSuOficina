@@ -751,10 +751,12 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
                     <div style={{fontSize:"11px",color:"#888",marginTop:"4px"}}>${ppc}/clean × ~{calcMonthlyCleans(modalFreqType,modalFreqCount).toFixed(1)} cleans/mo{vd>0?` − ${Math.round(vd*100)}% vol. discount`:""}</div>
                   </div>
                   {vd>0&&(
-                    <div style={{display:"inline-flex",alignItems:"center",gap:"8px",padding:"8px 16px",borderRadius:"20px",background:"linear-gradient(135deg,#3DA864,#2D7A4A)",boxShadow:"0 0 18px rgba(46,125,79,0.6), 0 0 35px rgba(30,92,56,0.3), 0 4px 12px rgba(46,125,79,0.3)",whiteSpace:"nowrap"}}>
-                      <span style={{fontSize:"11px",color:"rgba(255,255,255,0.85)",fontWeight:"600",textTransform:"uppercase",letterSpacing:"0.5px"}}>You Save</span>
-                      <span style={{fontSize:"16px",color:"white",fontWeight:"900"}}>{Math.round(vd*100)}%</span>
-                      <span style={{fontSize:"10px",color:"rgba(255,255,255,0.7)",fontWeight:"600"}}>({Math.round(totalCleans)} cleans/mo)</span>
+                    <div style={{display:"flex",justifyContent:"flex-end",marginTop:"10px"}}>
+                      <div style={{display:"inline-flex",alignItems:"center",gap:"8px",padding:"8px 16px",borderRadius:"20px",background:"linear-gradient(135deg,#3DA864,#2D7A4A)",boxShadow:"0 0 18px rgba(46,125,79,0.6), 0 0 35px rgba(30,92,56,0.3), 0 4px 12px rgba(46,125,79,0.3)",whiteSpace:"nowrap"}}>
+                        <span style={{fontSize:"11px",color:"rgba(255,255,255,0.85)",fontWeight:"600",textTransform:"uppercase",letterSpacing:"0.5px"}}>You Save</span>
+                        <span style={{fontSize:"16px",color:"white",fontWeight:"900"}}>{Math.round(vd*100)}%</span>
+                        <span style={{fontSize:"10px",color:"rgba(255,255,255,0.7)",fontWeight:"600"}}>({Math.round(totalCleans)} cleans/mo)</span>
+                      </div>
                     </div>
                   )}
                   {!vd&&nextTier&&thisCleans>0&&(
