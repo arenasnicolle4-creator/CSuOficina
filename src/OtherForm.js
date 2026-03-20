@@ -422,7 +422,9 @@ export default function OtherForm({ sharedInfo, onBack }) {
         @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&family=Allura&display=swap');
         .fade-in-up { animation: fadeInUp 0.5s ease-out forwards; }
         @keyframes fadeInUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+        input, textarea, select { font-size: 16px !important; touch-action: manipulation; }
         input::placeholder, textarea::placeholder { color: rgba(100,100,100,0.5); }
+        button { touch-action: manipulation; }
         @keyframes floatUp { 0%,100%{transform:translateY(0);opacity:0.5} 50%{transform:translateY(-22px);opacity:1} }
         .continue-btn:not(:disabled):hover { background: linear-gradient(160deg, #EDE5CE 0%, #4E4840 60%, #3E3830 100%) !important; color: #F5E8C0 !important; box-shadow: 0 4px 16px rgba(180,160,120,0.3) !important; border-color: rgba(212,160,23,0.6) !important; transform: translateY(-1px); }
         .continue-btn:not(:disabled):active { background: linear-gradient(160deg, #DDD5B8 0%, #3E3830 60%, #2C2416 100%) !important; color: #F5E8C0 !important; transform: scale(0.98); }
@@ -751,9 +753,9 @@ export default function OtherForm({ sharedInfo, onBack }) {
 
       {/* Mobile sticky price bar */}
       <div className="of2-mobile-price" style={{display:"none",position:"fixed",bottom:0,left:0,right:0,zIndex:1000}}>
-        <div style={{background:"linear-gradient(160deg, #3E3830 0%, #4E4840 50%, #3E3830 100%)",borderTop:"2px solid rgba(212,160,23,0.4)",boxShadow:"0 -8px 30px rgba(0,0,0,0.3)"}}>
-          {/* Always-visible total row */}
-          <div style={{padding:"12px 20px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+        <div style={{background:"linear-gradient(160deg, #3E3830 0%, #4E4840 50%, #3E3830 100%)",borderTop:"2px solid rgba(212,160,23,0.4)",boxShadow:"0 -8px 30px rgba(0,0,0,0.3)",maxHeight:"35vh",display:"flex",flexDirection:"column",overflow:"hidden"}}>
+          {/* Total row — fixed, never scrolls away */}
+          <div style={{padding:"12px 20px",display:"flex",justifyContent:"space-between",alignItems:"center",flexShrink:0}}>
             <div>
               <div style={{color:"rgba(240,192,64,0.8)",fontSize:"11px",fontWeight:"700",letterSpacing:"1.5px",textTransform:"uppercase"}}>Monthly Estimate</div>
             </div>
@@ -762,9 +764,9 @@ export default function OtherForm({ sharedInfo, onBack }) {
               <div style={{color:"rgba(240,192,64,0.6)",fontSize:"10px",fontWeight:"600"}}>per month</div>
             </div>
           </div>
-          {/* Line items - always visible, scrollable */}
+          {/* Line items — fills remaining space, scrollable */}
           {getPriceBreakdown().length>0&&(
-            <div style={{borderTop:"1px solid rgba(212,160,23,0.25)",overflowY:"auto",maxHeight:"130px",padding:"8px 20px 12px"}}>
+            <div style={{borderTop:"1px solid rgba(212,160,23,0.25)",overflowY:"auto",flex:1,padding:"8px 20px 12px"}}>
               {getPriceBreakdown().map((item,i)=>(
                 <div key={i} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"4px 0",fontSize:"12px",borderBottom:i<getPriceBreakdown().length-1?"1px solid rgba(255,255,255,0.06)":"none"}}>
                   <span style={{color:"rgba(240,192,64,0.85)",fontWeight:"600",flex:1,marginRight:"8px"}}>{item.label}</span>
