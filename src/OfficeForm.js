@@ -417,11 +417,11 @@ export default function OfficeForm({ sharedInfo, onBack }) {
   const renderStep1 = () => (
     <div className="fade-in-up">
       <div style={{ textAlign:"center", marginBottom:"40px" }}>
-        <div style={{ width:"90px", height:"90px", background:"linear-gradient(135deg,#A07B15,#D4A017,#F0C040)", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 24px", boxShadow:"0 20px 50px rgba(212,160,23,0.25)", border:"4px solid rgba(255,255,255,0.9)", fontSize:"44px" }}>🏢</div>
-        <h2 style={{ fontSize:"28px", fontWeight:"900", color:"#4A3728", margin:"0 0 12px", letterSpacing:"-0.5px" }}>What type of office?</h2>
+        <div style={{ width:"90px", height:"90px", background:"linear-gradient(135deg,#A07B15,#D4A017,#F0C040)", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 24px", boxShadow:"0 20px 50px rgba(212,160,23,0.25)", border:"4px solid rgba(255,255,255,0.9)", fontSize:"44px" }} className="of-hero-icon">🏢</div>
+        <h2 style={{ fontSize:"28px", fontWeight:"900", color:"#4A3728", margin:"0 0 12px", letterSpacing:"-0.5px" }} className="of-step1-h2">What type of office?</h2>
         <p style={{ color:"#666", fontSize:"16px", fontWeight:"500", margin:0 }}>Select the option that best describes your space</p>
       </div>
-      <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:"14px", marginBottom:"40px" }}>
+      <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:"14px", marginBottom:"40px" }} className="of-step1-grid">
         {OFFICE_TYPES.map(ot => (
           <div key={ot.value} onClick={() => setOfficeType(ot.value)} style={{
             padding:"20px 16px", borderRadius:"16px", cursor:"pointer", transition:"all 0.2s ease",
@@ -434,7 +434,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
           </div>
         ))}
       </div>
-      <div style={{ display:"flex", gap:"15px" }}>
+      <div style={{ display:"flex", gap:"15px" }} className="of-btn-row">
         <button onClick={goBack} style={{ flex:1, padding:"18px", borderRadius:"16px", border:"2px solid rgba(212,160,23,0.3)", background:"white", color:"#A07B15", fontSize:"15px", fontWeight:"800", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
           <ChevronLeft size={20}/> Back
         </button>
@@ -451,7 +451,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
 
       {/* Square Footage */}
       <div style={{ marginBottom:"30px" }}>
-        <label style={{ display:"flex", alignItems:"center", justifyContent:"space-between", fontSize:"14px", fontWeight:"800", color:"#A07B15", marginBottom:"20px", letterSpacing:"1px", textTransform:"uppercase" }}>
+        <label style={{ display:"flex", alignItems:"center", justifyContent:"space-between", fontSize:"14px", fontWeight:"800", color:"#A07B15", marginBottom:"20px", letterSpacing:"1px", textTransform:"uppercase", flexWrap:"wrap", gap:"8px" }}>
           <div style={{ display:"flex", alignItems:"center", gap:"8px" }}><Building2 size={18} color="#A07B15"/>Total Square Footage *</div>
           <div style={{ fontSize:"24px", fontWeight:"900", color:"#4A3728" }}>{sqft.toLocaleString()} sqft</div>
         </label>
@@ -498,7 +498,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
       {/* Cleaning Frequency */}
       <div style={{ marginBottom:"24px", background:"linear-gradient(135deg,rgba(212,160,23,0.05),rgba(240,192,64,0.04))", borderRadius:"16px", padding:"20px", border:"1px solid rgba(212,160,23,0.2)" }}>
         <label style={{ ...labelSt, marginBottom:"12px", color:"#A07B15" }}>📅 Cleaning Frequency *</label>
-        <div style={{ display:"grid", gridTemplateColumns:"280px 1fr", gap:"16px", alignItems:"start" }}>
+        <div className="of-freq-layout" style={{ display:"grid", gridTemplateColumns:"minmax(0,280px) 1fr", gap:"16px", alignItems:"start" }}>
           {/* Cards */}
           <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:"10px" }}>
             <div onClick={()=>setFrequency("daily")} style={{ gridColumn:"1/-1", padding:"14px 12px", borderRadius:"10px", cursor:"pointer", transition:"all 0.2s ease", textAlign:"center",
@@ -582,7 +582,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
       </div>
 
       {/* Facility counters */}
-      <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:"12px", marginBottom:"30px" }}>
+      <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:"12px", marginBottom:"30px" }} className="of-rooms-grid">
         {[
           {label:"🗂️ Conference Rooms", price:"$45 / clean", val:conferenceRooms, set:setConferenceRooms, freq:confFreq,    setFreq:setConfFreq},
           {label:"☕ Break Rooms",       price:"$35 / clean", val:breakRooms,      set:setBreakRooms,      freq:breakFreq,   setFreq:setBreakFreq},
@@ -619,7 +619,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         ))}
       </div>
 
-      <div style={{ display:"flex", gap:"15px" }}>
+      <div style={{ display:"flex", gap:"15px" }} className="of-btn-row">
         <button onClick={goBack} style={{ flex:1, padding:"18px", borderRadius:"16px", border:"2px solid rgba(212,160,23,0.3)", background:"white", color:"#A07B15", fontSize:"15px", fontWeight:"800", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
           <ChevronLeft size={20}/> Back
         </button>
@@ -638,7 +638,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         <label style={{ display:"flex", alignItems:"center", fontSize:"14px", fontWeight:"800", color:"#A07B15", marginBottom:"15px", gap:"8px", letterSpacing:"1px", textTransform:"uppercase" }}>
           <CheckCircle2 size={18} color="#D4A017"/>Additional Services (Optional)
         </label>
-        <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:"12px" }}>
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:"12px" }} className="of-addons-grid">
           {[
             {key:"windowCleaning",   label:"Window Cleaning",     price:"$150"},
             {key:"floorWaxing",      label:"Floor Waxing/Buffing", price:"$200"},
@@ -668,7 +668,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         <label style={{ display:"flex", alignItems:"center", fontSize:"14px", fontWeight:"800", color:"#A07B15", marginBottom:"15px", gap:"8px", letterSpacing:"1px", textTransform:"uppercase" }}>
           <Calendar size={18} color="#A07B15"/>Preferred Days (Optional)
         </label>
-        <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"10px" }}>
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"10px" }} className="of-days-grid">
           {["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map(d=>(
             <div key={d} onClick={()=>setPreferredDays(preferredDays.includes(d)?preferredDays.filter(x=>x!==d):[...preferredDays,d])}
               style={{ padding:"14px 10px", borderRadius:"12px", cursor:"pointer", textAlign:"center", fontSize:"14px", fontWeight:"800", transition:"all 0.3s ease",
@@ -685,7 +685,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         <label style={{ display:"flex", alignItems:"center", fontSize:"14px", fontWeight:"800", color:"#A07B15", marginBottom:"15px", gap:"8px", letterSpacing:"1px", textTransform:"uppercase" }}>
           <Clock size={18} color="#A07B15"/>Preferred Time (Optional)
         </label>
-        <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:"10px" }}>
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:"10px" }} className="of-times-grid">
           {["Morning (6-10am)","Mid-Day (10am-2pm)","Afternoon (2-6pm)","Evening (6-10pm)","Overnight (10pm-6am)"].map(t=>(
             <div key={t} onClick={()=>setPreferredTimes(preferredTimes.includes(t)?preferredTimes.filter(x=>x!==t):[...preferredTimes,t])} style={{ padding:"14px 12px", borderRadius:"12px", cursor:"pointer", fontSize:"12px", fontWeight:"800", textAlign:"center", transition:"all 0.3s ease",
               border:preferredTimes.includes(t)?"2px solid #D4A017":"2px solid rgba(212,160,23,0.3)",
@@ -712,7 +712,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         </p>
       </div>
 
-      <div style={{ display:"flex", gap:"15px" }}>
+      <div style={{ display:"flex", gap:"15px" }} className="of-btn-row">
         <button onClick={goBack} style={{ flex:1, padding:"18px", borderRadius:"16px", border:"2px solid rgba(212,160,23,0.3)", background:"white", color:"#A07B15", fontSize:"15px", fontWeight:"800", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
           <ChevronLeft size={20}/> Back
         </button>
@@ -726,13 +726,13 @@ export default function OfficeForm({ sharedInfo, onBack }) {
   // ── Workspace Modal ───────────────────────────────────────────────────────
   const renderWsModal = () => (
     <div style={{ position:"fixed", top:0, left:0, right:0, bottom:0, background:"rgba(0,0,0,0.85)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:9999, padding:"20px", overflowY:"auto" }}>
-      <div style={{ background:"linear-gradient(135deg,#FFFFFF,#F5F0EB)", borderRadius:"24px", padding:"40px 35px", maxWidth:"700px", width:"100%", maxHeight:"90vh", overflowY:"auto", border:"1px solid rgba(212,160,23,0.25)", boxShadow:"0 30px 80px rgba(0,0,0,0.15)" }}>
+      <div style={{ background:"linear-gradient(135deg,#FFFFFF,#F5F0EB)", borderRadius:"20px", padding:"30px 24px", maxWidth:"700px", width:"100%", maxHeight:"90vh", overflowY:"auto", border:"1px solid rgba(212,160,23,0.25)", boxShadow:"0 30px 80px rgba(0,0,0,0.15)" }} className="of-ws-modal-inner">
         <h2 style={{ fontSize:"26px", fontWeight:"900", color:"#4A3728", minWidth:"40px", textAlign:"right", marginBottom:"8px" }}>💼 Configure Workspace</h2>
         <p style={{ fontSize:"14px", color:"#666", marginBottom:"30px", fontWeight:"600" }}>{wsEditingIndex!==null?"Update workspace configuration":"Document workspace types for cleaning crew"}</p>
 
         <div style={{ marginBottom:"25px" }}>
           <label style={labelSt}>🏢 Workspace Type *</label>
-          <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:"12px" }}>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:"12px" }} className="of-ws-type-grid">
             {[{id:"executive",icon:"🏢",name:"Executive Office"},{id:"manager",icon:"💼",name:"Manager Office"},{id:"standard",icon:"📋",name:"Standard Office"},{id:"cubicle",icon:"🪑",name:"Cubicle"},{id:"open-desk",icon:"💻",name:"Open Desk"},{id:"collaborative",icon:"🤝",name:"Collaborative Workspace"}].map(t=>(
               <button key={t.id} onClick={()=>setWsType(t.id)} style={{ padding:"16px 14px", borderRadius:"12px", border:wsType===t.id?"2px solid #D4A017":"2px solid rgba(212,160,23,0.25)", background:wsType===t.id?"linear-gradient(135deg,rgba(212,160,23,0.15),rgba(212,175,55,0.08))":"rgba(255,255,255,0.8)", color:wsType===t.id?"#5C4A1E":"#4A3728", cursor:"pointer", textAlign:"left" }}>
                 <div style={{ fontSize:"22px", marginBottom:"4px" }}>{t.icon}</div>
@@ -745,7 +745,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         {wsType && wsType!=="cubicle" && wsType!=="open-desk" && (
           <div style={{ marginBottom:"25px" }}>
             <label style={labelSt}>📏 Square Footage Range *</label>
-            <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:"10px" }}>
+            <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:"10px" }} className="of-ws-sqft-grid">
               {[{value:"100-150",label:"100-150 sqft"},{value:"150-200",label:"150-200 sqft"},{value:"200-300",label:"200-300 sqft"},{value:"300-500",label:"300-500 sqft"},{value:"500+",label:"500+ sqft"}].map(o=>(
                 <button key={o.value} onClick={()=>setWsSqftRange(o.value)} style={{ padding:"12px", borderRadius:"10px", border:wsSqftRange===o.value?"2px solid #D4A017":"2px solid rgba(212,160,23,0.25)", background:wsSqftRange===o.value?"linear-gradient(135deg,rgba(212,160,23,0.15),rgba(212,175,55,0.08))":"rgba(255,255,255,0.8)", color:wsSqftRange===o.value?"#5C4A1E":"#4A3728", fontSize:"13px", fontWeight:"800", cursor:"pointer" }}>{o.label}</button>
               ))}
@@ -870,6 +870,34 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         .continue-btn:not(:disabled):hover { background: linear-gradient(160deg, #EDE5CE 0%, #4E4840 60%, #3E3830 100%) !important; color: #F5E8C0 !important; box-shadow: 0 4px 16px rgba(180,160,120,0.3) !important; border-color: rgba(212,160,23,0.6) !important; transform: translateY(-1px); }
         .continue-btn:not(:disabled):active { background: linear-gradient(160deg, #DDD5B8 0%, #3E3830 60%, #2C2416 100%) !important; color: #F5E8C0 !important; box-shadow: 0 2px 6px rgba(180,160,120,0.25) !important; transform: scale(0.98); }
         @media (max-width:900px) { .of-layout { grid-template-columns:1fr !important; } .of-sidebar { display:none !important; } }
+        @media (max-width: 640px) {
+          .of-layout { padding: 12px !important; gap: 0 !important; }
+          .of-header { padding: 24px 16px !important; }
+          .of-cleaning-title { font-size: 30px !important; letter-spacing: 4px !important; }
+          .of-suoficina-title { font-size: 34px !important; }
+          .of-form-body { padding: 24px 16px !important; }
+          .of-step1-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
+          .of-freq-layout { grid-template-columns: 1fr !important; gap: 12px !important; }
+          .of-freq-cards { grid-template-columns: repeat(2,1fr) !important; }
+          .of-rooms-grid { grid-template-columns: 1fr !important; }
+          .of-addons-grid { grid-template-columns: 1fr !important; }
+          .of-days-grid { grid-template-columns: repeat(4,1fr) !important; }
+          .of-times-grid { grid-template-columns: repeat(2,1fr) !important; }
+          .of-ws-modal-inner { padding: 24px 18px !important; }
+          .of-ws-type-grid { grid-template-columns: repeat(2,1fr) !important; }
+          .of-ws-sqft-grid { grid-template-columns: repeat(2,1fr) !important; }
+          .of-hosp-type-grid { grid-template-columns: repeat(3,1fr) !important; }
+          .of-sqft-label { flex-direction: column !important; align-items: flex-start !important; gap: 4px !important; }
+          .of-sqft-label-num { font-size: 18px !important; }
+          .of-hero-icon { width: 72px !important; height: 72px !important; font-size: 36px !important; }
+          .of-step1-h2 { font-size: 22px !important; }
+          .of-btn-row { gap: 10px !important; }
+        }
+        @media (max-width: 380px) {
+          .of-cleaning-title { font-size: 26px !important; letter-spacing: 3px !important; }
+          .of-suoficina-title { font-size: 30px !important; }
+          .of-days-grid { grid-template-columns: repeat(4,1fr) !important; }
+        }
       `}</style>
 
       <div className="of-layout" style={{ maxWidth:"1400px", margin:"0 auto", padding:"30px 20px", display:"grid", gridTemplateColumns:"1fr 380px", gap:"30px", alignItems:"start", position:"relative", zIndex:1 }}>
@@ -893,8 +921,8 @@ export default function OfficeForm({ sharedInfo, onBack }) {
               <div style={{ position:"absolute", width:"3px", height:"3px", borderRadius:"50%", background:"rgba(255,240,160,0.5)", top:"75%", left:"25%", boxShadow:"0 0 4px rgba(240,192,64,0.4)", pointerEvents:"none" }}/>
               <div style={{ position:"relative", zIndex:1 }}>
                 <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:"8px" }}>
-                  <div style={{ fontFamily:"'Oswald', sans-serif", fontSize:"42px", fontWeight:"300", letterSpacing:"8px", color:"white", textShadow:"0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(240,192,64,0.3)" }}>CLEANING</div>
-                  <div style={{ fontFamily:"'Allura', cursive", fontSize:"46px", letterSpacing:"3px", marginTop:"-8px", fontWeight:"400", background:"linear-gradient(180deg, #FFF0A0 0%, #F0C040 25%, #C8900A 50%, #F0C040 75%, #FFF0A0 100%)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }}>Su Oficina</div>
+                  <div style={{ fontFamily:"'Oswald', sans-serif", fontSize:"42px", fontWeight:"300", letterSpacing:"8px", color:"white", textShadow:"0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(240,192,64,0.3)" }} className="of-cleaning-title">CLEANING</div>
+                  <div style={{ fontFamily:"'Allura', cursive", fontSize:"46px", letterSpacing:"3px", marginTop:"-8px", fontWeight:"400", background:"linear-gradient(180deg, #FFF0A0 0%, #F0C040 25%, #C8900A 50%, #F0C040 75%, #FFF0A0 100%)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }} className="of-suoficina-title">Su Oficina</div>
                 </div>
                 <div style={{ height:"2px", width:"80px", background:"linear-gradient(90deg,transparent,#F0C040,transparent)", margin:"14px auto 10px", boxShadow:"0 0 10px rgba(240,192,64,0.5)" }}/>
                 <div style={{ color:"rgba(240,192,64,0.7)", fontSize:"13px", fontWeight:"700", letterSpacing:"2px", textTransform:"uppercase" }}>🏢 Office Cleaning Quote</div>
@@ -904,7 +932,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
             <div style={{ height:"6px", background:"rgba(212,160,23,0.15)" }}>
               <div style={{ height:"100%", background:"linear-gradient(90deg,#A07B15,#D4A017,#F0C040)", width:pct, transition:"width 0.5s cubic-bezier(0.4,0,0.2,1)", boxShadow:"0 0 15px rgba(212,160,23,0.6)" }}/>
             </div>
-            <div style={{ padding:"50px 40px", background:"transparent" }}>
+            <div className="of-form-body" style={{ padding:"50px 40px", background:"transparent" }}>
               {step===1 && renderStep1()}
               {step===2 && renderStep2()}
               {step===3 && renderStep3()}
