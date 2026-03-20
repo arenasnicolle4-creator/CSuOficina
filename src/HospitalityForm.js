@@ -402,12 +402,14 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
                 </div>
 
                 {/* Guest Room Builder */}
-                <div style={{gridColumn:"1 / -1",background:"linear-gradient(135deg,rgba(255,255,255,0.85),rgba(255,248,220,0.7))",border:"2px dashed rgba(8,145,178,0.5)",borderRadius:"16px",padding:"20px",display:"flex",flexDirection:"column",gap:"15px",marginBottom:"20px"}}>
-                  <div style={{fontSize:"11px",fontWeight:"800",color:"#0891B2",letterSpacing:"1.5px",textTransform:"uppercase",display:"flex",alignItems:"center",gap:"6px"}}>
-                    <span style={{width:"8px",height:"8px",borderRadius:"50%",background:"#0891B2",display:"inline-block"}}></span>Configure Guest Rooms
+                <div style={{background:"linear-gradient(135deg,rgba(255,255,255,0.85),rgba(255,248,220,0.7))",border:"2px dashed rgba(8,145,178,0.5)",borderRadius:"16px",padding:"20px",display:"flex",flexDirection:"column",gap:"15px",marginBottom:"20px"}}>
+                  <div style={{fontSize:"11px",fontWeight:"800",color:"#0891B2",letterSpacing:"1.5px",textTransform:"uppercase",marginBottom:"8px",display:"flex",alignItems:"center",gap:"6px"}}>
+                    <span style={{width:"8px",height:"8px",borderRadius:"50%",background:"#0891B2",display:"inline-block"}}></span>Step Required — Click to Configure
                   </div>
-                  <button onClick={()=>{setEditingIndex(null);setShowGuestRoomModal(true);}} style={{width:"100%",padding:"20px",borderRadius:"14px",border:"none",background:"linear-gradient(160deg, #E8E0C8 0%, #5A5248 60%, #3E3830 100%)",color:"#F5E8C0",fontSize:"15px",fontWeight:"800",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",gap:"10px",boxShadow:"0 4px 20px rgba(212,160,23,0.25)"}}>
-                    🛏️ Configure Guest Rooms
+                  <button onClick={()=>{setEditingIndex(null);setShowGuestRoomModal(true);}} style={{width:"100%",padding:"24px 20px",borderRadius:"14px",background:"linear-gradient(180deg, #E8E0C8 0%, #EDE5CE 40%, #F5F0E0 100%)",color:"#5C3D10",cursor:"pointer",boxShadow:"0 4px 20px rgba(212,160,23,0.25), 0 1px 4px rgba(212,160,23,0.15)",border:"2px solid #0891B2",textAlign:"center",position:"relative",overflow:"hidden"}}>
+                    <div style={{position:"absolute",top:0,left:"-75%",width:"50%",height:"100%",background:"linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent)",transform:"skewX(-20deg)",pointerEvents:"none"}}/>
+                    <div style={{fontSize:"22px",fontWeight:"900",letterSpacing:"0.5px",textTransform:"uppercase",color:"#5C3D10",textShadow:"none"}}>🛏️ Configure Guest Rooms</div>
+                    <div style={{fontSize:"13px",fontWeight:"700",marginTop:"7px",color:"rgba(61,46,0,0.8)",letterSpacing:"0.6px",textTransform:"uppercase",borderTop:"1px solid rgba(212,160,23,0.3)",paddingTop:"8px"}}>👆 Tap to tell us your room types & configurations — Required for accurate quote</div>
                   </button>
                   {guestRoomConfigs.length>0&&(
                     <div style={{display:"flex",flexDirection:"column",gap:"8px"}}>
