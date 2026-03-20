@@ -395,6 +395,32 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
         .continue-btn:not(:disabled):hover { background: linear-gradient(160deg, #EDE5CE 0%, #4E4840 60%, #3E3830 100%) !important; color: #F5E8C0 !important; box-shadow: 0 4px 16px rgba(180,160,120,0.3) !important; border-color: rgba(212,160,23,0.6) !important; transform: translateY(-1px); }
         .continue-btn:not(:disabled):active { background: linear-gradient(160deg, #DDD5B8 0%, #3E3830 60%, #2C2416 100%) !important; color: #F5E8C0 !important; box-shadow: 0 2px 6px rgba(180,160,120,0.25) !important; transform: scale(0.98); }
         @media (max-width:900px) { .hf-layout { grid-template-columns:1fr !important; } .hf-sidebar { display:none !important; } }
+        @media (max-width: 640px) {
+          .hf-layout { padding: 12px !important; gap: 0 !important; }
+          .hf-header { padding: 24px 16px !important; }
+          .hf-cleaning-title { font-size: 30px !important; letter-spacing: 4px !important; }
+          .hf-suoficina-title { font-size: 34px !important; }
+          .hf-form-body { padding: 24px 16px !important; }
+          .hf-prop-type-grid { grid-template-columns: repeat(3,1fr) !important; gap: 8px !important; }
+          .hf-prop-type-card { padding: 12px 6px !important; }
+          .hf-prop-type-icon { font-size: 20px !important; margin-bottom: 4px !important; }
+          .hf-prop-type-label { font-size: 10px !important; }
+          .hf-sqft-label { flex-direction: column !important; align-items: flex-start !important; gap: 4px !important; }
+          .hf-rooms-grid { grid-template-columns: 1fr !important; }
+          .hf-addons-grid { grid-template-columns: 1fr !important; }
+          .hf-days-grid { grid-template-columns: repeat(4,1fr) !important; }
+          .hf-times-grid { grid-template-columns: repeat(2,1fr) !important; }
+          .hf-btn-row { gap: 10px !important; }
+          .hf-modal-inner { padding: 24px 18px !important; border-radius: 18px !important; }
+          .hf-modal-template-grid { grid-template-columns: repeat(3,1fr) !important; }
+          .hf-freq-type-row { flex-direction: column !important; gap: 8px !important; }
+          .hf-freq-type-row button { flex: none !important; width: 100% !important; }
+        }
+        @media (max-width: 380px) {
+          .hf-cleaning-title { font-size: 26px !important; letter-spacing: 3px !important; }
+          .hf-suoficina-title { font-size: 30px !important; }
+          .hf-prop-type-grid { grid-template-columns: repeat(3,1fr) !important; }
+        }
       `}</style>
 
       <div className="hf-layout" style={{maxWidth:"1400px",margin:"0 auto",padding:"30px 20px",display:"grid",gridTemplateColumns:"1fr 380px",gap:"30px",alignItems:"start",position:"relative",zIndex:1}}>
@@ -402,7 +428,7 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
         {/* Form card */}
         <div style={CARD_STYLE}>
           {/* Header */}
-          <div style={{background:"linear-gradient(160deg, #3E3830 0%, #4E4840 50%, #3E3830 100%)",borderBottom:"1px solid rgba(212,160,23,0.3)",padding:"30px",textAlign:"center",position:"relative",overflow:"hidden"}}>
+          <div style={{background:"linear-gradient(160deg, #3E3830 0%, #4E4840 50%, #3E3830 100%)",borderBottom:"1px solid rgba(212,160,23,0.3)",padding:"30px",textAlign:"center",position:"relative",overflow:"hidden"}} className="hf-header">
             <svg width="220" height="220" style={{position:"absolute",top:"-60px",left:"-40px",opacity:0.25,pointerEvents:"none"}} viewBox="0 0 220 220">
               <circle cx="110" cy="110" r="100" fill="none" stroke="rgba(240,192,64,0.8)" strokeWidth="1.2"/>
               <circle cx="110" cy="110" r="70" fill="none" stroke="rgba(255,240,160,0.5)" strokeWidth="0.8"/>
@@ -416,8 +442,8 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
             <div style={{position:"absolute",width:"3px",height:"3px",borderRadius:"50%",background:"rgba(255,240,160,0.5)",top:"75%",left:"25%",boxShadow:"0 0 4px rgba(240,192,64,0.4)",pointerEvents:"none"}}/>
             <div style={{position:"relative",zIndex:1}}>
               <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:"8px"}}>
-                <div style={{fontFamily:"'Oswald', sans-serif",fontSize:"42px",fontWeight:"300",letterSpacing:"8px",color:"white",textShadow:"0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(240,192,64,0.3)"}}>CLEANING</div>
-                <div style={{fontFamily:"'Allura', cursive",fontSize:"46px",letterSpacing:"3px",marginTop:"-8px",fontWeight:"400",background:"linear-gradient(180deg, #FFF0A0 0%, #F0C040 25%, #C8900A 50%, #F0C040 75%, #FFF0A0 100%)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text"}}>Su Oficina</div>
+                <div style={{fontFamily:"'Oswald', sans-serif",fontSize:"42px",fontWeight:"300",letterSpacing:"8px",color:"white",textShadow:"0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(240,192,64,0.3)"}} className="hf-cleaning-title">CLEANING</div>
+                <div style={{fontFamily:"'Allura', cursive",fontSize:"46px",letterSpacing:"3px",marginTop:"-8px",fontWeight:"400",background:"linear-gradient(180deg, #FFF0A0 0%, #F0C040 25%, #C8900A 50%, #F0C040 75%, #FFF0A0 100%)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text"}} className="hf-suoficina-title">Su Oficina</div>
               </div>
               <div style={{height:"2px",width:"80px",background:"linear-gradient(90deg,transparent,#F0C040,transparent)",margin:"14px auto 10px",boxShadow:"0 0 10px rgba(240,192,64,0.5)"}}/>
               <div style={{color:"rgba(240,192,64,0.7)",fontSize:"13px",fontWeight:"700",letterSpacing:"2px",textTransform:"uppercase"}}>🏨 Hospitality Cleaning Quote</div>
@@ -429,7 +455,7 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
             <div style={{height:"100%",background:"linear-gradient(90deg,#A07B15,#D4A017,#F0C040)",width:pct,transition:"width 0.5s cubic-bezier(0.4,0,0.2,1)",boxShadow:"0 0 15px rgba(212,160,23,0.6)"}}/>
           </div>
 
-          <div style={{padding:"50px 40px",background:"transparent"}}>
+          <div style={{padding:"50px 40px",background:"transparent"}} className="hf-form-body">
 
             {/* ── STEP 3: Property Details ─────────────────────────────────── */}
             {step===3&&(
@@ -437,14 +463,14 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
                 {/* Hospitality Type */}
                 <div style={{marginBottom:"30px"}}>
                   <label style={{...labelSt,fontSize:"14px",fontWeight:"800",marginBottom:"15px",letterSpacing:"1px"}}>🏨 Property Type</label>
-                  <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"12px"}}>
+                  <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"12px"}} className="hf-prop-type-grid">
                     {[{value:"hotel",icon:"🏨",label:"Hotel"},{value:"bnb",icon:"🏡",label:"B&B / Inn"},{value:"resort",icon:"🌴",label:"Resort"},{value:"motel",icon:"🛣️",label:"Motel"},{value:"vacation",icon:"🏖️",label:"Vacation Rental"},{value:"extended",icon:"🏢",label:"Extended Stay"},{value:"hostel",icon:"🎒",label:"Hostel"},{value:"event-venue",icon:"🎉",label:"Event Venue"},{value:"other-hosp",icon:"🏠",label:"Other"}].map(t=>(
-                      <div key={t.value} onClick={()=>setHospType(t.value)} style={{padding:"16px 10px",borderRadius:"12px",cursor:"pointer",transition:"all 0.2s ease",textAlign:"center",
+                      <div key={t.value} onClick={()=>setHospType(t.value)} className="hf-prop-type-card" style={{padding:"16px 10px",borderRadius:"12px",cursor:"pointer",transition:"all 0.2s ease",textAlign:"center",
                         border:hospType===t.value?"2px solid #0891B2":"2px solid rgba(212,160,23,0.2)",
                         background:hospType===t.value?"linear-gradient(135deg,rgba(8,145,178,0.12),rgba(6,182,212,0.06))":"rgba(255,255,255,0.7)",
                         boxShadow:hospType===t.value?"0 0 18px rgba(6,182,212,0.3)":"0 2px 8px rgba(0,0,0,0.04)"}}>
-                        <div style={{fontSize:"24px",marginBottom:"6px"}}>{t.icon}</div>
-                        <div style={{fontSize:"12px",fontWeight:"800",color:hospType===t.value?"#0891B2":"#4A3728"}}>{t.label}</div>
+                        <div className="hf-prop-type-icon" style={{fontSize:"24px",marginBottom:"6px"}}>{t.icon}</div>
+                        <div className="hf-prop-type-label" style={{fontSize:"12px",fontWeight:"800",color:hospType===t.value?"#0891B2":"#4A3728"}}>{t.label}</div>
                       </div>
                     ))}
                   </div>
@@ -452,7 +478,7 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
 
                 {/* Square Footage */}
                 <div style={{marginBottom:"30px"}}>
-                  <label style={{display:"flex",alignItems:"center",justifyContent:"space-between",fontSize:"14px",fontWeight:"800",color:"#A07B15",marginBottom:"20px",letterSpacing:"1px",textTransform:"uppercase"}}>
+                  <label style={{display:"flex",alignItems:"center",justifyContent:"space-between",fontSize:"14px",fontWeight:"800",color:"#A07B15",marginBottom:"20px",letterSpacing:"1px",textTransform:"uppercase",flexWrap:"wrap",gap:"8px"}} className="hf-sqft-label">
                     <div style={{display:"flex",alignItems:"center",gap:"8px"}}><Building2 size={18} color="#A07B15"/>Total Square Footage *</div>
                     <div style={{fontSize:"24px",fontWeight:"900",color:"#4A3728"}}>{parseInt(squareFeet||0).toLocaleString()} sqft</div>
                   </label>
@@ -495,7 +521,7 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
                 </div>
 
                 {/* Facility counters */}
-                <div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:"12px",marginBottom:"30px"}}>
+                <div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:"12px",marginBottom:"30px"}} className="hf-rooms-grid">
                   <RoomCounter icon="🛋️" label="Common Areas"    price="$35/clean"  count={commonAreas}     onDec={()=>setCommonAreas(Math.max(0,commonAreas-1))}         onInc={()=>setCommonAreas(commonAreas+1)}         freq={commonAreasFreq}     onFreqChange={setCommonAreasFreq}/>
                   <RoomCounter icon="🍽️" label="Dining Areas"    price="$50/clean"  count={diningAreas}     onDec={()=>setDiningAreas(Math.max(0,diningAreas-1))}         onInc={()=>setDiningAreas(diningAreas+1)}         freq={diningAreasFreq}     onFreqChange={setDiningAreasFreq}/>
                   <RoomCounter icon="🏋️" label="Fitness Centers" price="$60/clean"  count={fitnessCenters}  onDec={()=>setFitnessCenters(Math.max(0,fitnessCenters-1))}   onInc={()=>setFitnessCenters(fitnessCenters+1)}   freq={fitnessCentersFreq}  onFreqChange={setFitnessCentersFreq}/>
@@ -506,7 +532,7 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
                   <RoomCounter icon="🚻" label="Shared Bathrooms" price="$21+/clean" count={sharedBathrooms} onDec={()=>setSharedBathrooms(Math.max(0,sharedBathrooms-1))} onInc={()=>setSharedBathrooms(sharedBathrooms+1)} freq={sharedBathroomsFreq} onFreqChange={setSharedBathroomsFreq}/>
                 </div>
 
-                <div style={{display:"flex",gap:"15px",marginTop:"30px"}}>
+                <div style={{display:"flex",gap:"15px",marginTop:"30px"}} className="hf-btn-row">
                   <button onClick={goBack} style={{flex:1,padding:"18px",borderRadius:"16px",border:"2px solid rgba(212,160,23,0.3)",background:"white",color:"#A07B15",fontSize:"15px",fontWeight:"800",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",gap:"8px"}}>
                     <ChevronLeft size={20}/> Back
                   </button>
@@ -525,7 +551,7 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
                   <label style={{display:"flex",alignItems:"center",fontSize:"14px",fontWeight:"800",color:"#A07B15",marginBottom:"15px",gap:"8px",letterSpacing:"1px",textTransform:"uppercase"}}>
                     <CheckCircle2 size={18} color="#D4A017"/>Additional Services (Optional)
                   </label>
-                  <div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:"12px"}}>
+                  <div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:"12px"}} className="hf-addons-grid">
                     {[{key:"windowCleaning",label:"Window Cleaning",price:"$150"},{key:"floorWaxing",label:"Floor Waxing/Buffing",price:"$200"},{key:"carpetCleaning",label:"Carpet Deep Clean",price:"$0.35/sqft"},{key:"pressureWashing",label:"Pressure Washing",price:"$0.25/sqft"},{key:"postConstruction",label:"Post-Construction",price:"$0.50/sqft"},{key:"disinfection",label:"Disinfection",price:"$0.15/sqft"}].map(a=>(
                       <div key={a.key} onClick={()=>setAddOns({...addOns,[a.key]:!addOns[a.key]})} style={{padding:"18px 16px",borderRadius:"16px",cursor:"pointer",transition:"all 0.3s ease",display:"flex",alignItems:"flex-start",gap:"10px",
                         border:addOns[a.key]?"1.5px solid rgba(212,160,23,0.6)":"1.5px solid rgba(212,160,23,0.25)",
@@ -548,7 +574,7 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
                   <label style={{display:"flex",alignItems:"center",fontSize:"14px",fontWeight:"800",color:"#A07B15",marginBottom:"15px",gap:"8px",letterSpacing:"1px",textTransform:"uppercase"}}>
                     <Calendar size={18} color="#A07B15"/>Preferred Days (Optional)
                   </label>
-                  <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:"10px"}}>
+                  <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:"10px"}} className="hf-days-grid">
                     {["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map(d=>(
                       <div key={d} onClick={()=>setPreferredDays(preferredDays.includes(d)?preferredDays.filter(x=>x!==d):[...preferredDays,d])}
                         style={{padding:"14px 10px",borderRadius:"12px",cursor:"pointer",textAlign:"center",fontSize:"14px",fontWeight:"800",transition:"all 0.3s ease",
@@ -565,7 +591,7 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
                   <label style={{display:"flex",alignItems:"center",fontSize:"14px",fontWeight:"800",color:"#A07B15",marginBottom:"15px",gap:"8px",letterSpacing:"1px",textTransform:"uppercase"}}>
                     <Clock size={18} color="#A07B15"/>Preferred Time (Optional)
                   </label>
-                  <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"10px"}}>
+                  <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"10px"}} className="hf-times-grid">
                     {["Morning (6-10am)","Mid-Day (10am-2pm)","Afternoon (2-6pm)","Evening (6-10pm)","Overnight (10pm-6am)"].map(t=>(
                       <div key={t} onClick={()=>setPreferredTime(t)} style={{padding:"14px 12px",borderRadius:"12px",cursor:"pointer",fontSize:"12px",fontWeight:"800",textAlign:"center",transition:"all 0.3s ease",
                         border:preferredTime===t?"2px solid #D4A017":"2px solid rgba(212,160,23,0.3)",
@@ -591,7 +617,7 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
                   </p>
                 </div>
 
-                <div style={{display:"flex",gap:"15px"}}>
+                <div style={{display:"flex",gap:"15px"}} className="hf-btn-row">
                   <button onClick={goBack} style={{flex:1,padding:"18px",borderRadius:"16px",border:"2px solid rgba(212,160,23,0.3)",background:"white",color:"#A07B15",fontSize:"15px",fontWeight:"800",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",gap:"8px"}}>
                     <ChevronLeft size={20}/> Back
                   </button>
@@ -611,14 +637,14 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
       {/* Guest Room Modal */}
       {showGuestRoomModal&&(
         <div style={{position:"fixed",top:0,left:0,right:0,bottom:0,background:"rgba(0,0,0,0.85)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:9999,padding:"20px",overflowY:"auto"}}>
-          <div style={{background:"linear-gradient(135deg,#FFFFFF,#F5F0EB)",borderRadius:"24px",padding:"40px 35px",maxWidth:"700px",width:"100%",maxHeight:"90vh",overflowY:"auto",border:"1px solid rgba(212,160,23,0.25)",boxShadow:"0 30px 80px rgba(0,0,0,0.15)"}}>
+          <div style={{background:"linear-gradient(135deg,#FFFFFF,#F5F0EB)",borderRadius:"24px",padding:"30px 24px",maxWidth:"700px",width:"100%",maxHeight:"90vh",overflowY:"auto",border:"1px solid rgba(212,160,23,0.25)",boxShadow:"0 30px 80px rgba(0,0,0,0.15)"}} className="hf-modal-inner">
             <h2 style={{fontSize:"26px",fontWeight:"900",color:"#4A3728",marginBottom:"8px"}}>🛏️ Configure Guest Room</h2>
             <p style={{fontSize:"14px",color:"#666",marginBottom:"25px",fontWeight:"600"}}>{editingIndex!==null?"Update room configuration":"Add a guest room type"}</p>
 
             {/* Templates */}
             <div style={{marginBottom:"25px"}}>
               <label style={labelSt}>Quick Templates</label>
-              <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"10px"}}>
+              <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"10px"}} className="hf-modal-template-grid">
                 {[{id:"studio",icon:"🏠",name:"Studio"},{id:"standard",icon:"🛏️",name:"Standard"},{id:"deluxe",icon:"⭐",name:"Deluxe"},{id:"suite",icon:"🏰",name:"Suite"},{id:"custom",icon:"✏️",name:"Custom"}].map(t=>(
                   <button key={t.id} onClick={()=>applyTemplate(t.id)} style={{padding:"14px 10px",borderRadius:"10px",border:modalTemplate===t.id?"2px solid #D4A017":"2px solid rgba(212,160,23,0.25)",background:modalTemplate===t.id?"linear-gradient(135deg,rgba(212,160,23,0.15),rgba(212,175,55,0.08))":"rgba(255,255,255,0.8)",color:modalTemplate===t.id?"#5C4A1E":"#4A3728",cursor:"pointer",textAlign:"center"}}>
                     <div style={{fontSize:"20px",marginBottom:"4px"}}>{t.icon}</div><div style={{fontSize:"12px",fontWeight:"800"}}>{t.name}</div>
@@ -697,7 +723,7 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
               <label style={{...labelSt,color:"#0891B2",marginBottom:"14px"}}>🗓️ Cleaning Frequency for This Room Type *</label>
 
               {/* Frequency type selector */}
-              <div style={{display:"flex",gap:"8px",marginBottom:"16px"}}>
+              <div style={{display:"flex",gap:"8px",marginBottom:"16px"}} className="hf-freq-type-row">
                 {[{v:"per-day",l:"Per Day"},{v:"per-week",l:"Per Week"},{v:"per-month",l:"Per Month"}].map(o=>(
                   <button key={o.v} onClick={()=>setModalFreqType(o.v)} style={{flex:1,padding:"12px 8px",borderRadius:"10px",cursor:"pointer",fontSize:"13px",fontWeight:"800",transition:"all 0.15s ease",
                     border:modalFreqType===o.v?"2px solid #0891B2":"2px solid rgba(212,160,23,0.25)",
