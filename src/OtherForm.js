@@ -206,6 +206,7 @@ export default function OtherForm({ sharedInfo, onBack }) {
 
   const [addOns, setAddOns] = useState({ windowCleaning:false,floorWaxing:false,carpetCleaning:false,pressureWashing:false,postConstruction:false,disinfection:false });
   const [preferredDays,       setPreferredDays]       = useState([]);
+  const [startMonth,          setStartMonth]          = useState("");
   const [preferredTime,       setPreferredTime]       = useState("");
   const [specialInstructions, setSpecialInstructions] = useState("");
   const [showSuccessModal,    setShowSuccessModal]    = useState(false);
@@ -321,6 +322,7 @@ export default function OtherForm({ sharedInfo, onBack }) {
     else if (segment==="industrial") { formData.append("Loading Docks",loadingDocks); formData.append("Equipment Areas",equipmentAreas); formData.append("Break Rooms",industrialBreakRooms); formData.append("Restrooms",industrialRestrooms); formData.append("Office/Admin Areas",officeAreas); }
     formData.append("Add-ons",Object.keys(addOns).filter(k=>addOns[k]).join(", ")||"None");
     formData.append("Preferred Days",preferredDays.join(", ")||"Not specified");
+    formData.append("Expected Start Month",startMonth||"Not specified");
     formData.append("Preferred Time",preferredTime||"Not specified");
     formData.append("Special Instructions",specialInstructions||"None");
     formData.append("Est. Monthly Total",`$${calcTotal().toFixed(2)}`);
@@ -654,6 +656,28 @@ export default function OtherForm({ sharedInfo, onBack }) {
                         </div>
                       </div>
                     ))}
+                  </div>
+                </div>
+
+                {/* Expected Start Month */}
+                <div style={{marginBottom:"25px"}}>
+                  <label style={{...labelSt,marginBottom:"12px"}}>📅 Expected Start Month</label>
+                  <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"10px"}}>
+                    {Array.from({length:12},(_,i)=>{
+                      const d=new Date(); d.setDate(1); d.setMonth(d.getMonth()+i);
+                      const label=d.toLocaleDateString("en-US",{month:"long",year:"numeric"});
+                      const short=d.toLocaleDateString("en-US",{month:"short",year:"2-digit"});
+                      return (
+                        <div key={label} onClick={()=>setStartMonth(startMonth===label?"":label)}
+                          style={{padding:"12px 10px",borderRadius:"12px",cursor:"pointer",textAlign:"center",transition:"all 0.2s ease",
+                            border:startMonth===label?"2px solid #D4A017":"2px solid rgba(212,160,23,0.25)",
+                            background:startMonth===label?"linear-gradient(135deg,#D4A017,#F0C040)":"rgba(255,255,255,0.85)",
+                            color:startMonth===label?"white":"#4A3728",
+                            boxShadow:startMonth===label?"0 4px 14px rgba(212,160,23,0.35)":"0 2px 6px rgba(0,0,0,0.04)"}}>
+                          <div style={{fontSize:"13px",fontWeight:"800"}}>{short}</div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
 
