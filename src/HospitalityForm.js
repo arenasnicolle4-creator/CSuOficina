@@ -128,7 +128,6 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
 
   const [showGuestRoomModal, setShowGuestRoomModal] = useState(false);
   const [guestRoomConfigs, setGuestRoomConfigs]     = useState([]);
-  const [dailyTurnover, setDailyTurnover]           = useState("");
   const [modalTemplate, setModalTemplate]           = useState("");
   const [modalBeds, setModalBeds]                   = useState(1);
   const [modalBathrooms, setModalBathrooms]         = useState(1);
@@ -136,6 +135,8 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
   const [modalSize, setModalSize]                   = useState("medium");
   const [modalLivingArea, setModalLivingArea]       = useState(false);
   const [modalQuantity, setModalQuantity]           = useState(1);
+  const [modalFreqCount, setModalFreqCount]         = useState(1);
+  const [modalFreqType, setModalFreqType]           = useState("per-day");
   const [editingIndex, setEditingIndex]             = useState(null);
 
   const [commonAreas,    setCommonAreas]    = useState(0);
@@ -162,26 +163,75 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
   const [specialInstructions, setSpecialInstructions] = useState("");
   const [showSuccessModal, setShowSuccessModal]       = useState(false);
 
-  // ── Pricing helpers (hospitality-specific — unchanged) ────────────────────
+  // ── Pricing helpers (hospitality-specific) ────────────────────────────────
   const calcGuestPrice=(c)=>{ let p=25; if(c.beds===0)p+=10; else if(c.beds===1)p+=15; else if(c.beds===2)p+=25; else p+=35; const f=Math.floor(c.bathrooms); const h=c.bathrooms%1!==0; p+=(f*15)+(h?8:0); if(c.kitchen==="kitchenette")p+=8; else if(c.kitchen==="full")p+=15; if(c.size==="medium")p+=5; else if(c.size==="large")p+=10; else if(c.size==="xl")p+=15; if(c.livingArea)p+=12; return p; };
   const getRoomTypeLabel=(c)=>{ let l=""; if(c.beds===0)l="Studio"; else if(c.beds===1)l="1-Bed"; else if(c.beds===2)l="2-Bed"; else l=`${c.beds}-Bed`; if(c.livingArea)l+=" Suite"; if(c.kitchen==="kitchenette")l+=" + Kitchenette"; else if(c.kitchen==="full")l+=" + Kitchen"; l+=` (${c.bathrooms} bath${c.bathrooms>1?"s":""})`; return l; };
   const applyTemplate=(t)=>{ setModalTemplate(t); const m={studio:[0,1,"kitchenette","small",false],standard:[2,1,"none","medium",false],deluxe:[2,1,"none","large",false],suite:[1,1.5,"kitchenette","large",true],custom:[1,1,"none","medium",false]}[t]||[1,1,"none","medium",false]; setModalBeds(m[0]);setModalBathrooms(m[1]);setModalKitchen(m[2]);setModalSize(m[3]);setModalLivingArea(m[4]); };
-  const saveGuestRoom=()=>{ const c={beds:modalBeds,bathrooms:modalBathrooms,kitchen:modalKitchen,size:modalSize,livingArea:modalLivingArea,quantity:modalQuantity,pricePerClean:calcGuestPrice({beds:modalBeds,bathrooms:modalBathrooms,kitchen:modalKitchen,size:modalSize,livingArea:modalLivingArea})}; if(editingIndex!==null){const u=[...guestRoomConfigs];u[editingIndex]=c;setGuestRoomConfigs(u);setEditingIndex(null);}else{setGuestRoomConfigs([...guestRoomConfigs,c]);} setShowGuestRoomModal(false);setModalTemplate("");setModalBeds(1);setModalBathrooms(1);setModalKitchen("none");setModalSize("medium");setModalLivingArea(false);setModalQuantity(1); };
-  const editGuestRoom=(i)=>{ const c=guestRoomConfigs[i];setModalBeds(c.beds);setModalBathrooms(c.bathrooms);setModalKitchen(c.kitchen);setModalSize(c.size);setModalLivingArea(c.livingArea);setModalQuantity(c.quantity);setEditingIndex(i);setShowGuestRoomModal(true); };
+
+  // Convert freqType + freqCount → monthly cleans for one room
+  // per-day: freqCount rooms cleaned daily → freqCount × 30 cleans/month per room
+  // per-week: freqCount times per week → freqCount × 4.33 cleans/month per room
+  // per-month: freqCount times per month → freqCount cleans/month per room
+  const calcMonthlyCleans=(freqType, freqCount)=>{
+    const n = parseFloat(freqCount) || 0;
+    if (freqType==="per-day")   return n * 30;
+    if (freqType==="per-week")  return n * 4.33;
+    if (freqType==="per-month") return n;
+    return 0;
+  };
+
+  const freqLabel=(freqType, freqCount)=>{
+    const n = parseFloat(freqCount) || 0;
+    if (freqType==="per-day")   return `${n}x/day`;
+    if (freqType==="per-week")  return `${n}x/week`;
+    if (freqType==="per-month") return `${n}x/month`;
+    return "";
+  };
+
+  // Volume discount based on total monthly cleans across all guest room types
+  const calcVolumeDiscount=(totalMonthlyCleans)=>{
+    if (totalMonthlyCleans>=1200) return 0.15;
+    if (totalMonthlyCleans>=900)  return 0.12;
+    if (totalMonthlyCleans>=600)  return 0.09;
+    if (totalMonthlyCleans>=450)  return 0.07;
+    if (totalMonthlyCleans>=300)  return 0.05;
+    if (totalMonthlyCleans>=150)  return 0.03;
+    return 0;
+  };
+
+  const resetModal=()=>{ setModalTemplate("");setModalBeds(1);setModalBathrooms(1);setModalKitchen("none");setModalSize("medium");setModalLivingArea(false);setModalQuantity(1);setModalFreqCount(1);setModalFreqType("per-day");setEditingIndex(null); };
+
+  const saveGuestRoom=()=>{
+    const ppc = calcGuestPrice({beds:modalBeds,bathrooms:modalBathrooms,kitchen:modalKitchen,size:modalSize,livingArea:modalLivingArea});
+    const monthly = calcMonthlyCleans(modalFreqType, modalFreqCount);
+    const c = {beds:modalBeds,bathrooms:modalBathrooms,kitchen:modalKitchen,size:modalSize,livingArea:modalLivingArea,quantity:modalQuantity,pricePerClean:ppc,freqCount:modalFreqCount,freqType:modalFreqType,monthlyCleans:monthly};
+    if(editingIndex!==null){const u=[...guestRoomConfigs];u[editingIndex]=c;setGuestRoomConfigs(u);}
+    else{setGuestRoomConfigs([...guestRoomConfigs,c]);}
+    setShowGuestRoomModal(false); resetModal();
+  };
+
+  const editGuestRoom=(i)=>{
+    const c=guestRoomConfigs[i];
+    setModalBeds(c.beds);setModalBathrooms(c.bathrooms);setModalKitchen(c.kitchen);setModalSize(c.size);
+    setModalLivingArea(c.livingArea);setModalQuantity(c.quantity);
+    setModalFreqCount(c.freqCount||1);setModalFreqType(c.freqType||"per-day");
+    setEditingIndex(i);setShowGuestRoomModal(true);
+  };
 
   const getFacilityMonthlyCost=(qty,price,freq)=>{ if(!qty||!freq)return 0; return qty*price*(FREQ_VISITS[freq]||0)*(FREQ_MULT[freq]||1.0); };
   const getRateForSqft=(sqft)=>{ const tier=PRICING.baseRatesTiered.hospitality.find(t=>sqft<=t.max); return tier?tier.rate:0.10; };
+
+  // Total monthly cleans across all guest room types (for volume discount)
+  const totalGuestMonthlyCleans=()=>guestRoomConfigs.reduce((s,c)=>s+(c.quantity*(c.monthlyCleans||0)),0);
 
   const calculateSubtotal=()=>{
     if(!squareFeet)return 0;
     const sqft=parseInt(squareFeet);
     let total=sqft*getRateForSqft(sqft);
-    if(guestRoomConfigs.length>0&&dailyTurnover){
-      const dt=parseInt(dailyTurnover)||0; const totalQty=guestRoomConfigs.reduce((s,c)=>s+c.quantity,0);
-      const totalCost=guestRoomConfigs.reduce((s,c)=>s+(c.quantity*c.pricePerClean),0);
-      let monthly=(dt*30*totalCost)/totalQty;
-      let vd=0; if(dt>=40)vd=0.15; else if(dt>=30)vd=0.12; else if(dt>=20)vd=0.09; else if(dt>=15)vd=0.07; else if(dt>=10)vd=0.05; else if(dt>=5)vd=0.03;
-      total+=monthly*(1-vd);
+    if(guestRoomConfigs.length>0){
+      const rawGuestTotal=guestRoomConfigs.reduce((s,c)=>s+(c.quantity*c.pricePerClean*(c.monthlyCleans||0)),0);
+      const vd=calcVolumeDiscount(totalGuestMonthlyCleans());
+      total+=rawGuestTotal*(1-vd);
     }
     total+=getFacilityMonthlyCost(commonAreas,35,commonAreasFreq)+getFacilityMonthlyCost(diningAreas,50,diningAreasFreq)+getFacilityMonthlyCost(fitnessCenters,60,fitnessCentersFreq)+getFacilityMonthlyCost(poolSpas,75,poolSpasFreq)+getFacilityMonthlyCost(eventSpaces,100,eventSpacesFreq)+getFacilityMonthlyCost(laundryRooms,40,laundryRoomsFreq)+getFacilityMonthlyCost(lobbyReceptions,55,lobbyReceptionsFreq);
     if(sharedBathrooms>0&&sharedBathroomsFreq){ const f=Math.floor(sharedBathrooms); const h=sharedBathrooms%1!==0; const ppc=(f*21)+(h?14:0); total+=getFacilityMonthlyCost(1,ppc,sharedBathroomsFreq); }
@@ -194,9 +244,19 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
     const sqft=parseInt(squareFeet);
     bd.push({label:`Base Cleaning (${sqft.toLocaleString()} sqft)`,amount:sqft*getRateForSqft(sqft)});
     if(guestRoomConfigs.length>0){
-      const dt=parseInt(dailyTurnover)||0; const totalQty=guestRoomConfigs.reduce((s,c)=>s+c.quantity,0);
-      const totalCost=guestRoomConfigs.reduce((s,c)=>s+(c.quantity*c.pricePerClean),0);
-      if(dt>0){ let monthly=(dt*30*totalCost)/totalQty; let vd=0; if(dt>=40)vd=0.15; else if(dt>=30)vd=0.12; else if(dt>=20)vd=0.09; else if(dt>=15)vd=0.07; else if(dt>=10)vd=0.05; else if(dt>=5)vd=0.03; const disc=monthly*vd; bd.push({label:`Guest Rooms (${dt} rooms/day${vd>0?`, ${Math.round(vd*100)}% vol. discount`:""})`   ,amount:monthly*(1-vd),originalAmount:vd>0?monthly:null,discountAmount:disc,discountPercent:vd>0?`${Math.round(vd*100)}%`:""}); }
+      const vd=calcVolumeDiscount(totalGuestMonthlyCleans());
+      guestRoomConfigs.forEach(c=>{
+        const raw=c.quantity*c.pricePerClean*(c.monthlyCleans||0);
+        const discounted=raw*(1-vd);
+        const disc=raw*vd;
+        bd.push({
+          label:`${getRoomTypeLabel(c)} × ${c.quantity} (${freqLabel(c.freqType,c.freqCount)})`,
+          amount:discounted,
+          originalAmount:vd>0?raw:null,
+          discountAmount:vd>0?disc:0,
+          discountPercent:vd>0?`${Math.round(vd*100)}%`:"",
+        });
+      });
     }
     const rooms=[[commonAreas,35,commonAreasFreq,"Common Areas"],[diningAreas,50,diningAreasFreq,"Dining Areas"],[fitnessCenters,60,fitnessCentersFreq,"Fitness Centers"],[poolSpas,75,poolSpasFreq,"Pool/Spa Areas"],[eventSpaces,100,eventSpacesFreq,"Event Spaces"],[laundryRooms,40,laundryRoomsFreq,"Laundry Rooms"],[lobbyReceptions,55,lobbyReceptionsFreq,"Lobby/Reception"]];
     rooms.forEach(([qty,price,freq,label])=>{ if(qty>0&&freq){const v=FREQ_VISITS[freq];const m=FREQ_MULT[freq];const base=qty*price*v;const cost=base*m;bd.push({label:`${label} (${freq})`,amount:cost,originalAmount:m!==1?base:null,discountPercent:FREQ_LABELS[freq],discountAmount:m<1?(base-cost):0,isUpcharge:m>1});} });
@@ -212,13 +272,13 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
     fd.append("First Name",firstName);fd.append("Last Name",lastName);fd.append("Email",email);fd.append("Phone",phone);fd.append("Business Name",businessName||"N/A");
     fd.append("Address",streetAddress);fd.append("Suite/Unit",suiteUnit||"N/A");fd.append("City",city);fd.append("State",state);fd.append("ZIP",zipCode);
     fd.append("Hospitality Type",hospType||"Not specified");fd.append("Market Segment","hospitality");fd.append("Square Feet",squareFeet);
-    if(guestRoomConfigs.length>0)fd.append("Guest Room Configs",JSON.stringify(guestRoomConfigs));
-    fd.append("Daily Turnover",dailyTurnover||"N/A");fd.append("Common Areas",commonAreas);fd.append("Dining Areas",diningAreas);fd.append("Fitness Centers",fitnessCenters);fd.append("Pool/Spas",poolSpas);fd.append("Event Spaces",eventSpaces);fd.append("Laundry Rooms",laundryRooms);fd.append("Lobby/Reception",lobbyReceptions);fd.append("Shared Bathrooms",sharedBathrooms);
+    if(guestRoomConfigs.length>0)fd.append("Guest Room Configs",JSON.stringify(guestRoomConfigs.map(c=>({...c,freqSummary:freqLabel(c.freqType,c.freqCount)}))));
+    fd.append("Common Areas",commonAreas);fd.append("Dining Areas",diningAreas);fd.append("Fitness Centers",fitnessCenters);fd.append("Pool/Spas",poolSpas);fd.append("Event Spaces",eventSpaces);fd.append("Laundry Rooms",laundryRooms);fd.append("Lobby/Reception",lobbyReceptions);fd.append("Shared Bathrooms",sharedBathrooms);
     fd.append("Add-ons",Object.keys(addOns).filter(k=>addOns[k]).join(", ")||"None");fd.append("Preferred Days",preferredDays.join(", ")||"Not specified");fd.append("Preferred Time",preferredTime||"Not specified");fd.append("Special Instructions",specialInstructions||"None");fd.append("TOTAL PRICE",`$${calculateSubtotal().toFixed(2)}`);fd.append("_captcha","false");fd.append("_template","table");
     try{const r=await fetch("https://formsubmit.co/ajax/AkCleaningSuOficina@gmail.com",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(Object.fromEntries(fd))});const res=await r.json();if(res.success)setShowSuccessModal(true);else alert("Error. Please try again.");}catch{alert("Error. Please try again.");}
   };
 
-  const resetAll=()=>{setShowSuccessModal(false);setStep(3);setHospType("");setSquareFeet("");setGuestRoomConfigs([]);setDailyTurnover("");setCommonAreas(0);setDiningAreas(0);setFitnessCenters(0);setPoolSpas(0);setEventSpaces(0);setLaundryRooms(0);setLobbyReceptions(0);setSharedBathrooms(0);setCommonAreasFreq("");setDiningAreasFreq("");setFitnessCentersFreq("");setPoolSpasFreq("");setEventSpacesFreq("");setLaundryRoomsFreq("");setLobbyReceptionsFreq("");setSharedBathroomsFreq("");setAddOns({windowCleaning:false,floorWaxing:false,carpetCleaning:false,pressureWashing:false,postConstruction:false,disinfection:false});setPreferredDays([]);setPreferredTime("");setSpecialInstructions("");onBack();};
+  const resetAll=()=>{setShowSuccessModal(false);setStep(3);setHospType("");setSquareFeet("");setGuestRoomConfigs([]);setCommonAreas(0);setDiningAreas(0);setFitnessCenters(0);setPoolSpas(0);setEventSpaces(0);setLaundryRooms(0);setLobbyReceptions(0);setSharedBathrooms(0);setCommonAreasFreq("");setDiningAreasFreq("");setFitnessCentersFreq("");setPoolSpasFreq("");setEventSpacesFreq("");setLaundryRoomsFreq("");setLobbyReceptionsFreq("");setSharedBathroomsFreq("");setAddOns({windowCleaning:false,floorWaxing:false,carpetCleaning:false,pressureWashing:false,postConstruction:false,disinfection:false});setPreferredDays([]);setPreferredTime("");setSpecialInstructions("");onBack();};
 
   const goNext=()=>{window.scrollTo({top:0,behavior:"smooth"});setTimeout(()=>setStep(s=>s+1),100);};
   const goBack=()=>{if(step===3){onBack();return;}window.scrollTo({top:0,behavior:"smooth"});setTimeout(()=>setStep(s=>s-1),100);};
@@ -417,7 +477,7 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
                         <div key={i} style={{background:"rgba(255,255,255,0.8)",borderRadius:"10px",padding:"12px 15px",display:"flex",justifyContent:"space-between",alignItems:"center",border:"1px solid rgba(212,160,23,0.15)"}}>
                           <div style={{flex:1}}>
                             <div style={{fontSize:"13px",fontWeight:"700",color:"#4A3728",marginBottom:"3px"}}>{getRoomTypeLabel(c)} × {c.quantity}</div>
-                            <div style={{fontSize:"11px",color:"#A07B15",fontWeight:"600"}}>${c.pricePerClean}/clean × {c.quantity} = ${c.pricePerClean*c.quantity}/clean</div>
+                            <div style={{fontSize:"11px",color:"#A07B15",fontWeight:"600"}}>${c.pricePerClean}/clean · {freqLabel(c.freqType,c.freqCount)} · ~${(c.quantity*c.pricePerClean*(c.monthlyCleans||0)).toFixed(0)}/mo</div>
                           </div>
                           <div style={{display:"flex",gap:"8px"}}>
                             <button onClick={()=>editGuestRoom(i)} style={{padding:"6px 12px",borderRadius:"6px",border:"none",background:"rgba(212,160,23,0.2)",color:"#A07B15",fontSize:"11px",fontWeight:"700",cursor:"pointer"}}>Edit</button>
@@ -425,10 +485,6 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
                           </div>
                         </div>
                       ))}
-                      <div style={{padding:"15px",background:"rgba(212,160,23,0.06)",borderRadius:"10px",border:"1px solid rgba(212,160,23,0.2)"}}>
-                        <label style={{...labelSt,marginBottom:"8px"}}>📊 Average Rooms Cleaned Per Day *</label>
-                        <input type="number" value={dailyTurnover} onChange={e=>setDailyTurnover(e.target.value)} placeholder="e.g., 25" min="1" style={inputSt}/>
-                      </div>
                     </div>
                   )}
                 </div>
@@ -631,15 +687,50 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
               </div>
             </div>
 
+            {/* Cleaning Frequency — NEW */}
+            <div style={{marginBottom:"25px",background:"linear-gradient(135deg,rgba(8,145,178,0.06),rgba(6,182,212,0.04))",borderRadius:"14px",padding:"20px",border:"2px solid rgba(8,145,178,0.2)"}}>
+              <label style={{...labelSt,color:"#0891B2",marginBottom:"14px"}}>🗓️ Cleaning Frequency for This Room Type *</label>
+
+              {/* Frequency type selector */}
+              <div style={{display:"flex",gap:"8px",marginBottom:"16px"}}>
+                {[{v:"per-day",l:"Per Day"},{v:"per-week",l:"Per Week"},{v:"per-month",l:"Per Month"}].map(o=>(
+                  <button key={o.v} onClick={()=>setModalFreqType(o.v)} style={{flex:1,padding:"12px 8px",borderRadius:"10px",cursor:"pointer",fontSize:"13px",fontWeight:"800",transition:"all 0.15s ease",
+                    border:modalFreqType===o.v?"2px solid #0891B2":"2px solid rgba(212,160,23,0.25)",
+                    background:modalFreqType===o.v?"linear-gradient(135deg,rgba(8,145,178,0.15),rgba(6,182,212,0.08))":"rgba(255,255,255,0.8)",
+                    color:modalFreqType===o.v?"#0891B2":"#4A3728"}}>{o.l}</button>
+                ))}
+              </div>
+
+              {/* Count stepper */}
+              <div style={{display:"flex",alignItems:"center",gap:"12px",background:"rgba(255,255,255,0.7)",padding:"14px 16px",borderRadius:"10px",border:"1px solid rgba(212,160,23,0.2)"}}>
+                <button onClick={()=>setModalFreqCount(Math.max(1,modalFreqCount-1))} style={{padding:"10px 18px",borderRadius:"8px",border:"none",background:"rgba(239,68,68,0.12)",color:"#ef4444",fontSize:"20px",fontWeight:"900",cursor:"pointer"}}>−</button>
+                <div style={{flex:1,textAlign:"center"}}>
+                  <div style={{fontSize:"32px",fontWeight:"900",color:"#0891B2",lineHeight:"1"}}>{modalFreqCount}</div>
+                  <div style={{fontSize:"12px",color:"#888",fontWeight:"600",marginTop:"4px"}}>
+                    {modalFreqType==="per-day"?"times per day":modalFreqType==="per-week"?"times per week":"times per month"}
+                  </div>
+                </div>
+                <button onClick={()=>setModalFreqCount(modalFreqCount+1)} style={{padding:"10px 18px",borderRadius:"8px",border:"none",background:"linear-gradient(135deg,#0891B2,#06B6D4)",color:"white",fontSize:"20px",fontWeight:"900",cursor:"pointer"}}>+</button>
+              </div>
+
+              {/* Plain-English summary */}
+              <div style={{marginTop:"12px",padding:"10px 14px",borderRadius:"8px",background:"rgba(8,145,178,0.08)",border:"1px solid rgba(8,145,178,0.15)",textAlign:"center"}}>
+                <div style={{fontSize:"13px",fontWeight:"700",color:"#0891B2"}}>
+                  {modalQuantity} room{modalQuantity>1?"s":""} cleaned {modalFreqCount}x {modalFreqType==="per-day"?"per day":modalFreqType==="per-week"?"per week":"per month"}
+                  {" "}= <strong>~{Math.round(calcMonthlyCleans(modalFreqType,modalFreqCount)*modalQuantity)} cleans/month</strong>
+                </div>
+              </div>
+            </div>
+
             {/* Price preview */}
             <div style={{padding:"15px",borderRadius:"10px",background:"linear-gradient(135deg,rgba(46,125,79,0.12),rgba(30,92,56,0.12))",border:"1px solid rgba(46,125,79,0.3)",marginBottom:"25px",textAlign:"center"}}>
-              <div style={{fontSize:"12px",color:"#888",fontWeight:"600",marginBottom:"4px"}}>ESTIMATED PRICE PER CLEAN</div>
-              <div style={{fontSize:"28px",fontWeight:"900",color:"#2E7D4F"}}>${calcGuestPrice({beds:modalBeds,bathrooms:modalBathrooms,kitchen:modalKitchen,size:modalSize,livingArea:modalLivingArea})}</div>
-              <div style={{fontSize:"11px",color:"#888",marginTop:"4px"}}>per room × {modalQuantity} rooms = ${calcGuestPrice({beds:modalBeds,bathrooms:modalBathrooms,kitchen:modalKitchen,size:modalSize,livingArea:modalLivingArea})*modalQuantity}/clean</div>
+              <div style={{fontSize:"12px",color:"#888",fontWeight:"600",marginBottom:"4px"}}>ESTIMATED MONTHLY COST — THIS ROOM TYPE</div>
+              <div style={{fontSize:"28px",fontWeight:"900",color:"#2E7D4F"}}>${(calcGuestPrice({beds:modalBeds,bathrooms:modalBathrooms,kitchen:modalKitchen,size:modalSize,livingArea:modalLivingArea})*modalQuantity*calcMonthlyCleans(modalFreqType,modalFreqCount)).toFixed(2)}</div>
+              <div style={{fontSize:"11px",color:"#888",marginTop:"4px"}}>${calcGuestPrice({beds:modalBeds,bathrooms:modalBathrooms,kitchen:modalKitchen,size:modalSize,livingArea:modalLivingArea})}/clean × {modalQuantity} rooms × ~{calcMonthlyCleans(modalFreqType,modalFreqCount).toFixed(1)} cleans/mo</div>
             </div>
 
             <div style={{display:"flex",gap:"12px"}}>
-              <button onClick={()=>{setShowGuestRoomModal(false);setModalTemplate("");setModalBeds(1);setModalBathrooms(1);setModalKitchen("none");setModalSize("medium");setModalLivingArea(false);setModalQuantity(1);setEditingIndex(null);}} style={{flex:1,padding:"16px",borderRadius:"12px",border:"2px solid rgba(212,160,23,0.3)",background:"white",color:"#A07B15",fontSize:"14px",fontWeight:"800",cursor:"pointer"}}>Cancel</button>
+              <button onClick={()=>{setShowGuestRoomModal(false);resetModal();}} style={{flex:1,padding:"16px",borderRadius:"12px",border:"2px solid rgba(212,160,23,0.3)",background:"white",color:"#A07B15",fontSize:"14px",fontWeight:"800",cursor:"pointer"}}>Cancel</button>
               <button onClick={saveGuestRoom} style={{flex:2,padding:"16px",borderRadius:"12px",border:"none",background:"linear-gradient(135deg,#D4A017,#F0C040)",color:"white",fontSize:"14px",fontWeight:"800",cursor:"pointer"}}>{editingIndex!==null?"Update Room Type":"Add Room Type"}</button>
             </div>
           </div>
