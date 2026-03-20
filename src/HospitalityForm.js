@@ -374,7 +374,7 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
   );
 
   return (
-    <div style={BG_STYLE}>
+    <div style={{...BG_STYLE, paddingBottom: mobileBarHeight ? mobileBarHeight + 20 : undefined}}>
       {/* Animated background */}
       <div style={{position:"fixed",top:0,left:0,right:0,bottom:0,overflow:"hidden",pointerEvents:"none",zIndex:0}}>
         <div style={{position:"absolute",width:"500px",height:"500px",borderRadius:"50%",filter:"blur(90px)",background:"rgba(240,192,64,0.25)",top:"-120px",left:"-120px"}}/>
@@ -403,6 +403,7 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
         input, textarea, select { font-size: 16px !important; touch-action: manipulation; }
         input::placeholder, textarea::placeholder { color: rgba(100,100,100,0.5); }
         button { touch-action: manipulation; }
+        html, body, * { -webkit-text-size-adjust: 100% !important; text-size-adjust: 100% !important; }
         @keyframes floatUp { 0%,100%{transform:translateY(0);opacity:0.5} 50%{transform:translateY(-22px);opacity:1} }
         .continue-btn:not(:disabled):hover { background: linear-gradient(160deg, #EDE5CE 0%, #4E4840 60%, #3E3830 100%) !important; color: #F5E8C0 !important; box-shadow: 0 4px 16px rgba(180,160,120,0.3) !important; border-color: rgba(212,160,23,0.6) !important; transform: translateY(-1px); }
         .continue-btn:not(:disabled):active { background: linear-gradient(160deg, #DDD5B8 0%, #3E3830 60%, #2C2416 100%) !important; color: #F5E8C0 !important; box-shadow: 0 2px 6px rgba(180,160,120,0.25) !important; transform: scale(0.98); }
@@ -436,7 +437,7 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
         }
       `}</style>
 
-      <div className="hf-layout" style={{maxWidth:"1400px",margin:"0 auto",padding:"30px 20px",display:"grid",gridTemplateColumns:"1fr 380px",gap:"30px",alignItems:"start",position:"relative",zIndex:1,paddingBottom: mobileBarHeight || undefined}}>
+      <div className="hf-layout" style={{maxWidth:"1400px",margin:"0 auto",padding:"30px 20px",display:"grid",gridTemplateColumns:"1fr 380px",gap:"30px",alignItems:"start",position:"relative",zIndex:1}}>
 
         {/* Form card */}
         <div style={CARD_STYLE}>
