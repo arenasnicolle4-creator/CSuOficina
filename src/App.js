@@ -75,7 +75,7 @@ export default function CleaningSuOficinaBooking() {
   const inputSt = {
     width: "100%", padding: "16px 18px", borderRadius: "14px",
     border: "2px solid rgba(212,160,23,0.35)", background: "#F8F9FA",
-    color: "#4A3728", fontSize: "15px", fontWeight: "600", outline: "none",
+    color: "#4A3728", fontSize: "16px", fontWeight: "600", outline: "none",
     transition: "all 0.3s ease", boxSizing: "border-box",
   };
   const labelSt = {
@@ -112,14 +112,16 @@ export default function CleaningSuOficinaBooking() {
         .fade-in-up { animation: fadeInUp 0.5s ease-out forwards; }
         @keyframes fadeInUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
         @keyframes floatUp { 0%,100%{transform:translateY(0);opacity:0.5} 50%{transform:translateY(-22px);opacity:1} }
-        input::placeholder { color: rgba(100,100,100,0.5); }
+        input, textarea, select { font-size: 16px !important; touch-action: manipulation; }
+        input::placeholder, textarea::placeholder { color: rgba(100,100,100,0.5); }
+        button { touch-action: manipulation; }
         .app-continue-btn:not(:disabled):hover { background: linear-gradient(160deg, #EDE5CE 0%, #4E4840 60%, #3E3830 100%) !important; color: #F5E8C0 !important; box-shadow: 0 4px 16px rgba(180,160,120,0.3) !important; border-color: rgba(212,160,23,0.6) !important; transform: translateY(-1px); }
         .app-continue-btn:not(:disabled):active { background: linear-gradient(160deg, #DDD5B8 0%, #3E3830 60%, #2C2416 100%) !important; color: #F5E8C0 !important; transform: scale(0.98); }
         @media (max-width: 600px) {
           .app-outer-wrap { padding: 12px !important; }
           .app-header-pad { padding: 28px 16px !important; }
-          .app-cleaning-title { font-size: 30px !important; letter-spacing: 4px !important; }
-          .app-suoficina-title { font-size: 34px !important; }
+          .app-cleaning-title { font-size: 38px !important; letter-spacing: 5px !important; }
+          .app-suoficina-title { font-size: 42px !important; }
           .app-form-body { padding: 24px 16px !important; }
           .app-name-grid { grid-template-columns: 1fr !important; gap: 14px !important; }
           .app-city-grid { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
