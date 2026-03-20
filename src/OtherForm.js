@@ -101,7 +101,7 @@ const labelSt = {
 const inputSt = {
   width: "100%", padding: "16px 18px", borderRadius: "14px",
   border: "2px solid rgba(212,160,23,0.35)", background: "#F8F9FA",
-  color: "#4A3728", fontSize: "14px", fontWeight: "600", outline: "none",
+  color: "#4A3728", fontSize: "16px", fontWeight: "600", outline: "none",
   transition: "all 0.3s ease", boxSizing: "border-box",
 };
 
@@ -426,11 +426,11 @@ export default function OtherForm({ sharedInfo, onBack }) {
         @keyframes floatUp { 0%,100%{transform:translateY(0);opacity:0.5} 50%{transform:translateY(-22px);opacity:1} }
         .continue-btn:not(:disabled):hover { background: linear-gradient(160deg, #EDE5CE 0%, #4E4840 60%, #3E3830 100%) !important; color: #F5E8C0 !important; box-shadow: 0 4px 16px rgba(180,160,120,0.3) !important; border-color: rgba(212,160,23,0.6) !important; transform: translateY(-1px); }
         .continue-btn:not(:disabled):active { background: linear-gradient(160deg, #DDD5B8 0%, #3E3830 60%, #2C2416 100%) !important; color: #F5E8C0 !important; transform: scale(0.98); }
-        @media (max-width: 900px) { .of2-layout { grid-template-columns:1fr !important; } .of2-sidebar { display:none !important; } .of2-mobile-price { display:block !important; } .of2-layout { padding-bottom: 200px !important; } }
+        @media (max-width: 900px) { .of2-layout { grid-template-columns:1fr !important; } .of2-sidebar { display:none !important; } .of2-mobile-price { display:block !important; } .of2-layout { padding-bottom: 280px !important; } }
         @media (max-width: 640px) {
           .of2-layout { padding: 12px !important; gap: 0 !important; }
-          .of2-cleaning-title { font-size: 30px !important; letter-spacing: 4px !important; }
-          .of2-suoficina-title { font-size: 34px !important; }
+          .of2-cleaning-title { font-size: 38px !important; letter-spacing: 5px !important; }
+          .of2-suoficina-title { font-size: 42px !important; }
           .of2-form-body { padding: 24px 16px !important; }
           .of2-hero-icon { width: 72px !important; height: 72px !important; font-size: 36px !important; margin-bottom: 16px !important; }
           .of2-hero-h2 { font-size: 22px !important; }
@@ -450,8 +450,8 @@ export default function OtherForm({ sharedInfo, onBack }) {
           .of2-freq-grid > div:first-child { grid-column: 1 / -1 !important; }
         }
         @media (max-width: 380px) {
-          .of2-cleaning-title { font-size: 26px !important; letter-spacing: 3px !important; }
-          .of2-suoficina-title { font-size: 30px !important; }
+          .of2-cleaning-title { font-size: 32px !important; letter-spacing: 4px !important; }
+          .of2-suoficina-title { font-size: 36px !important; }
         }
       `}</style>
 
@@ -751,26 +751,26 @@ export default function OtherForm({ sharedInfo, onBack }) {
 
       {/* Mobile sticky price bar */}
       <div className="of2-mobile-price" style={{display:"none",position:"fixed",bottom:0,left:0,right:0,zIndex:1000}}>
-        <div style={{background:"linear-gradient(160deg, #3E3830 0%, #4E4840 50%, #3E3830 100%)",borderTop:"2px solid rgba(212,160,23,0.4)",boxShadow:"0 -8px 30px rgba(0,0,0,0.25)"}}>
-          <div style={{padding:"14px 20px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+        <div style={{background:"linear-gradient(160deg, #3E3830 0%, #4E4840 50%, #3E3830 100%)",borderTop:"2px solid rgba(212,160,23,0.4)",boxShadow:"0 -8px 30px rgba(0,0,0,0.3)"}}>
+          {/* Always-visible total row */}
+          <div style={{padding:"12px 20px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
             <div>
-              <div style={{color:"rgba(240,192,64,0.7)",fontSize:"11px",fontWeight:"700",letterSpacing:"1.5px",textTransform:"uppercase",marginBottom:"2px"}}>Monthly Estimate</div>
-              <div style={{color:"#F5E8C0",fontSize:"11px",fontWeight:"600",fontStyle:"italic"}}>Scroll up to see breakdown</div>
+              <div style={{color:"rgba(240,192,64,0.8)",fontSize:"11px",fontWeight:"700",letterSpacing:"1.5px",textTransform:"uppercase"}}>Monthly Estimate</div>
             </div>
             <div style={{textAlign:"right"}}>
-              <div style={{color:"#FFF0A0",fontSize:"28px",fontWeight:"900",lineHeight:"1"}}>${calcSubtotal().toFixed(2)}</div>
-              <div style={{color:"rgba(240,192,64,0.7)",fontSize:"11px",fontWeight:"600"}}>per month</div>
+              <div style={{color:"#FFF0A0",fontSize:"30px",fontWeight:"900",lineHeight:"1"}}>${calcSubtotal().toFixed(2)}</div>
+              <div style={{color:"rgba(240,192,64,0.6)",fontSize:"10px",fontWeight:"600"}}>per month</div>
             </div>
           </div>
+          {/* Line items - always visible, scrollable */}
           {getPriceBreakdown().length>0&&(
-            <div style={{borderTop:"1px solid rgba(212,160,23,0.2)",maxHeight:"100px",overflowY:"auto",padding:"8px 20px"}}>
-              {getPriceBreakdown().slice(0,3).map((item,i)=>(
-                <div key={i} style={{display:"flex",justifyContent:"space-between",padding:"3px 0",fontSize:"12px"}}>
-                  <span style={{color:"rgba(240,192,64,0.8)",fontWeight:"600"}}>{item.label}</span>
-                  <span style={{color:"#FFF0A0",fontWeight:"700"}}>${item.amount.toFixed(2)}</span>
+            <div style={{borderTop:"1px solid rgba(212,160,23,0.25)",overflowY:"auto",maxHeight:"130px",padding:"8px 20px 12px"}}>
+              {getPriceBreakdown().map((item,i)=>(
+                <div key={i} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"4px 0",fontSize:"12px",borderBottom:i<getPriceBreakdown().length-1?"1px solid rgba(255,255,255,0.06)":"none"}}>
+                  <span style={{color:"rgba(240,192,64,0.85)",fontWeight:"600",flex:1,marginRight:"8px"}}>{item.label}</span>
+                  <span style={{color:"#FFF0A0",fontWeight:"700",flexShrink:0}}>${item.amount.toFixed(2)}</span>
                 </div>
               ))}
-              {getPriceBreakdown().length>3&&<div style={{textAlign:"center",color:"rgba(240,192,64,0.5)",fontSize:"11px",paddingTop:"3px"}}>+{getPriceBreakdown().length-3} more items</div>}
             </div>
           )}
         </div>
