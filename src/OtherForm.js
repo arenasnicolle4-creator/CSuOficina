@@ -151,7 +151,7 @@ function FreqSelector({ value, onChange }) {
     transition: "all 0.2s ease", textAlign: "center",
   });
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: "10px" }}>
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: "10px" }} className="of2-freq-grid">
       <div onClick={() => onChange("daily")} style={{ ...card("daily"), gridColumn: "1 / -1" }}>
         <div style={{ fontSize: "15px", fontWeight: "800", color: value === "daily" ? "#0891B2" : "#4A3728", marginBottom: "3px" }}>Daily</div>
         <div style={{ fontSize: "11px", fontWeight: "600", color: value === "daily" ? "#0891B2" : "#888" }}>13% OFF</div>
@@ -426,7 +426,33 @@ export default function OtherForm({ sharedInfo, onBack }) {
         @keyframes floatUp { 0%,100%{transform:translateY(0);opacity:0.5} 50%{transform:translateY(-22px);opacity:1} }
         .continue-btn:not(:disabled):hover { background: linear-gradient(160deg, #EDE5CE 0%, #4E4840 60%, #3E3830 100%) !important; color: #F5E8C0 !important; box-shadow: 0 4px 16px rgba(180,160,120,0.3) !important; border-color: rgba(212,160,23,0.6) !important; transform: translateY(-1px); }
         .continue-btn:not(:disabled):active { background: linear-gradient(160deg, #DDD5B8 0%, #3E3830 60%, #2C2416 100%) !important; color: #F5E8C0 !important; transform: scale(0.98); }
-        @media (max-width:900px) { .of2-layout { grid-template-columns:1fr !important; } .of2-sidebar { display:none !important; } }
+        @media (max-width: 900px) { .of2-layout { grid-template-columns:1fr !important; } .of2-sidebar { display:none !important; } }
+        @media (max-width: 640px) {
+          .of2-layout { padding: 12px !important; gap: 0 !important; }
+          .of2-cleaning-title { font-size: 30px !important; letter-spacing: 4px !important; }
+          .of2-suoficina-title { font-size: 34px !important; }
+          .of2-form-body { padding: 24px 16px !important; }
+          .of2-hero-icon { width: 72px !important; height: 72px !important; font-size: 36px !important; margin-bottom: 16px !important; }
+          .of2-hero-h2 { font-size: 22px !important; }
+          .of2-segment-grid { grid-template-columns: repeat(3,1fr) !important; gap: 8px !important; }
+          .of2-segment-card { padding: 14px 8px !important; }
+          .of2-segment-icon { font-size: 24px !important; margin-bottom: 4px !important; }
+          .of2-segment-label { font-size: 11px !important; }
+          .of2-subtype-grid { grid-template-columns: 1fr !important; }
+          .of2-rooms-grid { grid-template-columns: 1fr !important; }
+          .of2-addons-grid { grid-template-columns: 1fr !important; }
+          .of2-days-wrap { gap: 6px !important; }
+          .of2-days-wrap button { padding: 8px 12px !important; font-size: 12px !important; }
+          .of2-times-grid { grid-template-columns: repeat(2,1fr) !important; }
+          .of2-review-grid { grid-template-columns: 1fr !important; }
+          .of2-btn-row { gap: 10px !important; }
+          .of2-freq-grid { grid-template-columns: repeat(2,1fr) !important; }
+          .of2-freq-grid > div:first-child { grid-column: 1 / -1 !important; }
+        }
+        @media (max-width: 380px) {
+          .of2-cleaning-title { font-size: 26px !important; letter-spacing: 3px !important; }
+          .of2-suoficina-title { font-size: 30px !important; }
+        }
       `}</style>
 
       <div className="of2-layout" style={{maxWidth:"1400px",margin:"0 auto",padding:"30px 20px",display:"grid",gridTemplateColumns:"1fr 380px",gap:"30px",alignItems:"start",position:"relative",zIndex:1}}>
@@ -447,8 +473,8 @@ export default function OtherForm({ sharedInfo, onBack }) {
             <div style={{position:"absolute",width:"3px",height:"3px",borderRadius:"50%",background:"rgba(255,240,160,0.5)",top:"75%",left:"25%",boxShadow:"0 0 4px rgba(240,192,64,0.4)",pointerEvents:"none"}}/>
             <div style={{position:"relative",zIndex:1}}>
               <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:"8px"}}>
-                <div style={{fontFamily:"'Oswald', sans-serif",fontSize:"42px",fontWeight:"300",letterSpacing:"8px",color:"white",textShadow:"0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(240,192,64,0.3)"}}>CLEANING</div>
-                <div style={{fontFamily:"'Allura', cursive",fontSize:"46px",letterSpacing:"3px",marginTop:"-8px",fontWeight:"400",background:"linear-gradient(180deg, #FFF0A0 0%, #F0C040 25%, #C8900A 50%, #F0C040 75%, #FFF0A0 100%)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text"}}>Su Oficina</div>
+                <div style={{fontFamily:"'Oswald', sans-serif",fontSize:"42px",fontWeight:"300",letterSpacing:"8px",color:"white",textShadow:"0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(240,192,64,0.3)"}} className="of2-cleaning-title">CLEANING</div>
+                <div style={{fontFamily:"'Allura', cursive",fontSize:"46px",letterSpacing:"3px",marginTop:"-8px",fontWeight:"400",background:"linear-gradient(180deg, #FFF0A0 0%, #F0C040 25%, #C8900A 50%, #F0C040 75%, #FFF0A0 100%)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text"}} className="of2-suoficina-title">Su Oficina</div>
               </div>
               <div style={{height:"2px",width:"80px",background:"linear-gradient(90deg,transparent,#F0C040,transparent)",margin:"14px auto 10px",boxShadow:"0 0 10px rgba(240,192,64,0.5)"}}/>
               {segment ? (
@@ -466,30 +492,30 @@ export default function OtherForm({ sharedInfo, onBack }) {
             <div style={{height:"100%",background:"linear-gradient(90deg,#A07B15,#D4A017,#F0C040)",width:pct,transition:"width 0.5s cubic-bezier(0.4,0,0.2,1)",boxShadow:"0 0 15px rgba(212,160,23,0.6)"}}/>
           </div>
 
-          <div style={{padding:"50px 40px",background:"transparent"}}>
+          <div style={{padding:"50px 40px",background:"transparent"}} className="of2-form-body">
 
             {/* ── STEP 1: Segment + Sub-type ────────────────────────────────── */}
             {step===1&&(
               <div className="fade-in-up">
                 <div style={{textAlign:"center",marginBottom:"40px"}}>
-                  <div style={{width:"90px",height:"90px",background:"linear-gradient(135deg,#A07B15,#D4A017,#F0C040)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 20px",boxShadow:"0 20px 50px rgba(212,160,23,0.25)",border:"4px solid rgba(255,255,255,0.9)",fontSize:"44px"}}>
+                  <div style={{width:"90px",height:"90px",background:"linear-gradient(135deg,#A07B15,#D4A017,#F0C040)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 20px",boxShadow:"0 20px 50px rgba(212,160,23,0.25)",border:"4px solid rgba(255,255,255,0.9)",fontSize:"44px"}} className="of2-hero-icon">
                     {segment ? segmentMeta[segment].icon : "🏢"}
                   </div>
-                  <h2 style={{fontSize:"28px",fontWeight:"900",color:"#4A3728",margin:"0 0 10px",letterSpacing:"-0.5px",textTransform:"uppercase"}}>What kind of business?</h2>
+                  <h2 style={{fontSize:"28px",fontWeight:"900",color:"#4A3728",margin:"0 0 10px",letterSpacing:"-0.5px",textTransform:"uppercase"}} className="of2-hero-h2">What kind of business?</h2>
                   <p style={{color:"#666",fontSize:"15px",fontWeight:"500"}}>Select your industry, then your specific type</p>
                 </div>
 
                 {/* Segment picker */}
                 <div style={{marginBottom:"30px"}}>
                   <label style={{...labelSt,marginBottom:"12px"}}>Industry *</label>
-                  <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"12px"}}>
+                  <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"12px"}} className="of2-segment-grid">
                     {[{value:"healthcare",icon:"🏥",label:"Healthcare"},{value:"retail",icon:"🛍️",label:"Retail"},{value:"industrial",icon:"🏭",label:"Industrial"}].map(s=>(
-                      <div key={s.value} onClick={()=>{setSegment(s.value);setSubType("");}} style={{padding:"20px 12px",borderRadius:"16px",cursor:"pointer",textAlign:"center",transition:"all 0.2s ease",
+                      <div key={s.value} onClick={()=>{setSegment(s.value);setSubType("");}} className="of2-segment-card" style={{padding:"20px 12px",borderRadius:"16px",cursor:"pointer",textAlign:"center",transition:"all 0.2s ease",
                         border:segment===s.value?"2px solid #0891B2":"2px solid rgba(212,160,23,0.2)",
                         background:segment===s.value?"linear-gradient(135deg,rgba(8,145,178,0.12),rgba(6,182,212,0.06))":"rgba(255,255,255,0.7)",
                         boxShadow:segment===s.value?"0 0 20px rgba(6,182,212,0.3)":"0 2px 8px rgba(0,0,0,0.04)"}}>
-                        <div style={{fontSize:"30px",marginBottom:"8px"}}>{s.icon}</div>
-                        <div style={{fontSize:"13px",fontWeight:"800",color:segment===s.value?"#0891B2":"#4A3728"}}>{s.label}</div>
+                        <div className="of2-segment-icon" style={{fontSize:"30px",marginBottom:"8px"}}>{s.icon}</div>
+                        <div className="of2-segment-label" style={{fontSize:"13px",fontWeight:"800",color:segment===s.value?"#0891B2":"#4A3728"}}>{s.label}</div>
                       </div>
                     ))}
                   </div>
@@ -499,7 +525,7 @@ export default function OtherForm({ sharedInfo, onBack }) {
                 {segment&&(
                   <div style={{marginBottom:"35px"}}>
                     <label style={{...labelSt,marginBottom:"12px"}}>Business Type <span style={{color:"#999",fontWeight:"600",textTransform:"none"}}>(optional)</span></label>
-                    <div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:"10px"}}>
+                    <div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:"10px"}} className="of2-subtype-grid">
                       {SUBTYPES[segment].map(t=>(
                         <div key={t.value} onClick={()=>setSubType(t.value)} style={{padding:"14px 16px",borderRadius:"12px",cursor:"pointer",display:"flex",alignItems:"center",gap:"10px",transition:"all 0.2s ease",
                           border:subType===t.value?"2px solid #D4A017":"2px solid rgba(212,160,23,0.2)",
@@ -512,7 +538,7 @@ export default function OtherForm({ sharedInfo, onBack }) {
                   </div>
                 )}
 
-                <div style={{display:"flex",gap:"15px"}}>
+                <div style={{display:"flex",gap:"15px"}} className="of2-btn-row">
                   <button onClick={goBack} style={{flex:1,padding:"18px",borderRadius:"16px",border:"2px solid rgba(212,160,23,0.3)",background:"white",color:"#A07B15",fontSize:"15px",fontWeight:"800",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",gap:"8px"}}><ChevronLeft size={20}/> Back</button>
                   <button onClick={goNext} disabled={!segment} className="continue-btn" style={{flex:2,padding:"18px",borderRadius:"16px",border:segment?"2px solid rgba(212,160,23,0.6)":"2px solid rgba(212,160,23,0.2)",background:segment?"linear-gradient(160deg, #E8E0C8 0%, #5A5248 60%, #3E3830 100%)":"rgba(255,255,255,0.4)",fontSize:"15px",fontWeight:"800",cursor:segment?"pointer":"not-allowed",color:segment?"#F5E8C0":"#B8A060",display:"flex",alignItems:"center",justifyContent:"center",gap:"8px",transition:"all 0.25s ease"}}>Continue <ChevronRight size={20}/></button>
                 </div>
@@ -544,7 +570,7 @@ export default function OtherForm({ sharedInfo, onBack }) {
                 {segment==="healthcare"&&(
                   <div style={{marginBottom:"28px"}}>
                     <label style={{...labelSt,marginBottom:"12px"}}>🏥 Healthcare Rooms</label>
-                    <div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:"12px"}}>
+                    <div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:"12px"}} className="of2-rooms-grid">
                       <Counter icon="🩺" label="Exam Rooms"      price={40} value={examRooms}          onDec={()=>setExamRooms(Math.max(0,examRooms-1))}                   onInc={()=>setExamRooms(examRooms+1)}/>
                       <Counter icon="🪑" label="Waiting Areas"   price={30} value={waitingAreas}       onDec={()=>setWaitingAreas(Math.max(0,waitingAreas-1))}             onInc={()=>setWaitingAreas(waitingAreas+1)}/>
                       <Counter icon="⚕️" label="Procedure Rooms" price={60} value={procedureRooms}     onDec={()=>setProcedureRooms(Math.max(0,procedureRooms-1))}         onInc={()=>setProcedureRooms(procedureRooms+1)}/>
@@ -560,7 +586,7 @@ export default function OtherForm({ sharedInfo, onBack }) {
                 {segment==="retail"&&(
                   <div style={{marginBottom:"28px"}}>
                     <label style={{...labelSt,marginBottom:"12px"}}>🛍️ Retail Areas</label>
-                    <div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:"12px"}}>
+                    <div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:"12px"}} className="of2-rooms-grid">
                       <Counter icon="👗" label="Fitting Rooms"      price={18} value={fittingRooms}      onDec={()=>setFittingRooms(Math.max(0,fittingRooms-1))}           onInc={()=>setFittingRooms(fittingRooms+1)}/>
                       <Counter icon="🛍️" label="Showrooms"          price={30} value={showroomDisplays}  onDec={()=>setShowroomDisplays(Math.max(0,showroomDisplays-1))}   onInc={()=>setShowroomDisplays(showroomDisplays+1)}/>
                       <Counter icon="📦" label="Stockrooms"         price={25} value={stockrooms}        onDec={()=>setStockrooms(Math.max(0,stockrooms-1))}               onInc={()=>setStockrooms(stockrooms+1)}/>
@@ -574,7 +600,7 @@ export default function OtherForm({ sharedInfo, onBack }) {
                 {segment==="industrial"&&(
                   <div style={{marginBottom:"28px"}}>
                     <label style={{...labelSt,marginBottom:"12px"}}>🏭 Industrial Areas</label>
-                    <div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:"12px"}}>
+                    <div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:"12px"}} className="of2-rooms-grid">
                       <Counter icon="🚢" label="Loading Docks"   price={50} value={loadingDocks}         onDec={()=>setLoadingDocks(Math.max(0,loadingDocks-1))}               onInc={()=>setLoadingDocks(loadingDocks+1)}/>
                       <Counter icon="⚙️" label="Equipment Areas" price={40} value={equipmentAreas}       onDec={()=>setEquipmentAreas(Math.max(0,equipmentAreas-1))}           onInc={()=>setEquipmentAreas(equipmentAreas+1)}/>
                       <Counter icon="☕" label="Break Rooms"      price={30} value={industrialBreakRooms} onDec={()=>setIndustrialBreakRooms(Math.max(0,industrialBreakRooms-1))} onInc={()=>setIndustrialBreakRooms(industrialBreakRooms+1)}/>
@@ -584,7 +610,7 @@ export default function OtherForm({ sharedInfo, onBack }) {
                   </div>
                 )}
 
-                <div style={{display:"flex",gap:"15px"}}>
+                <div style={{display:"flex",gap:"15px"}} className="of2-btn-row">
                   <button onClick={goBack} style={{flex:1,padding:"18px",borderRadius:"16px",border:"2px solid rgba(212,160,23,0.3)",background:"white",color:"#A07B15",fontSize:"15px",fontWeight:"800",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",gap:"8px"}}><ChevronLeft size={20}/> Back</button>
                   <button onClick={goNext} disabled={!step2Valid} className="continue-btn" style={{flex:2,padding:"18px",borderRadius:"16px",border:step2Valid?"2px solid rgba(212,160,23,0.6)":"2px solid rgba(212,160,23,0.2)",background:step2Valid?"linear-gradient(160deg, #E8E0C8 0%, #5A5248 60%, #3E3830 100%)":"rgba(255,255,255,0.4)",fontSize:"15px",fontWeight:"800",cursor:step2Valid?"pointer":"not-allowed",color:step2Valid?"#F5E8C0":"#B8A060",display:"flex",alignItems:"center",justifyContent:"center",gap:"8px",transition:"all 0.25s ease"}}>Continue <ChevronRight size={20}/></button>
                 </div>
@@ -599,7 +625,7 @@ export default function OtherForm({ sharedInfo, onBack }) {
                   <label style={{display:"flex",alignItems:"center",fontSize:"14px",fontWeight:"800",color:"#A07B15",marginBottom:"15px",gap:"8px",letterSpacing:"1px",textTransform:"uppercase"}}>
                     <CheckCircle2 size={18} color="#D4A017"/>Optional Add-on Services
                   </label>
-                  <div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:"12px"}}>
+                  <div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:"12px"}} className="of2-addons-grid">
                     {[{key:"windowCleaning",icon:"🪟",label:"Window Cleaning",price:"$150/visit"},{key:"floorWaxing",icon:"✨",label:"Floor Waxing",price:"$200/visit"},{key:"carpetCleaning",icon:"🧹",label:"Carpet Cleaning",price:"$0.35/sqft"},{key:"pressureWashing",icon:"💦",label:"Pressure Washing",price:"$0.25/sqft"},{key:"postConstruction",icon:"🏗️",label:"Post-Construction",price:"$0.50/sqft"},{key:"disinfection",icon:"🦠",label:"Electrostatic Disinfection",price:"$0.15/sqft"}].map(a=>(
                       <div key={a.key} onClick={()=>setAddOns(p=>({...p,[a.key]:!p[a.key]}))} style={{padding:"18px 16px",borderRadius:"16px",cursor:"pointer",transition:"all 0.3s ease",display:"flex",alignItems:"flex-start",gap:"10px",
                         border:addOns[a.key]?"1.5px solid rgba(212,160,23,0.6)":"1.5px solid rgba(212,160,23,0.25)",
@@ -620,7 +646,7 @@ export default function OtherForm({ sharedInfo, onBack }) {
                 {/* Preferred Days */}
                 <div style={{marginBottom:"25px"}}>
                   <label style={{...labelSt,marginBottom:"12px"}}>📆 Preferred Service Days</label>
-                  <div style={{display:"flex",flexWrap:"wrap",gap:"8px"}}>
+                  <div style={{display:"flex",flexWrap:"wrap",gap:"8px"}} className="of2-days-wrap">
                     {DAYS.map(d=>(
                       <button key={d} onClick={()=>setPreferredDays(prev=>prev.includes(d)?prev.filter(x=>x!==d):[...prev,d])} style={{padding:"10px 16px",borderRadius:"20px",cursor:"pointer",transition:"all 0.2s ease",
                         border:preferredDays.includes(d)?"2px solid #D4A017":"2px solid rgba(212,160,23,0.3)",
@@ -634,7 +660,7 @@ export default function OtherForm({ sharedInfo, onBack }) {
                 {/* Preferred Time */}
                 <div style={{marginBottom:"25px"}}>
                   <label style={{...labelSt,marginBottom:"12px"}}>🕐 Preferred Time</label>
-                  <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"8px"}}>
+                  <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"8px"}} className="of2-times-grid">
                     {["Early Morning (6-9am)","Morning (9am-12pm)","Afternoon (12-5pm)","Evening (5-8pm)","After Hours (8pm+)","Flexible"].map(t=>(
                       <div key={t} onClick={()=>setPreferredTime(t)} style={{padding:"12px 8px",borderRadius:"10px",cursor:"pointer",textAlign:"center",transition:"all 0.2s ease",
                         border:preferredTime===t?"2px solid #D4A017":"2px solid rgba(212,160,23,0.25)",
@@ -652,7 +678,7 @@ export default function OtherForm({ sharedInfo, onBack }) {
                   <textarea value={specialInstructions} onChange={e=>setSpecialInstructions(e.target.value)} rows={3} placeholder="Security codes, access instructions, areas to avoid, special requirements..." style={{...inputSt,resize:"vertical",fontFamily:"inherit"}}/>
                 </div>
 
-                <div style={{display:"flex",gap:"15px"}}>
+                <div style={{display:"flex",gap:"15px"}} className="of2-btn-row">
                   <button onClick={goBack} style={{flex:1,padding:"18px",borderRadius:"16px",border:"2px solid rgba(212,160,23,0.3)",background:"white",color:"#A07B15",fontSize:"15px",fontWeight:"800",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",gap:"8px"}}><ChevronLeft size={20}/> Back</button>
                   <button onClick={goNext} className="continue-btn" style={{flex:2,padding:"18px",borderRadius:"16px",border:"2px solid rgba(212,160,23,0.6)",background:"linear-gradient(160deg, #E8E0C8 0%, #5A5248 60%, #3E3830 100%)",fontSize:"15px",fontWeight:"800",cursor:"pointer",color:"#F5E8C0",display:"flex",alignItems:"center",justifyContent:"center",gap:"8px",transition:"all 0.25s ease"}}>Review Quote <ChevronRight size={20}/></button>
                 </div>
@@ -684,7 +710,7 @@ export default function OtherForm({ sharedInfo, onBack }) {
                   </div>
                   <div style={{marginBottom:"20px",paddingBottom:"20px",borderBottom:"1px solid rgba(212,160,23,0.12)"}}>
                     <div style={{...labelSt,marginBottom:"10px"}}>Service Details</div>
-                    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"8px"}}>
+                    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"8px"}} className="of2-review-grid">
                       {[["Industry",`${segmentMeta[segment]?.icon} ${segmentMeta[segment]?.label}`],["Type",subType||"Not specified"],["Square Feet",`${parseInt(squareFeet).toLocaleString()} sqft`],["Frequency",frequency]].map(([k,v])=>(
                         <div key={k} style={{background:"rgba(255,255,255,0.8)",borderRadius:"10px",padding:"12px",border:"1px solid rgba(212,160,23,0.1)"}}>
                           <div style={{fontSize:"10px",color:"#A07B15",fontWeight:"700",textTransform:"uppercase",letterSpacing:"0.5px",marginBottom:"4px"}}>{k}</div>
@@ -709,7 +735,7 @@ export default function OtherForm({ sharedInfo, onBack }) {
                   </p>
                 </div>
 
-                <div style={{display:"flex",gap:"15px"}}>
+                <div style={{display:"flex",gap:"15px"}} className="of2-btn-row">
                   <button onClick={goBack} style={{flex:1,padding:"18px",borderRadius:"16px",border:"2px solid rgba(212,160,23,0.3)",background:"white",color:"#A07B15",fontSize:"15px",fontWeight:"800",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",gap:"8px"}}><ChevronLeft size={20}/> Back</button>
                   <button onClick={handleSubmit} style={{flex:2,padding:"18px",borderRadius:"16px",border:"none",background:"linear-gradient(135deg,#3DA864,#2D7A4A)",color:"white",fontSize:"15px",fontWeight:"800",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",gap:"8px",boxShadow:"0 8px 24px rgba(46,125,79,0.3)"}}>Submit Request <CheckCircle2 size={20}/></button>
                 </div>
