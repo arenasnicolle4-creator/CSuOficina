@@ -342,7 +342,7 @@ export default function OtherForm({ sharedInfo, onBack }) {
     setFittingRooms(0); setShowroomDisplays(0); setStockrooms(0); setCustomerRestrooms(0); setPosCheckouts(0);
     setLoadingDocks(0); setEquipmentAreas(0); setIndustrialBreakRooms(0); setIndustrialRestrooms(0); setOfficeAreas(0);
     setAddOns({windowCleaning:false,floorWaxing:false,carpetCleaning:false,pressureWashing:false,postConstruction:false,disinfection:false});
-    setPreferredDays([]); setPreferredTime(""); setSpecialInstructions(""); setShowSuccessModal(false); onBack();
+    setPreferredDays([]); setTimeWindows([]); setTimeFrom("8:00 AM"); setTimeTo("5:00 PM"); setSpecialInstructions(""); setShowSuccessModal(false); onBack();
   };
 
   const scroll = () => window.scrollTo({ top:0, behavior:"smooth" });
