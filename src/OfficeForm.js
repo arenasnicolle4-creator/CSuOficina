@@ -841,7 +841,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
   const pct = step===1?"33%":step===2?"66%":"100%";
 
   return (
-    <div style={BG_STYLE}>
+    <div style={{...BG_STYLE, paddingBottom: mobileBarHeight ? mobileBarHeight + 20 : undefined}}>
       {/* Animated background */}
       <div style={{ position:"fixed", top:0, left:0, right:0, bottom:0, overflow:"hidden", pointerEvents:"none", zIndex:0 }}>
         {/* Orbs */}
@@ -878,9 +878,11 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         input, textarea, select { font-size: 16px !important; touch-action: manipulation; }
         input::placeholder, textarea::placeholder { color: rgba(100,100,100,0.5); }
         button { touch-action: manipulation; }
+        html, body, * { -webkit-text-size-adjust: 100% !important; text-size-adjust: 100% !important; }
         @keyframes floatUp { 0%,100%{transform:translateY(0);opacity:0.5} 50%{transform:translateY(-22px);opacity:1} }
         .continue-btn:not(:disabled):hover { background: linear-gradient(160deg, #EDE5CE 0%, #4E4840 60%, #3E3830 100%) !important; color: #F5E8C0 !important; box-shadow: 0 4px 16px rgba(180,160,120,0.3) !important; border-color: rgba(212,160,23,0.6) !important; transform: translateY(-1px); }
         .continue-btn:not(:disabled):active { background: linear-gradient(160deg, #DDD5B8 0%, #3E3830 60%, #2C2416 100%) !important; color: #F5E8C0 !important; box-shadow: 0 2px 6px rgba(180,160,120,0.25) !important; transform: scale(0.98); }
+        .of-mobile-price { display:none; }
         @media (max-width:900px) { .of-layout { grid-template-columns:1fr !important; } .of-sidebar { display:none !important; } .of-mobile-price { display:block !important; } }
         @media (max-width: 640px) {
           .of-layout { padding: 12px !important; gap: 0 !important; }
@@ -912,7 +914,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         }
       `}</style>
 
-      <div className="of-layout" style={{ maxWidth:"1400px", margin:"0 auto", padding:"30px 20px", display:"grid", gridTemplateColumns:"1fr 380px", gap:"30px", alignItems:"start", position:"relative", zIndex:1, paddingBottom: mobileBarHeight || undefined }}>
+      <div className="of-layout" style={{ maxWidth:"1400px", margin:"0 auto", padding:"30px 20px", display:"grid", gridTemplateColumns:"1fr 380px", gap:"30px", alignItems:"start", position:"relative", zIndex:1 }}>
 
           {/* Form card */}
           <div style={CARD_STYLE}>
@@ -956,7 +958,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
       </div>
 
       {/* Mobile sticky price bar */}
-      <div ref={mobileBarRef} className="of-mobile-price" style={{display:"none",position:"fixed",bottom:0,left:0,right:0,zIndex:1000}}>
+      <div ref={mobileBarRef} className="of-mobile-price" style={{position:"fixed",bottom:0,left:0,right:0,zIndex:1000}}>
         <div style={{background:"linear-gradient(160deg, #3E3830 0%, #4E4840 50%, #3E3830 100%)",borderTop:"2px solid rgba(212,160,23,0.4)",boxShadow:"0 -8px 30px rgba(0,0,0,0.3)"}}>
           {/* Total row — always visible, fixed height ~56px */}
           <div style={{padding:"12px 20px",display:"flex",justifyContent:"space-between",alignItems:"center",flexShrink:0}}>
