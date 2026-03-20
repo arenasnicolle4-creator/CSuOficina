@@ -428,7 +428,7 @@ export default function OtherForm({ sharedInfo, onBack }) {
         @keyframes floatUp { 0%,100%{transform:translateY(0);opacity:0.5} 50%{transform:translateY(-22px);opacity:1} }
         .continue-btn:not(:disabled):hover { background: linear-gradient(160deg, #EDE5CE 0%, #4E4840 60%, #3E3830 100%) !important; color: #F5E8C0 !important; box-shadow: 0 4px 16px rgba(180,160,120,0.3) !important; border-color: rgba(212,160,23,0.6) !important; transform: translateY(-1px); }
         .continue-btn:not(:disabled):active { background: linear-gradient(160deg, #DDD5B8 0%, #3E3830 60%, #2C2416 100%) !important; color: #F5E8C0 !important; transform: scale(0.98); }
-        @media (max-width: 900px) { .of2-layout { grid-template-columns:1fr !important; } .of2-sidebar { display:none !important; } .of2-mobile-price { display:flex !important; flex-direction:column !important; } .of2-layout { padding-bottom: 280px !important; } }
+        @media (max-width: 900px) { .of2-layout { grid-template-columns:1fr !important; } .of2-sidebar { display:none !important; } .of2-mobile-price { display:block !important; } .of2-layout { padding-bottom: 220px !important; } }
         @media (max-width: 640px) {
           .of2-layout { padding: 12px !important; gap: 0 !important; }
           .of2-cleaning-title { font-size: 38px !important; letter-spacing: 5px !important; }
@@ -752,23 +752,21 @@ export default function OtherForm({ sharedInfo, onBack }) {
       </div>
 
       {/* Mobile sticky price bar */}
-      <div className="of2-mobile-price" style={{position:"fixed",bottom:0,left:0,right:0,zIndex:1000,maxHeight:"35vh",display:"flex",flexDirection:"column"}}>
-        <div style={{background:"linear-gradient(160deg, #3E3830 0%, #4E4840 50%, #3E3830 100%)",borderTop:"2px solid rgba(212,160,23,0.4)",boxShadow:"0 -8px 30px rgba(0,0,0,0.3)",display:"flex",flexDirection:"column",flex:1,overflow:"hidden"}}>
-          {/* Total row — fixed, never scrolls away */}
-          <div style={{padding:"12px 20px",display:"flex",justifyContent:"space-between",alignItems:"center",flexShrink:0}}>
+      <div className="of2-mobile-price" style={{display:"none",position:"fixed",bottom:0,left:0,right:0,zIndex:1000}}>
+        <div style={{background:"linear-gradient(160deg, #3E3830 0%, #4E4840 50%, #3E3830 100%)",borderTop:"2px solid rgba(212,160,23,0.4)",boxShadow:"0 -8px 30px rgba(0,0,0,0.3)"}}>
+          <div style={{padding:"12px 20px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
             <div>
               <div style={{color:"rgba(240,192,64,0.8)",fontSize:"11px",fontWeight:"700",letterSpacing:"1.5px",textTransform:"uppercase"}}>Monthly Estimate</div>
             </div>
             <div style={{textAlign:"right"}}>
-              <div style={{color:"#FFF0A0",fontSize:"30px",fontWeight:"900",lineHeight:"1"}}>${calcSubtotal().toFixed(2)}</div>
+              <div style={{color:"#FFF0A0",fontSize:"28px",fontWeight:"900",lineHeight:"1"}}>${calcSubtotal().toFixed(2)}</div>
               <div style={{color:"rgba(240,192,64,0.6)",fontSize:"10px",fontWeight:"600"}}>per month</div>
             </div>
           </div>
-          {/* Line items — fills remaining space, scrollable */}
           {getPriceBreakdown().length>0&&(
-            <div style={{borderTop:"1px solid rgba(212,160,23,0.25)",overflowY:"auto",flex:1,minHeight:0,padding:"8px 20px 12px"}}>
+            <div style={{borderTop:"1px solid rgba(212,160,23,0.25)",overflowY:"scroll",maxHeight:"120px",padding:"6px 20px 10px",WebkitOverflowScrolling:"touch"}}>
               {getPriceBreakdown().map((item,i)=>(
-                <div key={i} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"4px 0",fontSize:"12px",borderBottom:i<getPriceBreakdown().length-1?"1px solid rgba(255,255,255,0.06)":"none"}}>
+                <div key={i} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"3px 0",fontSize:"12px",borderBottom:"1px solid rgba(255,255,255,0.06)"}}>
                   <span style={{color:"rgba(240,192,64,0.85)",fontWeight:"600",flex:1,marginRight:"8px"}}>{item.label}</span>
                   <span style={{color:"#FFF0A0",fontWeight:"700",flexShrink:0}}>${item.amount.toFixed(2)}</span>
                 </div>
@@ -777,6 +775,7 @@ export default function OtherForm({ sharedInfo, onBack }) {
           )}
         </div>
       </div>
+
 
       {/* Success Modal */}
       {showSuccessModal&&(
