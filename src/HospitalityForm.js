@@ -751,8 +751,9 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
                     <div style={{fontSize:"11px",color:"#888",marginTop:"4px"}}>${ppc}/clean × ~{calcMonthlyCleans(modalFreqType,modalFreqCount).toFixed(1)} cleans/mo{vd>0?` − ${Math.round(vd*100)}% vol. discount`:""}</div>
                   </div>
                   {vd>0&&(
-                    <div style={{padding:"8px 12px",borderRadius:"8px",background:"linear-gradient(135deg,#3DA864,#2D7A4A)",textAlign:"center"}}>
-                      <div style={{fontSize:"12px",color:"white",fontWeight:"800"}}>✓ {Math.round(vd*100)}% volume discount applied — {Math.round(totalCleans)} total cleans/mo across all room types</div>
+                    <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"14px 16px",borderRadius:"10px",background:"linear-gradient(135deg,rgba(46,125,79,0.12),rgba(30,92,56,0.12))",border:"1px solid rgba(46,125,79,0.3)"}}>
+                      <div style={{color:"#2E7D4F",fontSize:"14px",fontWeight:"800",textTransform:"uppercase",letterSpacing:"0.5px"}}>✓ {Math.round(vd*100)}% Volume Discount Applied</div>
+                      <div style={{color:"#2E7D4F",fontSize:"13px",fontWeight:"700"}}>{Math.round(totalCleans)} cleans/mo</div>
                     </div>
                   )}
                   {!vd&&nextTier&&thisCleans>0&&(
