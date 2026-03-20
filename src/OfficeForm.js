@@ -178,7 +178,9 @@ export default function OfficeForm({ sharedInfo, onBack }) {
   const [addOns,              setAddOns]              = useState({ windowCleaning: false, floorWaxing: false, carpetCleaning: false, pressureWashing: false, postConstruction: false, disinfection: false });
   const [preferredDays,       setPreferredDays]       = useState([]);
   const [startMonth,          setStartMonth]          = useState("");
-  const [preferredTimes,      setPreferredTimes]      = useState([]);
+  const [timeFrom,            setTimeFrom]            = useState("8:00 AM");
+  const [timeTo,              setTimeTo]              = useState("5:00 PM");
+  const [timeWindows,         setTimeWindows]         = useState([]);
   const [specialInstructions, setSpecialInstructions] = useState("");
   const [showSuccess,         setShowSuccess]         = useState(false);
 
@@ -328,7 +330,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
       "Add-ons": Object.keys(addOns).filter(k => addOns[k]).join(", ") || "None",
       "Preferred Days": preferredDays.join(", ") || "Not specified",
       "Expected Start Month": startMonth || "Not specified",
-      "Preferred Time": preferredTimes.length ? preferredTimes.join(", ") : "Not specified",
+      "Preferred Time": timeWindows.length ? timeWindows.join(", ") : "Not specified",
       "Special Instructions": specialInstructions || "None",
       "TOTAL MONTHLY": `$${total.toFixed(2)}`,
       "_captcha": "false", "_template": "table",
@@ -714,17 +716,39 @@ export default function OfficeForm({ sharedInfo, onBack }) {
       {/* Preferred Time */}
       <div style={{ marginBottom:"30px" }}>
         <label style={{ display:"flex", alignItems:"center", fontSize:"14px", fontWeight:"800", color:"#A07B15", marginBottom:"15px", gap:"8px", letterSpacing:"1px", textTransform:"uppercase" }}>
-          <Clock size={18} color="#A07B15"/>Preferred Time (Optional)
+          <Clock size={18} color="#A07B15"/>Preferred Service Times (Optional)
         </label>
-        <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:"10px" }} className="of-times-grid">
-          {["Morning (6-10am)","Mid-Day (10am-2pm)","Afternoon (2-6pm)","Evening (6-10pm)","Overnight (10pm-6am)"].map(t=>(
-            <div key={t} onClick={()=>setPreferredTimes(preferredTimes.includes(t)?preferredTimes.filter(x=>x!==t):[...preferredTimes,t])} style={{ padding:"14px 12px", borderRadius:"12px", cursor:"pointer", fontSize:"12px", fontWeight:"800", textAlign:"center", transition:"all 0.3s ease",
-              border:preferredTimes.includes(t)?"2px solid #D4A017":"2px solid rgba(212,160,23,0.3)",
-              background:preferredTimes.includes(t)?"linear-gradient(135deg,#D4A017,#F0C040)":"rgba(255,255,255,0.85)",
-              color:preferredTimes.includes(t)?"white":"#4A3728",
-              boxShadow:preferredTimes.includes(t)?"0 4px 14px rgba(212,160,23,0.35)":"0 2px 6px rgba(0,0,0,0.04)" }}>{t}</div>
-          ))}
+        <p style={{ fontSize:"12px", color:"#888", fontWeight:"600", marginTop:"-10px", marginBottom:"14px" }}>Add one or more time windows when cleaning is welcome.</p>
+        {/* From / To row */}
+        <div style={{ display:"flex", gap:"10px", alignItems:"center", marginBottom:"12px", flexWrap:"wrap" }}>
+          <div style={{ flex:1, minWidth:"120px" }}>
+            <label style={{ fontSize:"11px", fontWeight:"700", color:"#A07B15", letterSpacing:"0.5px", textTransform:"uppercase", display:"block", marginBottom:"6px" }}>From</label>
+            <select value={timeFrom} onChange={e=>setTimeFrom(e.target.value)} style={{ width:"100%", padding:"12px 14px", borderRadius:"12px", border:"2px solid rgba(212,160,23,0.35)", background:"#F8F9FA", color:"#4A3728", fontSize:"15px", fontWeight:"600", outline:"none", boxSizing:"border-box" }}>
+              {["12:00 AM","12:30 AM","1:00 AM","1:30 AM","2:00 AM","2:30 AM","3:00 AM","3:30 AM","4:00 AM","4:30 AM","5:00 AM","5:30 AM","6:00 AM","6:30 AM","7:00 AM","7:30 AM","8:00 AM","8:30 AM","9:00 AM","9:30 AM","10:00 AM","10:30 AM","11:00 AM","11:30 AM","12:00 PM","12:30 PM","1:00 PM","1:30 PM","2:00 PM","2:30 PM","3:00 PM","3:30 PM","4:00 PM","4:30 PM","5:00 PM","5:30 PM","6:00 PM","6:30 PM","7:00 PM","7:30 PM","8:00 PM","8:30 PM","9:00 PM","9:30 PM","10:00 PM","10:30 PM","11:00 PM","11:30 PM"].map(t=><option key={t} value={t}>{t}</option>)}
+            </select>
+          </div>
+          <div style={{ paddingTop:"22px", color:"#A07B15", fontWeight:"800", fontSize:"14px" }}>to</div>
+          <div style={{ flex:1, minWidth:"120px" }}>
+            <label style={{ fontSize:"11px", fontWeight:"700", color:"#A07B15", letterSpacing:"0.5px", textTransform:"uppercase", display:"block", marginBottom:"6px" }}>To</label>
+            <select value={timeTo} onChange={e=>setTimeTo(e.target.value)} style={{ width:"100%", padding:"12px 14px", borderRadius:"12px", border:"2px solid rgba(212,160,23,0.35)", background:"#F8F9FA", color:"#4A3728", fontSize:"15px", fontWeight:"600", outline:"none", boxSizing:"border-box" }}>
+              {["12:00 AM","12:30 AM","1:00 AM","1:30 AM","2:00 AM","2:30 AM","3:00 AM","3:30 AM","4:00 AM","4:30 AM","5:00 AM","5:30 AM","6:00 AM","6:30 AM","7:00 AM","7:30 AM","8:00 AM","8:30 AM","9:00 AM","9:30 AM","10:00 AM","10:30 AM","11:00 AM","11:30 AM","12:00 PM","12:30 PM","1:00 PM","1:30 PM","2:00 PM","2:30 PM","3:00 PM","3:30 PM","4:00 PM","4:30 PM","5:00 PM","5:30 PM","6:00 PM","6:30 PM","7:00 PM","7:30 PM","8:00 PM","8:30 PM","9:00 PM","9:30 PM","10:00 PM","10:30 PM","11:00 PM","11:30 PM"].map(t=><option key={t} value={t}>{t}</option>)}
+            </select>
+          </div>
+          <div style={{ paddingTop:"22px" }}>
+            <button onClick={()=>{ const w=`${timeFrom} – ${timeTo}`; if(!timeWindows.includes(w)) setTimeWindows([...timeWindows,w]); }} style={{ padding:"12px 18px", borderRadius:"12px", border:"2px solid rgba(212,160,23,0.5)", background:"linear-gradient(135deg,#D4A017,#F0C040)", color:"white", fontSize:"13px", fontWeight:"800", cursor:"pointer", whiteSpace:"nowrap" }}>+ Add</button>
+          </div>
         </div>
+        {/* Added windows */}
+        {timeWindows.length>0&&(
+          <div style={{ display:"flex", flexWrap:"wrap", gap:"8px" }}>
+            {timeWindows.map((w,i)=>(
+              <div key={i} style={{ display:"inline-flex", alignItems:"center", gap:"8px", padding:"8px 14px", borderRadius:"20px", background:"linear-gradient(135deg,rgba(212,160,23,0.15),rgba(240,192,64,0.1))", border:"1.5px solid rgba(212,160,23,0.4)" }}>
+                <span style={{ fontSize:"13px", fontWeight:"700", color:"#4A3728" }}>{w}</span>
+                <button onClick={()=>setTimeWindows(timeWindows.filter((_,j)=>j!==i))} style={{ background:"none", border:"none", cursor:"pointer", color:"#A07B15", fontSize:"16px", fontWeight:"900", lineHeight:"1", padding:"0" }}>×</button>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Special Instructions */}
