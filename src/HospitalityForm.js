@@ -170,7 +170,9 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
   const [addOns, setAddOns] = useState({windowCleaning:false,floorWaxing:false,carpetCleaning:false,pressureWashing:false,postConstruction:false,disinfection:false});
   const [preferredDays, setPreferredDays]             = useState([]);
   const [startMonth,    setStartMonth]                = useState("");
-  const [preferredTime, setPreferredTime]             = useState("");
+  const [timeFrom,      setTimeFrom]                = useState("8:00 AM");
+  const [timeTo,        setTimeTo]                  = useState("5:00 PM");
+  const [timeWindows,   setTimeWindows]             = useState([]);
   const [specialInstructions, setSpecialInstructions] = useState("");
   const [showSuccessModal, setShowSuccessModal]       = useState(false);
 
@@ -290,11 +292,11 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
     fd.append("Hospitality Type",hospType||"Not specified");fd.append("Market Segment","hospitality");fd.append("Square Feet",squareFeet);
     if(guestRoomConfigs.length>0)fd.append("Guest Room Configs",JSON.stringify(guestRoomConfigs.map(c=>({...c,freqSummary:freqLabel(c.freqType,c.freqCount)}))));
     fd.append("Common Areas",commonAreas);fd.append("Dining Areas",diningAreas);fd.append("Fitness Centers",fitnessCenters);fd.append("Pool/Spas",poolSpas);fd.append("Event Spaces",eventSpaces);fd.append("Laundry Rooms",laundryRooms);fd.append("Lobby/Reception",lobbyReceptions);fd.append("Shared Bathrooms",sharedBathrooms);
-    fd.append("Add-ons",Object.keys(addOns).filter(k=>addOns[k]).join(", ")||"None");fd.append("Preferred Days",preferredDays.join(", ")||"Not specified");fd.append("Expected Start Month",startMonth||"Not specified");fd.append("Preferred Time",preferredTime||"Not specified");fd.append("Special Instructions",specialInstructions||"None");fd.append("TOTAL PRICE",`$${calculateSubtotal().toFixed(2)}`);fd.append("_captcha","false");fd.append("_template","table");
+    fd.append("Add-ons",Object.keys(addOns).filter(k=>addOns[k]).join(", ")||"None");fd.append("Preferred Days",preferredDays.join(", ")||"Not specified");fd.append("Expected Start Month",startMonth||"Not specified");fd.append("Preferred Time",timeWindows.length?timeWindows.join(", "):"Not specified");fd.append("Special Instructions",specialInstructions||"None");fd.append("TOTAL PRICE",`$${calculateSubtotal().toFixed(2)}`);fd.append("_captcha","false");fd.append("_template","table");
     try{const r=await fetch("https://formsubmit.co/ajax/AkCleaningSuOficina@gmail.com",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(Object.fromEntries(fd))});const res=await r.json();if(res.success)setShowSuccessModal(true);else alert("Error. Please try again.");}catch{alert("Error. Please try again.");}
   };
 
-  const resetAll=()=>{setShowSuccessModal(false);setStep(3);setHospType("");setSquareFeet("");setGuestRoomConfigs([]);setCommonAreas(0);setDiningAreas(0);setFitnessCenters(0);setPoolSpas(0);setEventSpaces(0);setLaundryRooms(0);setLobbyReceptions(0);setSharedBathrooms(0);setCommonAreasFreq("");setDiningAreasFreq("");setFitnessCentersFreq("");setPoolSpasFreq("");setEventSpacesFreq("");setLaundryRoomsFreq("");setLobbyReceptionsFreq("");setSharedBathroomsFreq("");setAddOns({windowCleaning:false,floorWaxing:false,carpetCleaning:false,pressureWashing:false,postConstruction:false,disinfection:false});setPreferredDays([]);setPreferredTime("");setSpecialInstructions("");onBack();};
+  const resetAll=()=>{setShowSuccessModal(false);setStep(3);setHospType("");setSquareFeet("");setGuestRoomConfigs([]);setCommonAreas(0);setDiningAreas(0);setFitnessCenters(0);setPoolSpas(0);setEventSpaces(0);setLaundryRooms(0);setLobbyReceptions(0);setSharedBathrooms(0);setCommonAreasFreq("");setDiningAreasFreq("");setFitnessCentersFreq("");setPoolSpasFreq("");setEventSpacesFreq("");setLaundryRoomsFreq("");setLobbyReceptionsFreq("");setSharedBathroomsFreq("");setAddOns({windowCleaning:false,floorWaxing:false,carpetCleaning:false,pressureWashing:false,postConstruction:false,disinfection:false});setPreferredDays([]);setTimeWindows([]);setTimeFrom("8:00 AM");setTimeTo("5:00 PM");setSpecialInstructions("");onBack();};
 
   const goNext=()=>{window.scrollTo({top:0,behavior:"smooth"});setTimeout(()=>setStep(s=>s+1),100);};
   const goBack=()=>{if(step===3){onBack();return;}window.scrollTo({top:0,behavior:"smooth"});setTimeout(()=>setStep(s=>s-1),100);};
@@ -590,21 +592,16 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
                     <Calendar size={18} color="#A07B15"/>Expected Start Month (Optional)
                   </label>
                   <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"10px"}}>
-                    {Array.from({length:12},(_,i)=>{
-                      const d=new Date(); d.setDate(1); d.setMonth(d.getMonth()+i);
-                      const label=d.toLocaleDateString("en-US",{month:"long",year:"numeric"});
-                      const short=d.toLocaleDateString("en-US",{month:"short",year:"2-digit"});
-                      return (
-                        <div key={label} onClick={()=>setStartMonth(startMonth===label?"":label)}
+                    {["January","February","March","April","May","June","July","August","September","October","November","December"].map(m=>(
+                        <div key={m} onClick={()=>setStartMonth(startMonth===m?"":m)}
                           style={{padding:"12px 10px",borderRadius:"12px",cursor:"pointer",textAlign:"center",transition:"all 0.2s ease",
-                            border:startMonth===label?"2px solid #D4A017":"2px solid rgba(212,160,23,0.25)",
-                            background:startMonth===label?"linear-gradient(135deg,#D4A017,#F0C040)":"rgba(255,255,255,0.85)",
-                            color:startMonth===label?"white":"#4A3728",
-                            boxShadow:startMonth===label?"0 4px 14px rgba(212,160,23,0.35)":"0 2px 6px rgba(0,0,0,0.04)"}}>
-                          <div style={{fontSize:"13px",fontWeight:"800"}}>{short}</div>
+                            border:startMonth===m?"2px solid #D4A017":"2px solid rgba(212,160,23,0.25)",
+                            background:startMonth===m?"linear-gradient(135deg,#D4A017,#F0C040)":"rgba(255,255,255,0.85)",
+                            color:startMonth===m?"white":"#4A3728",
+                            boxShadow:startMonth===m?"0 4px 14px rgba(212,160,23,0.35)":"0 2px 6px rgba(0,0,0,0.04)"}}>
+                          <div style={{fontSize:"13px",fontWeight:"800"}}>{m.slice(0,3)}</div>
                         </div>
-                      );
-                    })}
+                      ))}
                   </div>
                 </div>
 
@@ -628,17 +625,37 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
                 {/* Preferred Time */}
                 <div style={{marginBottom:"30px"}}>
                   <label style={{display:"flex",alignItems:"center",fontSize:"14px",fontWeight:"800",color:"#A07B15",marginBottom:"15px",gap:"8px",letterSpacing:"1px",textTransform:"uppercase"}}>
-                    <Clock size={18} color="#A07B15"/>Preferred Time (Optional)
+                    <Clock size={18} color="#A07B15"/>Preferred Service Times (Optional)
                   </label>
-                  <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"10px"}} className="hf-times-grid">
-                    {["Morning (6-10am)","Mid-Day (10am-2pm)","Afternoon (2-6pm)","Evening (6-10pm)","Overnight (10pm-6am)"].map(t=>(
-                      <div key={t} onClick={()=>setPreferredTime(t)} style={{padding:"14px 12px",borderRadius:"12px",cursor:"pointer",fontSize:"12px",fontWeight:"800",textAlign:"center",transition:"all 0.3s ease",
-                        border:preferredTime===t?"2px solid #D4A017":"2px solid rgba(212,160,23,0.3)",
-                        background:preferredTime===t?"linear-gradient(135deg,#D4A017,#F0C040)":"rgba(255,255,255,0.85)",
-                        color:preferredTime===t?"white":"#4A3728",
-                        boxShadow:preferredTime===t?"0 4px 14px rgba(212,160,23,0.35)":"0 2px 6px rgba(0,0,0,0.04)"}}>{t}</div>
-                    ))}
+                  <p style={{fontSize:"12px",color:"#888",fontWeight:"600",marginTop:"-10px",marginBottom:"14px"}}>Add one or more time windows when cleaning is welcome.</p>
+                  <div style={{display:"flex",gap:"10px",alignItems:"center",marginBottom:"12px",flexWrap:"wrap"}}>
+                    <div style={{flex:1,minWidth:"120px"}}>
+                      <label style={{fontSize:"11px",fontWeight:"700",color:"#A07B15",letterSpacing:"0.5px",textTransform:"uppercase",display:"block",marginBottom:"6px"}}>From</label>
+                      <select value={timeFrom} onChange={e=>setTimeFrom(e.target.value)} style={{width:"100%",padding:"12px 14px",borderRadius:"12px",border:"2px solid rgba(212,160,23,0.35)",background:"#F8F9FA",color:"#4A3728",fontSize:"15px",fontWeight:"600",outline:"none",boxSizing:"border-box"}}>
+                        {["12:00 AM","12:30 AM","1:00 AM","1:30 AM","2:00 AM","2:30 AM","3:00 AM","3:30 AM","4:00 AM","4:30 AM","5:00 AM","5:30 AM","6:00 AM","6:30 AM","7:00 AM","7:30 AM","8:00 AM","8:30 AM","9:00 AM","9:30 AM","10:00 AM","10:30 AM","11:00 AM","11:30 AM","12:00 PM","12:30 PM","1:00 PM","1:30 PM","2:00 PM","2:30 PM","3:00 PM","3:30 PM","4:00 PM","4:30 PM","5:00 PM","5:30 PM","6:00 PM","6:30 PM","7:00 PM","7:30 PM","8:00 PM","8:30 PM","9:00 PM","9:30 PM","10:00 PM","10:30 PM","11:00 PM","11:30 PM"].map(t=><option key={t} value={t}>{t}</option>)}
+                      </select>
+                    </div>
+                    <div style={{paddingTop:"22px",color:"#A07B15",fontWeight:"800",fontSize:"14px"}}>to</div>
+                    <div style={{flex:1,minWidth:"120px"}}>
+                      <label style={{fontSize:"11px",fontWeight:"700",color:"#A07B15",letterSpacing:"0.5px",textTransform:"uppercase",display:"block",marginBottom:"6px"}}>To</label>
+                      <select value={timeTo} onChange={e=>setTimeTo(e.target.value)} style={{width:"100%",padding:"12px 14px",borderRadius:"12px",border:"2px solid rgba(212,160,23,0.35)",background:"#F8F9FA",color:"#4A3728",fontSize:"15px",fontWeight:"600",outline:"none",boxSizing:"border-box"}}>
+                        {["12:00 AM","12:30 AM","1:00 AM","1:30 AM","2:00 AM","2:30 AM","3:00 AM","3:30 AM","4:00 AM","4:30 AM","5:00 AM","5:30 AM","6:00 AM","6:30 AM","7:00 AM","7:30 AM","8:00 AM","8:30 AM","9:00 AM","9:30 AM","10:00 AM","10:30 AM","11:00 AM","11:30 AM","12:00 PM","12:30 PM","1:00 PM","1:30 PM","2:00 PM","2:30 PM","3:00 PM","3:30 PM","4:00 PM","4:30 PM","5:00 PM","5:30 PM","6:00 PM","6:30 PM","7:00 PM","7:30 PM","8:00 PM","8:30 PM","9:00 PM","9:30 PM","10:00 PM","10:30 PM","11:00 PM","11:30 PM"].map(t=><option key={t} value={t}>{t}</option>)}
+                      </select>
+                    </div>
+                    <div style={{paddingTop:"22px"}}>
+                      <button onClick={()=>{const w=`${timeFrom} – ${timeTo}`;if(!timeWindows.includes(w))setTimeWindows([...timeWindows,w]);}} style={{padding:"12px 18px",borderRadius:"12px",border:"2px solid rgba(212,160,23,0.5)",background:"linear-gradient(135deg,#D4A017,#F0C040)",color:"white",fontSize:"13px",fontWeight:"800",cursor:"pointer",whiteSpace:"nowrap"}}>+ Add</button>
+                    </div>
                   </div>
+                  {timeWindows.length>0&&(
+                    <div style={{display:"flex",flexWrap:"wrap",gap:"8px"}}>
+                      {timeWindows.map((w,i)=>(
+                        <div key={i} style={{display:"inline-flex",alignItems:"center",gap:"8px",padding:"8px 14px",borderRadius:"20px",background:"linear-gradient(135deg,rgba(212,160,23,0.15),rgba(240,192,64,0.1))",border:"1.5px solid rgba(212,160,23,0.4)"}}>
+                          <span style={{fontSize:"13px",fontWeight:"700",color:"#4A3728"}}>{w}</span>
+                          <button onClick={()=>setTimeWindows(timeWindows.filter((_,j)=>j!==i))} style={{background:"none",border:"none",cursor:"pointer",color:"#A07B15",fontSize:"16px",fontWeight:"900",lineHeight:"1",padding:"0"}}>×</button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 {/* Special Instructions */}
