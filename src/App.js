@@ -119,7 +119,7 @@ export default function CleaningSuOficinaBooking() {
     color: ok ? "#F5E8C0" : "#B8A060",
     fontSize: "15px", fontWeight: "800", cursor: ok ? "pointer" : "not-allowed",
     display: "flex", alignItems: "center", justifyContent: "center", gap: "8px",
-    transition: "all 0.25s ease",
+    transition: "all 0.25s ease", width: "100%",
   });
 
   // Route to sub-forms
