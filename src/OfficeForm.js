@@ -871,7 +871,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         @keyframes floatUp { 0%,100%{transform:translateY(0);opacity:0.5} 50%{transform:translateY(-22px);opacity:1} }
         .continue-btn:not(:disabled):hover { background: linear-gradient(160deg, #EDE5CE 0%, #4E4840 60%, #3E3830 100%) !important; color: #F5E8C0 !important; box-shadow: 0 4px 16px rgba(180,160,120,0.3) !important; border-color: rgba(212,160,23,0.6) !important; transform: translateY(-1px); }
         .continue-btn:not(:disabled):active { background: linear-gradient(160deg, #DDD5B8 0%, #3E3830 60%, #2C2416 100%) !important; color: #F5E8C0 !important; box-shadow: 0 2px 6px rgba(180,160,120,0.25) !important; transform: scale(0.98); }
-        @media (max-width:900px) { .of-layout { grid-template-columns:1fr !important; } .of-sidebar { display:none !important; } .of-mobile-price { display:flex !important; flex-direction:column !important; } .of-layout { padding-bottom: 280px !important; } }
+        @media (max-width:900px) { .of-layout { grid-template-columns:1fr !important; } .of-sidebar { display:none !important; } .of-mobile-price { display:block !important; } .of-layout { padding-bottom: 220px !important; } }
         @media (max-width: 640px) {
           .of-layout { padding: 12px !important; gap: 0 !important; }
           .of-header { padding: 24px 16px !important; }
@@ -946,29 +946,29 @@ export default function OfficeForm({ sharedInfo, onBack }) {
       </div>
 
       {/* Mobile sticky price bar */}
-      <div className="of-mobile-price" style={{position:"fixed",bottom:0,left:0,right:0,zIndex:1000,maxHeight:"35vh",display:"flex",flexDirection:"column"}}>
-        <div style={{background:"linear-gradient(160deg, #3E3830 0%, #4E4840 50%, #3E3830 100%)",borderTop:"2px solid rgba(212,160,23,0.4)",boxShadow:"0 -8px 30px rgba(0,0,0,0.3)",display:"flex",flexDirection:"column",flex:1,overflow:"hidden"}}>
-          {/* Always-visible total row — never scrolls away */}
+      <div className="of-mobile-price" style={{display:"none",position:"fixed",bottom:0,left:0,right:0,zIndex:1000}}>
+        <div style={{background:"linear-gradient(160deg, #3E3830 0%, #4E4840 50%, #3E3830 100%)",borderTop:"2px solid rgba(212,160,23,0.4)",boxShadow:"0 -8px 30px rgba(0,0,0,0.3)"}}>
+          {/* Total row — always visible, fixed height ~56px */}
           <div style={{padding:"12px 20px",display:"flex",justifyContent:"space-between",alignItems:"center",flexShrink:0}}>
             <div>
               <div style={{color:"rgba(240,192,64,0.8)",fontSize:"11px",fontWeight:"700",letterSpacing:"1.5px",textTransform:"uppercase"}}>Monthly Estimate</div>
               {totalSavings>0&&<div style={{color:"#3DA864",fontSize:"11px",fontWeight:"700",marginTop:"2px"}}>✓ Saving ${totalSavings.toFixed(2)}</div>}
             </div>
             <div style={{textAlign:"right"}}>
-              <div style={{color:"#FFF0A0",fontSize:"30px",fontWeight:"900",lineHeight:"1"}}>${total.toFixed(2)}</div>
+              <div style={{color:"#FFF0A0",fontSize:"28px",fontWeight:"900",lineHeight:"1"}}>${total.toFixed(2)}</div>
               <div style={{color:"rgba(240,192,64,0.6)",fontSize:"10px",fontWeight:"600"}}>per month</div>
             </div>
           </div>
-          {/* Line items — fills remaining space, scrolls within the cap */}
+          {/* Line items — HARD capped at 120px, always scrollable */}
           {breakdown.length>0&&(
-            <div style={{borderTop:"1px solid rgba(212,160,23,0.25)",overflowY:"auto",flex:1,padding:"8px 20px 12px",minHeight:0}}>
+            <div style={{borderTop:"1px solid rgba(212,160,23,0.25)",overflowY:"scroll",maxHeight:"120px",padding:"6px 20px 10px",WebkitOverflowScrolling:"touch"}}>
               {breakdown.map((item,i)=>(
-                !item.isInfo&&<div key={i} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"4px 0",fontSize:"12px",borderBottom:i<breakdown.length-1?"1px solid rgba(255,255,255,0.06)":"none"}}>
+                !item.isInfo&&<div key={i} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"3px 0",fontSize:"12px",borderBottom:"1px solid rgba(255,255,255,0.06)"}}>
                   <span style={{color:"rgba(240,192,64,0.85)",fontWeight:"600",flex:1,marginRight:"8px"}}>{item.label}{item.discountPercent&&<span style={{marginLeft:"6px",padding:"1px 5px",borderRadius:"3px",background:item.isUpcharge?"#d97706":"#2E7D4F",color:"white",fontSize:"9px",fontWeight:"900"}}>{item.isUpcharge?`+${item.discountPercent}`:`-${item.discountPercent}`}</span>}</span>
                   <span style={{color:"#FFF0A0",fontWeight:"700",flexShrink:0}}>{item.originalAmount&&<span style={{color:"rgba(255,255,255,0.3)",textDecoration:"line-through",marginRight:"4px",fontSize:"10px"}}>${item.originalAmount.toFixed(2)}</span>}${item.amount.toFixed(2)}</span>
                 </div>
               ))}
-              {totalSavings>0&&<div style={{display:"flex",justifyContent:"space-between",padding:"6px 0 0",borderTop:"1px solid rgba(46,125,79,0.4)",marginTop:"4px"}}>
+              {totalSavings>0&&<div style={{display:"flex",justifyContent:"space-between",padding:"5px 0 0",borderTop:"1px solid rgba(46,125,79,0.4)",marginTop:"3px"}}>
                 <span style={{color:"#3DA864",fontSize:"12px",fontWeight:"800"}}>✓ Total Savings</span>
                 <span style={{color:"#3DA864",fontSize:"12px",fontWeight:"900"}}>-${totalSavings.toFixed(2)}</span>
               </div>}
