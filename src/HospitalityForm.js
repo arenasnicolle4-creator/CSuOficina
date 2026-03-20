@@ -56,7 +56,7 @@ const labelSt = {
 const inputSt = {
   width: "100%", padding: "16px 18px", borderRadius: "14px",
   border: "2px solid rgba(212,160,23,0.35)", background: "#F8F9FA",
-  color: "#4A3728", fontSize: "14px", fontWeight: "600", outline: "none",
+  color: "#4A3728", fontSize: "16px", fontWeight: "600", outline: "none",
   transition: "all 0.3s ease", boxSizing: "border-box",
 };
 
@@ -394,12 +394,12 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
         @keyframes floatUp { 0%,100%{transform:translateY(0);opacity:0.5} 50%{transform:translateY(-22px);opacity:1} }
         .continue-btn:not(:disabled):hover { background: linear-gradient(160deg, #EDE5CE 0%, #4E4840 60%, #3E3830 100%) !important; color: #F5E8C0 !important; box-shadow: 0 4px 16px rgba(180,160,120,0.3) !important; border-color: rgba(212,160,23,0.6) !important; transform: translateY(-1px); }
         .continue-btn:not(:disabled):active { background: linear-gradient(160deg, #DDD5B8 0%, #3E3830 60%, #2C2416 100%) !important; color: #F5E8C0 !important; box-shadow: 0 2px 6px rgba(180,160,120,0.25) !important; transform: scale(0.98); }
-        @media (max-width:900px) { .hf-layout { grid-template-columns:1fr !important; } .hf-sidebar { display:none !important; } .hf-mobile-price { display:block !important; } .hf-layout { padding-bottom: 200px !important; } }
+        @media (max-width:900px) { .hf-layout { grid-template-columns:1fr !important; } .hf-sidebar { display:none !important; } .hf-mobile-price { display:block !important; } .hf-layout { padding-bottom: 280px !important; } }
         @media (max-width: 640px) {
           .hf-layout { padding: 12px !important; gap: 0 !important; }
           .hf-header { padding: 24px 16px !important; }
-          .hf-cleaning-title { font-size: 30px !important; letter-spacing: 4px !important; }
-          .hf-suoficina-title { font-size: 34px !important; }
+          .hf-cleaning-title { font-size: 38px !important; letter-spacing: 5px !important; }
+          .hf-suoficina-title { font-size: 42px !important; }
           .hf-form-body { padding: 24px 16px !important; }
           .hf-prop-type-grid { grid-template-columns: repeat(3,1fr) !important; gap: 8px !important; }
           .hf-prop-type-card { padding: 12px 6px !important; }
@@ -417,8 +417,8 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
           .hf-freq-type-row button { flex: none !important; width: 100% !important; }
         }
         @media (max-width: 380px) {
-          .hf-cleaning-title { font-size: 26px !important; letter-spacing: 3px !important; }
-          .hf-suoficina-title { font-size: 30px !important; }
+          .hf-cleaning-title { font-size: 32px !important; letter-spacing: 4px !important; }
+          .hf-suoficina-title { font-size: 36px !important; }
           .hf-prop-type-grid { grid-template-columns: repeat(3,1fr) !important; }
         }
       `}</style>
@@ -636,26 +636,31 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
 
       {/* Mobile sticky price bar */}
       <div className="hf-mobile-price" style={{display:"none",position:"fixed",bottom:0,left:0,right:0,zIndex:1000}}>
-        <div style={{background:"linear-gradient(160deg, #3E3830 0%, #4E4840 50%, #3E3830 100%)",borderTop:"2px solid rgba(212,160,23,0.4)",boxShadow:"0 -8px 30px rgba(0,0,0,0.25)"}}>
-          <div style={{padding:"14px 20px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+        <div style={{background:"linear-gradient(160deg, #3E3830 0%, #4E4840 50%, #3E3830 100%)",borderTop:"2px solid rgba(212,160,23,0.4)",boxShadow:"0 -8px 30px rgba(0,0,0,0.3)"}}>
+          {/* Always-visible total row */}
+          <div style={{padding:"12px 20px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
             <div>
-              <div style={{color:"rgba(240,192,64,0.7)",fontSize:"11px",fontWeight:"700",letterSpacing:"1.5px",textTransform:"uppercase",marginBottom:"2px"}}>Monthly Estimate</div>
-              <div style={{color:"#F5E8C0",fontSize:"11px",fontWeight:"600",fontStyle:"italic"}}>Scroll up to see breakdown</div>
+              <div style={{color:"rgba(240,192,64,0.8)",fontSize:"11px",fontWeight:"700",letterSpacing:"1.5px",textTransform:"uppercase"}}>Monthly Estimate</div>
+              {totalSavings()>0&&<div style={{color:"#3DA864",fontSize:"11px",fontWeight:"700",marginTop:"2px"}}>✓ Saving ${totalSavings().toFixed(2)}</div>}
             </div>
             <div style={{textAlign:"right"}}>
-              <div style={{color:"#FFF0A0",fontSize:"28px",fontWeight:"900",lineHeight:"1"}}>${calculateSubtotal().toFixed(2)}</div>
-              <div style={{color:"rgba(240,192,64,0.7)",fontSize:"11px",fontWeight:"600"}}>per month</div>
+              <div style={{color:"#FFF0A0",fontSize:"30px",fontWeight:"900",lineHeight:"1"}}>${calculateSubtotal().toFixed(2)}</div>
+              <div style={{color:"rgba(240,192,64,0.6)",fontSize:"10px",fontWeight:"600"}}>per month</div>
             </div>
           </div>
+          {/* Line items - always visible, scrollable */}
           {getPriceBreakdown().length>0&&(
-            <div style={{borderTop:"1px solid rgba(212,160,23,0.2)",maxHeight:"100px",overflowY:"auto",padding:"8px 20px"}}>
-              {getPriceBreakdown().slice(0,3).map((item,i)=>(
-                <div key={i} style={{display:"flex",justifyContent:"space-between",padding:"3px 0",fontSize:"12px"}}>
-                  <span style={{color:"rgba(240,192,64,0.8)",fontWeight:"600"}}>{item.label}</span>
-                  <span style={{color:"#FFF0A0",fontWeight:"700"}}>{item.isInfo?"—":`$${item.amount.toFixed(2)}`}</span>
+            <div style={{borderTop:"1px solid rgba(212,160,23,0.25)",overflowY:"auto",maxHeight:"130px",padding:"8px 20px 12px"}}>
+              {getPriceBreakdown().map((item,i)=>(
+                !item.isInfo&&<div key={i} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"4px 0",fontSize:"12px",borderBottom:i<getPriceBreakdown().length-1?"1px solid rgba(255,255,255,0.06)":"none"}}>
+                  <span style={{color:"rgba(240,192,64,0.85)",fontWeight:"600",flex:1,marginRight:"8px"}}>{item.label}{item.discountPercent&&<span style={{marginLeft:"6px",padding:"1px 5px",borderRadius:"3px",background:item.isUpcharge?"#d97706":"#2E7D4F",color:"white",fontSize:"9px",fontWeight:"900"}}>{item.isUpcharge?`+${item.discountPercent}`:`-${item.discountPercent}`}</span>}</span>
+                  <span style={{color:"#FFF0A0",fontWeight:"700",flexShrink:0}}>{item.originalAmount&&<span style={{color:"rgba(255,255,255,0.3)",textDecoration:"line-through",marginRight:"4px",fontSize:"10px"}}>${item.originalAmount.toFixed(2)}</span>}${item.amount.toFixed(2)}</span>
                 </div>
               ))}
-              {getPriceBreakdown().length>3&&<div style={{textAlign:"center",color:"rgba(240,192,64,0.5)",fontSize:"11px",paddingTop:"3px"}}>+{getPriceBreakdown().length-3} more items</div>}
+              {totalSavings()>0&&<div style={{display:"flex",justifyContent:"space-between",padding:"6px 0 0",borderTop:"1px solid rgba(46,125,79,0.4)",marginTop:"4px"}}>
+                <span style={{color:"#3DA864",fontSize:"12px",fontWeight:"800"}}>✓ Total Savings</span>
+                <span style={{color:"#3DA864",fontSize:"12px",fontWeight:"900"}}>-${totalSavings().toFixed(2)}</span>
+              </div>}
             </div>
           )}
         </div>
@@ -798,10 +803,16 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
               return (
                 <div style={{padding:"15px",borderRadius:"10px",background:"linear-gradient(135deg,rgba(46,125,79,0.12),rgba(30,92,56,0.12))",border:"1px solid rgba(46,125,79,0.3)",marginBottom:"25px"}}>
                   <div style={{textAlign:"center",marginBottom:vd>0||nextTier?"10px":"0"}}>
-                    <div style={{fontSize:"12px",color:"#888",fontWeight:"600",marginBottom:"4px"}}>ESTIMATED MONTHLY COST — THIS ROOM TYPE</div>
+                    <div style={{fontSize:"12px",color:"#888",fontWeight:"600",marginBottom:"8px"}}>ESTIMATED MONTHLY COST — THIS ROOM TYPE</div>
                     {vd>0&&<div style={{fontSize:"14px",color:"rgba(100,100,100,0.5)",textDecoration:"line-through",fontWeight:"600",marginBottom:"2px"}}>${rawMonthly.toFixed(2)}</div>}
                     <div style={{fontSize:"28px",fontWeight:"900",color:"#2E7D4F"}}>${discounted.toFixed(2)}</div>
-                    <div style={{fontSize:"11px",color:"#888",marginTop:"4px"}}>${ppc}/clean × ~{calcMonthlyCleans(modalFreqType,modalFreqCount).toFixed(1)} cleans/mo{vd>0?` − ${Math.round(vd*100)}% vol. discount`:""}</div>
+                    {/* $/clean highlight */}
+                    <div style={{display:"inline-flex",alignItems:"center",gap:"6px",marginTop:"10px",padding:"8px 14px",borderRadius:"10px",background:"linear-gradient(135deg,rgba(212,160,23,0.15),rgba(240,192,64,0.1))",border:"1.5px solid rgba(212,160,23,0.4)"}}>
+                      <span style={{fontSize:"18px",fontWeight:"900",color:"#A07B15"}}>${ppc}</span>
+                      <span style={{fontSize:"12px",fontWeight:"800",color:"#8B6914",textTransform:"uppercase",letterSpacing:"0.5px"}}>/clean</span>
+                      <span style={{fontSize:"11px",color:"#999",fontWeight:"600",marginLeft:"4px"}}>× ~{calcMonthlyCleans(modalFreqType,modalFreqCount).toFixed(1)} cleans/mo</span>
+                    </div>
+                    {vd>0&&<div style={{fontSize:"11px",color:"#888",marginTop:"6px"}}>Volume discount: −{Math.round(vd*100)}%</div>}
                   </div>
                   {vd>0&&(
                     <div style={{display:"flex",justifyContent:"flex-end",marginTop:"10px"}}>
