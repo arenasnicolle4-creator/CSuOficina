@@ -169,6 +169,7 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
 
   const [addOns, setAddOns] = useState({windowCleaning:false,floorWaxing:false,carpetCleaning:false,pressureWashing:false,postConstruction:false,disinfection:false});
   const [preferredDays, setPreferredDays]             = useState([]);
+  const [startMonth,    setStartMonth]                = useState("");
   const [preferredTime, setPreferredTime]             = useState("");
   const [specialInstructions, setSpecialInstructions] = useState("");
   const [showSuccessModal, setShowSuccessModal]       = useState(false);
@@ -289,7 +290,7 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
     fd.append("Hospitality Type",hospType||"Not specified");fd.append("Market Segment","hospitality");fd.append("Square Feet",squareFeet);
     if(guestRoomConfigs.length>0)fd.append("Guest Room Configs",JSON.stringify(guestRoomConfigs.map(c=>({...c,freqSummary:freqLabel(c.freqType,c.freqCount)}))));
     fd.append("Common Areas",commonAreas);fd.append("Dining Areas",diningAreas);fd.append("Fitness Centers",fitnessCenters);fd.append("Pool/Spas",poolSpas);fd.append("Event Spaces",eventSpaces);fd.append("Laundry Rooms",laundryRooms);fd.append("Lobby/Reception",lobbyReceptions);fd.append("Shared Bathrooms",sharedBathrooms);
-    fd.append("Add-ons",Object.keys(addOns).filter(k=>addOns[k]).join(", ")||"None");fd.append("Preferred Days",preferredDays.join(", ")||"Not specified");fd.append("Preferred Time",preferredTime||"Not specified");fd.append("Special Instructions",specialInstructions||"None");fd.append("TOTAL PRICE",`$${calculateSubtotal().toFixed(2)}`);fd.append("_captcha","false");fd.append("_template","table");
+    fd.append("Add-ons",Object.keys(addOns).filter(k=>addOns[k]).join(", ")||"None");fd.append("Preferred Days",preferredDays.join(", ")||"Not specified");fd.append("Expected Start Month",startMonth||"Not specified");fd.append("Preferred Time",preferredTime||"Not specified");fd.append("Special Instructions",specialInstructions||"None");fd.append("TOTAL PRICE",`$${calculateSubtotal().toFixed(2)}`);fd.append("_captcha","false");fd.append("_template","table");
     try{const r=await fetch("https://formsubmit.co/ajax/AkCleaningSuOficina@gmail.com",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(Object.fromEntries(fd))});const res=await r.json();if(res.success)setShowSuccessModal(true);else alert("Error. Please try again.");}catch{alert("Error. Please try again.");}
   };
 
@@ -580,6 +581,30 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
                         </div>
                       </div>
                     ))}
+                  </div>
+                </div>
+
+                {/* Expected Start Month */}
+                <div style={{marginBottom:"30px"}}>
+                  <label style={{display:"flex",alignItems:"center",fontSize:"14px",fontWeight:"800",color:"#A07B15",marginBottom:"15px",gap:"8px",letterSpacing:"1px",textTransform:"uppercase"}}>
+                    <Calendar size={18} color="#A07B15"/>Expected Start Month (Optional)
+                  </label>
+                  <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"10px"}}>
+                    {Array.from({length:12},(_,i)=>{
+                      const d=new Date(); d.setDate(1); d.setMonth(d.getMonth()+i);
+                      const label=d.toLocaleDateString("en-US",{month:"long",year:"numeric"});
+                      const short=d.toLocaleDateString("en-US",{month:"short",year:"2-digit"});
+                      return (
+                        <div key={label} onClick={()=>setStartMonth(startMonth===label?"":label)}
+                          style={{padding:"12px 10px",borderRadius:"12px",cursor:"pointer",textAlign:"center",transition:"all 0.2s ease",
+                            border:startMonth===label?"2px solid #D4A017":"2px solid rgba(212,160,23,0.25)",
+                            background:startMonth===label?"linear-gradient(135deg,#D4A017,#F0C040)":"rgba(255,255,255,0.85)",
+                            color:startMonth===label?"white":"#4A3728",
+                            boxShadow:startMonth===label?"0 4px 14px rgba(212,160,23,0.35)":"0 2px 6px rgba(0,0,0,0.04)"}}>
+                          <div style={{fontSize:"13px",fontWeight:"800"}}>{short}</div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
 
