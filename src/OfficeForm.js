@@ -383,8 +383,8 @@ export default function OfficeForm({ sharedInfo, onBack }) {
 
   // ── Sidebar ───────────────────────────────────────────────────────────────
   const Sidebar = () => (
-    <div style={{ maxHeight:"calc(100vh - 40px)", display:"flex", flexDirection:"column" }}>
-      <div style={{ ...CARD_STYLE, borderRadius:"28px", display:"flex", flexDirection:"column", maxHeight:"100%", backgroundColor:"#FEFCF5", border:"1px solid rgba(212,160,23,0.25)" }}>
+    <div style={{ height:"calc(100vh - 40px)", display:"flex", flexDirection:"column" }}>
+      <div style={{ ...CARD_STYLE, borderRadius:"28px", display:"flex", flexDirection:"column", height:"100%", overflow:"hidden", backgroundColor:"#FEFCF5", border:"1px solid rgba(212,160,23,0.25)" }}>
         <div style={{ padding:"25px", textAlign:"center", borderBottom:"1px solid rgba(212,160,23,0.3)", background:"linear-gradient(160deg, #3E3830 0%, #4E4840 50%, #3E3830 100%)", position:"relative", overflow:"hidden" }}>
           {/* Rings top-right */}
           <svg width="160" height="160" style={{ position:"absolute", top:"-40px", right:"-30px", opacity:0.25, pointerEvents:"none" }} viewBox="0 0 160 160">
@@ -401,7 +401,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
             <div style={{ fontSize:"14px", color:"rgba(240,192,64,0.85)", fontWeight:"700", background:"rgba(255,255,255,0.1)", padding:"4px 12px", borderRadius:"6px", display:"inline-block" }}>Monthly Estimate</div>
           </div>
         </div>
-        <div style={{ padding:"20px 25px", overflowY:"auto", flex:1 }}>
+        <div style={{ padding:"20px 25px", overflowY:"auto", flex:1, minHeight:0 }}>
           {breakdown.length === 0 ? (
             <div style={{ textAlign:"center", padding:"40px 20px", color:"#999", fontSize:"14px", fontWeight:"500", fontStyle:"italic" }}>Complete the form to see pricing</div>
           ) : (
@@ -1052,7 +1052,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
           </div>
 
           {/* Sidebar */}
-          <div className="of-sidebar" style={{ position:"sticky", top:"20px", height:"fit-content" }}><Sidebar/></div>
+          <div className="of-sidebar" style={{ position:"sticky", top:"20px", height:"calc(100vh - 40px)" }}><Sidebar/></div>
       </div>
 
       {/* Mobile sticky price bar */}
