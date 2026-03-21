@@ -382,8 +382,8 @@ export default function OtherForm({ sharedInfo, onBack }) {
 
   // ── Sidebar ────────────────────────────────────────────────────────────────
   const Sidebar = () => (
-    <div style={{maxHeight:"calc(100vh - 40px)",display:"flex",flexDirection:"column"}}>
-      <div style={{...CARD_STYLE,borderRadius:"28px",display:"flex",flexDirection:"column",maxHeight:"100%",backgroundColor:"#FEFCF5",border:"1px solid rgba(212,160,23,0.25)"}}>
+    <div style={{height:"calc(100vh - 40px)",display:"flex",flexDirection:"column"}}>
+      <div style={{...CARD_STYLE,borderRadius:"28px",display:"flex",flexDirection:"column",height:"100%",overflow:"hidden",backgroundColor:"#FEFCF5",border:"1px solid rgba(212,160,23,0.25)"}}>
         <div style={{padding:"25px",textAlign:"center",borderBottom:"1px solid rgba(212,160,23,0.3)",background:"linear-gradient(160deg, #3E3830 0%, #4E4840 50%, #3E3830 100%)",position:"relative",overflow:"hidden"}}>
           <svg width="160" height="160" style={{position:"absolute",top:"-40px",right:"-30px",opacity:0.25,pointerEvents:"none"}} viewBox="0 0 160 160">
             <circle cx="80" cy="80" r="72" fill="none" stroke="rgba(240,192,64,0.8)" strokeWidth="1.2"/>
@@ -831,7 +831,7 @@ export default function OtherForm({ sharedInfo, onBack }) {
         </div>
 
         {/* Sidebar */}
-        <div className="of2-sidebar" style={{position:"sticky",top:"20px",height:"fit-content"}}><Sidebar/></div>
+        <div className="of2-sidebar" style={{position:"sticky",top:"20px",height:"calc(100vh - 40px)"}}><Sidebar/></div>
       </div>
 
       {/* Mobile sticky price bar */}
