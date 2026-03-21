@@ -138,6 +138,13 @@ function FreqGrid({ value, onChange }) {
 export default function OfficeForm({ sharedInfo, onBack }) {
   const [step,       setStep]       = useState(1);
 
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+    script.onload = () => window.emailjs.init('ZsAm6x2gjm0hFV69o');
+    document.head.appendChild(script);
+  }, []);
+
   const mobileBarRef = useRef(null);
   const [mobileBarHeight, setMobileBarHeight] = useState(0);
   useEffect(() => {
@@ -316,33 +323,52 @@ export default function OfficeForm({ sharedInfo, onBack }) {
 
   // ── Submit ────────────────────────────────────────────────────────────────
   const handleSubmit = async () => {
-    const payload = {
-      "First Name": sharedInfo.firstName, "Last Name": sharedInfo.lastName,
-      "Email": sharedInfo.email, "Phone": sharedInfo.phone,
-      "Business Name": sharedInfo.businessName || "N/A",
-      "Address": sharedInfo.streetAddress, "Suite/Unit": sharedInfo.suiteUnit || "N/A",
-      "City": sharedInfo.city, "State": sharedInfo.state, "ZIP": sharedInfo.zipCode,
-      "Office Type": officeType, "Square Feet": squareFeet, "Frequency": frequency,
-      "Workspace Configs": workspaceConfigs.length ? JSON.stringify(workspaceConfigs) : "None",
-      "Conference Rooms": conferenceRooms, "Break Rooms": breakRooms,
-      "Restrooms": restrooms, "Reception/Lobby": receptions,
-      "Server/IT Rooms": serverRooms, "Storage/Archive": storageRooms,
-      "Add-ons": Object.keys(addOns).filter(k => addOns[k]).join(", ") || "None",
-      "Preferred Days": preferredDays.join(", ") || "Not specified",
-      "Expected Start Month": startMonth || "Not specified",
-      "Preferred Time": timeWindows.length ? timeWindows.join(", ") : "Not specified",
-      "Special Instructions": specialInstructions || "None",
-      "TOTAL MONTHLY": `$${total.toFixed(2)}`,
-      "_captcha": "false", "_template": "table",
+    // Build add-ons list
+    const addonLines = Object.keys(addOns).filter(k => addOns[k]).map(k => `• ${k.replace(/([A-Z])/g,' $1').replace(/^./,s=>s.toUpperCase())}`);
+    // Build price breakdown
+    const breakdownLines = breakdown.filter(i=>!i.isInfo).map(i =>
+      `${i.label.padEnd(32,'.')} $${i.amount.toFixed(2)}${i.discountPercent ? ` (-${i.discountPercent})` : ''}`
+    ).join('\n');
+
+    const templateParams = {
+      first_name:        sharedInfo.firstName,
+      last_name:         sharedInfo.lastName,
+      email:             sharedInfo.email,
+      phone:             sharedInfo.phone,
+      business_name:     sharedInfo.businessName || 'N/A',
+      address:           sharedInfo.streetAddress,
+      address2:          sharedInfo.suiteUnit || 'N/A',
+      city:              sharedInfo.city,
+      state:             sharedInfo.state,
+      zip:               sharedInfo.zipCode,
+      office_type:       officeType,
+      square_feet:       squareFeet,
+      frequency:         frequency,
+      workspace_configs: workspaceConfigs.length ? workspaceConfigs.map(c=>`${c.type} (${c.sqftRange} sqft)`).join(', ') : 'None',
+      conference_rooms:  String(conferenceRooms),
+      break_rooms:       String(breakRooms),
+      restrooms:         String(restrooms),
+      receptions:        String(receptions),
+      server_rooms:      String(serverRooms),
+      storage_rooms:     String(storageRooms),
+      addons_list:       addonLines.length ? addonLines.join('\n') : 'None selected',
+      preferred_days:    preferredDays.join(', ') || 'Not specified',
+      start_month:       startMonth || 'Not specified',
+      preferred_times:   timeWindows.length ? timeWindows.join(', ') : 'Not specified',
+      special_instructions: specialInstructions || 'None',
+      price_breakdown:   breakdownLines || 'No items',
+      total_savings:     totalSavings > 0 ? `-$${totalSavings.toFixed(2)}` : 'None',
+      total_monthly:     `$${total.toFixed(2)}`,
     };
+
     try {
-      const res = await fetch("https://formsubmit.co/ajax/AkCleaningSuOficina@gmail.com", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "Accept": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      const result = await res.json();
-      if (result.success) setShowSuccess(true);
+      const result = await window.emailjs.send(
+        'service_8bkln92',
+        'YOUR_OFFICE_TEMPLATE_ID',
+        templateParams,
+        'ZsAm6x2gjm0hFV69o'
+      );
+      if (result.status === 200) setShowSuccess(true);
       else alert("There was an error submitting. Please try again or call us directly.");
     } catch (e) {
       console.error(e);
