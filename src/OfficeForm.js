@@ -364,7 +364,7 @@ export default function OfficeForm({ sharedInfo, onBack }) {
     try {
       const result = await window.emailjs.send(
         'service_8bkln92',
-        'YOUR_OFFICE_TEMPLATE_ID',
+        'template_k9i52q5',
         templateParams,
         'ZsAm6x2gjm0hFV69o'
       );
@@ -894,16 +894,34 @@ export default function OfficeForm({ sharedInfo, onBack }) {
 
   // ── Success Modal ─────────────────────────────────────────────────────────
   const renderSuccess = () => (
-    <div style={{ position:"fixed", top:0, left:0, right:0, bottom:0, background:"rgba(0,0,0,0.8)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:9999, padding:"20px" }}>
-      <div style={{ background:"linear-gradient(135deg,#FFFFFF,#FBF6EF)", borderRadius:"32px", padding:"50px 40px", maxWidth:"500px", width:"100%", textAlign:"center", border:"1px solid rgba(212,160,23,0.25)", boxShadow:"0 30px 80px rgba(0,0,0,0.12)" }}>
-        <div style={{ width:"80px", height:"80px", borderRadius:"50%", background:"linear-gradient(135deg,#D4A017,#F0C040)", display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 30px" }}>
-          <CheckCircle2 size={48} color="white"/>
+    <div style={{ position:"fixed", top:0, left:0, right:0, bottom:0, background:"rgba(0,0,0,0.75)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:9999, padding:"20px", animation:"fadeIn 0.3s ease-out" }}
+      onClick={() => { setShowSuccess(false); window.location.reload(); }}>
+      <div style={{ background:"linear-gradient(135deg, #3E3830 0%, #4E4840 60%, #3E3830 100%)", borderRadius:"32px", padding:"50px 40px", maxWidth:"500px", width:"100%", boxShadow:"0 30px 80px rgba(0,0,0,0.5)", border:"2px solid rgba(212,160,23,0.4)", textAlign:"center", position:"relative", animation:"slideInUp 0.4s ease-out", overflow:"hidden" }}
+        onClick={e => e.stopPropagation()}>
+        {/* Rings decoration */}
+        <svg width="180" height="180" style={{ position:"absolute", top:"-50px", right:"-40px", opacity:0.15, pointerEvents:"none" }} viewBox="0 0 180 180">
+          <circle cx="90" cy="90" r="80" fill="none" stroke="rgba(240,192,64,0.8)" strokeWidth="1.2"/>
+          <circle cx="90" cy="90" r="52" fill="none" stroke="rgba(255,240,160,0.5)" strokeWidth="0.8"/>
+        </svg>
+        {/* Icon */}
+        <div style={{ width:"100px", height:"100px", background:"linear-gradient(135deg,#3DA864,#2D7A4A)", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 30px", boxShadow:"0 20px 50px rgba(46,125,79,0.5)", animation:"scaleIn 0.5s ease-out 0.2s backwards" }}>
+          <div style={{ fontSize:"50px", animation:"rotateIn 0.6s ease-out 0.4s backwards" }}>✓</div>
         </div>
-        <h2 style={{ fontSize:"32px", fontWeight:"900", color:"#4A3728", marginBottom:"15px" }}>Request Submitted!</h2>
-        <p style={{ fontSize:"16px", color:"#444", fontWeight:"500", lineHeight:"1.6", marginBottom:"30px" }}>
-          Thank you for choosing Cleaning Su Oficina! Our team will review your request and contact you within 24 hours to confirm details and schedule your service.
+        <h2 style={{ fontSize:"32px", fontWeight:"900", color:"#FFF0A0", margin:"0 0 16px", textTransform:"uppercase", letterSpacing:"0.5px" }}>Request Submitted!</h2>
+        <p style={{ fontSize:"18px", color:"rgba(255,255,255,0.9)", lineHeight:"1.6", marginBottom:"10px", fontWeight:"600" }}>
+          Thank you for choosing Cleaning Su Oficina!
         </p>
-        <button onClick={()=>window.location.reload()} style={{ padding:"18px 40px", borderRadius:"16px", border:"none", background:"linear-gradient(135deg,#D4A017,#F0C040)", color:"white", fontSize:"16px", fontWeight:"800", cursor:"pointer", textTransform:"uppercase", letterSpacing:"0.5px" }}>Done</button>
+        <p style={{ fontSize:"16px", color:"rgba(255,255,255,0.75)", lineHeight:"1.6", marginBottom:"30px", fontWeight:"500" }}>
+          Your quote for{" "}
+          <strong style={{ color:"#F0C040", fontSize:"20px" }}>${total.toFixed(2)}/mo</strong>{" "}
+          has been submitted.<br/>
+          We'll contact you at{" "}
+          <strong style={{ color:"white" }}>{sharedInfo.email}</strong> shortly!
+        </p>
+        <button onClick={() => { setShowSuccess(false); window.location.reload(); }}
+          style={{ padding:"18px 40px", background:"linear-gradient(135deg,#D4A017,#F0C040)", color:"#2D1800", border:"none", borderRadius:"16px", fontSize:"16px", fontWeight:"800", cursor:"pointer", boxShadow:"0 10px 30px rgba(212,160,23,0.4)", textTransform:"uppercase", letterSpacing:"0.5px" }}>
+          Got It!
+        </button>
       </div>
     </div>
   );
@@ -951,6 +969,10 @@ export default function OfficeForm({ sharedInfo, onBack }) {
         button { touch-action: manipulation; }
         html, body, * { -webkit-text-size-adjust: 100% !important; text-size-adjust: 100% !important; }
         @keyframes floatUp { 0%,100%{transform:translateY(0);opacity:0.5} 50%{transform:translateY(-22px);opacity:1} }
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+        @keyframes slideInUp { from { opacity:0; transform:translateY(50px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes scaleIn { from { opacity:0; transform:scale(0); } to { opacity:1; transform:scale(1); } }
+        @keyframes rotateIn { from { opacity:0; transform:rotate(-180deg); } to { opacity:1; transform:rotate(0); } }
         .continue-btn:not(:disabled):hover { background: linear-gradient(160deg, #EDE5CE 0%, #4E4840 60%, #3E3830 100%) !important; color: #F5E8C0 !important; box-shadow: 0 4px 16px rgba(180,160,120,0.3) !important; border-color: rgba(212,160,23,0.6) !important; transform: translateY(-1px); }
         .continue-btn:not(:disabled):active { background: linear-gradient(160deg, #DDD5B8 0%, #3E3830 60%, #2C2416 100%) !important; color: #F5E8C0 !important; box-shadow: 0 2px 6px rgba(180,160,120,0.25) !important; transform: scale(0.98); }
         .of-mobile-price { display:none; }
