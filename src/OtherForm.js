@@ -170,6 +170,13 @@ function FreqSelector({ value, onChange }) {
 export default function OtherForm({ sharedInfo, onBack }) {
   const [step, setStep]             = useState(1);
 
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+    script.onload = () => window.emailjs.init('ZsAm6x2gjm0hFV69o');
+    document.head.appendChild(script);
+  }, []);
+
   const mobileBarRef = useRef(null);
   const [mobileBarHeight, setMobileBarHeight] = useState(0);
   useEffect(() => {
@@ -311,28 +318,48 @@ export default function OtherForm({ sharedInfo, onBack }) {
 
   // ── Submit ─────────────────────────────────────────────────────────────────
   const handleSubmit = async () => {
-    const formData = new FormData();
     const { firstName,lastName,email,phone,businessName,streetAddress,suiteUnit,city,state,zipCode } = sharedInfo;
-    formData.append("First Name",firstName); formData.append("Last Name",lastName); formData.append("Email",email); formData.append("Phone",phone);
-    formData.append("Business Name",businessName||"Not provided"); formData.append("Address",streetAddress);
-    if (suiteUnit) formData.append("Suite/Unit",suiteUnit);
-    formData.append("City",city); formData.append("State",state); formData.append("ZIP",zipCode);
-    formData.append("Segment",segment); formData.append("Business Type",subType||"Not specified");
-    formData.append("Square Feet",squareFeet); formData.append("Frequency",frequency);
-    if (segment==="healthcare") { formData.append("Exam Rooms",examRooms); formData.append("Waiting Areas",waitingAreas); formData.append("Procedure Rooms",procedureRooms); formData.append("Laboratories",laboratories); formData.append("Sterilization Rooms",sterilizationRooms); formData.append("Nurse Stations",nurseStations); formData.append("Consult Rooms",consultRooms); }
-    else if (segment==="retail") { formData.append("Fitting Rooms",fittingRooms); formData.append("Showrooms",showroomDisplays); formData.append("Stockrooms",stockrooms); formData.append("Customer Restrooms",customerRestrooms); formData.append("POS/Checkout Areas",posCheckouts); }
-    else if (segment==="industrial") { formData.append("Loading Docks",loadingDocks); formData.append("Equipment Areas",equipmentAreas); formData.append("Break Rooms",industrialBreakRooms); formData.append("Restrooms",industrialRestrooms); formData.append("Office/Admin Areas",officeAreas); }
-    formData.append("Add-ons",Object.keys(addOns).filter(k=>addOns[k]).join(", ")||"None");
-    formData.append("Preferred Days",preferredDays.join(", ")||"Not specified");
-    formData.append("Expected Start Month",startMonth||"Not specified");
-    formData.append("Preferred Time",timeWindows.length?timeWindows.join(", "):"Not specified");
-    formData.append("Special Instructions",specialInstructions||"None");
-    formData.append("Est. Monthly Total",`$${calcTotal().toFixed(2)}`);
-    formData.append("_captcha","false"); formData.append("_template","table");
+
+    const addonLines = Object.keys(addOns).filter(k=>addOns[k]).map(k=>`• ${k.replace(/([A-Z])/g,' $1').replace(/^./,s=>s.toUpperCase())}`);
+    const breakdownLines = getPriceBreakdown().map(i=>
+      `${i.label.padEnd(32,'.')} $${i.amount.toFixed(2)}`
+    ).join('\n');
+
+    // Build room details based on segment
+    let roomDetails = '';
+    if (segment==='healthcare') roomDetails = `Exam Rooms: ${examRooms}\nWaiting Areas: ${waitingAreas}\nProcedure Rooms: ${procedureRooms}\nLaboratories: ${laboratories}\nSterilization Rooms: ${sterilizationRooms}\nNurse Stations: ${nurseStations}\nConsult Rooms: ${consultRooms}`;
+    else if (segment==='retail') roomDetails = `Fitting Rooms: ${fittingRooms}\nShowrooms: ${showroomDisplays}\nStockrooms: ${stockrooms}\nCustomer Restrooms: ${customerRestrooms}\nPOS/Checkout: ${posCheckouts}`;
+    else if (segment==='industrial') roomDetails = `Loading Docks: ${loadingDocks}\nEquipment Areas: ${equipmentAreas}\nBreak Rooms: ${industrialBreakRooms}\nRestrooms: ${industrialRestrooms}\nOffice/Admin: ${officeAreas}`;
+
+    const templateParams = {
+      first_name:           firstName,
+      last_name:            lastName,
+      email:                email,
+      phone:                phone,
+      business_name:        businessName||'Not provided',
+      address:              streetAddress,
+      address2:             suiteUnit||'N/A',
+      city:                 city,
+      state:                state,
+      zip:                  zipCode,
+      segment:              segment,
+      business_type:        subType||'Not specified',
+      square_feet:          squareFeet,
+      frequency:            frequency,
+      room_details:         roomDetails||'N/A',
+      addons_list:          addonLines.length?addonLines.join('\n'):'None selected',
+      preferred_days:       preferredDays.join(', ')||'Not specified',
+      start_month:          startMonth||'Not specified',
+      preferred_times:      timeWindows.length?timeWindows.join(', '):'Not specified',
+      special_instructions: specialInstructions||'None',
+      price_breakdown:      breakdownLines||'No items',
+      total_monthly:        `$${calcTotal().toFixed(2)}`,
+    };
+
     try {
-      const res = await fetch("https://formsubmit.co/ajax/AkCleaningSuOficina@gmail.com",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(Object.fromEntries(formData))});
-      const result = await res.json();
-      if (result.success) setShowSuccessModal(true); else alert("There was an error submitting. Please try again or call us directly.");
+      const result = await window.emailjs.send('service_8bkln92','template_ud978sd',templateParams,'ZsAm6x2gjm0hFV69o');
+      if (result.status===200) setShowSuccessModal(true);
+      else alert("There was an error submitting. Please try again or call us directly.");
     } catch { alert("There was an error submitting. Please try again or call us directly."); }
   };
 
@@ -371,7 +398,7 @@ export default function OtherForm({ sharedInfo, onBack }) {
             <div style={{fontSize:"14px",color:"rgba(240,192,64,0.85)",fontWeight:"700",background:"rgba(255,255,255,0.1)",padding:"4px 12px",borderRadius:"6px",display:"inline-block"}}>Monthly Estimate</div>
           </div>
         </div>
-        <div style={{padding:"20px 25px",overflowY:"auto",flex:1}}>
+        <div style={{padding:"20px 25px",overflowY:"auto",flex:1,minHeight:0}}>
           {getPriceBreakdown().length===0 ? (
             <div style={{textAlign:"center",padding:"40px 20px",color:"#999",fontSize:"14px",fontWeight:"500",fontStyle:"italic"}}>Complete the form to see pricing</div>
           ) : (
@@ -441,6 +468,10 @@ export default function OtherForm({ sharedInfo, onBack }) {
         button { touch-action: manipulation; }
         html, body, * { -webkit-text-size-adjust: 100% !important; text-size-adjust: 100% !important; }
         @keyframes floatUp { 0%,100%{transform:translateY(0);opacity:0.5} 50%{transform:translateY(-22px);opacity:1} }
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+        @keyframes slideInUp { from { opacity:0; transform:translateY(50px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes scaleIn { from { opacity:0; transform:scale(0); } to { opacity:1; transform:scale(1); } }
+        @keyframes rotateIn { from { opacity:0; transform:rotate(-180deg); } to { opacity:1; transform:rotate(0); } }
         .continue-btn:not(:disabled):hover { background: linear-gradient(160deg, #EDE5CE 0%, #4E4840 60%, #3E3830 100%) !important; color: #F5E8C0 !important; box-shadow: 0 4px 16px rgba(180,160,120,0.3) !important; border-color: rgba(212,160,23,0.6) !important; transform: translateY(-1px); }
         .continue-btn:not(:disabled):active { background: linear-gradient(160deg, #DDD5B8 0%, #3E3830 60%, #2C2416 100%) !important; color: #F5E8C0 !important; transform: scale(0.98); }
         .of2-mobile-price { display:none; }
@@ -831,14 +862,24 @@ export default function OtherForm({ sharedInfo, onBack }) {
 
       {/* Success Modal */}
       {showSuccessModal&&(
-        <div style={{position:"fixed",top:0,left:0,right:0,bottom:0,background:"rgba(0,0,0,0.8)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:9999,padding:"20px"}}>
-          <div style={{background:"linear-gradient(135deg,#FFFFFF,#FBF6EF)",borderRadius:"32px",padding:"50px 40px",maxWidth:"500px",width:"100%",textAlign:"center",border:"1px solid rgba(212,160,23,0.25)",boxShadow:"0 30px 80px rgba(0,0,0,0.12)"}}>
-            <div style={{width:"80px",height:"80px",borderRadius:"50%",background:"linear-gradient(135deg,#D4A017,#F0C040)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 30px"}}>
-              <CheckCircle2 size={48} color="white"/>
+        <div style={{position:"fixed",top:0,left:0,right:0,bottom:0,background:"rgba(0,0,0,0.75)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:9999,padding:"20px",animation:"fadeIn 0.3s ease-out"}}
+          onClick={resetAll}>
+          <div style={{background:"linear-gradient(135deg,#3E3830 0%,#4E4840 60%,#3E3830 100%)",borderRadius:"32px",padding:"50px 40px",maxWidth:"500px",width:"100%",boxShadow:"0 30px 80px rgba(0,0,0,0.5)",border:"2px solid rgba(212,160,23,0.4)",textAlign:"center",position:"relative",animation:"slideInUp 0.4s ease-out",overflow:"hidden"}}
+            onClick={e=>e.stopPropagation()}>
+            <svg width="180" height="180" style={{position:"absolute",top:"-50px",right:"-40px",opacity:0.15,pointerEvents:"none"}} viewBox="0 0 180 180">
+              <circle cx="90" cy="90" r="80" fill="none" stroke="rgba(240,192,64,0.8)" strokeWidth="1.2"/>
+              <circle cx="90" cy="90" r="52" fill="none" stroke="rgba(255,240,160,0.5)" strokeWidth="0.8"/>
+            </svg>
+            <div style={{width:"100px",height:"100px",background:"linear-gradient(135deg,#3DA864,#2D7A4A)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 30px",boxShadow:"0 20px 50px rgba(46,125,79,0.5)",animation:"scaleIn 0.5s ease-out 0.2s backwards"}}>
+              <div style={{fontSize:"50px",animation:"rotateIn 0.6s ease-out 0.4s backwards"}}>✓</div>
             </div>
-            <h2 style={{fontSize:"32px",fontWeight:"900",color:"#4A3728",marginBottom:"15px"}}>Request Submitted!</h2>
-            <p style={{fontSize:"16px",color:"#444",fontWeight:"500",lineHeight:"1.6",marginBottom:"30px"}}>Thank you for choosing Cleaning Su Oficina! Our team will review your request and contact you within 24 hours to confirm details and schedule your service.</p>
-            <button onClick={resetAll} style={{padding:"18px 40px",borderRadius:"16px",border:"none",background:"linear-gradient(135deg,#D4A017,#F0C040)",color:"white",fontSize:"16px",fontWeight:"800",cursor:"pointer",textTransform:"uppercase",letterSpacing:"0.5px"}}>Done</button>
+            <h2 style={{fontSize:"32px",fontWeight:"900",color:"#FFF0A0",margin:"0 0 16px",textTransform:"uppercase",letterSpacing:"0.5px"}}>Request Submitted!</h2>
+            <p style={{fontSize:"18px",color:"rgba(255,255,255,0.9)",lineHeight:"1.6",marginBottom:"10px",fontWeight:"600"}}>Thank you for choosing Cleaning Su Oficina!</p>
+            <p style={{fontSize:"16px",color:"rgba(255,255,255,0.75)",lineHeight:"1.6",marginBottom:"30px",fontWeight:"500"}}>
+              Your quote for{" "}<strong style={{color:"#F0C040",fontSize:"20px"}}>${calcTotal().toFixed(2)}/mo</strong>{" "}has been submitted.<br/>
+              We'll contact you at{" "}<strong style={{color:"white"}}>{sharedInfo.email}</strong> shortly!
+            </p>
+            <button onClick={resetAll} style={{padding:"18px 40px",background:"linear-gradient(135deg,#D4A017,#F0C040)",color:"#2D1800",border:"none",borderRadius:"16px",fontSize:"16px",fontWeight:"800",cursor:"pointer",boxShadow:"0 10px 30px rgba(212,160,23,0.4)",textTransform:"uppercase",letterSpacing:"0.5px"}}>Got It!</button>
           </div>
         </div>
       )}
