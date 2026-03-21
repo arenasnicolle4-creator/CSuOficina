@@ -344,7 +344,12 @@ export default function OfficeForm({ sharedInfo, onBack }) {
       office_type:       officeType,
       square_feet:       squareFeet,
       frequency:         frequency,
-      workspace_configs: workspaceConfigs.length ? workspaceConfigs.map(c=>`${c.type} (${c.sqftRange} sqft)`).join(', ') : 'None',
+      workspace_configs: workspaceConfigs.length
+        ? workspaceConfigs.map((c, i) => {
+            const features = Object.entries(c.specialFeatures||{}).filter(([,v])=>v).map(([k])=>k.replace(/([A-Z])/g,' $1').replace(/^./,s=>s.toUpperCase())).join(', ');
+            return `${i+1}. ${c.type} — Qty: ${c.quantity} | Size: ${c.sqftRange||'N/A'} | Flooring: ${c.flooring||'N/A'}${features ? ` | Features: ${features}` : ''}`;
+          }).join('\n')
+        : 'None',
       conference_rooms:  String(conferenceRooms),
       break_rooms:       String(breakRooms),
       restrooms:         String(restrooms),
