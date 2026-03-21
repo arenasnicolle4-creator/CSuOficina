@@ -124,6 +124,13 @@ function RoomCounter({icon,label,price,count,onDec,onInc,freq,onFreqChange}) {
 export default function HospitalityForm({ sharedInfo, onBack }) {
   const [step, setStep] = useState(3);
 
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+    script.onload = () => window.emailjs.init('ZsAm6x2gjm0hFV69o');
+    document.head.appendChild(script);
+  }, []);
+
   const mobileBarRef = useRef(null);
   const [mobileBarHeight, setMobileBarHeight] = useState(0);
   useEffect(() => {
@@ -286,14 +293,53 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
 
   const handleSubmit=async()=>{
     const {firstName,lastName,email,phone,businessName,streetAddress,suiteUnit,city,state,zipCode}=sharedInfo;
-    const fd=new FormData();
-    fd.append("First Name",firstName);fd.append("Last Name",lastName);fd.append("Email",email);fd.append("Phone",phone);fd.append("Business Name",businessName||"N/A");
-    fd.append("Address",streetAddress);fd.append("Suite/Unit",suiteUnit||"N/A");fd.append("City",city);fd.append("State",state);fd.append("ZIP",zipCode);
-    fd.append("Hospitality Type",hospType||"Not specified");fd.append("Market Segment","hospitality");fd.append("Square Feet",squareFeet);
-    if(guestRoomConfigs.length>0)fd.append("Guest Room Configs",JSON.stringify(guestRoomConfigs.map(c=>({...c,freqSummary:freqLabel(c.freqType,c.freqCount)}))));
-    fd.append("Common Areas",commonAreas);fd.append("Dining Areas",diningAreas);fd.append("Fitness Centers",fitnessCenters);fd.append("Pool/Spas",poolSpas);fd.append("Event Spaces",eventSpaces);fd.append("Laundry Rooms",laundryRooms);fd.append("Lobby/Reception",lobbyReceptions);fd.append("Shared Bathrooms",sharedBathrooms);
-    fd.append("Add-ons",Object.keys(addOns).filter(k=>addOns[k]).join(", ")||"None");fd.append("Preferred Days",preferredDays.join(", ")||"Not specified");fd.append("Expected Start Month",startMonth||"Not specified");fd.append("Preferred Time",timeWindows.length?timeWindows.join(", "):"Not specified");fd.append("Special Instructions",specialInstructions||"None");fd.append("TOTAL PRICE",`$${calculateSubtotal().toFixed(2)}`);fd.append("_captcha","false");fd.append("_template","table");
-    try{const r=await fetch("https://formsubmit.co/ajax/AkCleaningSuOficina@gmail.com",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(Object.fromEntries(fd))});const res=await r.json();if(res.success)setShowSuccessModal(true);else alert("Error. Please try again.");}catch{alert("Error. Please try again.");}
+
+    const addonLines = Object.keys(addOns).filter(k=>addOns[k]).map(k=>`• ${k.replace(/([A-Z])/g,' $1').replace(/^./,s=>s.toUpperCase())}`);
+    const breakdownLines = getPriceBreakdown().map(i=>
+      `${i.label.padEnd(32,'.')} $${i.amount.toFixed(2)}${i.discountPercent?` (-${i.discountPercent})`:''}`
+    ).join('\n');
+
+    const guestRoomSummary = guestRoomConfigs.length
+      ? guestRoomConfigs.map(c=>`${c.type} x${c.quantity} @ $${c.pricePerClean}/clean (${freqLabel(c.freqType,c.freqCount)})`).join('\n')
+      : 'None configured';
+
+    const templateParams = {
+      first_name:        firstName,
+      last_name:         lastName,
+      email:             email,
+      phone:             phone,
+      business_name:     businessName||'N/A',
+      address:           streetAddress,
+      address2:          suiteUnit||'N/A',
+      city:              city,
+      state:             state,
+      zip:               zipCode,
+      hospitality_type:  hospType||'Not specified',
+      square_feet:       squareFeet,
+      guest_rooms:       guestRoomSummary,
+      common_areas:      String(commonAreas),
+      dining_areas:      String(diningAreas),
+      fitness_centers:   String(fitnessCenters),
+      pool_spas:         String(poolSpas),
+      event_spaces:      String(eventSpaces),
+      laundry_rooms:     String(laundryRooms),
+      lobby_receptions:  String(lobbyReceptions),
+      shared_bathrooms:  String(sharedBathrooms),
+      addons_list:       addonLines.length ? addonLines.join('\n') : 'None selected',
+      preferred_days:    preferredDays.join(', ')||'Not specified',
+      start_month:       startMonth||'Not specified',
+      preferred_times:   timeWindows.length?timeWindows.join(', '):'Not specified',
+      special_instructions: specialInstructions||'None',
+      price_breakdown:   breakdownLines||'No items',
+      total_savings:     totalSavings()>0?`-$${totalSavings().toFixed(2)}`:'None',
+      total_monthly:     `$${calculateSubtotal().toFixed(2)}`,
+    };
+
+    try{
+      const result = await window.emailjs.send('service_8bkln92','template_8qawuk5',templateParams,'ZsAm6x2gjm0hFV69o');
+      if(result.status===200)setShowSuccessModal(true);
+      else alert("Error. Please try again.");
+    }catch{alert("Error. Please try again.");}
   };
 
   const resetAll=()=>{setShowSuccessModal(false);setStep(3);setHospType("");setSquareFeet("");setGuestRoomConfigs([]);setCommonAreas(0);setDiningAreas(0);setFitnessCenters(0);setPoolSpas(0);setEventSpaces(0);setLaundryRooms(0);setLobbyReceptions(0);setSharedBathrooms(0);setCommonAreasFreq("");setDiningAreasFreq("");setFitnessCentersFreq("");setPoolSpasFreq("");setEventSpacesFreq("");setLaundryRoomsFreq("");setLobbyReceptionsFreq("");setSharedBathroomsFreq("");setAddOns({windowCleaning:false,floorWaxing:false,carpetCleaning:false,pressureWashing:false,postConstruction:false,disinfection:false});setPreferredDays([]);setTimeWindows([]);setTimeFrom("8:00 AM");setTimeTo("5:00 PM");setSpecialInstructions("");onBack();};
@@ -322,7 +368,7 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
             <div style={{fontSize:"14px",color:"rgba(240,192,64,0.85)",fontWeight:"700",background:"rgba(255,255,255,0.1)",padding:"4px 12px",borderRadius:"6px",display:"inline-block"}}>Monthly Estimate</div>
           </div>
         </div>
-        <div style={{padding:"20px 25px",overflowY:"auto",flex:1}}>
+        <div style={{padding:"20px 25px",overflowY:"auto",flex:1,minHeight:0}}>
           {getPriceBreakdown().length===0 ? (
             <div style={{textAlign:"center",padding:"40px 20px",color:"#999",fontSize:"14px",fontWeight:"500",fontStyle:"italic"}}>Complete the form to see pricing</div>
           ) : (
@@ -408,6 +454,10 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
         button { touch-action: manipulation; }
         html, body, * { -webkit-text-size-adjust: 100% !important; text-size-adjust: 100% !important; }
         @keyframes floatUp { 0%,100%{transform:translateY(0);opacity:0.5} 50%{transform:translateY(-22px);opacity:1} }
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+        @keyframes slideInUp { from { opacity:0; transform:translateY(50px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes scaleIn { from { opacity:0; transform:scale(0); } to { opacity:1; transform:scale(1); } }
+        @keyframes rotateIn { from { opacity:0; transform:rotate(-180deg); } to { opacity:1; transform:rotate(0); } }
         .continue-btn:not(:disabled):hover { background: linear-gradient(160deg, #EDE5CE 0%, #4E4840 60%, #3E3830 100%) !important; color: #F5E8C0 !important; box-shadow: 0 4px 16px rgba(180,160,120,0.3) !important; border-color: rgba(212,160,23,0.6) !important; transform: translateY(-1px); }
         .continue-btn:not(:disabled):active { background: linear-gradient(160deg, #DDD5B8 0%, #3E3830 60%, #2C2416 100%) !important; color: #F5E8C0 !important; box-shadow: 0 2px 6px rgba(180,160,120,0.25) !important; transform: scale(0.98); }
         .hf-mobile-price { display:none; }
@@ -897,14 +947,24 @@ export default function HospitalityForm({ sharedInfo, onBack }) {
 
       {/* Success Modal */}
       {showSuccessModal&&(
-        <div style={{position:"fixed",top:0,left:0,right:0,bottom:0,background:"rgba(0,0,0,0.8)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:9999,padding:"20px"}}>
-          <div style={{background:"linear-gradient(135deg,#FFFFFF,#FBF6EF)",borderRadius:"32px",padding:"50px 40px",maxWidth:"500px",width:"100%",textAlign:"center",border:"1px solid rgba(212,160,23,0.25)",boxShadow:"0 30px 80px rgba(0,0,0,0.12)"}}>
-            <div style={{width:"80px",height:"80px",borderRadius:"50%",background:"linear-gradient(135deg,#D4A017,#F0C040)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 30px"}}>
-              <CheckCircle2 size={48} color="white"/>
+        <div style={{position:"fixed",top:0,left:0,right:0,bottom:0,background:"rgba(0,0,0,0.75)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:9999,padding:"20px",animation:"fadeIn 0.3s ease-out"}}
+          onClick={resetAll}>
+          <div style={{background:"linear-gradient(135deg,#3E3830 0%,#4E4840 60%,#3E3830 100%)",borderRadius:"32px",padding:"50px 40px",maxWidth:"500px",width:"100%",boxShadow:"0 30px 80px rgba(0,0,0,0.5)",border:"2px solid rgba(212,160,23,0.4)",textAlign:"center",position:"relative",animation:"slideInUp 0.4s ease-out",overflow:"hidden"}}
+            onClick={e=>e.stopPropagation()}>
+            <svg width="180" height="180" style={{position:"absolute",top:"-50px",right:"-40px",opacity:0.15,pointerEvents:"none"}} viewBox="0 0 180 180">
+              <circle cx="90" cy="90" r="80" fill="none" stroke="rgba(240,192,64,0.8)" strokeWidth="1.2"/>
+              <circle cx="90" cy="90" r="52" fill="none" stroke="rgba(255,240,160,0.5)" strokeWidth="0.8"/>
+            </svg>
+            <div style={{width:"100px",height:"100px",background:"linear-gradient(135deg,#3DA864,#2D7A4A)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 30px",boxShadow:"0 20px 50px rgba(46,125,79,0.5)",animation:"scaleIn 0.5s ease-out 0.2s backwards"}}>
+              <div style={{fontSize:"50px",animation:"rotateIn 0.6s ease-out 0.4s backwards"}}>✓</div>
             </div>
-            <h2 style={{fontSize:"32px",fontWeight:"900",color:"#4A3728",marginBottom:"15px"}}>Request Submitted!</h2>
-            <p style={{fontSize:"16px",color:"#444",fontWeight:"500",lineHeight:"1.6",marginBottom:"30px"}}>Thank you for choosing Cleaning Su Oficina! Our team will review your request and contact you within 24 hours to confirm details and schedule your service.</p>
-            <button onClick={resetAll} style={{padding:"18px 40px",borderRadius:"16px",border:"none",background:"linear-gradient(135deg,#D4A017,#F0C040)",color:"white",fontSize:"16px",fontWeight:"800",cursor:"pointer",textTransform:"uppercase",letterSpacing:"0.5px"}}>Done</button>
+            <h2 style={{fontSize:"32px",fontWeight:"900",color:"#FFF0A0",margin:"0 0 16px",textTransform:"uppercase",letterSpacing:"0.5px"}}>Request Submitted!</h2>
+            <p style={{fontSize:"18px",color:"rgba(255,255,255,0.9)",lineHeight:"1.6",marginBottom:"10px",fontWeight:"600"}}>Thank you for choosing Cleaning Su Oficina!</p>
+            <p style={{fontSize:"16px",color:"rgba(255,255,255,0.75)",lineHeight:"1.6",marginBottom:"30px",fontWeight:"500"}}>
+              Your quote for{" "}<strong style={{color:"#F0C040",fontSize:"20px"}}>${calculateSubtotal().toFixed(2)}/mo</strong>{" "}has been submitted.<br/>
+              We'll contact you at{" "}<strong style={{color:"white"}}>{sharedInfo.email}</strong> shortly!
+            </p>
+            <button onClick={resetAll} style={{padding:"18px 40px",background:"linear-gradient(135deg,#D4A017,#F0C040)",color:"#2D1800",border:"none",borderRadius:"16px",fontSize:"16px",fontWeight:"800",cursor:"pointer",boxShadow:"0 10px 30px rgba(212,160,23,0.4)",textTransform:"uppercase",letterSpacing:"0.5px"}}>Got It!</button>
           </div>
         </div>
       )}
