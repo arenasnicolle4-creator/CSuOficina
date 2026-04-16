@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Building2, MapPin, ChevronRight, ChevronLeft } from "lucide-react";
 import OfficeForm from "./OfficeForm";
 import HospitalityForm from "./HospitalityForm";
@@ -19,15 +19,19 @@ export default function CleaningSuOficinaBooking() {
   const [stateName, setStateName]         = useState("");
   const [zipCode, setZipCode]             = useState("");
   const [category, setCategory]           = useState("");
+  const autocompleteInputRef = useRef(null);
+  const autocompleteRef = useRef(null);
 
   useEffect(() => {
     if (step !== 2) return;
+    const input = autocompleteInputRef.current;
+    if (!input) return;
     const init = () => {
-      const input = document.getElementById("autocomplete-input");
-      if (!input || !window.google) return;
+      if (!window.google || autocompleteRef.current) return;
       const ac = new window.google.maps.places.Autocomplete(input, {
         types: ["address"], componentRestrictions: { country: "us" },
       });
+      autocompleteRef.current = ac;
       ac.addListener("place_changed", () => {
         const place = ac.getPlace();
         if (!place.address_components) return;
@@ -40,6 +44,7 @@ export default function CleaningSuOficinaBooking() {
           if (c.types.includes("postal_code"))                zip = c.long_name;
         });
         setStreetAddress(street); setCity(cityV); setStateName(stateV); setZipCode(zip);
+        input.value = street;
       });
     };
     if (!window.google) {
@@ -246,7 +251,7 @@ export default function CleaningSuOficinaBooking() {
                   <label style={{display:"flex",alignItems:"center",fontSize:"13px",fontWeight:"800",color:"#A07B15",marginBottom:"12px",gap:"8px",letterSpacing:"1px",textTransform:"uppercase"}}>
                     <MapPin size={16} color="#A07B15"/> Business Address *
                   </label>
-                  <input id="autocomplete-input" type="text" placeholder="Start typing your street address..." value={streetAddress} onChange={e=>setStreetAddress(e.target.value)} style={{...inputSt,marginBottom:"8px"}}/>
+                  <input id="autocomplete-input" ref={autocompleteInputRef} type="text" placeholder="Start typing your street address..." defaultValue={streetAddress} onChange={e=>setStreetAddress(e.target.value)} onBlur={e=>setStreetAddress(e.target.value)} style={{...inputSt,marginBottom:"8px"}}/>
                   <p style={{fontSize:"12px",color:"#A07B15",fontWeight:"600",margin:"4px 0 12px"}}>📍 Start typing for address suggestions</p>
                   <label style={labelSt}>Apt. / Suite / Unit <span style={{color:"#999",fontWeight:"600",textTransform:"none",fontSize:"11px"}}>(optional)</span></label>
                   <input type="text" placeholder="e.g. Suite 200, Unit 4B..." value={suiteUnit} onChange={e=>setSuiteUnit(e.target.value)} style={inputSt}/>
