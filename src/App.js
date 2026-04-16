@@ -4,7 +4,7 @@ import OfficeForm from "./OfficeForm";
 import HospitalityForm from "./HospitalityForm";
 import OtherForm from "./OtherForm";
 
-const GOOGLE_PLACES_API_KEY = "AIzaSyB18lv_Rulnv7jjFrM0PP57bCLO4U4_A_I";
+const GOOGLE_PLACES_API_KEY = process.env.REACT_APP_GOOGLE_PLACES_API_KEY || "";
 
 export default function CleaningSuOficinaBooking() {
   const [step, setStep] = useState(1);
