@@ -27,30 +27,37 @@ export default function CleaningSuOficinaBooking() {
     const input = autocompleteInputRef.current;
     if (!input) return;
     const init = () => {
-      if (!window.google || autocompleteRef.current) return;
-      const ac = new window.google.maps.places.Autocomplete(input, {
-        types: ["address"], componentRestrictions: { country: "us" },
-      });
-      autocompleteRef.current = ac;
-      ac.addListener("place_changed", () => {
-        const place = ac.getPlace();
-        if (!place.address_components) return;
-        let street = "", cityV = "", stateV = "", zip = "";
-        place.address_components.forEach(c => {
-          if (c.types.includes("street_number"))              street = c.long_name + " ";
-          if (c.types.includes("route"))                      street += c.long_name;
-          if (c.types.includes("locality"))                   cityV = c.long_name;
-          if (c.types.includes("administrative_area_level_1")) stateV = c.short_name;
-          if (c.types.includes("postal_code"))                zip = c.long_name;
+      try {
+        if (!window.google?.maps?.places || autocompleteRef.current) return;
+        const ac = new window.google.maps.places.Autocomplete(input, {
+          types: ["address"], componentRestrictions: { country: "us" },
         });
-        setStreetAddress(street); setCity(cityV); setStateName(stateV); setZipCode(zip);
-        input.value = street;
-      });
+        autocompleteRef.current = ac;
+        ac.addListener("place_changed", () => {
+          try {
+            const place = ac.getPlace();
+            if (!place.address_components) return;
+            let street = "", cityV = "", stateV = "", zip = "";
+            place.address_components.forEach(c => {
+              if (c.types.includes("street_number"))              street = c.long_name + " ";
+              if (c.types.includes("route"))                      street += c.long_name;
+              if (c.types.includes("locality"))                   cityV = c.long_name;
+              if (c.types.includes("administrative_area_level_1")) stateV = c.short_name;
+              if (c.types.includes("postal_code"))                zip = c.long_name;
+            });
+            setStreetAddress(street); setCity(cityV); setStateName(stateV); setZipCode(zip);
+            input.value = street;
+          } catch (e) { console.warn("Places autocomplete error:", e); }
+        });
+      } catch (e) { console.warn("Google Places init failed:", e); }
     };
     if (!window.google) {
+      if (document.querySelector('script[src*="maps.googleapis.com"]')) return;
       const s = document.createElement("script");
       s.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_PLACES_API_KEY}&libraries=places`;
-      s.async = true; s.defer = true; s.onload = init;
+      s.async = true; s.defer = true;
+      s.onload = init;
+      s.onerror = () => console.warn("Google Maps script failed to load");
       document.head.appendChild(s);
     } else { init(); }
   }, [step]);
